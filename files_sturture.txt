@@ -1,0 +1,42 @@
+inventory-pos-system/
+│── backend/               # Node.js backend
+│   ├── controllers/       # Business logic for routes
+│   ├── models/            # Database models (MySQL)
+│   ├── routes/            # API endpoints
+│   ├── middleware/        # Authentication, logging, etc.
+│   ├── config/            # Database connection, environment variables
+│   ├── utils/             # Helper functions
+│   ├── tests/             # Unit tests
+│   ├── server.js          # Main server entry point
+│   ├── package.json       # Node dependencies
+│   ├── .env               # Environment variables
+│
+│── frontend/              # Frontend files (HTML, Tailwind, JS)
+│   ├── public/            # Static assets (CSS, JS, images)
+│   │   ├── css/           # Tailwind and custom CSS
+│   │   ├── js/            # JavaScript functions
+│   │   ├── images/        # UI images
+│   │   ├── index.html     # Main HTML page
+│   │   ├── pos.html       # POS system UI
+│   │   ├── dashboard.html # Sales dashboard
+│   │   ├── inventory.html # Inventory management UI
+│   │
+│   ├── src/               # Frontend logic (modular JS)
+│   │   ├── components/    # Reusable components (navbar, sidebar, modals)
+│   │   ├── pages/         # Page-specific scripts
+│   │   ├── app.js         # Main frontend logic
+│   │
+│   ├── tailwind.config.js # Tailwind configuration
+│   ├── package.json       # Dependencies (if using Vite/Parcel)
+│
+│── database/              # MySQL database files
+│   ├── schema.sql         # Database schema
+│   ├── seed.sql           # Sample data
+│   ├── migrations/        # Database versioning
+│
+│── docs/                  # Documentation and guides
+│   ├── API.md             # API documentation
+│   ├── README.md          # Project overview
+│
+│── .gitignore             # Ignore unnecessary files
+│── README.md              # Project documentation

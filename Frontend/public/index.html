@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="./css/output.css" />
     <title>Affotako</title>
   </head>
-  <body>
+  <body class="font-poppins">
     <main>
       <div class="grid grid-cols-[auto_584px] h-dvh">
+        <!-- illustration side -->
         <div class="flex flex-col gap-5 items-center">
           <img
             class="w-40 ps-10 self-start m-10"
@@ -20,10 +21,44 @@
             src="./images/illus-1.png"
             alt="illustration"
           />
-          <span>Optimize your business</span>
+          <span class="">Optimize your business</span>
         </div>
 
-        <div class="bg-[#FEEBEC] w-[584px]"></div>
+        <!-- login side -->
+        <div class="bg-[#FEEBEC] w-[584px] flex items-center">
+          <div class="flex flex-col mx-20">
+            <h1 class="font-semibold text-[#B60205] text-[2.25rem]">
+              Get Started
+            </h1>
+            <span class="">
+              <span class="text-[0.87rem] text-[#302D3D] opacity-[37%]"
+                >Don't have an account?</span
+              >
+              <a class="text-[#B60205] text-[0.87rem]" href="">Sign up</a>
+            </span>
+            <input
+              class="bg-white placeholder-[#302D3D] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+              type="text"
+              placeholder="Username or ID number"
+            />
+            <input
+              type="password"
+              name="password"
+              id=""
+              class="bg-white placeholder:opacity-[0.37] placeholder-[#302D3D] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+              type="text"
+              placeholder="Password"
+            />
+            <span class="ps-2.5 pt-2.5 text-[0.87rem] text-[#B60205]"
+              ><a href="">Forgot password?</a></span
+            >
+            <button
+              class="bg-[#B60205] rounded-[0.50rem] cursor-pointer text-white py-3 mt-7"
+            >
+              Log In
+            </button>
+          </div>
+        </div>
       </div>
     </main>
   </body>

@@ -1,0 +1,4 @@
+database/              # MySQL database files
+│   ├── schema.sql         # Database schema
+│   ├── seed.sql           # Sample data
+│   ├── migrations/        # Database versioning

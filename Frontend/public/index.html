@@ -18,8 +18,9 @@
             src="./images/logo.png"
             alt="logo"
           />
+
           <img
-            class="w-[35rem] max-2xl:w-[20rem]"
+            class="w-[35rem] max-2xl:w-[25rem]"
             src="./images/illus-1.png"
             alt="illustration"
           />
@@ -43,31 +44,53 @@
 
               <a
                 class="text-[#B60205] text-[0.87rem] max-[1400px]:text-[0.75rem]"
-                href=""
+                href="../src/pages/Signup.html"
                 >Sign up</a
               >
             </span>
 
+            <!-- INPUT FIELDS -->
+
             <input
-              class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+              class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D]"
               type="text"
               placeholder="Username or ID number"
             />
 
-            <input
-              type="password"
-              name="password"
-              id=""
-              class="bg-white max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder-[#302D3D] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
-              type="text"
-              placeholder="Password"
-            />
+            <div class="relative">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="bg-white max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder-[#302D3D] placeholder:text-[1rem] text-[#302D3D] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+                type="text"
+                placeholder="Password"
+              />
+              <button onclick="showpass()">
+                <img
+                  class="w-5 cursor-pointer absolute top-9 right-6 opacity-40"
+                  src="./images/hide.png"
+                  alt="closed-eye"
+                  id="eye"
+                />
+              </button>
+              <button onclick="showpass()">
+                <img
+                  class="w-5 cursor-pointer hidden absolute top-9 right-6 opacity-40"
+                  src="./images/view.png"
+                  alt="open-eye"
+                  id="eyes"
+                />
+              </button>
+            </div>
+
             <span
               class="ps-2.5 pt-2.5 text-[0.87rem] max-[1400px]:text-[0.7rem] text-[#B60205]"
               ><a href="">Forgot password?</a></span
             >
             <button
-              class="bg-[#B60205] rounded-[0.50rem] cursor-pointer text-white py-3 mt-7"
+              class="bg-[#B60205] login-btn rounded-[0.50rem] cursor-pointer text-white py-3 mt-7"
+              id="login-btn"
             >
               Log In
             </button>
@@ -75,5 +98,6 @@
         </div>
       </div>
     </main>
+    <script src="../src/index.js"></script>
   </body>
 </html>

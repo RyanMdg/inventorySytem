@@ -50,7 +50,7 @@
             </span>
 
             <!-- INPUT FIELDS FOR LOGINS -->
-            <form class="flex flex-col" action="" id="formLogin">
+            <form class="flex flex-col" action="" id="loginForm">
               <input
                 class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D]"
                 type="text"
@@ -67,22 +67,20 @@
                   type="text"
                   placeholder="Password"
                 />
-                <button onclick="showpass()">
-                  <img
-                    class="w-5 cursor-pointer absolute top-9 right-6 opacity-40"
-                    src="./images/hide.png"
-                    alt="closed-eye"
-                    id="eye"
-                  />
-                </button>
-                <button onclick="showpass()">
-                  <img
-                    class="w-5 cursor-pointer hidden absolute top-9 right-6 opacity-40"
-                    src="./images/view.png"
-                    alt="open-eye"
-                    id="eyes"
-                  />
-                </button>
+
+                <img
+                  class="w-5 cursor-pointer eye-icon absolute top-9 right-6 opacity-40"
+                  src="./images/hide.png"
+                  alt="closed-eye"
+                  id="eye"
+                />
+
+                <img
+                  class="w-5 cursor-pointer eye-icons hidden absolute top-9 right-6 opacity-40"
+                  src="./images/view.png"
+                  alt="open-eye"
+                  id="eyes"
+                />
               </div>
 
               <span

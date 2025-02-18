@@ -35,11 +35,14 @@ login.addEventListener("submit", async function (e) {
   const password = passwords.value;
   console.log(username, password);
 
-  const res = await fetch("http://localhost:3000/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
-  });
+  const res = await fetch(
+    "https://inventorysytem.onrender.com/api/auth/login",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    }
+  );
 
   const data = await res.json();
 

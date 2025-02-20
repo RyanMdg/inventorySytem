@@ -15,21 +15,36 @@
         <div class="flex items-center justify-center">
           <img class="h-45" src="/Frontend/public/images/logo.png" alt="" />
         </div>
-        <ul class="gap-10 flex flex-col mx-10">
+        <ul class="gap-5 flex flex-col mx-10">
           <li
-            class="hover:bg-[#feebec] hover:text-[#B60205] font-semibold rounded-[.5rem] py-4 px-2"
+            class="hover:bg-[#feebec] delay-150 duration-200 ease-in hover:text-[#B60205] font-semibold rounded-[.5rem] cursor-pointer py-4 px-2 dark:focus:text-[#B60205] dash"
           >
-            <a href="">Dashboard</a>
+            <a class="peer-checked:text-red-500" href=""> Dashboard</a>
           </li>
-          <li><a href="">Pos</a></li>
-          <li><a href="">Branches</a></li>
-          <li><a href="">Inventory</a></li>
+          <li class="">
+            <a
+              class="text-[#B60205] hover:text-[#B60205] focus:text-[#B60205]disabled:text-[#B60205] dark:text-[#B60205] dark:hover:text-neutral-300 dark:focus:text-green-700 lg:px-2 [&.active]:text-[#B60205] dark:[&.active]:text-[#B60205]"
+              href="./pos.html"
+              >Pos</a
+            >
+          </li>
+          <li
+            class="hover:bg-[#feebec] delay-150 duration-200 ease-in hover:text-[#B60205] font-semibold rounded-[.5rem] py-4 px-2"
+          >
+            <a href="">Branches</a>
+          </li>
+          <li
+            class="hover:bg-[#feebec] delay-150 duration-200 ease-in hover:text-[#B60205] font-semibold rounded-[.5rem] py-4 px-2"
+          >
+            <a href="">Inventory</a>
+          </li>
         </ul>
-        <div>
+        <div class="m-10">
           <h1>profile</h1>
         </div>
       </div>
-      <div class="bg">1</div>
+      <div class="bg"></div>
     </main>
+    <script src="/Frontend/public/js/dashboards.js"></script>
   </body>
 </html>

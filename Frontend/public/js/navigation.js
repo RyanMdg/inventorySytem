@@ -7,7 +7,7 @@ const container = document.getElementById("Container");
 const inventory = document.getElementById("inventory");
 const branch = document.getElementById("Branch");
 
-fetch("dashboard.html")
+fetch("../pages/dashboard.html")
   .then((response) => response.text()) // Get response as text
   .then((data) => {
     const container = document.getElementById("container");
@@ -16,7 +16,7 @@ fetch("dashboard.html")
   .catch((error) => console.error("Error loading the file:", error));
 
 dashboard.addEventListener("click", function () {
-  fetch("dashboard.html")
+  fetch("../pages/dashboard.html")
     .then((response) => response.text()) // Get response as text
     .then((data) => {
       const container = document.getElementById("container");
@@ -26,7 +26,7 @@ dashboard.addEventListener("click", function () {
 });
 
 pos.addEventListener("click", function () {
-  fetch("pos.html")
+  fetch("../pages/pos.html")
     .then((response) => response.text()) // Get response as text
     .then((data) => {
       const container = document.getElementById("container");
@@ -36,7 +36,7 @@ pos.addEventListener("click", function () {
 });
 
 inventory.addEventListener("click", function () {
-  fetch("inventory.html")
+  fetch("../pages/inventory.html")
     .then((response) => response.text()) // Get response as text
     .then((data) => {
       const container = document.getElementById("container");
@@ -46,7 +46,7 @@ inventory.addEventListener("click", function () {
 });
 
 branch.addEventListener("click", function () {
-  fetch("branches.html")
+  fetch("../pages/branches.html")
     .then((response) => response.text()) // Get response as text
     .then((data) => {
       const container = document.getElementById("container");

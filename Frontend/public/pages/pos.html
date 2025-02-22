@@ -11,10 +11,12 @@
     <main class="flex justify-end">
       <div class="w-[100%] flex flex-col gap-10">
         <section class="ms-20 mt-10 flex flex-col gap-2">
-          <h1 id="header" class="text-3xl font-bold text-[#302D3D]">Pos</h1>
+          <h1 id="header" class="text-3xl uppercase font-bold text-[#302D3D]">
+            Pos
+          </h1>
           <label for="search">
             <input
-              class="bg-white flex outline-0 rounded-2xl py-3 w-[70%] px-10"
+              class="bg-white shadow drop-shadow-md flex outline-0 rounded-2xl py-3 w-[70%] px-10"
               type="search"
               name="search"
               placeholder="Search for products"
@@ -62,10 +64,42 @@
             </li>
           </ul>
         </nav>
-        <div id="content"></div>
+        <div id="content" class="mx-10"></div>
       </div>
-      <div class="bg-white shadow drop-shadow-2xl w-[30%] h-dvh text-[#302D3D]">
-        <h1 id="receipt">this is side white</h1>
+      <div
+        class="bg-white font-semibold shadow drop-shadow-2xl w-[30%] pt-8 h-dvh text-[#302D3D]"
+      >
+        <ul class="flex gap-2 px-8">
+          <li>
+            <a id="togo" class="bg-[#EAEEF7] px-4 py-1 rounded-md" href="#"
+              >To Go</a
+            >
+          </li>
+          <li>
+            <a id="del" class="bg-[#EAEEF7] px-4 py-1 rounded-md" href="#"
+              >Delivery</a
+            >
+          </li>
+        </ul>
+        <h1 class="text-2xl ms-4 mb-3 mt-5">Payment Method</h1>
+
+        <ul class="px-8 flex gap-5">
+          <li>
+            <a id="cash" class="bg-[#EAEEF7] px-4 py-1 rounded-md" href="#"
+              >Cash</a
+            >
+          </li>
+          <li>
+            <a id="gcash" class="bg-[#EAEEF7] px-4 py-1 rounded-md" href="#"
+              >Gcash</a
+            >
+          </li>
+          <li>
+            <a id="bank" class="bg-[#EAEEF7] px-4 py-1 rounded-md" href="#"
+              >Bank</a
+            >
+          </li>
+        </ul>
       </div>
     </main>
     <script src="../js/pos.js"></script>

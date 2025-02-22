@@ -10,9 +10,9 @@ const loadPage = (page) => {
     .then((data) => {
       container.innerHTML = data;
 
-      if (page === "pos") {
+      if (page === "pos" || page === "inventory" || page === "Branch") {
         const script = document.createElement("script");
-        script.src = "../js/pos.js";
+        script.src = `../js/${page}.js`;
         script.defer = true;
         document.body.appendChild(script);
       }

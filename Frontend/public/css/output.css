@@ -562,11 +562,23 @@
   .mx-auto {
     margin-inline: auto;
   }
+  .my-20 {
+    margin-block: calc(var(--spacing) * 20);
+  }
+  .ms-10 {
+    margin-inline-start: calc(var(--spacing) * 10);
+  }
+  .ms-20 {
+    margin-inline-start: calc(var(--spacing) * 20);
+  }
   .mt-5 {
     margin-top: calc(var(--spacing) * 5);
   }
   .mt-7 {
     margin-top: calc(var(--spacing) * 7);
+  }
+  .mt-10 {
+    margin-top: calc(var(--spacing) * 10);
   }
   .block {
     display: block;
@@ -607,14 +619,32 @@
   .w-\[10rem\] {
     width: 10rem;
   }
+  .w-\[13\%\] {
+    width: 13%;
+  }
+  .w-\[13\%\^\] {
+    width: 13%^;
+  }
   .w-\[15\%\] {
     width: 15%;
+  }
+  .w-\[20\%\] {
+    width: 20%;
   }
   .w-\[20rem\] {
     width: 20rem;
   }
+  .w-\[30\%\] {
+    width: 30%;
+  }
+  .w-\[35\%\] {
+    width: 35%;
+  }
   .w-\[35rem\] {
     width: 35rem;
+  }
+  .w-\[70\%\] {
+    width: 70%;
   }
   .w-\[100\%\] {
     width: 100%;
@@ -624,6 +654,9 @@
   }
   .w-\[584px\] {
     width: 584px;
+  }
+  .w-dvw {
+    width: 100dvw;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -646,8 +679,14 @@
   .items-center {
     align-items: center;
   }
+  .justify-around {
+    justify-content: space-around;
+  }
   .justify-center {
     justify-content: center;
+  }
+  .justify-end {
+    justify-content: flex-end;
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
@@ -658,8 +697,18 @@
   .gap-10 {
     gap: calc(var(--spacing) * 10);
   }
+  .space-x-0 {
+    :where(& > :not(:last-child)) {
+      --tw-space-x-reverse: 0;
+      margin-inline-start: calc(calc(var(--spacing) * 0) * var(--tw-space-x-reverse));
+      margin-inline-end: calc(calc(var(--spacing) * 0) * calc(1 - var(--tw-space-x-reverse)));
+    }
+  }
   .self-start {
     align-self: flex-start;
+  }
+  .rounded-2xl {
+    border-radius: var(--radius-2xl);
   }
   .rounded-\[0\.50rem\] {
     border-radius: 0.50rem;
@@ -673,6 +722,25 @@
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
+  }
+  .border-8 {
+    border-style: var(--tw-border-style);
+    border-width: 8px;
+  }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+  .border-b-2 {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 2px;
+  }
+  .border-b-8 {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 8px;
+  }
+  .border-\[\#302D3D\] {
+    border-color: #302D3D;
   }
   .bg-\[\#B60205\] {
     background-color: #B60205;
@@ -695,6 +763,18 @@
   .px-7 {
     padding-inline: calc(var(--spacing) * 7);
   }
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
+  }
+  .px-\[100\%\] {
+    padding-inline: 100%;
+  }
+  .px-\[10rem\] {
+    padding-inline: 10rem;
+  }
+  .px-\[20rem\] {
+    padding-inline: 20rem;
+  }
   .py-3 {
     padding-block: calc(var(--spacing) * 3);
   }
@@ -716,8 +796,19 @@
   .pt-2\.5 {
     padding-top: calc(var(--spacing) * 2.5);
   }
+  .text-start {
+    text-align: start;
+  }
   .font-poppins {
     font-family: var(--font-poppins);
+  }
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
+  .text-3xl {
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
   .text-\[0\.87rem\] {
     font-size: 0.87rem;
@@ -728,6 +819,10 @@
   .text-\[2\.25rem\] {
     font-size: 2.25rem;
   }
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
   .font-semibold {
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
@@ -737,6 +832,9 @@
   }
   .text-\[\#B60205\] {
     color: #B60205;
+  }
+  .text-green-700 {
+    color: var(--color-green-700);
   }
   .text-white {
     color: var(--color-white);
@@ -900,6 +998,11 @@
   syntax: "*";
   inherits: false;
   initial-value: skewY(0);
+}
+@property --tw-space-x-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
 }
 @property --tw-border-style {
   syntax: "*";

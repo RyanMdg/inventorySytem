@@ -4,14 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Affotako</title>
-    <link rel="icon" href="/Frontend/public/images/logo_white.PNG" />
+    <link rel="icon" href="../images/logo_white.PNG" />
     <link rel="stylesheet" href="../css/output.css" />
   </head>
   <body class="bg-[#feebec] font-poppins">
-    <main>
-      <h1>this is pos</h1>
-      <img src="/Frontend/public/images/logo.png" alt="" />
+    <main class="flex justify-end">
+      <div class="w-[100%] flex flex-col gap-10">
+        <section class="ms-20 mt-10 flex flex-col gap-2">
+          <h1 id="header" class="text-3xl font-bold text-[#302D3D]">Pos</h1>
+          <label for="search">
+            <input
+              class="bg-white flex outline-0 rounded-2xl py-3 w-[70%] px-10"
+              type="search"
+              name="search"
+              placeholder="Search for products"
+              id=""
+            />
+          </label>
+        </section>
+
+        <nav class="nav">
+          <ul
+            class="flex gap-5 justify-around text-[#302D3D] border-b-2 border-[#302D3D]"
+          >
+            <li>
+              <a class="nav-link" data-page="takeorder.html" href="#"
+                >Take Order</a
+              >
+            </li>
+            <li>
+              <a class="nav-link" data-page="ongoingorder.html" href="#"
+                >On going order</a
+              >
+            </li>
+            <li>
+              <a class="nav-link" data-page="cancelorder.html" href="#"
+                >Cancel Orders</a
+              >
+            </li>
+            <li>
+              <a class="nav-link" data-page="completorders.html" href="#"
+                >Completed Orders</a
+              >
+            </li>
+            <li>
+              <a class="nav-link" data-page="addproducts.html" href="#"
+                >Add Products</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div id="content"></div>
+      </div>
+      <div class="bg-white shadow drop-shadow-2xl w-[30%] h-dvh text-[#302D3D]">
+        <h1 id="receipt">this is side white</h1>
+      </div>
     </main>
-    <script src="/Frontend/public/js/navigation.js"></script>
+    <script src="../js/pos.js"></script>
   </body>
 </html>

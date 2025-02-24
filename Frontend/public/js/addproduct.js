@@ -1,6 +1,6 @@
 "strict";
 
-import supabase from "/Backend2/config/SupabaseClient.js";
+import supabase from "/Backend2/config/SupabaseClient";
 
 console.log("hello pos");
 

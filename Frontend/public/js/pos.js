@@ -1,6 +1,6 @@
 "strict";
 
-import supabase from "/Backend2/config/SupabaseClient.js";
+import supabase from "/Backend2/config/SupabaseClient";
 
 document.addEventListener("click", function (event) {
   const link = event.target.closest(".nav-link");

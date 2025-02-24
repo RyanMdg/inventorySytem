@@ -1,6 +1,6 @@
 "strict";
 
-import supabase from "/Backend2/config/SupabaseClient";
+import supabase from "/Backend2/config/SupabaseClient.js";
 
 console.log("hello pos");
 
@@ -14,7 +14,6 @@ const prod_Name = document.querySelector(".productName");
 const prodPrice = document.querySelector(".productprice");
 const addbtn = document.querySelector(".addBtn");
 
-console.log(prodPrice);
 async function addProduct(product_name, product_price) {
   const { data, error } = await supabase
     .from("products")

@@ -1,24 +1,22 @@
 "strict";
 
-import supabase from "/Backend2/config/SupabaseClient";
+// document.addEventListener("click", function (event) {
+//   const link = event.target.closest(".nav-link");
+//   if (!link) return;
+//   const heading = document.getElementById("header");
 
-document.addEventListener("click", function (event) {
-  const link = event.target.closest(".nav-link");
-  if (!link) return;
-  const heading = document.getElementById("header");
-
-  event.preventDefault();
-  const page = link.getAttribute("data-page");
-  let result = page.replace(".html", "");
-  console.log(result);
-  heading.textContent = result;
-  fetch(page)
-    .then((response) => response.text())
-    .then((data) => {
-      document.getElementById("content").innerHTML = data;
-    })
-    .catch((error) => console.error("Error loading page:", error));
-});
+//   event.preventDefault();
+//   const page = link.getAttribute("data-page");
+//   let result = page.replace(".html", "");
+//   console.log(result);
+//   heading.textContent = result;
+//   fetch(page)
+//     .then((response) => response.text())
+//     .then((data) => {
+//       document.getElementById("content").innerHTML = data;
+//     })
+//     .catch((error) => console.error("Error loading page:", error));
+// });
 
 const togo = document.getElementById("togo");
 const del = document.getElementById("del");
@@ -45,30 +43,4 @@ bank.addEventListener("click", () => toggleButtons(bank, cash));
 
 console.log("hello pos");
 
-async function fetchProducts() {
-  const { data, error } = await supabase.from("products").select("*");
-  if (error) console.error("Error:", error);
-  else console.log("Product:", data);
-}
-
-const prod_Name = document.getElementById("productName");
-const prodPrice = document.getElementById("productprice");
-const addbtn = document.querySelector(".addBtn");
-
-const prod_Price = Number(prodPrice);
-
-async function addProduct(product_name, product_price) {
-  const { data, error } = await supabase
-    .from("products")
-    .insert([{ product_name, product_price }]);
-
-  if (error) console.log("Error:", error);
-  else console.log("Products:", data);
-}
-
-addbtn.addEventListener("click", function () {
-  const name = prod_Name.textContent;
-  const price = prod_Price.textContent;
-  addProduct(name, price);
-});
-fetchProducts();
+// * database

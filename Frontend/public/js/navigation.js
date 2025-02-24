@@ -1,25 +1,7 @@
 "use strict";
 
-const container = document.getElementById("container");
-const nav = document.querySelector("nav");
-const navItems = document.querySelectorAll("nav ul li a");
-
-const loadPage = (page) => {
-  fetch(`../pages/${page}.html`)
-    .then((response) => response.text())
-    .then((data) => {
-      container.innerHTML = data;
-
-      if (page === "pos" || page === "inventory" || page === "Branch") {
-        const script = document.createElement("script");
-        script.src = `../js/${page}.js`;
-        script.defer = true;
-        document.body.appendChild(script);
-      }
-    })
-    .catch((error) => console.error("Error loading the file:", error));
-};
-loadPage("dashboard");
+const nav = document.querySelector("aside");
+const navItems = document.querySelectorAll("aside ul li a");
 
 nav.addEventListener("click", function (event) {
   const target = event.target.closest("a");
@@ -43,6 +25,4 @@ nav.addEventListener("click", function (event) {
     "px-7",
     "py-3"
   );
-
-  loadPage(target.id);
 });

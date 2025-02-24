@@ -1,5 +1,7 @@
 "strict";
 
+import supabase from "../../../Backend2/config/SupabaseClient.js";
+
 document.addEventListener("click", function (event) {
   const link = event.target.closest(".nav-link");
   if (!link) return;
@@ -42,3 +44,31 @@ bank.addEventListener("click", () => toggleButtons(bank, gcash));
 bank.addEventListener("click", () => toggleButtons(bank, cash));
 
 console.log("hello pos");
+
+async function fetchProducts() {
+  const { data, error } = await supabase.from("products").select("*");
+  if (error) console.error("Error:", error);
+  else console.log("Product:", data);
+}
+
+const prod_Name = document.getElementById("productName");
+const prodPrice = document.getElementById("productprice");
+const addbtn = document.querySelector(".addBtn");
+
+const prod_Price = Number(prodPrice);
+
+async function addProduct(product_name, product_price) {
+  const { data, error } = await supabase
+    .from("products")
+    .insert([{ product_name, product_price }]);
+
+  if (error) console.log("Error:", error);
+  else console.log("Products:", data);
+}
+
+addbtn.addEventListener("click", function () {
+  const name = prod_Name.textContent;
+  const price = prod_Price.textContent;
+  addProduct(name, price);
+});
+fetchProducts();

@@ -45,14 +45,17 @@ async function addProduct(branch_id, product_name, product_price) {
     console.error("Error adding product:", error);
   } else {
     console.log("Product added successfully:", data);
+    alert("Product added successfully");
   }
 }
 
 addbtn.addEventListener("click", function () {
-  const name = prod_Name.value;
-  const price = prodPrice.value;
+  let name = prod_Name.value;
+  let price = prodPrice.value;
   addProduct("a461cca5-f270-41cc-86fc-b86b633eba07", name, price);
   console.log(price, name);
+  name = "";
+  price = "";
 });
 fetchProducts();
 

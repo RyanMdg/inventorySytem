@@ -195,10 +195,11 @@
 
             <!-- POS Content -->
             <main class="p-5">
-              <div x-show="posPage === 'takeorder'">
-                <h1 class="text-2xl font-bold">Take Order</h1>
-                <p class="name">Manage new orders here.</p>
-              </div>
+              <div
+                id="takeorderContainer"
+                class="flex gap-5 flex-row"
+                x-show="posPage === 'takeorder'"
+              ></div>
               <div x-show="posPage === 'ongoing'" x-cloak>
                 <h1 class="text-2xl font-bold">Ongoing Orders</h1>
                 <p>View and manage ongoing orders.</p>

@@ -13,7 +13,20 @@ async function fetchProducts() {
   const { data, error } = await supabase.from("products_table").select("*");
   if (error) console.error("Error:", error);
   else console.log("Product:", data);
-  document.querySelector(".name").textContent = data[3].name;
+
+  data.forEach((product, index) => {
+    let newParagraph = document.createElement("p");
+    let newSpan = document.createElement("span");
+    const div = document.createElement("div");
+    div.id = `myDiv-${index}`;
+    newParagraph.textContent = product.name;
+    newSpan.textContent = `₱ ${product.price}`;
+
+    div.appendChild(newParagraph);
+    div.appendChild(newSpan);
+    document.getElementById("takeorderContainer").appendChild(div);
+    div.classList.add("flex", "gap-5", "cursor-pointer", "px-10", "py-3");
+  });
 }
 
 async function addProduct(branch_id, product_name, product_price) {

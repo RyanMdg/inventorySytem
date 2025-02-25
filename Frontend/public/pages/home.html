@@ -30,7 +30,7 @@
 
     <!--  -->
     <!-- Sidebar -->
-    <nav></nav>
+
     <aside
       class="w-64 nav bg-[#FFFFFF] text-[#302D3D] p-5 space-y-4 shadow drop-shadow-2xl flex flex-col gap-10"
     >
@@ -195,10 +195,11 @@
 
             <!-- POS Content -->
             <main class="p-5">
-              <div x-show="posPage === 'takeorder'">
-                <h1 class="text-2xl font-bold">Take Order</h1>
-                <p>Manage new orders here.</p>
-              </div>
+              <div
+                id="takeorderContainer"
+                class="flex gap-5 flex-row"
+                x-show="posPage === 'takeorder'"
+              ></div>
               <div x-show="posPage === 'ongoing'" x-cloak>
                 <h1 class="text-2xl font-bold">Ongoing Orders</h1>
                 <p>View and manage ongoing orders.</p>
@@ -211,13 +212,33 @@
                 <h1 class="text-2xl font-bold">Completed Orders</h1>
                 <p>View completed transactions.</p>
               </div>
+
+              <!-- ----------------------- -->
               <div x-show="posPage === 'add'" x-cloak>
-                <main>
-                  <label for="">name</label>
-                  <input type="text" name="" class="productName" />
-                  <label for="">price</label>
-                  <input type="text" name="" class="productprice" />
-                  <button id="" class="addBtn">add</button>
+                <main class="flex justify-center">
+                  <form class="p-6">
+                    <h2 class="text-xl font-bold mb-4">Product Form</h2>
+
+                    <label class="block text-gray-700">Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter name"
+                      class="w-full p-2 border productName border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    />
+
+                    <label class="block text-gray-700">Price</label>
+                    <input
+                      type="number"
+                      placeholder="Enter price"
+                      class="w-full p-2 productprice border border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    />
+
+                    <a
+                      class="w-full submit_product bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+                    >
+                      Submit
+                    </a>
+                  </form>
                 </main>
               </div>
             </main>

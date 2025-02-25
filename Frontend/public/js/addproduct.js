@@ -4,30 +4,41 @@ import supabase from "../Backend2/config/SupabaseClient.js";
 
 const prod_Name = document.querySelector(".productName");
 const prodPrice = document.querySelector(".productprice");
-const addbtn = document.querySelector(".addBtn");
+const addbtn = document.querySelector(".submit_product");
 const statusBtn = document.getElementById("statusButton");
 
 console.log("hello pos");
 
 async function fetchProducts() {
-  const { data, error } = await supabase.from("products").select("*");
+  const { data, error } = await supabase.from("products_table").select("*");
   if (error) console.error("Error:", error);
   else console.log("Product:", data);
+  document.querySelector(".name").textContent = data[3].name;
 }
 
-async function addProduct(product_name, product_price) {
+async function addProduct(branch_id, product_name, product_price) {
   const { data, error } = await supabase
-    .from("products")
-    .insert([{ product_name, product_price }]);
+    .from("products_table")
+    .insert([
+      {
+        branch_id: branch_id,
+        name: product_name,
+        price: product_price,
+      },
+    ])
+    .select(); // This ensures the inserted row is returned
 
-  if (error) console.log("Error:", error);
-  else console.log("Products:", data);
+  if (error) {
+    console.error("Error adding product:", error);
+  } else {
+    console.log("Product added successfully:", data);
+  }
 }
 
 addbtn.addEventListener("click", function () {
   const name = prod_Name.value;
   const price = prodPrice.value;
-  addProduct(name, price);
+  addProduct("a461cca5-f270-41cc-86fc-b86b633eba07", name, price);
   console.log(price, name);
 });
 fetchProducts();

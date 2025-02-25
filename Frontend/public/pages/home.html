@@ -20,7 +20,7 @@
     <link rel="icon" href="../images/logo_white.PNG" />
   </head>
   <body
-    class="flex h-screen bg-[#feebec] font-poppins"
+    class="flex text-[.8rem] h-screen bg-[#feebec] font-poppins"
     x-data="{ page: 'dashboard' }"
   >
     <!--  -->
@@ -38,9 +38,7 @@
         <img class="h-50 p-5" src="../images/logo.png" alt="" />
       </figure>
 
-      <ul
-        class="space-y-2 mx-auto flex flex-col gap-10 font-semibold text-[1rem]"
-      >
+      <ul class="space-y-2 mx-auto flex flex-col gap-10 font-semibold">
         <li id="Container" class="text-[#302D3D] cursor-pointer">
           <a
             @click="page='dashboard'"
@@ -112,11 +110,20 @@
         <main class="flex justify-end">
           <div class="w-[100%] flex flex-col gap-1">
             <section class="ms-20 mt-10 flex flex-col gap-2">
+              <div class="flex justify-end me-15">
+                <button
+                  id="statusButton"
+                  class="text-[1rem] outline-1 drop-shadow-2xl transition-all shadow outline-[#302D3D] rounded-3xl px-6 cursor-pointer"
+                >
+                  Offline
+                </button>
+              </div>
+
               <h1
                 id="header"
                 class="text-3xl uppercase font-bold text-[#302D3D]"
               >
-                POS
+                Point Of Sale
               </h1>
               <label for="search">
                 <input
@@ -130,20 +137,20 @@
             </section>
 
             <!-- POS Sub-Navigation -->
-            <nav class="flex justify-around mt-10 mb-3">
-              <ul class="flex gap-50 px-10">
+            <nav class="mt-10 mb-3 mx-auto">
+              <ul class="flex gap-20 px-10">
                 <li
-                  class="cursor-pointer hover:text-red-400 delay-200 ease-in duration-200"
+                  class="cursor-pointer w-[10rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'takeorder'"
-                    :class="{ 'text-red-600 font-bold': posPage === 'takeorder' }"
+                    :class="{ 'text-red-600 font-bold ': posPage === 'takeorder' }"
                   >
                     Take Order
                   </a>
                 </li>
                 <li
-                  class="cursor-pointer hover:text-red-400 delay-200 ease-in duration-200"
+                  class="cursor-pointer w-[10rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'ongoing'"
@@ -153,7 +160,7 @@
                   </a>
                 </li>
                 <li
-                  class="cursor-pointer hover:text-red-400 delay-200 ease-in duration-200"
+                  class="cursor-pointer w-[10rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'cancel'"
@@ -163,7 +170,7 @@
                   </a>
                 </li>
                 <li
-                  class="cursor-pointer hover:text-red-400 delay-200 ease-in duration-200"
+                  class="cursor-pointer w-[10rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'complete'"
@@ -173,7 +180,7 @@
                   </a>
                 </li>
                 <li
-                  class="cursor-pointer hover:text-red-400 delay-200 ease-in duration-200"
+                  class="cursor-pointer w-[10rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'add'"

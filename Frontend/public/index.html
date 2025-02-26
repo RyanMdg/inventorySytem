@@ -49,23 +49,22 @@
                 >Sign up</a
               >
             </span>
+            <span id="message"></span>
 
             <!-- INPUT FIELDS FOR LOGINS -->
-            <form class="flex flex-col" action="" id="loginForm">
+            <div class="flex flex-col">
               <input
                 class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D]"
-                type="text"
-                placeholder="Username or ID number"
-                id="Username"
+                type="email"
+                placeholder="email"
+                id="email"
               />
 
               <div class="relative">
                 <input
                   type="password"
-                  name="password"
                   id="password"
                   class="bg-white max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder-[#302D3D] placeholder:text-[1rem] text-[#302D3D] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
-                  type="text"
                   placeholder="Password"
                 />
 
@@ -89,16 +88,16 @@
                 ><a href="">Forgot password?</a></span
               >
               <button
-                type="submit"
                 class="bg-[#B60205] login-btn rounded-[0.50rem] cursor-pointer text-white py-3 mt-7"
               >
                 Log In
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     </main>
-    <script src="/Frontend/public/js/index.js"></script>
+    <script type="module" src="./js/index.js"></script>
+    <script type="module" src="./js/auth.js"></script>
   </body>
 </html>

@@ -71,3 +71,18 @@ statusBtn.addEventListener("click", function () {
       "text-[1rem] outline-1 drop-shadow-2xl transition-all shadow outline-[#302D3D] rounded-3xl px-6 cursor-pointer";
   }
 });
+
+async function checkUser() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    window.location.href = "index.html";
+  }
+
+  if (user) {
+    console.log("user is verified login");
+  }
+}
+
+checkUser();

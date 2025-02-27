@@ -4,60 +4,63 @@ import supabase from "../Backend2/config/SupabaseClient.js";
 
 const prod_Name = document.querySelector(".productName");
 const prodPrice = document.querySelector(".productprice");
-const addbtn = document.querySelector(".submit_product");
+const addbtn = document.querySelector(".addBtn");
 const statusBtn = document.getElementById("statusButton");
 
 console.log("hello pos");
 
 async function fetchProducts() {
-  const { data, error } = await supabase.from("products_table").select("*");
+  const { data, error } = await supabase.from("products").select("*");
   if (error) console.error("Error:", error);
   else console.log("Product:", data);
-
-  data.forEach((product, index) => {
-    let newParagraph = document.createElement("p");
-    let newSpan = document.createElement("span");
-    const div = document.createElement("div");
-    div.id = `myDiv-${index}`;
-    newParagraph.textContent = product.name;
-    newSpan.textContent = `₱ ${product.price}`;
-
-    div.appendChild(newParagraph);
-    div.appendChild(newSpan);
-    document.getElementById("takeorderContainer").appendChild(div);
-    div.classList.add("flex", "gap-5", "cursor-pointer", "px-10", "py-3");
-  });
 }
 
-async function addProduct(branch_id, product_name, product_price) {
-  const { data, error } = await supabase
-    .from("products_table")
-    .insert([
-      {
-        branch_id: branch_id,
-        name: product_name,
-        price: product_price,
-      },
-    ])
-    .select(); // This ensures the inserted row is returned
+async function fetchUser() {
+  // logged-in user
+  const { data: userData, error: authError } = await supabase.auth.getUser();
 
-  if (error) {
-    console.error("Error adding product:", error);
-  } else {
-    console.log("Product added successfully:", data);
-    alert("Product added successfully");
+  if (authError || !userData?.user) {
+    console.error(
+      "Error fetching user:",
+      authError?.message || "User not logged in"
+    );
+    return;
   }
+
+  const userId = userData.user.id;
+
+  const { data: userBranch, error: userError } = await supabase
+    .from("users_table")
+    .select("branch_id")
+    .eq("id", userId)
+    .single();
+
+  if (userError) {
+    console.error("Error fetching user's branch:", userError.message);
+    return;
+  }
+
+  const branchId = userBranch.branch_id;
+
+  const { data: branchData, error: branchError } = await supabase
+    .from("branches_table")
+    .select("name")
+    .eq("id", branchId)
+    .single();
+
+  if (branchError) {
+    console.error("Error fetching branch name:", branchError.message);
+    return;
+  }
+
+  console.log("Branch Name:", branchData.name);
+
+  document.getElementById("branch-name").textContent = branchData.name;
 }
 
-addbtn.addEventListener("click", function () {
-  let name = prod_Name.value;
-  let price = prodPrice.value;
-  addProduct("a461cca5-f270-41cc-86fc-b86b633eba07", name, price);
-  console.log(price, name);
-  name = "";
-  price = "";
-});
-fetchProducts();
+fetchUser();
+
+//
 
 // * ONLINE/OFFLINE FUNCTIONS
 statusBtn.addEventListener("click", function () {
@@ -71,18 +74,3 @@ statusBtn.addEventListener("click", function () {
       "text-[1rem] outline-1 drop-shadow-2xl transition-all shadow outline-[#302D3D] rounded-3xl px-6 cursor-pointer";
   }
 });
-
-async function checkUser() {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    window.location.href = "index.html";
-  }
-
-  if (user) {
-    console.log("user is verified login");
-  }
-}
-
-checkUser();

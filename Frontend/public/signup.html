@@ -7,97 +7,99 @@
     <title>Affotako</title>
     <link rel="icon" href="./images/logo_white.PNG" />
   </head>
-  <body class="font-poppins">
+  <body class="font-poppins delay-300 ease-in duration-500">
     <main>
       <div
         class="grid grid-cols-[auto_584px] max-lg:grid-cols-[auto_500px] h-dvh"
       >
-        <!-- illustration side -->
+        <!-- Illustration Side -->
         <div class="flex flex-col gap-5 items-center">
           <img
             class="w-40 ps-10 self-start m-10"
             src="./images/logo.png"
             alt="logo"
           />
-
           <img
             class="w-[35rem] max-2xl:w-[25rem]"
-            src="./images/illus-1.png"
+            src="./images/illus-2.png"
             alt="illustration"
           />
-          <span class="">Optimize your business</span>
+          <span>Effortless Inventory Control with POS Integration</span>
         </div>
 
-        <!-- login side -->
+        <!-- Login Side (Animated) -->
         <div class="bg-[#FEEBEC] w-[584px] max-lg:w-[500px] flex items-center">
           <div class="flex flex-col mx-20">
             <h1
               class="font-semibold text-[#B60205] max-[1400px]:text-[2rem] text-[2.25rem]"
             >
-              Get Started
+              Sign up
             </h1>
-
-            <span class="">
+            <span>
               <span
                 class="text-[0.87rem] max-[1400px]:text-[0.75rem] text-[#302D3D] opacity-[37%]"
-                >Don't have an account?</span
               >
-
+                Already have an account?
+              </span>
               <a
                 class="text-[#B60205] text-[0.87rem] max-[1400px]:text-[0.75rem]"
-                href="./signup.html"
-                >Sign up</a
+                href="./index.html"
+                >Log in</a
               >
             </span>
             <span id="message"></span>
 
-            <!-- INPUT FIELDS FOR LOGINS -->
+            <!-- Input Fields -->
             <div class="flex flex-col">
               <input
-                class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D]"
+                class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
                 type="email"
                 placeholder="email"
-                id="email"
+                id="signin_email"
               />
-
               <div class="relative">
                 <input
                   type="password"
-                  id="password"
-                  class="bg-white max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder-[#302D3D] placeholder:text-[1rem] text-[#302D3D] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+                  id="signin_password"
+                  class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
                   placeholder="Password"
                 />
-
                 <img
-                  class="w-5 cursor-pointer eye-icon absolute top-9 right-6 opacity-40"
+                  class="w-5 cursor-pointer absolute top-9 right-6 opacity-40"
                   src="./images/hide.png"
                   alt="closed-eye"
                   id="eye"
                 />
-
                 <img
-                  class="w-5 cursor-pointer eye-icons hidden absolute top-9 right-6 opacity-40"
+                  class="w-5 cursor-pointer hidden absolute top-9 right-6 opacity-40"
                   src="./images/view.png"
                   alt="open-eye"
                   id="eyes"
                 />
               </div>
-
-              <span
-                class="ps-2.5 pt-2.5 text-[0.87rem] max-[1400px]:text-[0.7rem] text-[#B60205]"
-                ><a href="">Forgot password?</a></span
-              >
+              <input
+                class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+                type="text"
+                placeholder="Branch Name"
+                id="branch_name"
+              />
+              <input
+                class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+                type="text"
+                placeholder="Branch Location"
+                id="branch_location"
+              />
               <button
-                class="bg-[#B60205] login-btn rounded-[0.50rem] cursor-pointer text-white py-3 mt-7"
+                class="bg-[#B60205] register-btn rounded-[0.50rem] cursor-pointer text-white py-3 mt-7"
               >
-                Log In
+                Register
               </button>
             </div>
           </div>
         </div>
       </div>
     </main>
-    <script type="module" src="./js/index.js"></script>
-    <script type="module" src="./js/auth.js"></script>
+
+    <script type="module" src="./js/signin.js"></script>
   </body>
 </html>

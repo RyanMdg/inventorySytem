@@ -16,7 +16,7 @@ async function fetchProducts() {
 }
 
 async function fetchUser() {
-  // logged-in user
+  //* logged-in user
   const { data: userData, error: authError } = await supabase.auth.getUser();
 
   if (authError || !userData?.user) {

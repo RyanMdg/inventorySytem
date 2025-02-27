@@ -60,8 +60,6 @@ async function fetchUser() {
 
 fetchUser();
 
-//
-
 // * ONLINE/OFFLINE FUNCTIONS
 statusBtn.addEventListener("click", function () {
   if (this.textContent === "Offline") {

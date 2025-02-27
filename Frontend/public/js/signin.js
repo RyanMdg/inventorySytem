@@ -3,11 +3,11 @@ import supabase from "../Backend2/config/SupabaseClient.js";
 const registerBtn = document.querySelector(".register-btn");
 
 //* SIGNUP
-async function signUp(email, password, branchName, branchLocation) {
+async function signUp(email, password, Name, branchLocation) {
   // Step 1: Create a new branch
   const { data: branchData, error: branchError } = await supabase
     .from("branches_table")
-    .insert([{ name: branchName, location: branchLocation }])
+    .insert([{ name: Name, location: branchLocation }])
     .select("id") // Fetch the created branch ID
     .single();
 

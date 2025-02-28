@@ -9,31 +9,7 @@ const statusBtn = document.getElementById("statusButton");
 
 console.log("hello pos");
 
-//* ADD PRODUCTS
-// async function addProduct(branch_Id, product_Name, product_Price) {
-//   // Step 1: Insert Product into the 'products_table'
-//   const { data, error } = await supabase
-//     .from("products_table")
-//     .insert([
-//       { branch_id: branch_Id, name: product_Name, price: product_Price },
-//     ])
-//     .select("id")
-//     .single(); // Get the first row directly
-
-//   if (error) {
-//     console.error("Error adding product:", error.message);
-//     return;
-//   }
-
-//   const productId = data.id; // Get the newly created product ID
-
-//   console.log(
-//     `Product added with ID: ${productId} for Branch ID: ${branch_Id}`
-//   );
-//   alert(
-//     `Product "${product_Name}" added successfully for Branch ID: ${branch_Id}`
-//   );
-// }
+//* ========= ADD PRODUCTS =========
 
 addbtn.addEventListener("click", async function () {
   const productName = document.getElementById("product_name").value;
@@ -84,8 +60,7 @@ addbtn.addEventListener("click", async function () {
   alert(`Product "${productName}" added successfully to your branch!`);
 });
 
-//*fethching products
-
+//*=========FETCHING PRODUCTS=========
 async function fetchProducts() {
   const { data: user, error: authError } = await supabase.auth.getUser();
 
@@ -139,7 +114,7 @@ async function fetchProducts() {
 
 fetchProducts();
 
-//* fetching user
+//*=========FETCHING USER=========
 async function fetchUser() {
   //* logged-in user
   const { data: userData, error: authError } = await supabase.auth.getUser();
@@ -187,7 +162,7 @@ async function fetchUser() {
 
 fetchUser();
 
-// * ONLINE/OFFLINE FUNCTIONS
+//*=========ONLINE/OFFLINE FUNCTIONS=========
 statusBtn.addEventListener("click", function () {
   if (this.textContent === "Offline") {
     this.textContent = "Online";

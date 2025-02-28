@@ -29,71 +29,87 @@
 
         <!-- Login Side (Animated) -->
         <div class="bg-[#FEEBEC] w-[584px] max-lg:w-[500px] flex items-center">
-          <div class="flex flex-col mx-20">
-            <h1
-              class="font-semibold text-[#B60205] max-[1400px]:text-[2rem] text-[2.25rem]"
-            >
-              Sign up
-            </h1>
-            <span>
-              <span
-                class="text-[0.87rem] max-[1400px]:text-[0.75rem] text-[#302D3D] opacity-[37%]"
-              >
-                Already have an account?
-              </span>
-              <a
-                class="text-[#B60205] text-[0.87rem] max-[1400px]:text-[0.75rem]"
-                href="./index.html"
-                >Log in</a
-              >
-            </span>
-            <span id="message"></span>
+          <div class="w-[100%]">
+            <figure id="figure" class="flex hidden justify-center items-center">
+              <img
+                class="w-30 animate-ping"
+                src="./images/5100_3_05-Photoroom.png"
+                alt=""
+              />
+            </figure>
 
-            <!-- Input Fields -->
-            <div class="flex flex-col">
-              <input
-                class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
-                type="email"
-                placeholder="email"
-                id="signin_email"
-              />
-              <div class="relative">
-                <input
-                  type="password"
-                  id="signin_password"
-                  class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
-                  placeholder="Password"
-                />
-                <img
-                  class="w-5 cursor-pointer absolute top-9 right-6 opacity-40"
-                  src="./images/hide.png"
-                  alt="closed-eye"
-                  id="eye"
-                />
-                <img
-                  class="w-5 cursor-pointer hidden absolute top-9 right-6 opacity-40"
-                  src="./images/view.png"
-                  alt="open-eye"
-                  id="eyes"
-                />
-              </div>
-              <input
-                class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
-                type="text"
-                placeholder="Franchisee Name"
-                id="branch_name"
-              />
-              <input
-                class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
-                type="text"
-                placeholder="Branch Location"
-                id="branch_location"
-              />
-              <button
-                class="bg-[#B60205] register-btn rounded-[0.50rem] cursor-pointer text-white py-3 mt-7"
+            <div id="signup_container" class="flex flex-col mx-20">
+              <p
+                id="exist"
+                class="bg-[#b602059a] hidden text-[.8rem] w-50 text-center py-3 text-white rounded-md"
+              ></p>
+              <h1
+                class="font-semibold text-[#B60205] max-[1400px]:text-[2rem] text-[2.25rem]"
               >
-                Register
-              </button>
+                Sign up
+              </h1>
+              <span>
+                <span
+                  class="text-[0.87rem] max-[1400px]:text-[0.75rem] text-[#302D3D] opacity-[37%]"
+                >
+                  Already have an account?
+                </span>
+                <a
+                  class="text-[#B60205] text-[0.87rem] max-[1400px]:text-[0.75rem]"
+                  href="./index.html"
+                  >Log in</a
+                >
+              </span>
+
+              <span id="message"></span>
+
+              <!-- Input Fields -->
+              <div class="flex flex-col">
+                <input
+                  class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+                  type="email"
+                  placeholder="email"
+                  id="signin_email"
+                />
+                <div class="relative">
+                  <input
+                    type="password"
+                    id="signin_password"
+                    class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+                    placeholder="Password"
+                  />
+                  <img
+                    class="w-5 cursor-pointer eye-icon absolute top-9 right-6 opacity-40"
+                    src="./images/hide.png"
+                    alt="closed-eye"
+                    id="eye"
+                  />
+                  <img
+                    class="w-5 cursor-pointer hidden eye-icons absolute top-9 right-6 opacity-40"
+                    src="./images/view.png"
+                    alt="open-eye"
+                    id="eyes"
+                  />
+                </div>
+                <input
+                  class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+                  type="text"
+                  placeholder="Franchisee Name"
+                  id="branch_name"
+                />
+                <input
+                  class="bg-white rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold"
+                  type="text"
+                  placeholder="Branch Location"
+                  id="branch_location"
+                />
+
+                <button
+                  class="bg-[#B60205] register-btn rounded-[0.50rem] cursor-pointer text-white py-3 mt-7"
+                >
+                  Register
+                </button>
+              </div>
             </div>
           </div>
         </div>

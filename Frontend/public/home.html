@@ -323,8 +323,24 @@
         <p>Manage inventory items.</p>
       </div>
       <div x-show="page === 'branches'" x-cloak>
-        <h1 class="text-2xl font-bold">Branches</h1>
-        <p>View and manage branches.</p>
+        <main>
+          <div class="mx-5 my-5">
+            <h1 class="text-2xl font-bold text-[#302D3D]">Branches</h1>
+          </div>
+
+          <div class="branches_container  flex flex-row gap-5">
+            <a class="bg-white flex cursor-pointer justify-center flex-col items-center gap-3  ms-10 p-5 rounded-md shadow drop-shadow-2xl w-[10%]">
+              <figure>
+                <img
+                 
+                  src="./images/1000073888.png"
+                  alt="branch-icon"
+                />
+              </figure>
+              <h1>Branch_Name</h1>
+            </a>
+            
+        </main>
       </div>
       <div x-show="page === 'profile'" x-cloak>
         <h1 class="text-2xl font-bold">Profile</h1>

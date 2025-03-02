@@ -324,12 +324,12 @@
 </div>
 
           </div>
-        </main>
+        
       </div>
 
       <div x-show="page === 'inventory'" x-cloak>
         <h1 class="text-2xl font-bold">Inventory</h1>
-        <p>Manage inventory items.</p>
+        <p>Manage inventory itemsssss.</p>
       </div>
 
       <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
@@ -357,16 +357,41 @@
         <h1 class="text-2xl font-bold">Profile</h1>
         <p>View and manage Your profile.</p>
       </div>
-
+    </main>
 
        <!-- Modal Background -->
-    <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center hidden">
-      <!-- Modal Content -->
-      <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
-          <img id="img_modal" class=" w-[15rem]" src="" alt="">
-          <h2 id="modal_prod_name" class="text-xl font-semibold mb-4"></h2>
-          
-          <button class="mt-4 px-4 cursor-pointer py-2 close bg-red-500 text-white rounded-md" >Close</button>
+    <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center  justify-center hidden">
+     
+      <div class="bg-white flex flex-col w-[30%]  gap-2 p-6 rounded-lg shadow-lg w-96 ">
+
+        <figure class=" flex justify-center ">
+          <img id="img_modal" class="  w-[13rem]" src="" alt="">
+        </figure>
+
+          <h2 id="modal_prod_name" class="text-xl text-start mt-5 uppercase font-semibold mb-4"></h2>
+
+          <div class=" flex justify-around gap-10 text-[1rem] mb-10">
+            <button class=" border-[#302D3D] px-4 py-1 rounded-md border-2" data-value="4">4s</button>
+            <button class=" border-[#302D3D] px-4 py-1 rounded-md border-2" data-value="8">8s</button>
+            <button class=" border-[#302D3D] px-4 py-1 rounded-md border-2" data-value="12">12s</button>
+            <button class=" border-[#302D3D] px-4 py-1 rounded-md border-2" data-value="16">16s</button>
+          </div>
+
+          <h1 class=" font-semibold text-[1rem]">Add Ons:</h1>
+          <ul class=" flex justify-around gap-2 text-[1rem] ">
+            <li class="">Bonito Flakes</li>
+            <li>Shereded Nori</li>
+            <li>Meat Floss</li>
+            <li>Extra Sauce</li>
+          </ul>
+          <hr class=" opacity-50">
+          <ul class=" flex justify-around gap-2 text-[1rem] mb-10 ">
+            <li class="">Grated Cheese</li>
+            <li>Grilled Chesse</li>
+            <li>Cheese Sauce</li>
+          </ul> 
+          <button class="mt-4  cursor-pointer  close bg-[#B60205] rounded-sm px-10 py-3 text-white text-[1rem]
+          " >Add To Cart</button>
       </div>
   </div>
 

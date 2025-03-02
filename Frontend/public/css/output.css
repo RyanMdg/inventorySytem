@@ -541,8 +541,14 @@
   .mx-5 {
     margin-inline: calc(var(--spacing) * 5);
   }
+  .mx-10 {
+    margin-inline: calc(var(--spacing) * 10);
+  }
   .mx-20 {
     margin-inline: calc(var(--spacing) * 20);
+  }
+  .mx-\[10rem\] {
+    margin-inline: 10rem;
   }
   .mx-auto {
     margin-inline: auto;
@@ -552,9 +558,6 @@
   }
   .ms-4 {
     margin-inline-start: calc(var(--spacing) * 4);
-  }
-  .ms-5 {
-    margin-inline-start: calc(var(--spacing) * 5);
   }
   .ms-10 {
     margin-inline-start: calc(var(--spacing) * 10);
@@ -610,8 +613,20 @@
   .table {
     display: table;
   }
+  .h-\[20\%\] {
+    height: 20%;
+  }
+  .h-\[50\%\] {
+    height: 50%;
+  }
+  .h-\[100\%\] {
+    height: 100%;
+  }
   .h-\[10rem\] {
     height: 10rem;
+  }
+  .h-\[150\%\] {
+    height: 150%;
   }
   .h-dvh {
     height: 100dvh;
@@ -622,14 +637,17 @@
   .w-5 {
     width: calc(var(--spacing) * 5);
   }
+  .w-14 {
+    width: calc(var(--spacing) * 14);
+  }
   .w-20 {
     width: calc(var(--spacing) * 20);
   }
-  .w-24 {
-    width: calc(var(--spacing) * 24);
-  }
   .w-30 {
     width: calc(var(--spacing) * 30);
+  }
+  .w-32 {
+    width: calc(var(--spacing) * 32);
   }
   .w-40 {
     width: calc(var(--spacing) * 40);
@@ -637,20 +655,20 @@
   .w-50 {
     width: calc(var(--spacing) * 50);
   }
-  .w-\[2rem\] {
-    width: 2rem;
-  }
   .w-\[10\%\] {
     width: 10%;
-  }
-  .w-\[70\%\] {
-    width: 70%;
   }
   .w-\[100\%\] {
     width: 100%;
   }
   .w-\[10rem\] {
     width: 10rem;
+  }
+  .w-\[13rem\] {
+    width: 13rem;
+  }
+  .w-\[15rem\] {
+    width: 15rem;
   }
   .w-\[17\%\] {
     width: 17%;
@@ -661,8 +679,11 @@
   .w-\[35rem\] {
     width: 35rem;
   }
-  .w-\[50\%\] {
-    width: 50%;
+  .w-\[50rem\] {
+    width: 50rem;
+  }
+  .w-\[70\%\] {
+    width: 70%;
   }
   .w-\[427px\] {
     width: 427px;
@@ -723,6 +744,12 @@
   }
   .gap-5 {
     gap: calc(var(--spacing) * 5);
+  }
+  .gap-14 {
+    gap: calc(var(--spacing) * 14);
+  }
+  .gap-20 {
+    gap: calc(var(--spacing) * 20);
   }
   .space-y-2 {
     :where(& > :not(:last-child)) {
@@ -799,6 +826,9 @@
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
+  }
   .px-4 {
     padding-inline: calc(var(--spacing) * 4);
   }
@@ -817,6 +847,9 @@
   .px-10 {
     padding-inline: calc(var(--spacing) * 10);
   }
+  .px-14 {
+    padding-inline: calc(var(--spacing) * 14);
+  }
   .py-1 {
     padding-block: calc(var(--spacing) * 1);
   }
@@ -826,11 +859,11 @@
   .py-3 {
     padding-block: calc(var(--spacing) * 3);
   }
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
+  }
   .py-5 {
     padding-block: calc(var(--spacing) * 5);
-  }
-  .py-10 {
-    padding-block: calc(var(--spacing) * 10);
   }
   .ps-2 {
     padding-inline-start: calc(var(--spacing) * 2);
@@ -883,9 +916,16 @@
   .text-\[2\.25rem\] {
     font-size: 2.25rem;
   }
+  .text-\[2rem\] {
+    font-size: 2rem;
+  }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
+  }
+  .font-medium {
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
   }
   .font-semibold {
     --tw-font-weight: var(--font-weight-semibold);
@@ -1114,6 +1154,11 @@
   .max-\[56rem\]\:grid-cols-\[auto_400px\] {
     @media (width < 56rem) {
       grid-template-columns: auto 400px;
+    }
+  }
+  .max-\[56rem\]\:gap-5 {
+    @media (width < 56rem) {
+      gap: calc(var(--spacing) * 5);
     }
   }
   .max-\[56rem\]\:ps-\[\.8rem\] {

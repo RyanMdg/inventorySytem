@@ -30,13 +30,13 @@
     <!-- SIDEBAR -->
 
     <aside
-      class="w-[17%] nav bg-[#FFFFFF] h-screen text-[#302D3D] p-5 space-y-4 shadow gap-5 drop-shadow-2xl flex flex-col"
+      class="w-[17%] nav bg-[#FFFFFF] h-screen text-[#302D3D] p-5 space-y-4 shadow max-[56rem]:gap-5 gap-14 drop-shadow-2xl flex flex-col"
     >
       <figure class="flex justify-center">
         <img class="h-[10rem] p-5" src="./images/logo.png" alt="" />
       </figure>
 
-      <ul class="space-y-2 mx-auto flex flex-col gap-5 font-semibold">
+      <ul class="space-y-2 mx-auto flex flex-col gap-14 max-[56rem]:gap-5 font-semibold">
         <li id="Container" class="text-[#302D3D] cursor-pointer">
           <a
             @click="page='dashboard'"
@@ -72,7 +72,8 @@
         </li>
         <!--  -->
         <!--  -->
-        <li id="Container" class="text-[#302D3D] cursor-pointer">
+      <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
+        <li id="branch" class="text-[#302D3D] cursor-pointer hidden">
           <a
             @click="page='branches'"
             class="flex gap-2 items-center delay-200 ease-in duration-200"
@@ -86,7 +87,7 @@
         </li>
       </ul>
       <div
-        class="flex flex-col items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-5"
+        class="flex flex-col items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-auto px-14"
       >
         <figure>
           <img src="./images/human.png" alt="" />
@@ -140,7 +141,7 @@
 
               <h1
                 id="header"
-                class="text-3xl uppercase font-bold text-[#302D3D]"
+                class="text-3xl uppercase font-bold  text-[#302D3D]"
               >
                 Point Of Sale
               </h1>
@@ -199,11 +200,13 @@
                   </a>
                 </li>
                 <li
-                  class="cursor-pointer w-[10rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+                id="add_prod_container"
+                  class="cursor-pointer hidden w-[10rem] flex items-center justify-center hover:text-red-400 delay-200  ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'add'"
                     :class="{ 'text-red-600 font-bold': posPage === 'add' }"
+                    
                   >
                     Add Products
                   </a>
@@ -212,16 +215,27 @@
             </nav>
             <hr />
 
-            <!-- POS Content -->
+            <!-- POS Content Container -->
             <main class="p-5">
               <div
-                id="takeorderContainer"
-                class="flex gap-5 flex-row"
+             
+                class="flex  items-center justify-center gap-20 "
                 x-show="posPage === 'takeorder'"
-              ></div>
+              >
+
+              <div    id="takeorderContainer" class="flex  gap-5">
+            
+              </div>
+           
+        
+            </div>
               <div x-show="posPage === 'ongoing'" x-cloak>
                 <h1 class="text-2xl font-bold">Ongoing Orders</h1>
                 <p>View and manage ongoing orders.</p>
+                
+                 
+              
+            
               </div>
               <div x-show="posPage === 'cancel'" x-cloak>
                 <h1 class="text-2xl font-bold">Canceled Orders</h1>
@@ -232,7 +246,7 @@
                 <p>View completed transactions.</p>
               </div>
 
-              <!-- ----------------------- -->
+              <!--*-----------ADD------------*-->
               <div x-show="posPage === 'add'" x-cloak>
                 <main class="flex justify-center">
                   <form class="p-6">
@@ -246,14 +260,7 @@
                       class="w-full p-2 border productName border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     />
 
-                    <label class="block text-gray-700">Price</label>
-                    <input
-                      type="number"
-                      id="product_price"
-                      placeholder="Enter price"
-                      class="w-full p-2 productprice border border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                    />
-
+                    <input type="file" id="fileInput" />
                     <a
                       class="w-full submit_product cursor-pointer bg-[#B60205] px-10 text-white py-2 rounded-md"
                     >
@@ -322,7 +329,9 @@
         <h1 class="text-2xl font-bold">Inventory</h1>
         <p>Manage inventory items.</p>
       </div>
-      <div x-show="page === 'branches'" x-cloak>
+
+      <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
+      <div id="branchcontent" class=" hidden" x-show="page === 'branches'" x-cloak>
         <main>
           <div class="mx-5 my-5">
             <h1 class="text-2xl font-bold text-[#302D3D]">Branches</h1>
@@ -350,5 +359,6 @@
     <script type="module" src="./js/navigation.js"></script>
     <script type="module" src="./js/pos.js"></script>
     <script type="module" src="./js/addproduct.js"></script>
+    <script type="module" src="./js/upload.js"></script>
   </body>
 </html>

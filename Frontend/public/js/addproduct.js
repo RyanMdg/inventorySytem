@@ -7,17 +7,70 @@ const prodPrice = document.querySelector(".productprice");
 const addbtn = document.querySelector(".submit_product");
 const statusBtn = document.getElementById("statusButton");
 
-console.log("hello pos");
+//* ========= IMAGE UPLOADS =========
+
+async function uploadImage(file) {
+  if (!file) {
+    console.error("No file selected!");
+    return;
+  }
+
+  const fileName = `images/${Date.now()}-${file.name}`;
+
+  const { data, error } = await supabase.storage
+    .from("affotako") // Ensure this matches your actual bucket name
+    .upload(fileName, file, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+
+  if (error) {
+    console.error("Upload error:", error.message);
+    return null;
+  }
+
+  console.log("File uploaded:", data);
+  return data.path; // Return the file path
+}
+
+function getPublicUrl(filePath) {
+  const { data } = supabase.storage.from("affotako").getPublicUrl(filePath);
+
+  if (!data) {
+    console.error("Failed to retrieve public URL");
+    return null;
+  }
+  return data.publicUrl; // Return the public URL correctly
+}
 
 //* ========= ADD PRODUCTS =========
-
 addbtn.addEventListener("click", async function () {
   const productName = document.getElementById("product_name").value;
-  const productPrice = document.getElementById("product_price").value;
+  const fileInput = document.getElementById("fileInput");
+  const file = fileInput.files[0];
 
-  // * logged-in user
+  if (!file) {
+    alert("Please select an image to upload.");
+    return;
+  }
+
+  //* Step 1: Upload Image First
+  const filePath = await uploadImage(file);
+
+  if (!filePath) {
+    alert("Image upload failed. Please try again.");
+    return;
+  }
+
+  //* Step 2: Get Public URL
+  const imageUrl = getPublicUrl(filePath);
+  if (!imageUrl) {
+    alert("Failed to retrieve image URL.");
+    return;
+  }
+
+  //* Step 3: Get Logged-in User
   const { data: user, error: authError } = await supabase.auth.getUser();
-
   if (authError || !user || !user.user) {
     console.error("User not authenticated:", authError?.message);
     alert("You must be logged in to add a product.");
@@ -26,52 +79,7 @@ addbtn.addEventListener("click", async function () {
 
   const userId = user.user.id; //* logged-in user's ID
 
-  // * branch ID of the user
-  const { data: userData, error: userError } = await supabase
-    .from("users_table")
-    .select("branch_id")
-    .eq("id", userId)
-    .single(); //* Get the branch_id
-
-  if (userError || !userData) {
-    console.error("Error fetching branch ID:", userError?.message);
-    alert("Could not retrieve branch details.");
-    return;
-  }
-
-  const branchId = userData.branch_id; // * Extract branch ID
-
-  // * Add Product for the User's Branch
-  const { data: productData, error: productError } = await supabase
-    .from("products_table")
-    .insert([{ branch_id: branchId, name: productName, price: productPrice }])
-    .select("id")
-    .single();
-
-  if (productError) {
-    console.error("Error adding product:", productError.message);
-    alert("Failed to add product.");
-    return;
-  }
-
-  console.log(
-    `Product added with ID: ${productData.id} for Branch ID: ${branchId}`
-  );
-  alert(`Product "${productName}" added successfully to your branch!`);
-});
-
-//*=========FETCHING PRODUCTS=========
-async function fetchProducts() {
-  const { data: user, error: authError } = await supabase.auth.getUser();
-
-  if (authError || !user || !user.user) {
-    console.error("User not authenticated:", authError?.message);
-    alert("You must be logged in to view products.");
-    return;
-  }
-
-  const userId = user.user.id;
-
+  //* Step 4: Get User's Branch ID
   const { data: userData, error: userError } = await supabase
     .from("users_table")
     .select("branch_id")
@@ -86,30 +94,74 @@ async function fetchProducts() {
 
   const branchId = userData.branch_id;
 
-  const { data: products, error: productError } = await supabase
+  //* Step 5: Add Product with the Image URL
+  const { data: productData, error: productError } = await supabase
     .from("products_table")
-    .select("name, price")
-    .eq("branch_id", branchId);
+    .insert([
+      {
+        branch_id: branchId,
+        name: productName,
+        img_url: imageUrl, // Save the correct URL
+      },
+    ])
+    .select("id")
+    .single();
 
   if (productError) {
-    console.error("Error fetching products:", productError.message);
-    alert("Failed to load products.");
+    console.error("Error adding product:", productError.message);
+    alert("Failed to add product.");
     return;
   }
 
-  const productList = document.getElementById("takeorderContainer");
-  productList.innerHTML = "";
+  alert(`Product "${productName}" added successfully!`);
+});
 
-  products.forEach((product) => {
-    const productItem = document.createElement("p");
-    const item = document.createElement("p");
-    productItem.textContent = `${product.name}`;
-    item.textContent = `${product.price}`;
-    productList.appendChild(productItem);
-    productList.appendChild(item);
-  });
+//*=========FETCHING PRODUCTS=========
+async function fetchProducts() {
+  try {
+    const { data, error } = await supabase
+      .from("products_table")
+      .select("name,img_url");
 
-  console.log("Products loaded:", products);
+    if (error) {
+      console.error("Error fetching products:", error.message);
+      return;
+    }
+
+    const productList = document.getElementById("takeorderContainer");
+    productList.innerHTML = "";
+
+    data.forEach((product) => {
+      const item = document.createElement("img");
+      const productItem = document.createElement("h1");
+      const productItemContainer = document.createElement("div");
+      productItemContainer.classList.add(
+        "bg-white",
+        "rounded-sm",
+        "shadow",
+        "drop-shadow-sm",
+        "items-center",
+        "py-5",
+        "px-2",
+        "text-center"
+      );
+      item.classList.add("w-[13rem]");
+      productItem.classList.add("font-medium", "text-[#302D3D]", "text-[1rem]");
+
+      item.src = product.img_url;
+      item.alt = `${product.img_url}-photo`;
+      productItem.textContent = `${product.name}`;
+
+      productList.appendChild(productItemContainer);
+      productItemContainer.appendChild(item);
+      productItemContainer.appendChild(productItem);
+    });
+
+    console.log("Products:", data);
+    return data;
+  } catch (error) {
+    console.error("Unexpected error:", error.message);
+  }
 }
 
 fetchProducts();
@@ -151,6 +203,15 @@ async function fetchUser() {
   if (branchError) {
     console.error("Error fetching branch name:", branchError.message);
     return;
+  }
+
+  if (branchData.role == "Owner") {
+    const branchContainer = document.getElementById("branch");
+    const addProdContainer = document.getElementById("add_prod_container");
+    const branch_Content = document.getElementById("branchcontent");
+    branchContainer.classList.toggle("hidden");
+    branch_Content.classList.toggle("hidden");
+    addProdContainer.classList.toggle("hidden");
   }
 
   console.log("Branch Name:", branchData.name);

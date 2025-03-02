@@ -148,6 +148,12 @@ async function fetchProducts() {
       item.classList.add("w-[13rem]");
       productItem.classList.add("font-medium", "text-[#302D3D]", "text-[1rem]");
 
+      productItem.textContent = product.name;
+
+      // Use a data attribute instead of an ID to store the product name
+      productItemContainer.setAttribute("data-product-name", product.name);
+      productItemContainer.setAttribute("data-product-img", product.img_url);
+
       item.src = product.img_url;
       item.alt = `${product.img_url}-photo`;
       productItem.textContent = `${product.name}`;
@@ -155,6 +161,15 @@ async function fetchProducts() {
       productList.appendChild(productItemContainer);
       productItemContainer.appendChild(item);
       productItemContainer.appendChild(productItem);
+      productItemContainer.addEventListener("click", () => {
+        const selectedProductName =
+          productItemContainer.getAttribute("data-product-name");
+        const selectedProductImage =
+          productItemContainer.getAttribute("data-product-img");
+
+        localStorage.setItem("selectedProductName", selectedProductName);
+        localStorage.setItem("selectedProductImage", selectedProductImage);
+      });
     });
 
     console.log("Products:", data);

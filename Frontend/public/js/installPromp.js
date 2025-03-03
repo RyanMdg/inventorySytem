@@ -30,22 +30,27 @@ window.addEventListener("beforeinstallprompt", (event) => {
 
   // Modal title
   const title = document.createElement("h2");
-  title.textContent = "Install App";
+  title.textContent = "Install AFFOTAKO!";
   title.style.marginBottom = "10px";
+
+  // Modal img
+  const img = document.createElement("img");
+  img.src = "../images/octo.png";
+  img.classList.add("w-[5rem] flex justify-center");
 
   // Modal message
   const message = document.createElement("p");
   message.textContent =
-    "Get quick access by installing this app on your device.";
+    "🔥 Install Affotako today and level up your experience!";
 
   // Install button
   const installBtn = document.createElement("button");
   installBtn.textContent = "Install Now";
   installBtn.style.padding = "10px 20px";
-  installBtn.style.background = "#007BFF";
+  installBtn.style.background = "#B60205";
   installBtn.style.color = "white";
   installBtn.style.border = "none";
-  installBtn.style.borderRadius = "5px";
+  installBtn.style.borderRadius = "2px";
   installBtn.style.cursor = "pointer";
   installBtn.style.marginTop = "15px";
 
@@ -61,6 +66,7 @@ window.addEventListener("beforeinstallprompt", (event) => {
   // Append elements
   modal.appendChild(closeBtn);
   modal.appendChild(title);
+  modal.appendChild(img);
   modal.appendChild(message);
   modal.appendChild(installBtn);
   blurBackground.appendChild(modal);

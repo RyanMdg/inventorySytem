@@ -13,7 +13,7 @@
       "type": "image/png"
     },
     {
-      "src": "/images/logo_white",
+      "src": "images/logo_white",
       "sizes": "113x105",
       "type": "image/png"
     }
@@ -22,7 +22,8 @@
     {
       "src": "/images/Screenshot2.png",
       "sizes": "1365x632",
-      "type": "image/png"
+      "type": "image/png",
+      "form_factor": "wide"
     }
   ]
 }

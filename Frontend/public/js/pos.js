@@ -40,7 +40,3 @@ gcash.addEventListener("click", () => toggleButtons(gcash, cash));
 gcash.addEventListener("click", () => toggleButtons(gcash, bank));
 bank.addEventListener("click", () => toggleButtons(bank, gcash));
 bank.addEventListener("click", () => toggleButtons(bank, cash));
-
-console.log("hello pos");
-
-// * database

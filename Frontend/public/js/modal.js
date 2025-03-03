@@ -31,3 +31,21 @@ product_Cont.addEventListener("click", function () {
 close_Modal.addEventListener("click", function () {
   modal_Container.classList.toggle("hidden");
 });
+
+//  * MODAL SELECTING QUANTITY
+const btn_Quantity = document.querySelectorAll(".btnQuantity");
+const pcs = document.getElementById("pcs");
+const toTal = document.getElementById("total");
+
+btn_Quantity.forEach((button) => {
+  button.addEventListener("click", () => {
+    btn_Quantity.forEach((btn) => {
+      btn.classList.remove("bg-[#B60205]", "text-white");
+    });
+
+    button.classList.add("bg-[#B60205]", "text-white");
+
+    pcs.textContent = button.textContent;
+    toTal.textContent = `₱${button.dataset.value}`;
+  });
+});

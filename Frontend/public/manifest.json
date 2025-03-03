@@ -11,11 +11,6 @@
       "src": "images/logo.png",
       "sizes": "174x176",
       "type": "image/png"
-    },
-    {
-      "src": "images/logo_white.png",
-      "sizes": "113x105",
-      "type": "image/png"
     }
   ],
   "screenshots": [

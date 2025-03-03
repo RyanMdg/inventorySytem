@@ -1,0 +1,21 @@
+{
+  "name": "Affordable Takoyaki",
+  "short_name": "Affotako",
+  "description": "A sale monitoring with inventory tracking Web App",
+  "start_url": "./public/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "./public/images/logo.ico",
+      "sizes": "192x192",
+      "type": "ico"
+    },
+    {
+      "src": "./public",
+      "sizes": "512x512",
+      "type": "ico"
+    }
+  ]
+}

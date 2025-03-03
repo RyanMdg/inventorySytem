@@ -821,16 +821,9 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .border-2 {
-    border-style: var(--tw-border-style);
-    border-width: 2px;
-  }
   .border-b-2 {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 2px;
-  }
-  .border-\[\#302D3D\] {
-    border-color: #302D3D;
   }
   .border-gray-300 {
     border-color: var(--color-gray-300);
@@ -1003,6 +996,9 @@
   }
   .text-\[\#B60205\] {
     color: #B60205;
+  }
+  .text-\[text-bold\] {
+    color: text-bold;
   }
   .text-red-600 {
     color: var(--color-red-600);

@@ -32,10 +32,11 @@ close_Modal.addEventListener("click", function () {
   modal_Container.classList.toggle("hidden");
 });
 
-//  * MODAL SELECTING QUANTITY
+// * MODAL QUANTITY
 const btn_Quantity = document.querySelectorAll(".btnQuantity");
 const pcs = document.getElementById("pcs");
 const toTal = document.getElementById("total");
+let total = 0;
 
 btn_Quantity.forEach((button) => {
   button.addEventListener("click", () => {
@@ -45,7 +46,53 @@ btn_Quantity.forEach((button) => {
 
     button.classList.add("bg-[#B60205]", "text-white");
 
+    total = Number(button.dataset.value); // Reset total to selected value
     pcs.textContent = button.textContent;
-    toTal.textContent = `₱${button.dataset.value}`;
+    toTal.textContent = button.dataset.value;
+    updateTotal();
   });
 });
+
+//  * MODAL SELECTING ADD ONS
+const add_Ons = document.querySelectorAll(".addOns");
+const add_Ons_Container = document.getElementById("AddonContainer");
+const totalPrice = document.getElementById("totalPrice");
+const selectedAddOns = new Map(); // Store selected add-ons
+
+add_Ons.forEach((add) => {
+  add.addEventListener("click", () => {
+    const addValue = Number(add.dataset.value);
+    const addText = add.textContent;
+
+    if (selectedAddOns.has(addText)) {
+      // Remove add-on from total and container
+      total -= addValue;
+      selectedAddOns.get(addText).remove();
+      selectedAddOns.delete(addText);
+      add.classList.remove("text-[#B60205]", "font-bold", "uppercase");
+    } else {
+      // Add add-on to total and container
+      total += addValue;
+      const container = document.createElement("div");
+      const addtext = document.createElement("p");
+      const addprice = document.createElement("span");
+
+      addtext.textContent = addText;
+      addprice.textContent = `₱${addValue}`;
+
+      container.appendChild(addtext);
+      container.appendChild(addprice);
+      container.classList.add("flex", "justify-between");
+
+      add_Ons_Container.appendChild(container);
+      selectedAddOns.set(addText, container);
+
+      add.classList.add("text-[#B60205]", "font-bold", "uppercase");
+    }
+    updateTotal();
+  });
+});
+
+function updateTotal() {
+  totalPrice.textContent = `₱${total}`;
+}

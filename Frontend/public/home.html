@@ -370,11 +370,11 @@
 
           <h2 id="modal_prod_name" class="text-xl text-start mt-5 uppercase font-semibold mb-4"></h2>
 
-          <div class=" flex justify-around gap-10 text-[1rem] mb-10">
-            <button class=" border-[#302D3D] px-4 py-1 rounded-md border-2" data-value="4">4s</button>
-            <button class=" border-[#302D3D] px-4 py-1 rounded-md border-2" data-value="8">8s</button>
-            <button class=" border-[#302D3D] px-4 py-1 rounded-md border-2" data-value="12">12s</button>
-            <button class=" border-[#302D3D] px-4 py-1 rounded-md border-2" data-value="16">16s</button>
+          <div class=" flex justify-around gap-10 text-[1.2rem] mb-10">
+            <button class=" btnQuantity cursor-pointer  px-4 py-1  rounded-md " data-value="45">4s</button>
+            <button class=" btnQuantity cursor-pointer px-4 py-1 rounded-md " data-value="80">8s</button>
+            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="125">12s</button>
+            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="160">16s</button>
           </div>
 
           <h1 class=" font-semibold text-[1rem]">Add Ons:</h1>
@@ -390,8 +390,17 @@
             <li>Grilled Chesse</li>
             <li>Cheese Sauce</li>
           </ul> 
+
+          <div>
+          <h1>Quantity</h1>
+          <div class=" flex justify-between mx-auto">  
+            <p id="pcs" class=" text-2xl"></p>
+            <p id="total" class=" text-2xl"></p>
+          </div>
+         
+          </div>
           <button class="mt-4  cursor-pointer  close bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem]
-          " >Add To Cart</button>
+          " >Add to Bill</button>
       </div>
   </div>
 

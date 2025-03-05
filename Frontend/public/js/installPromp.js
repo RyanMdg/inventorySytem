@@ -36,7 +36,7 @@ window.addEventListener("beforeinstallprompt", (event) => {
   // Modal img
   const img = document.createElement("img");
   img.src = "../images/octo.png";
-  img.classList.add("w-[5rem]", "flex", "justify-center");
+  img.classList.add("w-[15rem]", "flex", "justify-center");
 
   // Modal message
   const message = document.createElement("p");

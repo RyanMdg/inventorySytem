@@ -3,7 +3,7 @@ import supabase from "../Backend2/config/SupabaseClient.js";
 
 const modal_Container = document.getElementById("modal");
 const product_Cont = document.querySelector(".productContainer");
-const close_Modal = document.querySelectorAll(".close");
+const close_Modal = document.querySelectorAll(".closed");
 const modal_Product_name = document.getElementById("modal_prod_name");
 const image_modal = document.getElementById("img_modal");
 
@@ -28,17 +28,38 @@ product_Cont.addEventListener("click", function () {
   }
 });
 
-close_Modal.forEach((closeModal) => {
-  closeModal.addEventListener("click", function () {
-    modal_Container.classList.toggle("hidden");
-  });
-});
-
-// * MODAL QUANTITY
 const btn_Quantity = document.querySelectorAll(".btnQuantity");
 const pcs = document.getElementById("pcs");
 const toTal = document.getElementById("total");
 let total = 0;
+const add_Ons = document.querySelectorAll(".addOns");
+const add_Ons_Container = document.getElementById("AddonContainer");
+const totalPrice = document.getElementById("totalPrice");
+const selectedAddOns = new Map();
+const orders = new Map();
+
+// *CLOSE MODAL
+close_Modal.forEach((closeModal) => {
+  closeModal.addEventListener("click", function () {
+    modal_Container.classList.toggle("hidden");
+
+    add_Ons.forEach((remove) => {
+      remove.classList.remove("text-[#B60205]", "font-bold", "uppercase");
+    });
+    selectedAddOns.clear();
+    localStorage.setItem("selectedAddons", JSON.stringify([]));
+
+    document
+      .querySelectorAll(".addonsName, .addonsPrice    ")
+      .forEach((el) => el.remove());
+
+    // localSorage.setItem("total bill", 0);
+
+    totalPrice.textContent = "";
+  });
+});
+
+// * MODAL QUANTITY
 
 btn_Quantity.forEach((button) => {
   button.addEventListener("click", () => {
@@ -46,7 +67,18 @@ btn_Quantity.forEach((button) => {
       btn.classList.remove("bg-[#B60205]", "text-white");
     });
 
+    selectedAddOns.clear();
+    localStorage.setItem("selectedAddons", JSON.stringify([]));
+
+    add_Ons.forEach((remove) => {
+      remove.classList.remove("text-[#B60205]", "font-bold", "uppercase");
+    });
+
     button.classList.add("bg-[#B60205]", "text-white");
+
+    document
+      .querySelectorAll(".addonsName, .addonsPrice")
+      .forEach((el) => el.remove());
 
     total = Number(button.dataset.value); // Reset total to selected value
     pcs.textContent = button.textContent;
@@ -65,10 +97,8 @@ btn_Quantity.forEach((button) => {
 });
 
 //  * MODAL SELECTING ADD ONS
-const add_Ons = document.querySelectorAll(".addOns");
-const add_Ons_Container = document.getElementById("AddonContainer");
-const totalPrice = document.getElementById("totalPrice");
-const selectedAddOns = new Map(); // Store selected add-ons
+
+// Store selected add-ons
 
 add_Ons.forEach((add) => {
   add.addEventListener("click", () => {
@@ -117,27 +147,66 @@ function updateTotal() {
   localStorage.setItem("total bill", totalPrice.textContent);
 }
 
+// *  ADD TO BILL BUTTON
+
+function addOrder(orderName, orderQty, orderTot, orderAddOnsS) {
+  const orderID = Date.now();
+
+  orders.set(orderID, {
+    placeOrder_Name: orderName,
+    placeOrder_Qty: orderQty,
+    placeOrder_Tot: orderTot,
+    placeOrder_AddOns: orderAddOnsS,
+  });
+}
+
 const addbillButton = document.querySelectorAll(".btnaddtobill");
 const productList = document.getElementById("listProducts");
 const add_Container = document.getElementById("add_Container");
 addbillButton.forEach((buttonbill) => {
   buttonbill.addEventListener("click", function () {
     let selectedAddons = JSON.parse(
-      localStorage.getItem("selectedAddons") || "[]"
+      localStorage.getItem("selectedAddons") || ""
     );
-    selectedAddOns.clear();
+
     pcs.textContent = "";
     toTal.textContent = "";
     totalPrice.textContent = "";
+
+    modal_Container.classList.toggle("hidden");
 
     const ulcontainer = document.createElement("ul");
     const liContainer = document.createElement("li");
     const pcontainer = document.createElement("p");
     const toppingsP = document.createElement("p");
+    const add_subContainer = document.createElement("div");
     const spancontainer = document.createElement("span");
     const prodName = localStorage.getItem("selectedProductName");
     const prodQantity = localStorage.getItem("selectedQuantity");
     const prodTotal = localStorage.getItem("total bill");
+
+    const ons = localStorage.getItem("selectedAddons");
+    const addonsArray = ons ? JSON.parse(ons) : []; // Convert string to array
+
+    const formattedString = addonsArray.join(", ").toLowerCase();
+
+    const orderID = Math.floor(Math.random() * 100000000) + 1;
+
+    orders.set(`ORD-${orderID}`, {
+      placeOrder_Name: prodName,
+      placeOrder_Qty: prodQantity,
+      placeOrder_Tot: prodTotal,
+      placeOrder_AddOns: formattedString,
+    });
+
+    console.log("Placing order:", Array.from(orders.values()));
+
+    // orders.clear(); // Clears all orders
+    // console.log("Orders cleared:", orders);
+    liContainer.classList.add("recieptProdName");
+    pcontainer.classList.add("recieptQuantityName");
+    spancontainer.classList.add("recieptPriceName");
+    toppingsP.classList.add("recieptToppings");
 
     ulcontainer.classList.add(
       "text-[1.1rem]",
@@ -153,17 +222,31 @@ addbillButton.forEach((buttonbill) => {
     ulcontainer.appendChild(liContainer);
     ulcontainer.appendChild(pcontainer);
     ulcontainer.appendChild(spancontainer);
-    add_Container.appendChild(toppingsP);
+    add_subContainer.appendChild(toppingsP);
+    productList.appendChild(add_subContainer);
 
-    liContainer.textContent = prodName;
-    pcontainer.textContent = prodQantity;
-    spancontainer.textContent = prodTotal;
+    orders.forEach((ord) => {
+      liContainer.textContent = ord.placeOrder_Name;
+      pcontainer.textContent = ord.placeOrder_Qty;
+      spancontainer.textContent = ord.placeOrder_Tot;
 
-    if (selectedAddons.length > 0) {
-      toppingsP.textContent = selectedAddons.join(", ");
-    } else {
-      toppingsP.textContent = "No Add-ons";
-    }
+      if (selectedAddons.length > 0) {
+        toppingsP.textContent = ord.placeOrder_AddOns;
+      } else {
+        toppingsP.textContent = "No Add-ons";
+      }
+    });
+
+    let sum = 0;
+    orders.forEach((ord) => {
+      let price = Number(ord.placeOrder_Tot.replace(/[^0-9.]/g, ""));
+
+      sum += price;
+    });
+    document.querySelector(".grandTotal").textContent = `₱ ${sum}`;
+    console.log(sum);
+
+    toppingsP.classList.add("ms-5");
 
     btn_Quantity.forEach((btn) => {
       btn.classList.remove("bg-[#B60205]", "text-white");
@@ -171,7 +254,6 @@ addbillButton.forEach((buttonbill) => {
 
     localStorage.removeItem("selectedQuantity");
     localStorage.removeItem("selectedQuantityIndex");
-    localStorage.setItem("selectedAddons", JSON.stringify([]));
 
     document
       .querySelectorAll(".addonsName, .addonsPrice")
@@ -180,5 +262,9 @@ addbillButton.forEach((buttonbill) => {
     add_Ons.forEach((remove) => {
       remove.classList.remove("text-[#B60205]", "font-bold", "uppercase");
     });
+    localStorage.setItem("selectedAddons", JSON.stringify([]));
+    selectedAddOns.clear();
   });
 });
+
+export default orders;

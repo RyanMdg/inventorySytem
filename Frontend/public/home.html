@@ -321,9 +321,10 @@
   </div>
 
   <!-- Gray Div at the Bottom -->
-  <div class="h-[7%] bg-gray-400"></div>
-  <button class="flex cursor-pointer justify-center items-center text-white  h-[10%] text-[1.5rem] bg-[#B60205]">
-    <h1 class=" tracking-[.3rem]">Place Order</h1>
+  <div class="h-[7%] text-[1rem] font-semibold flex items-center justify-between px-[1rem] text-white bg-gray-400">
+    <h1 class=" uppercase ">Total</h1> <span class=" grandTotal"></span></div>
+  <button  class="flex cursor-pointer placeOrderBtn justify-center items-center text-white  h-[10%] text-[1.5rem] bg-[#B60205]">
+ Place Order
   </button>
 
 </div>
@@ -375,11 +376,13 @@
 
           <h2 id="modal_prod_name" class="text-xl text-start mt-5 uppercase font-semibold mb-4"></h2>
 
-          <div id="qtycontainer" class=" flex justify-around gap-10 text-[1.2rem] mb-10">
+          <div id="qtycontainer" class="  flex justify-center  gap-10 text-[1.2rem] mb-10">
             <button class=" btnQuantity cursor-pointer  px-4 py-1  rounded-md " data-value="45">4s</button>
             <button class=" btnQuantity cursor-pointer px-4 py-1 rounded-md " data-value="80">8s</button>
             <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="125">12s</button>
             <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="160">16s</button>
+            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="205">20s</button>
+            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="450">42s</button>
           </div>
 
           <h1 class=" font-semibold text-[1rem]">Add Ons:</h1>
@@ -416,16 +419,19 @@
             <p id="totalPrice" class=" text-2xl"></p>
           </div>
           <button  class="mt-4 btnaddtobill  cursor-pointer  close bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem]
-          " >Add to Bill</button>  <button  class="mt-4 btnaddtobill  cursor-pointer  close bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem]
+          " >Add to Bill</button>  <button  class="mt-4  cursor-pointer  closed bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem]
           " >cancel</button>
       </div>
   </div>
 
     </main>
+    <script type="module" src="./js/placeOrder.js"></script>
     <script type="module" src="./js/navigation.js"></script>
     <script type="module" src="./js/pos.js"></script>
     <script type="module" src="./js/addproduct.js"></script>
     <script type="module" src="./js/upload.js"></script>
     <script type="module" src="./js/modal.js"></script>
+    
+
   </body>
 </html>

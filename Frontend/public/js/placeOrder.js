@@ -30,11 +30,21 @@ btnPlaceOrder.addEventListener("click", async function () {
 
   const branchId = userData.branch_id;
 
+  let recieptsID = localStorage.getItem("currentorderid");
+
+  if (!recieptsID) {
+    recieptsID = Math.floor(Math.random() * 100000000) + 1;
+    localStorage.setItem("currentorderid", `RCPT - ${recieptsID}`); // Store it for later use
+  }
+
+  const id = localStorage.getItem("currentorderid");
+
   // Loop through orders using forEach
   orders.forEach(async (ord) => {
     try {
-      // Fetch product ID from products_table
-      const name = ord.placeOrder_Name; // Ensure name is dynamic
+      console.log(ord);
+
+      const name = ord.placeOrder_Name;
       const { data: tableData, error: tableError } = await supabase
         .from("products_table")
         .select("id")
@@ -48,7 +58,6 @@ btnPlaceOrder.addEventListener("click", async function () {
       }
 
       const Productid = tableData.id;
-      console.log("Product ID:", Productid);
 
       // Insert order into pos_orders_table
       const { data: productData, error: productError } = await supabase
@@ -63,6 +72,8 @@ btnPlaceOrder.addEventListener("click", async function () {
             status: "OnGoing",
             total: localStorage.getItem("grantotal"),
             product_id: Productid,
+            add_ons: ord.placeOrder_AddOns,
+            receipt_id: id,
           },
         ])
         .select("id")
@@ -81,5 +92,6 @@ btnPlaceOrder.addEventListener("click", async function () {
     }
 
     console.log(document.getElementById("totalPrice").textContent);
+    localStorage.removeItem("currentorderid");
   });
 });

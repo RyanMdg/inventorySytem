@@ -189,6 +189,7 @@ addbillButton.forEach((buttonbill) => {
       orderid: `ORD-${orderID}`,
       total: sum,
     });
+
     orders.forEach((ord) => {
       let price = Number(ord.placeOrder_Tot.replace(/[^0-9.]/g, ""));
 

@@ -143,22 +143,11 @@ add_Ons.forEach((add) => {
 });
 
 function updateTotal() {
-  totalPrice.textContent = `₱${total}`;
-  localStorage.setItem("total bill", totalPrice.textContent);
+  totalPrice.textContent = total;
+  localStorage.setItem("total bill", Number(totalPrice.textContent));
 }
 
 // *  ADD TO BILL BUTTON
-
-function addOrder(orderName, orderQty, orderTot, orderAddOnsS) {
-  const orderID = Date.now();
-
-  orders.set(orderID, {
-    placeOrder_Name: orderName,
-    placeOrder_Qty: orderQty,
-    placeOrder_Tot: orderTot,
-    placeOrder_AddOns: orderAddOnsS,
-  });
-}
 
 const addbillButton = document.querySelectorAll(".btnaddtobill");
 const productList = document.getElementById("listProducts");
@@ -184,7 +173,7 @@ addbillButton.forEach((buttonbill) => {
     const prodName = localStorage.getItem("selectedProductName");
     const prodQantity = localStorage.getItem("selectedQuantity");
     const prodTotal = localStorage.getItem("total bill");
-
+    let sum = 0;
     const ons = localStorage.getItem("selectedAddons");
     const addonsArray = ons ? JSON.parse(ons) : []; // Convert string to array
 
@@ -197,7 +186,18 @@ addbillButton.forEach((buttonbill) => {
       placeOrder_Qty: prodQantity,
       placeOrder_Tot: prodTotal,
       placeOrder_AddOns: formattedString,
+      orderid: `ORD-${orderID}`,
+      total: sum,
     });
+    orders.forEach((ord) => {
+      let price = Number(ord.placeOrder_Tot.replace(/[^0-9.]/g, ""));
+
+      sum += price;
+      console.log(ord.total);
+    });
+
+    localStorage.setItem("grantotal", sum);
+    document.querySelector(".grandTotal").textContent = `₱ ${sum}`;
 
     console.log("Placing order:", Array.from(orders.values()));
 
@@ -236,15 +236,6 @@ addbillButton.forEach((buttonbill) => {
         toppingsP.textContent = "No Add-ons";
       }
     });
-
-    let sum = 0;
-    orders.forEach((ord) => {
-      let price = Number(ord.placeOrder_Tot.replace(/[^0-9.]/g, ""));
-
-      sum += price;
-    });
-    document.querySelector(".grandTotal").textContent = `₱ ${sum}`;
-    console.log(sum);
 
     toppingsP.classList.add("ms-5");
 

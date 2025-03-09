@@ -143,9 +143,10 @@ async function fetchProducts() {
         "items-center",
         "py-5",
         "px-2",
-        "text-center"
+        "text-center",
+        "max-[69rem]:h-[10rem]"
       );
-      item.classList.add("w-[13rem]");
+      item.classList.add("w-[13rem]", "max-[69rem]:w-[8rem]");
       productItem.classList.add("font-medium", "text-[#302D3D]", "text-[1rem]");
 
       productItem.textContent = product.name;

@@ -30,13 +30,13 @@
     <!-- SIDEBAR -->
 
     <aside
-      class="w-[17%] nav bg-[#FFFFFF] h-screen text-[#302D3D] p-5 space-y-4 shadow max-[56rem]:gap-5 gap-14 drop-shadow-2xl flex flex-col"
+      class="w-[17%] nav bg-[#FFFFFF] h-screen text-[#302D3D] p-5 space-y-4 shadow max-[56rem]:gap-5 gap-14 drop-shadow-2xl flex flex-col max-[69rem]:w-[25%] max-[69rem]:gap-2"
     >
       <figure class="flex justify-center">
         <img class="h-[10rem] p-5" src="./images/logo.png" alt="" />
       </figure>
 
-      <ul class="space-y-2 mx-auto flex flex-col gap-14 max-[56rem]:gap-5 font-semibold">
+      <ul class="space-y-2 mx-auto flex flex-col gap-14 max-[56rem]:gap-5 font-semibold max-[69rem]:gap-9">
         <li id="Container" class="text-[#302D3D] cursor-pointer">
           <a
             @click="page='dashboard'"
@@ -87,7 +87,7 @@
         </li>
       </ul>
       <div
-        class="flex flex-col items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-auto px-14"
+        class="flex flex-col items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-auto px-14 max-[69rem]:px-10 max-[69rem]:mt-[2rem]"
       >
         <figure>
           <img src="./images/human.png" alt="" />
@@ -105,7 +105,7 @@
         <span id="role" class="text-[#B60205]"></span>
         <button
           @click="page='profile'"
-          class="cursor-pointer text-[.8rem] bg-[#302D3D] text-white rounded-md px-5 py-1 mt-8"
+          class="cursor-pointer text-[.8rem] bg-[#302D3D] text-white rounded-md px-5 py-1 mt-8 max-[69rem]:mt-2"
         >
           Profile
         </button>

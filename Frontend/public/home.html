@@ -226,12 +226,12 @@
 
      </div>
               <div x-show="posPage === 'ongoing'" x-cloak>
-                <h1 class="text-2xl font-bold">Ongoing Orders</h1>
-                <p>View and manage ongoing orders.</p>
-                
-                 
               
-            
+               
+                  <div id="orders-container" class=" flex flex-wrap justify-center gap-10 ms-10 mt-10" >
+                    
+                  </div>
+
               </div>
               <div x-show="posPage === 'cancel'" x-cloak>
                 <h1 class="text-2xl font-bold">Canceled Orders</h1>
@@ -431,6 +431,7 @@
     <script type="module" src="./js/addproduct.js"></script>
     <script type="module" src="./js/upload.js"></script>
     <script type="module" src="./js/modal.js"></script>
+    <script type="module" src="./js/ongoing.js"></script>
       
 
 

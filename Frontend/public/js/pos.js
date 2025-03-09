@@ -1,42 +1,45 @@
-"strict";
+document.addEventListener("DOMContentLoaded", () => {
+  const togo = document.getElementById("togo");
+  const del = document.getElementById("del");
+  const cash = document.getElementById("cash");
+  const gcash = document.getElementById("gcash");
+  const bank = document.getElementById("bank");
+  const delivery = document.querySelector(".delmethod");
 
-// document.addEventListener("click", function (event) {
-//   const link = event.target.closest(".nav-link");
-//   if (!link) return;
-//   const heading = document.getElementById("header");
+  function toggleButtons(active, inactive) {
+    active.classList.add("bg-[#B60205]", "text-white");
+    active.classList.remove("bg-[#EAEEF7]");
 
-//   event.preventDefault();
-//   const page = link.getAttribute("data-page");
-//   let result = page.replace(".html", "");
-//   console.log(result);
-//   heading.textContent = result;
-//   fetch(page)
-//     .then((response) => response.text())
-//     .then((data) => {
-//       document.getElementById("content").innerHTML = data;
-//     })
-//     .catch((error) => console.error("Error loading page:", error));
-// });
+    inactive.classList.add("bg-[#EAEEF7]");
+    inactive.classList.remove("bg-[#B60205]", "text-white");
+  }
 
-const togo = document.getElementById("togo");
-const del = document.getElementById("del");
-const cash = document.getElementById("cash");
-const gcash = document.getElementById("gcash");
-const bank = document.getElementById("bank");
+  togo.addEventListener("click", () => {
+    localStorage.setItem("pickupMethod", "To Go");
 
-function toggleButtons(active, inactive) {
-  active.classList.add("bg-[#B60205]", "text-white");
-  active.classList.remove("bg-[#EAEEF7]");
+    toggleButtons(togo, del);
+  });
 
-  inactive.classList.add("bg-[#EAEEF7]");
-  inactive.classList.remove("bg-[#B60205]", "text-white");
-}
+  del.addEventListener("click", () => {
+    localStorage.setItem("pickupMethod", "Delivery");
+    toggleButtons(del, togo);
+  });
 
-togo.addEventListener("click", () => toggleButtons(togo, del));
-del.addEventListener("click", () => toggleButtons(del, togo));
-cash.addEventListener("click", () => toggleButtons(cash, gcash));
-cash.addEventListener("click", () => toggleButtons(cash, bank));
-gcash.addEventListener("click", () => toggleButtons(gcash, cash));
-gcash.addEventListener("click", () => toggleButtons(gcash, bank));
-bank.addEventListener("click", () => toggleButtons(bank, gcash));
-bank.addEventListener("click", () => toggleButtons(bank, cash));
+  cash.addEventListener("click", () => {
+    localStorage.setItem("paymentMethod", "Cash");
+    toggleButtons(cash, gcash);
+    toggleButtons(cash, bank);
+  });
+
+  gcash.addEventListener("click", () => {
+    localStorage.setItem("paymentMethod", "Gcash");
+    toggleButtons(gcash, cash);
+    toggleButtons(gcash, bank);
+  });
+
+  bank.addEventListener("click", () => {
+    localStorage.setItem("paymentMethod", "Bank");
+    toggleButtons(bank, gcash);
+    toggleButtons(bank, cash);
+  });
+});

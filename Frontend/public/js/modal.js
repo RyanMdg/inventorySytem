@@ -152,6 +152,14 @@ function updateTotal() {
 const addbillButton = document.querySelectorAll(".btnaddtobill");
 const productList = document.getElementById("listProducts");
 const add_Container = document.getElementById("add_Container");
+
+let receiptNumber = localStorage.getItem("receiptNumber");
+
+if (!receiptNumber) {
+  receiptNumber = `REC-${Math.floor(Math.random() * 1000000)}`;
+  localStorage.setItem("receiptNumber", receiptNumber);
+}
+
 addbillButton.forEach((buttonbill) => {
   buttonbill.addEventListener("click", function () {
     let selectedAddons = JSON.parse(
@@ -182,6 +190,7 @@ addbillButton.forEach((buttonbill) => {
     const orderID = Math.floor(Math.random() * 100000000) + 1;
 
     orders.set(`ORD-${orderID}`, {
+      receiptNumber: receiptNumber,
       placeOrder_Name: prodName,
       placeOrder_Qty: prodQantity,
       placeOrder_Tot: prodTotal,
@@ -200,7 +209,7 @@ addbillButton.forEach((buttonbill) => {
     localStorage.setItem("grantotal", sum);
     document.querySelector(".grandTotal").textContent = `₱ ${sum}`;
 
-    console.log("Placing order:", Array.from(orders.values()));
+    console.log("Current Orders:", Array.from(orders.values()));
 
     // orders.clear(); // Clears all orders
     // console.log("Orders cleared:", orders);

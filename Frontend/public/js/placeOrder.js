@@ -23,75 +23,63 @@ btnPlaceOrder.addEventListener("click", async function () {
     .single();
 
   if (userError || !userData) {
-    console.error("ERROR FETCHING BRANCH ID:", userError?.message);
-    alert("Could Not Retrieve branch details");
+    console.error("Error fetching user branch_id", userError?.message);
+    alert("Error fetching user branch. Please try again.");
     return;
   }
 
   const branchId = userData.branch_id;
+  const receiptNumber = `RCPT-${Date.now()}`; // Generate a unique receipt number
 
-  let recieptsID = localStorage.getItem("currentorderid");
+  const orderArray = Array.from(orders.values()); // Convert orders map to an array
 
-  if (!recieptsID) {
-    recieptsID = Math.floor(Math.random() * 100000000) + 1;
-    localStorage.setItem("currentorderid", `RCPT - ${recieptsID}`); // Store it for later use
+  for (const order of orderArray) {
+    const {
+      placeOrder_Name,
+      placeOrder_Qty,
+      placeOrder_Tot,
+      placeOrder_AddOns,
+    } = order;
+
+    const grandTotal = localStorage.getItem("grantotal");
+    const paymentmethod = localStorage.getItem("paymentMethod");
+    const pickupMethod = localStorage.getItem("pickupMethod");
+    const { data, error } = await supabase.from("pos_orders_table").insert([
+      {
+        branch_id: branchId,
+        receipt_number: receiptNumber, // Assign the same receipt number for all items
+        product_name: placeOrder_Name,
+        quantity: placeOrder_Qty,
+        product_price: placeOrder_Tot,
+        add_ons: placeOrder_AddOns,
+        status: "ongoing",
+        total: grandTotal,
+        payment_method: paymentmethod,
+        pickup_method: pickupMethod,
+        order_date: new Date(), // Store the current date
+      },
+    ]);
+
+    if (error) {
+      console.error("Error inserting order:", error.message);
+      alert("Error placing order. Please try again.");
+      return;
+    }
   }
 
-  const id = localStorage.getItem("currentorderid");
+  alert(`Order placed successfully! Receipt No: ${receiptNumber}`);
 
-  // Loop through orders using forEach
-  orders.forEach(async (ord) => {
-    try {
-      console.log(ord);
+  // Clear the orders after inserting into the database
 
-      const name = ord.placeOrder_Name;
-      const { data: tableData, error: tableError } = await supabase
-        .from("products_table")
-        .select("id")
-        .eq("name", name)
-        .single();
+  localStorage.removeItem("receiptNumber");
 
-      if (tableError || !tableData) {
-        console.error("ERROR FETCHING PRODUCT ID:", tableError?.message);
-        alert(`Could Not Retrieve product details for ${ord.placeOrder_Name}`);
-        return; // Stop execution for this order
-      }
-
-      const Productid = tableData.id;
-
-      // Insert order into pos_orders_table
-      const { data: productData, error: productError } = await supabase
-        .from("pos_orders_table")
-        .insert([
-          {
-            branch_id: branchId,
-            order_id: ord.orderid,
-            quantity: ord.placeOrder_Qty,
-            product_name: ord.placeOrder_Name,
-            product_price: ord.placeOrder_Tot,
-            status: "OnGoing",
-            total: localStorage.getItem("grantotal"),
-            product_id: Productid,
-            add_ons: ord.placeOrder_AddOns,
-            receipt_id: id,
-          },
-        ])
-        .select("id")
-        .single();
-
-      if (productError) {
-        console.error("Error adding product:", productError.message);
-        alert(`Failed to add order ${ord.orderid}.`);
-        return;
-      }
-
-      alert(`Order "${ord.orderid}" was successful!`);
-    } catch (error) {
-      console.error("Unexpected error:", error);
-      alert(`An error occurred while processing order ${ord.orderid}.`);
-    }
-
-    console.log(document.getElementById("totalPrice").textContent);
-    localStorage.removeItem("currentorderid");
+  [
+    ".recieptProdName",
+    ".recieptQuantityName",
+    ".recieptPriceName",
+    ".recieptToppings",
+  ].forEach((selector) => {
+    document.querySelectorAll(selector).forEach((element) => element.remove());
   });
+  orders.clear();
 });

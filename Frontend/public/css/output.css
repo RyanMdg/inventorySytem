@@ -1349,6 +1349,11 @@
       width: 17rem;
     }
   }
+  .max-\[69rem\]\:w-\[19\%\] {
+    @media (width < 69rem) {
+      width: 19%;
+    }
+  }
   .max-\[69rem\]\:w-\[20\%\] {
     @media (width < 69rem) {
       width: 20%;

@@ -1225,6 +1225,11 @@
       margin-top: calc(var(--spacing) * 5);
     }
   }
+  .max-\[69rem\]\:mt-\[1rem\] {
+    @media (width < 69rem) {
+      margin-top: 1rem;
+    }
+  }
   .max-\[69rem\]\:mt-\[2rem\] {
     @media (width < 69rem) {
       margin-top: 2rem;
@@ -1248,6 +1253,11 @@
   .max-\[69rem\]\:w-\[30\%\] {
     @media (width < 69rem) {
       width: 30%;
+    }
+  }
+  .max-\[69rem\]\:gap-1 {
+    @media (width < 69rem) {
+      gap: calc(var(--spacing) * 1);
     }
   }
   .max-\[69rem\]\:gap-2 {

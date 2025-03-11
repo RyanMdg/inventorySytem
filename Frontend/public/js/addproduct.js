@@ -144,7 +144,8 @@ async function fetchProducts() {
         "py-5",
         "px-2",
         "text-center",
-        "max-[69rem]:h-[10rem]"
+        "max-[69rem]:h-[10rem]",
+        "active:translate-y-1.5"
       );
       item.classList.add("w-[13rem]", "max-[69rem]:w-[8rem]");
       productItem.classList.add("font-medium", "text-[#302D3D]", "text-[1rem]");

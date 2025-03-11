@@ -1,4 +1,4 @@
-"strict";
+"use strict";
 
 import supabase from "../Backend2/config/SupabaseClient.js";
 
@@ -8,19 +8,8 @@ const unit = document.getElementById("unit");
 const prices = document.getElementById("price");
 const expdate = document.getElementById("expDate");
 const totalDisplay = document.querySelector(".total p");
+const inventoryData = document.getElementById("inventory-data");
 const addToStack = document.querySelector(".addbtn");
-
-document.addEventListener("DOMContentLoaded", function () {
-  function updateTotal() {
-    const quantity = parseFloat(pcs.value) || 0;
-    const price = parseFloat(prices.value) || 0;
-    const total = (quantity * price).toFixed(2);
-    totalDisplay.textContent = total;
-  }
-
-  pcs.addEventListener("input", updateTotal);
-  prices.addEventListener("input", updateTotal);
-});
 
 addToStack.addEventListener("click", async function () {
   const { data: user, error: authError } = await supabase.auth.getUser();
@@ -30,9 +19,9 @@ addToStack.addEventListener("click", async function () {
     return;
   }
 
-  const userId = user.user.id; //* logged-in user's ID
+  const userId = user.user.id; // Logged-in user's ID
 
-  //* Step 4: Get User's Branch ID
+  // Get User's Branch ID
   const { data: userData, error: userError } = await supabase
     .from("users_table")
     .select("branch_id")
@@ -46,6 +35,7 @@ addToStack.addEventListener("click", async function () {
   }
 
   const branchId = userData.branch_id;
+  const totalPrice = parseFloat(prices.value) * parseFloat(pcs.value);
 
   const { data: addStock, error: errorAddStock } = await supabase
     .from("inventory_table")
@@ -55,9 +45,9 @@ addToStack.addEventListener("click", async function () {
         raw_mats: raw.value,
         quantity: pcs.value,
         unit: unit.value,
-        prices: prices.value,
+        prices: parseFloat(prices.value), // Ensure numeric values
         exp_date: expdate.value,
-        total: prices.value * pcs.value,
+        total: totalPrice.toFixed(2),
       },
     ])
     .select("id")
@@ -68,28 +58,69 @@ addToStack.addEventListener("click", async function () {
     alert("Failed to add the stock");
     return;
   }
-  alert(`stock added successfully`);
 
+  alert(`Stock added successfully`);
+  renderOngoingOrders(); // Refresh table immediately
+
+  raw.value = "";
+  pcs.value = "";
+  unit.value = "";
+  prices.value = "";
+  expdate.value = "";
+  totalDisplay.textContent = "0.00";
+});
+
+async function renderOngoingOrders() {
   const { data, error } = await supabase
     .from("inventory_table")
-    .select("total");
+    .select("total, quantity, unit, raw_mats, prices, exp_date");
 
   if (error) {
     console.error("Error fetching products:", error.message);
     return;
   }
 
-  let sum = 0;
+  inventoryData.innerHTML = ""; // Clear previous table data
 
-  data.forEach((item, index) => {
-    console.log(`Total ${index + 1}:`, item.total);
-    sum += item.total;
+  data.forEach((item) => {
+    inventoryData.innerHTML += `
+      <tr>
+        <td class="px-4 py-2">${item.raw_mats}</td>
+        <td class="px-4 py-2">${item.exp_date}</td>
+        <td class="px-4 py-2">${item.quantity}</td>
+        <td class="px-4 py-2">${item.unit}</td>
+        <td class="px-4 py-2">${item.prices}</td>
+        <td class="px-4 py-2">${item.total}</td>
+      </tr>
+    `;
   });
+}
 
-  console.log(sum);
-  raw.value = "";
-  pcs.value = "";
-  unit.value = "";
-  prices.value = "";
-  totalDisplay.textContent = "0.00";
+function subscribeToRealTimeOrders() {
+  supabase
+    .channel("inventory-channel") // Create a real-time channel
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "inventory_table" },
+      (payload) => {
+        console.log("Order Change Detected:", payload);
+        renderOngoingOrders(); // Refresh the table on changes
+      }
+    )
+    .subscribe();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  function updateTotal() {
+    const quantity = parseFloat(pcs.value) || 0;
+    const price = parseFloat(prices.value) || 0;
+    const total = (quantity * price).toFixed(2);
+    totalDisplay.textContent = total;
+  }
+
+  renderOngoingOrders(); // Load inventory on page load
+  subscribeToRealTimeOrders(); // Enable real-time updates
+
+  pcs.addEventListener("input", updateTotal);
+  prices.addEventListener("input", updateTotal);
 });

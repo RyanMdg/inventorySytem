@@ -374,7 +374,7 @@
         <main class="p-5">
 
              <!-- ** INVENTORY PAGES CONTENTS -->
-        <div x-show="intPage === 'Inventory'" class="grid grid-cols-2 gap-10 mx-8  text-[#302D3D]" x-cloak>
+        <div x-show="intPage === 'Inventory'" class="grid grid-cols-2 gap-10 mx-1  text-[#302D3D]" x-cloak>
 
              <!--*STOCKS CONTAINER  -->
           <section class=" pb-2 rounded-2xl shadow drop-shadow-xl bg-[#E0CFD0] ">
@@ -382,11 +382,11 @@
               <h4 class=" font-semibold uppercase text-[1rem]">Stocks</h4>
             </div>
            <form class=" pb-6 font-semibold py-3  bg-[#F2E8E8] flex gap-5 px-3 justify-around" action="">
-            <div class=" gap-2 flex flex-col">
+            <div class="w-[20%] gap-2 flex flex-col">
               <label for="">Raw Materials</label>
               <input placeholder="e.g., flour"  class=" outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="raw">
             </div>
-            <div class=" gap-2 flex flex-col">
+            <div class="w-[20%] gap-2 flex flex-col">
               <label for="">Exp.Date</label>
               <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="date" placeholder="20"  name="" id="expDate">
             </div>
@@ -437,7 +437,10 @@
            </div>
 
            <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
-            <button class=" cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+            <button id="" class="savebtn hidden cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+              Save
+             </button>
+            <button id="" class="updatebtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
               Update
              </button>
              <button class="addbtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
@@ -455,29 +458,50 @@
             <form class=" pb-3 font-semibold py-3  bg-[#F2E8E8] flex gap-5 px-3 justify-around" action="">
               <div class=" gap-2 flex flex-col">
                 <label for="">Raw Materials</label>
-                <input  class=" outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="">
+                <input  class=" outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="createRaw">
               </div>
               <div class=" gap-2 flex flex-col">
                 <label for="">Quantity</label>
-                <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="number" name="" id="">
+                <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="number" name="" id="createQty">
               </div>
               <div class=" gap-2 flex flex-col">
                 <label for="">Unit</label>
-                <input class="w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="">
-              </div>
-              <div class=" gap-2 flex flex-col">
-                <label for="">Price</label>
-                <input class="w-[100%] outline-0  bg-[#07070723] px-4 py-1 rounded-md" type="number" name="" id="">
+                <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="createUnit">
               </div>
               <div class=" gap-2 flex flex-col">
                 <label for="">Total</label>
-                <div class=" text-center w-[5rem] outline-0 bg-[#e946496b] px-4 py-1 rounded-md" type="text" name="" id="">
+                <div class="createdTotal text-center w-[5rem] outline-0 bg-[#e946496b] px-4 py-1 rounded-md" type="text" name="" id="">
+                <p>0.00</p>
+
                 </div>
               </div>
              </form>
+             <div>
+              <table class="bg-white font-semibold w-full border-collapse">
+                <thead>
+                  <tr class="bg-gray-200 text-left">
+                    <th class="px-4 py-2">Raw Materials</th>
+                    <th class="px-4 py-2">Quantity</th>
+                    <th class="px-4 py-2">Unit</th>
+                    <th class="px-4 py-2">Total</th>
+                  </tr>
+                </thead>
+                <tbody  id="create-inventory-data">
+                  <tr class="border-b">
+                    <td class="px-4 py-2">Flour</td>
+                    <td class="px-4 py-2">12/31/2024</td>
+                    <td class="px-4 py-2">5</td>
+                    <td class="px-4 py-2">kg</td>
+                    <td class="px-4 py-2">₱80</td>
+                    <td class="px-4 py-2">₱400</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+             </div>
            <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
             
-             <button class=" cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+             <button class="createBtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
               Create
              </button>
            </div>
@@ -585,7 +609,6 @@
     <script type="module" src="./js/navigation.js"></script>
     <script type="module" src="./js/pos.js"></script>
     <script type="module" src="./js/addproduct.js"></script>
-    <script type="module" src="./js/upload.js"></script>
     <script type="module" src="./js/modal.js"></script>
     <script type="module" src="./js/ongoing.js"></script>
     <script type="module" src="./js/inventory.js"></script>

@@ -1,6 +1,6 @@
 "use strict";
 
-import supabase from "../Backend2/config/SupabaseClient.js";
+import supabase from "../../Backend2/config/SupabaseClient.js";
 
 const raw = document.getElementById("raw");
 const createRaw = document.getElementById("createRaw");
@@ -14,7 +14,7 @@ const totalDisplay = document.querySelector(".total p");
 const createdtotal = document.querySelector(".createdTotal p");
 const inventoryData = document.getElementById("inventory-data");
 const CreateinventoryData = document.getElementById("create-inventory-data");
-
+const createdTotal = document.querySelector(".createdTotal");
 const updateBtn = document.querySelector(".updatebtn");
 const createbtn = document.querySelector(".createBtn");
 const addToStack = document.querySelector(".addbtn");
@@ -110,7 +110,7 @@ createbtn.addEventListener("click", async function () {
   // Fetch current stock levels
   const { data: stockData, error: stockError } = await supabase
     .from("inventory_table")
-    .select("quantity, raw_mats")
+    .select("quantity, raw_mats,prices,total")
     .eq("branch_id", branchId)
     .eq("raw_mats", createRaw.value)
     .single();
@@ -121,6 +121,7 @@ createbtn.addEventListener("click", async function () {
     return;
   }
 
+  const updatedPrice = stockData.prices;
   const availableQty = stockData.quantity;
   const requiredQty = parseFloat(createPcs.value);
 
@@ -131,12 +132,13 @@ createbtn.addEventListener("click", async function () {
   }
 
   // Calculate new stock after deduction
+  const newTotal = requiredQty * updatedPrice;
   const newStock = availableQty - requiredQty;
 
   // Update inventory table to deduct stock
   const { error: updateError } = await supabase
     .from("inventory_table")
-    .update({ quantity: newStock })
+    .update({ quantity: newStock, total: stockData.total - newTotal })
     .eq("branch_id", branchId)
     .eq("raw_mats", createRaw.value);
 
@@ -155,6 +157,8 @@ createbtn.addEventListener("click", async function () {
         raw_mats: createRaw.value,
         quantity: requiredQty,
         unit: createUnit.value,
+        total: requiredQty * updatedPrice,
+        status: "mixture",
         created_at: new Date(),
       },
     ])
@@ -169,7 +173,7 @@ createbtn.addEventListener("click", async function () {
   alert("Mixture created successfully!");
 
   // Refresh UI
-  renderOngoingOrders();
+
   rendercreatedMixtures();
 
   // Reset fields
@@ -178,6 +182,36 @@ createbtn.addEventListener("click", async function () {
   createUnit.value = "";
   createdtotal.textContent = "0.00";
 });
+
+async function rendercreatedMixtures() {
+  const finalSum = document.getElementById("sum");
+  const { data, error } = await supabase
+    .from("mixtures_table")
+    .select("raw_mats,quantity,unit,total");
+
+  if (error) {
+    console.error("Error fetching products:", error.message);
+    return;
+  }
+
+  CreateinventoryData.innerHTML = "";
+  let sum = 0;
+  // Clear previous table data
+
+  data.forEach((item) => {
+    sum += item.total;
+    CreateinventoryData.innerHTML += `
+      <tr>
+        <td contentEditable="false"  class="raw-mats inventoryContent px-4 py-2">${item.raw_mats}</td>
+        <td contentEditable="false"  class="quantity inventoryContent px-4 py-2">${item.quantity}</td>
+        <td contentEditable="false"  class="unimeasure inventoryContent px-4 py-2">${item.unit}</td>
+        <td  class="px-4 py-2">${item.total}</td>
+      </tr>
+     
+    `;
+  });
+  finalSum.textContent = sum;
+}
 
 async function renderOngoingOrders() {
   const { data, error } = await supabase
@@ -205,30 +239,6 @@ async function renderOngoingOrders() {
   });
 }
 
-async function rendercreatedMixtures() {
-  const { data, error } = await supabase
-    .from("inventory_table")
-    .select("total, quantity, unit, raw_mats, prices, exp_date");
-
-  if (error) {
-    console.error("Error fetching products:", error.message);
-    return;
-  }
-
-  CreateinventoryData.innerHTML = ""; // Clear previous table data
-
-  data.forEach((item) => {
-    CreateinventoryData.innerHTML += `
-      <tr>
-        <td contentEditable="false"  class="raw-mats inventoryContent px-4 py-2">${item.raw_mats}</td>
-        <td contentEditable="false"  class="quantity inventoryContent px-4 py-2">${item.quantity}</td>
-        <td contentEditable="false"  class="unimeasure inventoryContent px-4 py-2">${item.unit}</td>
-        <td  class="px-4 py-2">${item.total}</td>
-      </tr>
-    `;
-  });
-}
-
 updateBtn.addEventListener("click", function () {
   const inventorycontent = document.querySelectorAll(".inventoryContent");
 
@@ -241,20 +251,67 @@ updateBtn.addEventListener("click", function () {
 });
 
 function subscribeToRealTimeOrders() {
-  supabase
-    .channel("inventory-channel") // Create a real-time channel
-    .on(
-      "postgres_changes",
-      { event: "*", schema: "public", table: "inventory_table" },
-      (payload) => {
-        console.log("Order Change Detected:", payload);
-        renderOngoingOrders(); // Refresh the table on changes
-      }
-    )
-    .subscribe();
+  const channel = supabase.channel("inventory-channel"); // Create a real-time channel
+
+  // Listen for changes in inventory_table
+  channel.on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "inventory_table",
+    },
+    (payload) => {
+      console.log("Inventory Table Change Detected:", payload);
+      renderOngoingOrders(); // Refresh the table on changes
+    }
+  );
+
+  // Listen for changes in mixtures_table
+  channel.on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "mixtures_table",
+    },
+    (payload) => {
+      console.log("Mixtures Table Change Detected:", payload);
+      rendercreatedMixtures(); // Refresh the table on changes
+    }
+  );
+
+  // Subscribe to the channel
+  channel.subscribe();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  rendercreatedMixtures();
+  renderOngoingOrders(); // Load inventory on page load
+  subscribeToRealTimeOrders();
+  async function fetchPriceAndUpdateTotal() {
+    const rawMat = createRaw.value; // Get what the user types
+
+    if (!rawMat) return; // If input is empty, exit
+
+    const { data, error } = await supabase
+      .from("inventory_table")
+      .select("prices")
+      .eq("raw_mats", rawMat)
+      .maybeSingle(); // Fetch the price of the typed raw material
+
+    if (error) {
+      console.error("Error fetching price:", error.message);
+      return;
+    }
+
+    if (data && data.prices !== null) {
+      mixtureTotal(data.prices); // Call function with fetched price
+    } else {
+      createdTotal.textContent = "0.00"; // If no price found, set to 0
+    }
+  }
+
   function updateTotal() {
     const quantity = parseFloat(pcs.value) || 0;
     const price = parseFloat(prices.value) || 0;
@@ -262,10 +319,17 @@ document.addEventListener("DOMContentLoaded", function () {
     totalDisplay.textContent = total;
   }
 
-  rendercreatedMixtures();
-  renderOngoingOrders(); // Load inventory on page load
-  subscribeToRealTimeOrders(); // Enable real-time updates
-
   pcs.addEventListener("input", updateTotal);
   prices.addEventListener("input", updateTotal);
+
+  function mixtureTotal(price) {
+    const quantity = parseFloat(createPcs.value) || 0;
+    const mixtureTotal = (quantity * price).toFixed(2);
+    createdTotal.textContent = mixtureTotal;
+  }
+
+  // Enable real-time updates
+
+  createRaw.addEventListener("input", fetchPriceAndUpdateTotal);
+  createPcs.addEventListener("input", fetchPriceAndUpdateTotal);
 });

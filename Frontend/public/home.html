@@ -333,7 +333,6 @@
 
       <!-- ** INVENTORY PAGE -->
       <div x-show="page === 'inventory'" x-cloak x-data="{ intPage: 'Inventory' }">
-        <h1 class="text-3xl ps-10 pt-10 font-bold uppercase">Inventory</h1>
         <nav class=" mt-10 mb-3 mx-auto max-[69rem]:mx-1">
           <ul class="flex justify-around max-[69rem]:gap-5 px-5 max-[69rem]:px-1">
             <li
@@ -375,7 +374,7 @@
 
              <!-- ** INVENTORY PAGES CONTENTS -->
         <div x-show="intPage === 'Inventory'" class="grid grid-cols-2 gap-10 mx-1  text-[#302D3D]" x-cloak>
-
+          
              <!--*STOCKS CONTAINER  -->
           <section class=" pb-2 rounded-2xl shadow drop-shadow-xl bg-[#E0CFD0] ">
             <div class=" p-3">
@@ -455,7 +454,7 @@
             <div class=" p-3">
               <h4 class=" font-semibold uppercase text-[1rem]">Mixtures</h4>
             </div>
-            <form class=" pb-3 font-semibold py-3  bg-[#F2E8E8] flex gap-5 px-3 justify-around" action="">
+            <form class=" pb-6 font-semibold py-3  bg-[#F2E8E8] flex gap-5 px-3 justify-around" action="">
               <div class=" gap-2 flex flex-col">
                 <label for="">Raw Materials</label>
                 <input  class=" outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="createRaw">
@@ -499,18 +498,78 @@
               </table>
               
              </div>
+             <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
+                <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
+              <span id="sum" class=" font-semibold text-[1rem] me-14">400</span>
+             </div>
            <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
             
-             <button class="createBtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+             <button id="mixtureBtn" class=" cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
               Create
+             </button>
+             <button class="createBtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+              Add
              </button>
            </div>
          
           </section>
         </div>
           
-        <div x-show="intPage === 'Mixtures'" x-cloak>
-          <h1 class="text-2xl font-bold">Mixtures page</h1>
+
+        <!-- *ALREADY MADE MIXTURES CONTAINER -->
+        <div x-show="intPage === 'Mixtures'" class=" flex justify-center " x-cloak>
+             
+            <div id="nomixtures" class=" flex flex-col justify-center mt-40 items-center">
+              <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
+              <h2 class=" text-center text-[#ff4d4d] font-semibold" >
+                ❌ You don't have any mixtures yet!
+              </h2>
+              <p style="text-align: center; color: #666;">
+                Start creating mixtures to see them here.
+              </p>
+            </div>
+             
+            <section id="tablemixture" class="w-[50rem] hidden  pb-2 rounded-2xl shadow drop-shadow-xl bg-[#E0CFD0] ">
+              <div class=" p-3">
+                <h4 class=" font-semibold uppercase text-[1rem]">Mixtures</h4>
+              </div>
+              
+               <div>
+                <table  class="bg-white font-semibold w-full border-collapse">
+                  <thead>
+                    <tr class="bg-gray-200 text-left">
+                      <th class="px-4 py-2">Raw Materials</th>
+                      <th class="px-4 py-2">Quantity</th>
+                      <th class="px-4 py-2">Unit</th>
+                      <th class="px-4 py-2">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody  id="create-mixtures-data">
+                    <tr class="border-b">
+                      <td class="px-4 py-2">Flour</td>
+                      <td class="px-4 py-2">12/31/2024</td>
+                      <td class="px-4 py-2">5</td>
+                      <td class="px-4 py-2">kg</td>
+                      <td class="px-4 py-2">₱80</td>
+                    </tr>
+                  </tbody>
+                </table>
+               </div>
+
+               <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
+                  <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
+                <span id="sum" class=" font-semibold text-[1rem] me-14">400</span>
+               </div>
+             <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
+              
+             
+               <button class="createBtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+                Left Over
+               </button>
+             </div>
+           
+            </section>
+        
         </div>
 
         <div x-show="intPage === 'Left Over'" x-cloak>
@@ -611,7 +670,10 @@
     <script type="module" src="./js/addproduct.js"></script>
     <script type="module" src="./js/modal.js"></script>
     <script type="module" src="./js/ongoing.js"></script>
-    <script type="module" src="./js/inventory.js"></script>
+    <script type="module" src="./js/inventory/inventory.js"></script>
+    <script type="module" src="./js/inventory/createdMixtures.js"></script>
+
+
       
 
 

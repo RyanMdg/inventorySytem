@@ -571,8 +571,8 @@
   .mx-5 {
     margin-inline: calc(var(--spacing) * 5);
   }
-  .mx-8 {
-    margin-inline: calc(var(--spacing) * 8);
+  .mx-10 {
+    margin-inline: calc(var(--spacing) * 10);
   }
   .mx-20 {
     margin-inline: calc(var(--spacing) * 20);
@@ -597,6 +597,9 @@
   }
   .me-10 {
     margin-inline-end: calc(var(--spacing) * 10);
+  }
+  .me-14 {
+    margin-inline-end: calc(var(--spacing) * 14);
   }
   .me-15 {
     margin-inline-end: calc(var(--spacing) * 15);
@@ -624,6 +627,9 @@
   }
   .mt-10 {
     margin-top: calc(var(--spacing) * 10);
+  }
+  .mt-40 {
+    margin-top: calc(var(--spacing) * 40);
   }
   .mb-1 {
     margin-bottom: calc(var(--spacing) * 1);
@@ -664,6 +670,9 @@
   .h-\[10\%\] {
     height: 10%;
   }
+  .h-\[100\%\] {
+    height: 100%;
+  }
   .h-\[10rem\] {
     height: 10rem;
   }
@@ -678,6 +687,9 @@
   }
   .w-5 {
     width: calc(var(--spacing) * 5);
+  }
+  .w-20 {
+    width: calc(var(--spacing) * 20);
   }
   .w-30 {
     width: calc(var(--spacing) * 30);
@@ -715,14 +727,26 @@
   .w-\[20\%\] {
     width: 20%;
   }
+  .w-\[20rem\] {
+    width: 20rem;
+  }
   .w-\[30\%\] {
     width: 30%;
+  }
+  .w-\[30rem\] {
+    width: 30rem;
   }
   .w-\[35rem\] {
     width: 35rem;
   }
   .w-\[40\%\] {
     width: 40%;
+  }
+  .w-\[50rem\] {
+    width: 50rem;
+  }
+  .w-\[100rem\] {
+    width: 100rem;
   }
   .w-\[427px\] {
     width: 427px;
@@ -763,6 +787,9 @@
   }
   .animate-ping {
     animation: var(--animate-ping);
+  }
+  .animate-spin {
+    animation: var(--animate-spin);
   }
   .cursor-pointer {
     cursor: pointer;
@@ -913,6 +940,9 @@
   .bg-gray-400 {
     background-color: var(--color-gray-400);
   }
+  .bg-gray-500 {
+    background-color: var(--color-gray-500);
+  }
   .bg-white {
     background-color: var(--color-white);
   }
@@ -985,11 +1015,20 @@
   .ps-4 {
     padding-inline-start: calc(var(--spacing) * 4);
   }
+  .ps-5 {
+    padding-inline-start: calc(var(--spacing) * 5);
+  }
   .ps-10 {
     padding-inline-start: calc(var(--spacing) * 10);
   }
   .ps-\[1\.2rem\] {
     padding-inline-start: 1.2rem;
+  }
+  .pe-10 {
+    padding-inline-end: calc(var(--spacing) * 10);
+  }
+  .pe-20 {
+    padding-inline-end: calc(var(--spacing) * 20);
   }
   .pe-\[4\.2rem\] {
     padding-inline-end: 4.2rem;
@@ -1080,6 +1119,9 @@
   }
   .text-\[\#B60205\] {
     color: #B60205;
+  }
+  .text-\[\#ff4d4d\] {
+    color: #ff4d4d;
   }
   .text-red-600 {
     color: var(--color-red-600);

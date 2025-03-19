@@ -38,7 +38,7 @@ const totalPrice = document.getElementById("totalPrice");
 const selectedAddOns = new Map();
 const orders = new Map();
 
-// *CLOSE MODAL
+// *==================CLOSE MODAL============================
 close_Modal.forEach((closeModal) => {
   closeModal.addEventListener("click", function () {
     modal_Container.classList.toggle("hidden");
@@ -59,7 +59,7 @@ close_Modal.forEach((closeModal) => {
   });
 });
 
-// * MODAL QUANTITY
+// * ============MODAL QUANTITY====================
 
 btn_Quantity.forEach((button) => {
   button.addEventListener("click", () => {
@@ -96,7 +96,7 @@ btn_Quantity.forEach((button) => {
   });
 });
 
-//  * MODAL SELECTING ADD ONS
+//  * =================MODAL SELECTING ADD ONS======================
 
 // Store selected add-ons
 
@@ -147,7 +147,7 @@ function updateTotal() {
   localStorage.setItem("total bill", Number(totalPrice.textContent));
 }
 
-// *  ADD TO BILL BUTTON
+// *========ADD TO BILL BUTTON================
 
 const addbillButton = document.querySelectorAll(".btnaddtobill");
 const productList = document.getElementById("listProducts");
@@ -207,7 +207,6 @@ addbillButton.forEach((buttonbill) => {
     });
 
     localStorage.setItem("grantotal", sum);
-    document.querySelector(".grandTotal").textContent = `₱ ${sum}`;
 
     console.log("Current Orders:", Array.from(orders.values()));
 
@@ -264,7 +263,11 @@ addbillButton.forEach((buttonbill) => {
       remove.classList.remove("text-[#B60205]", "font-bold", "uppercase");
     });
     localStorage.setItem("selectedAddons", JSON.stringify([]));
+
     selectedAddOns.clear();
+
+    const grandTotal = localStorage.getItem("grantotal");
+    document.querySelector(".grandTotal").textContent = grandTotal;
   });
 });
 

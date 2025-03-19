@@ -164,13 +164,15 @@
                 >
                   <a
                     @click="posPage = 'takeorder'"
-                    :class="{ 'text-red-600 font-bold ': posPage === 'takeorder' }"
+                    :class="{ 'text-red-600 font-bold reciept  ': posPage === 'takeorder' }"
                   >
                     Take Order
                   </a>
                 </li>
+
+            <!-- *POS ONGOING -->
                 <li
-                  class="cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+                  class="actionhidereciept cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'ongoing'"
@@ -179,8 +181,10 @@
                     On Going Order
                   </a>
                 </li>
+
+            <!-- *POS CANCELED -->
                 <li
-                  class="cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+                  class="actionhidereciept cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'cancel'"
@@ -189,8 +193,10 @@
                     Cancel Order
                   </a>
                 </li>
+
+                <!-- *POS COMPLETE -->
                 <li
-                  class="cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+                  class="actionhidereciept cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'complete'"
@@ -201,7 +207,7 @@
                 </li>
                 <li
                 id="add_prod_container"
-                  class="cursor-pointer hidden w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200  ease-in duration-200"
+                  class="actionhidereciept cursor-pointer hidden w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200  ease-in duration-200"
                 >
                   <a
                     @click="posPage = 'add'"
@@ -217,6 +223,8 @@
 
             <!-- *POS Content Container -->
             <main class="p-5">
+
+            <!-- *POS ONGOING -->
                 <div id="" class="flex productContainer items-center justify-center gap-20"
                  x-show="posPage === 'takeorder'">
   
@@ -233,14 +241,66 @@
                      </div>
 
               </div>
+
+            <!-- *POS CANCELED -->
               <div x-show="posPage === 'cancel'" x-cloak>
-                <h1 class="text-2xl font-bold">Canceled Orders</h1>
-                <p>List of canceled orders.</p>
+                <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+                  <table class="w-full border-collapse">
+                    <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                      <tr class="bg-[#EBE7E7]">
+                        <th class="px-4 py-2 first:rounded-l-lg last:rounded-r-lg">Order ID</th>
+                        <th class="px-4 py-2">Product Name</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Payment Method</th>
+                        <th class="px-4 py-2">Order Date</th>
+                        <th class="px-4 py-2 last:rounded-r-lg">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cancelTable" class="divide-y divide-gray-200">
+                      <tr class="border-b">
+                        <td class="px-4 py-2">Flour</td>
+                        <td class="px-4 py-2">Octo</td>
+                        <td class="px-4 py-2">12/31/2024</td>
+                        <td class="px-4 py-2  "><span class="bg-[#F9C1C2] py-1 px-6 rounded-md  border border-red-600">Cash</span></td>
+                        <td class="px-4 py-2">kg</td>
+                        <td class="px-4 py-2">₱80</td>
+                      </tr>
+                      <!-- Add more rows to test scrolling -->
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
+            <!-- *POS COMPLETE -->
               <div x-show="posPage === 'complete'" x-cloak>
-                <h1 class="text-2xl font-bold">Completed Orders</h1>
-                <p>View completed transactions.</p>
+                <div class="mb-4 flex gap-2">
+                  <label class="font-semibold" for="startDate">Start Date:</label>
+                  <input type="date" id="startDate" class="border px-2 py-1 rounded">
+                  
+                  <label class="font-semibold" for="endDate">End Date:</label>
+                  <input type="date" id="endDate" class="border px-2 py-1 rounded">
+                  
+                  <button id="filterBtn" class="bg-[#B60205] cursor-pointer text-white px-4 py-1 rounded">Filter</button>
+                </div>
+                
+                <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+                  <table class="w-full border-collapse">
+                    <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                      <tr class="bg-[#EBE7E7]">
+                        <th class="px-4 py-2">Order ID</th>
+                        <th class="px-4 py-2">Product Name</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Payment Method</th>
+                        <th class="px-4 py-2">Order Date</th>
+                        <th class="px-4 py-2">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="completedTable" class="divide-y divide-gray-200">
+                      <!-- Dynamic Datas -->
+                    </tbody>
+                  </table>
+                </div>
+                
               </div>
 
               <!--*-----------ADD------------*-->
@@ -271,7 +331,7 @@
           </div>
 
           <!-- SIDE RECEIPT -->
-          <div  class="bg-white  shadow drop-shadow-2xl w-[30%] pt-8 h-dvh text-[#302D3D] flex flex-col">
+          <div id="mainreciept"  class="bg-white  shadow drop-shadow-2xl w-[30%] pt-8 h-dvh text-[#302D3D] flex flex-col">
              <ul class="flex max-[69rem]:text-[.8rem] font-semibold   gap-5  px-8">
                  <li>
                      <a id="togo" class="bg-[#EAEEF7] shadow drop-shadow-2xl px-5 max-[69rem]:px-2 py-1 rounded-md" href="#">To Go</a>
@@ -321,7 +381,7 @@
 
   <!-- Gray Div at the Bottom -->
              <div class="h-[7%] text-[1rem] font-semibold flex items-center justify-between px-[1rem] text-white bg-gray-400">
-                 <h1 class=" uppercase ">Total</h1> <span class=" grandTotal"></span></div>
+                 <h1 class=" uppercase ">Total</h1> <span class="grandTotal"></span></div>
                      <button  class="flex cursor-pointer placeOrderBtn justify-center items-center text-white  h-[10%] text-[1.5rem] bg-[#B60205]">Place Order </button>
 
 </div>
@@ -667,11 +727,14 @@
     <script type="module" src="./js/placeOrder.js"></script>
     <script type="module" src="./js/navigation.js"></script>
     <script type="module" src="./js/pos.js"></script>
-    <script type="module" src="./js/addproduct.js"></script>
+    <script type="module" src="./js/Add_Products/addproduct.js"></script>
     <script type="module" src="./js/modal.js"></script>
     <script type="module" src="./js/ongoing.js"></script>
     <script type="module" src="./js/inventory/inventory.js"></script>
     <script type="module" src="./js/inventory/createdMixtures.js"></script>
+    <script type="module" src="./js/Add_Products/status.js"></script>
+    <script type="module" src="./js/Add_Products/navbar.js"></script>
+
 
 
       

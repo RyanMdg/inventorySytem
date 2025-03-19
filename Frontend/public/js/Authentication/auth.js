@@ -1,4 +1,4 @@
-import supabase from "../Backend2/config/SupabaseClient.js";
+import supabase from "../../Backend2/config/SupabaseClient.js";
 
 const login_btn = document.querySelector(".login-btn");
 

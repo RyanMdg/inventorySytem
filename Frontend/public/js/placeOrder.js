@@ -3,6 +3,7 @@ import supabase from "../Backend2/config/SupabaseClient.js";
 import orders from "./modal.js";
 
 const btnPlaceOrder = document.querySelector(".placeOrderBtn");
+const totalreciept = document.querySelector(".grandtotal");
 
 btnPlaceOrder.addEventListener("click", async function () {
   const { data: user, error: autherror } = await supabase.auth.getUser();
@@ -29,10 +30,16 @@ btnPlaceOrder.addEventListener("click", async function () {
   }
 
   const branchId = userData.branch_id;
-  const receiptNumber = `RCPT-${Date.now()}`; // Generate a unique receipt number
+  const receiptNumber = `RCPT-${Date.now()}`; //* unique receipt number
 
-  const orderArray = Array.from(orders.values()); // Convert orders map to an array
+  const orderArray = Array.from(orders.values()); //* orders map to array
 
+  if (orderArray.length === 0) {
+    alert("No orders found!");
+    return;
+  }
+
+  //*loop in array
   for (const order of orderArray) {
     const {
       placeOrder_Name,
@@ -41,9 +48,17 @@ btnPlaceOrder.addEventListener("click", async function () {
       placeOrder_AddOns,
     } = order;
 
+    console.log(
+      order.placeOrder_Name,
+      order.placeOrder_AddOns,
+      order.placeOrder_Qty,
+      order.placeOrder_Tot
+    );
+
     const grandTotal = localStorage.getItem("grantotal");
     const paymentmethod = localStorage.getItem("paymentMethod");
     const pickupMethod = localStorage.getItem("pickupMethod");
+
     const { data, error } = await supabase.from("pos_orders_table").insert([
       {
         branch_id: branchId,
@@ -69,10 +84,16 @@ btnPlaceOrder.addEventListener("click", async function () {
 
   alert(`Order placed successfully! Receipt No: ${receiptNumber}`);
 
-  // Clear the orders after inserting into the database
+  // Clear the orders after inserting into database
+
+  orders.clear();
 
   localStorage.removeItem("receiptNumber");
+  localStorage.setItem("grantotal", 0);
 
+  const grandTotal = localStorage.getItem("grantotal");
+  document.querySelector(".grandTotal").textContent = grandTotal;
+  console.log(grandTotal);
   [
     ".recieptProdName",
     ".recieptQuantityName",
@@ -81,5 +102,4 @@ btnPlaceOrder.addEventListener("click", async function () {
   ].forEach((selector) => {
     document.querySelectorAll(selector).forEach((element) => element.remove());
   });
-  orders.clear();
 });

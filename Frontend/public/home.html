@@ -87,7 +87,7 @@
         </li>
       </ul>
       <div
-        class="flex flex-col items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-auto px-14 max-[69rem]:px-10 max-[69rem]:mt-[1rem]"
+        class="flex flex-col hidden items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-auto px-14 max-[69rem]:px-10 max-[69rem]:mt-[1rem]"
       >
         <figure>
           <img src="./images/human.png" alt="" />
@@ -130,21 +130,9 @@
         <main class="flex justify-end">
           <div class="w-[100%]  flex flex-col gap-1 ">
             <section class="ms-20 mt-10 flex flex-col gap-2 max-[69rem]:ms-4">
-              <div class="flex justify-end me-15">
-                <button
-                  id="statusButton"
-                  class="text-[1.5rem] uppercase outline-1 drop-shadow-2xl transition-all shadow outline-[#302D3D] rounded-3xl px-6 cursor-pointer"
-                >
-                  Offline
-                </button>
-              </div>
+             
 
-              <h1
-                id="header"
-                class="text-3xl uppercase font-bold  text-[#302D3D] max-[69rem]:text-2xl"
-              >
-                Point Of Sale
-              </h1>
+             
               <label for="search">
                 <input
                   class="bg-white shadow drop-shadow-md flex outline-0 rounded-2xl py-3 w-[70%] px-10"
@@ -244,28 +232,30 @@
 
             <!-- *POS CANCELED -->
               <div x-show="posPage === 'cancel'" x-cloak>
+                <div class="mb-4 flex gap-2">
+                  <label class="font-semibold" for="startDate">Start Date:</label>
+                  <input type="date" id="cancelstartDate" class="border px-2 py-1 rounded">
+                  
+                  <label class="font-semibold" for="endDate">End Date:</label>
+                  <input type="date" id="cancelendDate" class="border px-2 py-1 rounded">
+                  
+                  <button id="cancelfilterBtn" class="bg-[#B60205] cursor-pointer text-white px-4 py-1 rounded">Filter</button>
+                </div>
+                
                 <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
                   <table class="w-full border-collapse">
                     <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
                       <tr class="bg-[#EBE7E7]">
-                        <th class="px-4 py-2 first:rounded-l-lg last:rounded-r-lg">Order ID</th>
+                        <th class="px-4 py-2">Order ID</th>
                         <th class="px-4 py-2">Product Name</th>
                         <th class="px-4 py-2">Price</th>
                         <th class="px-4 py-2">Payment Method</th>
                         <th class="px-4 py-2">Order Date</th>
-                        <th class="px-4 py-2 last:rounded-r-lg">Status</th>
+                        <th class="px-4 py-2">Status</th>
                       </tr>
                     </thead>
                     <tbody id="cancelTable" class="divide-y divide-gray-200">
-                      <tr class="border-b">
-                        <td class="px-4 py-2">Flour</td>
-                        <td class="px-4 py-2">Octo</td>
-                        <td class="px-4 py-2">12/31/2024</td>
-                        <td class="px-4 py-2  "><span class="bg-[#F9C1C2] py-1 px-6 rounded-md  border border-red-600">Cash</span></td>
-                        <td class="px-4 py-2">kg</td>
-                        <td class="px-4 py-2">₱80</td>
-                      </tr>
-                      <!-- Add more rows to test scrolling -->
+                      <!-- Dynamic Datas -->
                     </tbody>
                   </table>
                 </div>
@@ -665,17 +655,17 @@
     </main>
 
        <!-- Modal Background -->
-    <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center  justify-center hidden">
+    <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center  justify-center hiddesn">
      
-      <div class="bg-white flex flex-col w-[30%]  gap-2 p-6 rounded-lg shadow-lg w-96 ">
+      <div class="bg-white flex flex-col   gap-2 p-6 rounded-lg shadow-lg ">
 
-        <figure class=" flex justify-center ">
+        <!-- <figure class=" flex justify-center ">
           <img id="img_modal" class="  w-[17rem]" src="" alt="">
-        </figure>
+        </figure> -->
 
-          <h2 id="modal_prod_name" class="text-xl text-start mt-5 uppercase font-semibold mb-4"></h2>
+          <h2 id="modal_prod_name" class="text-xl text-start mt-2 uppercase font-semibold mb-4"></h2>
 
-          <div id="qtycontainer" class="  flex justify-center  gap-10 text-[1.2rem] mb-10">
+          <div id="qtycontainer" class="  flex justify-center  gap-10 text-[1.2rem] mb-5">
             <button class=" btnQuantity cursor-pointer  px-4 py-1  rounded-md " data-value="45">4s</button>
             <button class=" btnQuantity cursor-pointer px-4 py-1 rounded-md " data-value="80">8s</button>
             <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="125">12s</button>

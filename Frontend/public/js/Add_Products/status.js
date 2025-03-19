@@ -4,8 +4,8 @@ import supabase from "../../Backend2/config/SupabaseClient.js";
 const cancel = document.getElementById("cancelTable");
 const complete = document.getElementById("completedTable");
 
-//*====FETCHING CANCEL ORDERS
-async function fetchCalcelOrders() {
+//*====FETCHING CANCEL ORDERS================
+async function fetchCalcelOrders(startDate = null, endDate = null) {
   try {
     //* Get logged-in user
     const { data: userData, error: authError } = await supabase.auth.getUser();
@@ -26,13 +26,19 @@ async function fetchCalcelOrders() {
 
     const branchId = userBranch.branch_id;
 
-    //* Fetch all ongoing orders for this branch
-    const { data: orders, error: ordersError } = await supabase
+    let query = supabase
       .from("pos_orders_table")
       .select("id,product_price,payment_method,order_date,status,product_name")
-      .eq("branch_id", branchId) // Filter by branch
-      .eq("status", "cancelled") // Only ongoing orders
+      .eq("branch_id", branchId)
+      .eq("status", "cancelled")
       .order("order_date", { ascending: false });
+
+    //* Apply date filtering if provided
+    if (startDate) query = query.gte("order_date", startDate);
+    if (endDate) query = query.lte("order_date", endDate);
+
+    //* Fetch all cancel orders for this branch
+    const { data: orders, error: ordersError } = await query;
 
     if (ordersError) throw new Error(ordersError.message);
 
@@ -65,7 +71,7 @@ async function fetchCalcelOrders() {
   }
 }
 
-//*====FETCHING COMPLETED ORDERS
+//*============FETCHING COMPLETED ORDERS=====================
 async function fetchCompleteOrders(startDate = null, endDate = null) {
   try {
     const { data: userData, error: authError } = await supabase.auth.getUser();
@@ -96,6 +102,7 @@ async function fetchCompleteOrders(startDate = null, endDate = null) {
     if (startDate) query = query.gte("order_date", startDate);
     if (endDate) query = query.lte("order_date", endDate);
 
+    //* Fetch all completed orders for this branch
     const { data: orders, error: ordersError } = await query;
 
     if (ordersError) throw new Error(ordersError.message);
@@ -128,11 +135,21 @@ async function fetchCompleteOrders(startDate = null, endDate = null) {
   }
 }
 
+//*=========filterbtn for complete orders================
 document.getElementById("filterBtn").addEventListener("click", function () {
   const startDate = document.getElementById("startDate").value;
   const endDate = document.getElementById("endDate").value;
   fetchCompleteOrders(startDate, endDate);
 });
+
+//*==============filterbtn for cancel orders==============
+document
+  .getElementById("cancelfilterBtn")
+  .addEventListener("click", function () {
+    const startDate = document.getElementById("cancelstartDate").value;
+    const endDate = document.getElementById("cancelendDate").value;
+    fetchCalcelOrders(startDate, endDate);
+  });
 
 function subscribeToRealTimeOrders() {
   const channel = supabase.channel("status-channel");

@@ -458,32 +458,26 @@
               </div>
             </div>
            </form>
-
-           <div>
-            <table class="bg-white font-semibold w-full border-collapse">
-              <thead>
-                <tr class="bg-gray-200 text-left">
+           
+           <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+            <table class="w-full border-collapse">
+              <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                <tr class="bg-[#EBE7E7]">
                   <th class="px-4 py-2">Raw Materials</th>
-                  <th class="px-4 py-2">Exp. Date</th>
+                  <th class="px-4 py-2">Exp.Date</th>
                   <th class="px-4 py-2">Quantity</th>
                   <th class="px-4 py-2">Unit</th>
                   <th class="px-4 py-2">Price</th>
                   <th class="px-4 py-2">Total</th>
                 </tr>
               </thead>
-              <tbody  id="inventory-data">
-                <tr class="border-b">
-                  <td class="px-4 py-2">Flour</td>
-                  <td class="px-4 py-2">12/31/2024</td>
-                  <td class="px-4 py-2">5</td>
-                  <td class="px-4 py-2">kg</td>
-                  <td class="px-4 py-2">₱80</td>
-                  <td class="px-4 py-2">₱400</td>
-                </tr>
+              <tbody id="inventory-data" class="divide-y divide-gray-200">
+                <!-- Dynamic Datas -->
               </tbody>
             </table>
-            
-           </div>
+          </div>
+
+        
 
            <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
             <button id="" class="savebtn hidden cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">

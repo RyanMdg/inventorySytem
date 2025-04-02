@@ -240,15 +240,15 @@ async function fetchUser() {
 
 fetchUser();
 
-//*=========ONLINE/OFFLINE FUNCTIONS=========
-statusBtn.addEventListener("click", function () {
-  if (this.textContent === "Offline") {
-    this.textContent = "Online";
-    this.className =
-      "text-[1.5rem] outline-1 uppercase drop-shadow-2xl transition-all shadow outline-[#B60205] text-[#B60205] rounded-3xl px-6 cursor-pointer";
-  } else {
-    this.textContent = "Offline";
-    this.className =
-      "text-[1.5rem] outline-1 uppercase drop-shadow-2xl transition-all shadow outline-[#302D3D] rounded-3xl px-6 cursor-pointer";
-  }
-});
+// //*=========ONLINE/OFFLINE FUNCTIONS=========
+// statusBtn.addEventListener("click", function () {
+//   if (this.textContent === "Offline") {
+//     this.textContent = "Online";
+//     this.className =
+//       "text-[1.5rem] outline-1 uppercase drop-shadow-2xl transition-all shadow outline-[#B60205] text-[#B60205] rounded-3xl px-6 cursor-pointer";
+//   } else {
+//     this.textContent = "Offline";
+//     this.className =
+//       "text-[1.5rem] outline-1 uppercase drop-shadow-2xl transition-all shadow outline-[#302D3D] rounded-3xl px-6 cursor-pointer";
+//   }
+// });

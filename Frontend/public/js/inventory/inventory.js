@@ -185,9 +185,27 @@ createbtn.addEventListener("click", async function () {
 
 async function rendercreatedMixtures() {
   const finalSum = document.getElementById("sum");
+  const { data: userData, error: authError } = await supabase.auth.getUser();
+  if (authError || !userData?.user) {
+    throw new Error(authError?.message || "User not logged in");
+  }
+
+  const userId = userData.user.id;
+
+  const { data: userBranch, error: userError } = await supabase
+    .from("users_table")
+    .select("branch_id")
+    .eq("id", userId)
+    .single();
+
+  if (userError) throw new Error(userError.message);
+
+  const branchId = userBranch.branch_id;
+
   const { data, error } = await supabase
     .from("mixtures_table")
-    .select("raw_mats,quantity,unit,total");
+    .select("raw_mats,quantity,unit,total")
+    .eq("branch_id", branchId);
 
   if (error) {
     console.error("Error fetching products:", error.message);
@@ -214,9 +232,27 @@ async function rendercreatedMixtures() {
 }
 
 async function renderOngoingOrders() {
+  const { data: userData, error: authError } = await supabase.auth.getUser();
+  if (authError || !userData?.user) {
+    throw new Error(authError?.message || "User not logged in");
+  }
+
+  const userId = userData.user.id;
+
+  const { data: userBranch, error: userError } = await supabase
+    .from("users_table")
+    .select("branch_id")
+    .eq("id", userId)
+    .single();
+
+  if (userError) throw new Error(userError.message);
+
+  const branchId = userBranch.branch_id;
+
   const { data, error } = await supabase
     .from("inventory_table")
-    .select("total, quantity, unit, raw_mats, prices, exp_date");
+    .select("total, quantity, unit, raw_mats, prices, exp_date")
+    .eq("branch_id", branchId);
 
   if (error) {
     console.error("Error fetching products:", error.message);
@@ -227,14 +263,19 @@ async function renderOngoingOrders() {
 
   data.forEach((item) => {
     inventoryData.innerHTML += `
-      <tr>
-        <td contentEditable="false"  class="raw-mats inventoryContent px-4 py-2">${item.raw_mats}</td>
-        <td contentEditable="false"  class="exp-date inventoryContent px-4 py-2">${item.exp_date}</td>
-        <td contentEditable="false"  class="quantity inventoryContent px-4 py-2">${item.quantity}</td>
-        <td contentEditable="false"  class="unimeasure inventoryContent px-4 py-2">${item.unit}</td>
-        <td contentEditable="false" id=""  class="price inventoryContent px-4 py-2">${item.prices}</td>
+    
+
+
+       <tr class="border-b border-gray-300">
+          <td contentEditable="false"  class="raw-mats inventoryContent px-4 py-4">${item.raw_mats}</td>
+          <td contentEditable="false"  class="exp-date inventoryContent px-4 py-4">${item.exp_date}</td>
+          <td contentEditable="false"  class="quantity inventoryContent px-4 py-4">₱${item.quantity}</td>
+          <td contentEditable="false"  class="unimeasure font-bold inventoryContent px-4 py-4"><span >${item.unit}</span> </td>
+          
+          <td  class="px-4 py-4">${item.prices}</td>
         <td  class="px-4 py-2">${item.total}</td>
-      </tr>
+
+        </tr>
     `;
   });
 }

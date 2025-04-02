@@ -462,7 +462,7 @@
            <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
             <table class="w-full border-collapse">
               <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
-                <tr class="bg-[#EBE7E7]">
+                <tr class="bg-[#EBE7E7] text-center">
                   <th class="px-4 py-2">Raw Materials</th>
                   <th class="px-4 py-2">Exp.Date</th>
                   <th class="px-4 py-2">Quantity</th>
@@ -519,29 +519,24 @@
                 </div>
               </div>
              </form>
-             <div>
-              <table class="bg-white font-semibold w-full border-collapse">
-                <thead>
-                  <tr class="bg-gray-200 text-left">
-                    <th class="px-4 py-2">Raw Materials</th>
-                    <th class="px-4 py-2">Quantity</th>
-                    <th class="px-4 py-2">Unit</th>
-                    <th class="px-4 py-2">Total</th>
+             <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+              <table class="w-full border-collapse">
+                <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                  <tr class="bg-[#EBE7E7]">
+                    <th class="px-4 text-center py-2">Raw Materials</th>
+                    <th class="px-4 text-center py-2">Quantity</th>
+                    <th class="px-4 text-center py-2">Unit</th>
+                    <th class="px-4 text-center py-2">Total</th>
                   </tr>
                 </thead>
-                <tbody  id="create-inventory-data">
-                  <tr class="border-b">
-                    <td class="px-4 py-2">Flour</td>
-                    <td class="px-4 py-2">12/31/2024</td>
-                    <td class="px-4 py-2">5</td>
-                    <td class="px-4 py-2">kg</td>
-                    <td class="px-4 py-2">₱80</td>
-                    <td class="px-4 py-2">₱400</td>
-                  </tr>
+                <tbody id="create-inventory-data" class="divide-y divide-gray-200">
+                  <!-- Dynamic Datas -->
                 </tbody>
               </table>
-              
-             </div>
+            </div>
+  
+           
+
              <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
                 <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
               <span id="sum" class=" font-semibold text-[1rem] me-14">400</span>
@@ -566,7 +561,7 @@
             <div id="nomixtures" class=" flex flex-col justify-center mt-40 items-center">
               <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
               <h2 class=" text-center text-[#ff4d4d] font-semibold" >
-                ❌ You don't have any mixtures yet!
+                ❌ You don't have any mixtures yets!
               </h2>
               <p style="text-align: center; color: #666;">
                 Start creating mixtures to see them here.
@@ -575,39 +570,29 @@
              
             <section id="tablemixture" class="w-[50rem] hidden  pb-2 rounded-2xl shadow drop-shadow-xl bg-[#E0CFD0] ">
               <div class=" p-3">
-                <h4 class=" font-semibold uppercase text-[1rem]">Mixtures</h4>
+                <h4 class=" font-semibold uppercase text-[1rem]">Created Mixtures</h4>
               </div>
               
-               <div>
-                <table  class="bg-white font-semibold w-full border-collapse">
-                  <thead>
-                    <tr class="bg-gray-200 text-left">
-                      <th class="px-4 py-2">Raw Materials</th>
-                      <th class="px-4 py-2">Quantity</th>
-                      <th class="px-4 py-2">Unit</th>
-                      <th class="px-4 py-2">Total</th>
+              <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+                <table class="w-full border-collapse">
+                  <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                    <tr class="bg-[#EBE7E7]">
+                      <th class="px-4 text-center py-2">Raw Materials</th>
+                      <th class="px-4 text-center py-2">Quantity</th>
+                      <th class="px-4 text-center py-2">Unit</th>
+                      <th class="px-4 text-center py-2">Total</th>
                     </tr>
                   </thead>
-                  <tbody  id="create-mixtures-data">
-                    <tr class="border-b">
-                      <td class="px-4 py-2">Flour</td>
-                      <td class="px-4 py-2">12/31/2024</td>
-                      <td class="px-4 py-2">5</td>
-                      <td class="px-4 py-2">kg</td>
-                      <td class="px-4 py-2">₱80</td>
-                    </tr>
+                  <tbody id="created_mixtures" class="divide-y divide-gray-200">
+                    <!-- Dynamic Datas -->
                   </tbody>
                 </table>
-               </div>
+              </div>
 
-               <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
-                  <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
-                <span id="sum" class=" font-semibold text-[1rem] me-14">400</span>
-               </div>
              <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
               
              
-               <button class="createBtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+               <button class="leftoverBtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
                 Left Over
                </button>
              </div>

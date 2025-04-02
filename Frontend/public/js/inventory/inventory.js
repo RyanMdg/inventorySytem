@@ -18,6 +18,7 @@ const createdTotal = document.querySelector(".createdTotal");
 const updateBtn = document.querySelector(".updatebtn");
 const createbtn = document.querySelector(".createBtn");
 const addToStack = document.querySelector(".addbtn");
+const createdMixtures = document.getElementById("created_mixtures");
 
 let inventoryid = "";
 addToStack.addEventListener("click", async function () {
@@ -71,7 +72,7 @@ addToStack.addEventListener("click", async function () {
   inventoryid += addStock.id;
 
   alert(`Stock added successfully`);
-  renderOngoingOrders(); // Refresh table immediately
+  renderStocks(); // Refresh table immediately
 
   raw.value = "";
   pcs.value = "";
@@ -158,7 +159,7 @@ createbtn.addEventListener("click", async function () {
         quantity: requiredQty,
         unit: createUnit.value,
         total: requiredQty * updatedPrice,
-        status: "mixture",
+        status: "Added_Mixture",
         created_at: new Date(),
       },
     ])
@@ -174,7 +175,7 @@ createbtn.addEventListener("click", async function () {
 
   // Refresh UI
 
-  rendercreatedMixtures();
+  renderaddedmixtures();
 
   // Reset fields
   createRaw.value = "";
@@ -183,7 +184,8 @@ createbtn.addEventListener("click", async function () {
   createdtotal.textContent = "0.00";
 });
 
-async function rendercreatedMixtures() {
+//*ADDED MIXTURES FORM
+async function renderaddedmixtures() {
   const finalSum = document.getElementById("sum");
   const { data: userData, error: authError } = await supabase.auth.getUser();
   if (authError || !userData?.user) {
@@ -205,7 +207,8 @@ async function rendercreatedMixtures() {
   const { data, error } = await supabase
     .from("mixtures_table")
     .select("raw_mats,quantity,unit,total")
-    .eq("branch_id", branchId);
+    .eq("branch_id", branchId)
+    .eq("status", "Added_Mixture");
 
   if (error) {
     console.error("Error fetching products:", error.message);
@@ -219,19 +222,66 @@ async function rendercreatedMixtures() {
   data.forEach((item) => {
     sum += item.total;
     CreateinventoryData.innerHTML += `
-      <tr>
-        <td contentEditable="false"  class="raw-mats inventoryContent px-4 py-2">${item.raw_mats}</td>
-        <td contentEditable="false"  class="quantity inventoryContent px-4 py-2">${item.quantity}</td>
-        <td contentEditable="false"  class="unimeasure inventoryContent px-4 py-2">${item.unit}</td>
-        <td  class="px-4 py-2">${item.total}</td>
+      <tr class="border-b border-b-neutral-700">
+        <td contentEditable="false"  class="raw-mats inventoryContent px-4 text-center py-4">${item.raw_mats}</td>
+        <td contentEditable="false"  class="quantity inventoryContent px-4 text-center py-4">${item.quantity}</td>
+        <td contentEditable="false"  class="unimeasure font-bold inventoryContent text-center px-4 py-2">${item.unit}</td>
+        <td  class="px-4 text-center py-2">₱${item.total}</td>
       </tr>
      
     `;
   });
-  finalSum.textContent = sum;
+  finalSum.textContent = `₱${sum}`;
 }
 
-async function renderOngoingOrders() {
+//*ADDED CREATED_MIXTURES FORM
+async function renderCreadtedMixtures() {
+  const { data: userData, error: authError } = await supabase.auth.getUser();
+  if (authError || !userData?.user) {
+    throw new Error(authError?.message || "User not logged in");
+  }
+
+  const userId = userData.user.id;
+
+  const { data: userBranch, error: userError } = await supabase
+    .from("users_table")
+    .select("branch_id")
+    .eq("id", userId)
+    .single();
+
+  if (userError) throw new Error(userError.message);
+
+  const branchId = userBranch.branch_id;
+
+  const { data, error } = await supabase
+    .from("mixtures_table")
+    .select("raw_mats,quantity,unit,total")
+    .eq("branch_id", branchId)
+    .eq("status", "Created_Mixture");
+
+  if (error) {
+    console.error("Error fetching products:", error.message);
+    return;
+  }
+
+  createdMixtures.innerHTML = "";
+  // Clear previous table data
+
+  data.forEach((item) => {
+    createdMixtures.innerHTML += `
+      <tr class="border-b border-b-neutral-700">
+        <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
+        <td contentEditable="false"  class="quantity text-center inventoryContent px-4 py-4">${item.quantity}</td>
+        <td contentEditable="false"  class="unimeasure text-center font-bold inventoryContent px-4  py-2">${item.unit}</td>
+        <td  class="px-4 text-center py-2">₱${item.total}</td>
+      </tr>
+     
+    `;
+  });
+}
+
+//*ADDED STOCKS/INVENTORY
+async function renderStocks() {
   const { data: userData, error: authError } = await supabase.auth.getUser();
   if (authError || !userData?.user) {
     throw new Error(authError?.message || "User not logged in");
@@ -262,18 +312,21 @@ async function renderOngoingOrders() {
   inventoryData.innerHTML = ""; // Clear previous table data
 
   data.forEach((item) => {
+    const formattedDate = new Date(item.exp_date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
     inventoryData.innerHTML += `
-    
-
-
-       <tr class="border-b border-gray-300">
-          <td contentEditable="false"  class="raw-mats inventoryContent px-4 py-4">${item.raw_mats}</td>
-          <td contentEditable="false"  class="exp-date inventoryContent px-4 py-4">${item.exp_date}</td>
-          <td contentEditable="false"  class="quantity inventoryContent px-4 py-4">₱${item.quantity}</td>
-          <td contentEditable="false"  class="unimeasure font-bold inventoryContent px-4 py-4"><span >${item.unit}</span> </td>
+       <tr class="border-b border-b-neutral-700">
+          <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
+          <td contentEditable="false"  class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedDate}</td>
+          <td contentEditable="false"  class="quantity  text-center text-[1rem] font-bold inventoryContent px-4 py-4">${item.quantity}</td>
+          <td contentEditable="false"  class="unimeasure text-center  inventoryContent px-4 py-4"><span >${item.unit}</span> </td>
           
-          <td  class="px-4 py-4">${item.prices}</td>
-        <td  class="px-4 py-2">${item.total}</td>
+          <td  class="px-4 text-center py-4">₱${item.prices}</td>
+        <td  class="px-4 text-center py-2">₱${item.total}</td>
 
         </tr>
     `;
@@ -304,7 +357,7 @@ function subscribeToRealTimeOrders() {
     },
     (payload) => {
       console.log("Inventory Table Change Detected:", payload);
-      renderOngoingOrders(); // Refresh the table on changes
+      renderStocks(); // Refresh the table on changes
     }
   );
 
@@ -317,8 +370,10 @@ function subscribeToRealTimeOrders() {
       table: "mixtures_table",
     },
     (payload) => {
+      // Refresh the table on changes
       console.log("Mixtures Table Change Detected:", payload);
-      rendercreatedMixtures(); // Refresh the table on changes
+      renderaddedmixtures();
+      renderCreadtedMixtures();
     }
   );
 
@@ -327,10 +382,28 @@ function subscribeToRealTimeOrders() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  rendercreatedMixtures();
-  renderOngoingOrders(); // Load inventory on page load
+  renderaddedmixtures();
+  renderStocks(); // Load inventory on page load
+  renderCreadtedMixtures();
   subscribeToRealTimeOrders();
   async function fetchPriceAndUpdateTotal() {
+    const { data: userData, error: authError } = await supabase.auth.getUser();
+    if (authError || !userData?.user) {
+      throw new Error(authError?.message || "User not logged in");
+    }
+
+    const userId = userData.user.id;
+
+    const { data: userBranch, error: userError } = await supabase
+      .from("users_table")
+      .select("branch_id")
+      .eq("id", userId)
+      .single();
+
+    if (userError) throw new Error(userError.message);
+
+    const branchId = userBranch.branch_id;
+
     const rawMat = createRaw.value; // Get what the user types
 
     if (!rawMat) return; // If input is empty, exit
@@ -339,6 +412,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .from("inventory_table")
       .select("prices")
       .eq("raw_mats", rawMat)
+      .eq("branch_id", branchId)
       .maybeSingle(); // Fetch the price of the typed raw material
 
     if (error) {

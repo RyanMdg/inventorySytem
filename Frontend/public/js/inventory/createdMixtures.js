@@ -1,81 +1,97 @@
-// "use strict";
+"use strict";
 
-// import supabase from "../../Backend2/config/SupabaseClient.js";
+import supabase from "../../Backend2/config/SupabaseClient.js";
 
-// const mixturedContainer = document.getElementById("create-mixtures-data");
-// const nomixtures = document.getElementById("nomixtures");
-// const tableContainer = document.getElementById("tablemixture");
-// const mixtureBtn = document.getElementById("mixtureBtn");
+const mixtureBtn = document.getElementById("mixtureBtn");
+const nomixalertContainer = document.getElementById("nomixtures");
+const createdMixture = document.getElementById("tablemixture");
 
-// mixtureBtn.addEventListener("click", async function rendercreatedMixtures() {
-//   const finalSum = document.getElementById("sum");
+// Function to check if there are Created_Mixtures
+async function checkMixtures() {
+  const { data: userData, error: authError } = await supabase.auth.getUser();
+  if (authError || !userData?.user) {
+    console.error(authError?.message || "User not logged in");
+    return;
+  }
 
-//   const { data, error } = await supabase
-//     .from("mixtures_table")
-//     .select("raw_mats, quantity, unit, total")
-//     .eq("status", "mixture");
+  const userId = userData.user.id;
 
-//   if (error) {
-//     console.error("Error fetching products:", error.message);
-//     return;
-//   }
+  const { data: userBranch, error: userError } = await supabase
+    .from("users_table")
+    .select("branch_id")
+    .eq("id", userId)
+    .single();
 
-//   mixturedContainer.innerHTML = ""; // Clear previous content
-//   let sum = 0;
+  if (userError) {
+    console.error(userError.message);
+    return;
+  }
 
-//   // if (data.length === 0) {
-//   //   // Show a message if there are no mixtures
-//   //   nomixtures.innerHTML = `
+  const branchId = userBranch.branch_id;
 
-//   //             <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
-//   //             <h2 class=" text-center text-[#ff4d4d] font-semibold" >
-//   //               ❌ You don't have any mixtures yet!
-//   //             </h2>
-//   //             <p style="text-align: center; color: #666;">
-//   //               Start creating mixtures to see them here.
-//   //             </p>
-//   //   `;
-//   //   tableContainer.remove();
-//   //   finalSum.textContent = "0.00"; // Reset sum
-//   //   return;
-//   // }
+  // Fetch mixtures with "Created_Mixture" status
+  const { data: createdMixes, error } = await supabase
+    .from("mixtures_table")
+    .select("*")
+    .eq("branch_id", branchId)
+    .eq("status", "Created_Mixture");
 
-//   data.forEach((item) => {
-//     sum += item.total;
-//     mixturedContainer.innerHTML += `
-//       <tr>
-//         <td class="raw-mats inventoryContent px-4 py-2">${item.raw_mats}</td>
-//         <td class="quantity inventoryContent px-4 py-2">${item.quantity}</td>
-//         <td class="unimeasure inventoryContent px-4 py-2">${item.unit}</td>
-//         <td class="px-4 py-2">${item.total}</td>
-//       </tr>
-//     `;
-//     tableContainer.classList.remove("hidden");
-//   });
+  if (error) {
+    console.error("Error fetching mixtures:", error);
+    return;
+  }
 
-//   finalSum.textContent = sum.toFixed(2); // Ensure it's formatted properly
-// });
+  // If there are created mixtures, remove the alert and show the table
+  if (createdMixes.length > 0) {
+    nomixalertContainer?.remove(); // Remove if it exists
+    createdMixture?.classList.remove("hidden"); // Show the mixture table
+  } else {
+    // If no created mixtures exist, ensure the alert is shown
+    nomixalertContainer?.classList.remove("hidden");
+    createdMixture?.classList.add("hidden");
+  }
+}
 
-// function subscribeToRealTimeOrders() {
-//   const channel = supabase.channel("inventory-channel"); // Create a real-time channel
-//   channel.on(
-//     "postgres_changes",
-//     {
-//       event: "*",
-//       schema: "public",
-//       table: "mixtures_table",
-//     },
-//     (payload) => {
-//       console.log("Mixtures Table Change Detected:", payload);
-//       rendercreatedMixtures(); // Refresh the table on changes
-//     }
-//   );
+// Run checkMixtures() on page load
+document.addEventListener("DOMContentLoaded", checkMixtures);
 
-//   // Subscribe to the channel
-//   channel.subscribe();
-// }
+// Update status when the button is clicked
+mixtureBtn.addEventListener("click", async function () {
+  const { data: userData, error: authError } = await supabase.auth.getUser();
+  if (authError || !userData?.user) {
+    console.error(authError?.message || "User not logged in");
+    return;
+  }
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   rendercreatedMixtures();
-//   subscribeToRealTimeOrders();
-// });
+  const userId = userData.user.id;
+
+  const { data: userBranch, error: userError } = await supabase
+    .from("users_table")
+    .select("branch_id")
+    .eq("id", userId)
+    .single();
+
+  if (userError) {
+    console.error(userError.message);
+    return;
+  }
+
+  const branchId = userBranch.branch_id;
+
+  const { data, error } = await supabase
+    .from("mixtures_table")
+    .update({ status: "Created_Mixture" })
+    .eq("branch_id", branchId)
+    .eq("status", "Added_Mixture");
+
+  if (error) {
+    console.error("Error updating data:", error);
+  } else {
+    console.log("Data updated successfully:", data);
+
+    alert("succesfull mixture are creted");
+  }
+
+  // mixture status dynamically
+  checkMixtures();
+});

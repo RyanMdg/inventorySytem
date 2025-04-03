@@ -19,6 +19,7 @@ const updateBtn = document.querySelector(".updatebtn");
 const createbtn = document.querySelector(".createBtn");
 const addToStack = document.querySelector(".addbtn");
 const createdMixtures = document.getElementById("created_mixtures");
+const createdLeftover = document.getElementById("leftover_mixtures");
 
 let inventoryid = "";
 addToStack.addEventListener("click", async function () {
@@ -236,6 +237,8 @@ async function renderaddedmixtures() {
 
 //*ADDED CREATED_MIXTURES FORM
 async function renderCreadtedMixtures() {
+  const finalSum = document.getElementById("sum");
+  const cretedmixturesum = document.getElementById("createdmixture_sum");
   const { data: userData, error: authError } = await supabase.auth.getUser();
   if (authError || !userData?.user) {
     throw new Error(authError?.message || "User not logged in");
@@ -265,10 +268,59 @@ async function renderCreadtedMixtures() {
   }
 
   createdMixtures.innerHTML = "";
+  let createdsum = 0;
   // Clear previous table data
 
   data.forEach((item) => {
+    createdsum += item.total;
     createdMixtures.innerHTML += `
+      <tr class="border-b border-b-neutral-700">
+        <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
+        <td contentEditable="false"  class="quantity text-center inventoryContent px-4 py-4">${item.quantity}</td>
+        <td contentEditable="false"  class="unimeasure text-center font-bold inventoryContent px-4  py-2">${item.unit}</td>
+        <td  class="px-4 text-center py-2">₱${item.total}</td>
+      </tr>
+     
+    `;
+  });
+  cretedmixturesum.textContent = `₱${createdsum}`;
+}
+
+//*ADDED LEFTOVER_MIXTURES FORM
+async function renderleftOver() {
+  const { data: userData, error: authError } = await supabase.auth.getUser();
+  if (authError || !userData?.user) {
+    throw new Error(authError?.message || "User not logged in");
+  }
+
+  const userId = userData.user.id;
+
+  const { data: userBranch, error: userError } = await supabase
+    .from("users_table")
+    .select("branch_id")
+    .eq("id", userId)
+    .single();
+
+  if (userError) throw new Error(userError.message);
+
+  const branchId = userBranch.branch_id;
+
+  const { data, error } = await supabase
+    .from("mixtures_table")
+    .select("raw_mats,quantity,unit,total")
+    .eq("branch_id", branchId)
+    .eq("status", "Leftover_Mixture");
+
+  if (error) {
+    console.error("Error fetching products:", error.message);
+    return;
+  }
+
+  createdLeftover.innerHTML = "";
+  // Clear previous table data
+
+  data.forEach((item) => {
+    createdLeftover.innerHTML += `
       <tr class="border-b border-b-neutral-700">
         <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
         <td contentEditable="false"  class="quantity text-center inventoryContent px-4 py-4">${item.quantity}</td>
@@ -374,6 +426,7 @@ function subscribeToRealTimeOrders() {
       console.log("Mixtures Table Change Detected:", payload);
       renderaddedmixtures();
       renderCreadtedMixtures();
+      renderleftOver();
     }
   );
 
@@ -385,6 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
   renderaddedmixtures();
   renderStocks(); // Load inventory on page load
   renderCreadtedMixtures();
+  renderleftOver();
   subscribeToRealTimeOrders();
   async function fetchPriceAndUpdateTotal() {
     const { data: userData, error: authError } = await supabase.auth.getUser();

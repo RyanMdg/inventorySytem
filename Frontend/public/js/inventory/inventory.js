@@ -20,6 +20,7 @@ const createbtn = document.querySelector(".createBtn");
 const addToStack = document.querySelector(".addbtn");
 const createdMixtures = document.getElementById("created_mixtures");
 const createdLeftover = document.getElementById("leftover_mixtures");
+const notifContainer = document.getElementById("notificationcontainer");
 
 let inventoryid = "";
 addToStack.addEventListener("click", async function () {
@@ -361,9 +362,38 @@ async function renderStocks() {
     return;
   }
 
-  inventoryData.innerHTML = ""; // Clear previous table data
+  inventoryData.innerHTML = "";
+  notifContainer.innerHTML = ""; // Clear previous table data
 
   data.forEach((item) => {
+    const notificationBtn = document.getElementById("notificationBtn");
+    const notificationDropdown = document.getElementById(
+      "notificationDropdown"
+    );
+
+    notificationBtn.addEventListener("click", () => {
+      notificationDropdown.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !notificationBtn.contains(event.target) &&
+        !notificationDropdown.contains(event.target)
+      ) {
+        notificationDropdown.classList.add("hidden");
+      }
+    });
+    const quantity = Number(item.quantity);
+
+    if (quantity < 3) {
+      notifContainer.innerHTML += `
+     <li class="p-3 border-b hover:bg-gray-100 cursor-pointer">
+                            <p class="text-sm text-gray-700">${item.raw_mats} is low on stock! Only ${quantity} left. </p>
+                            <span class="text-xs text-gray-500">2 mins ago</span>
+                        </li>
+    `;
+    }
+
     const formattedDate = new Date(item.exp_date).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",

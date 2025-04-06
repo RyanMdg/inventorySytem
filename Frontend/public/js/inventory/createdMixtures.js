@@ -78,20 +78,76 @@ mixtureBtn.addEventListener("click", async function () {
 
   const branchId = userBranch.branch_id;
 
-  const { data, error } = await supabase
-    .from("mixtures_table")
-    .update({ status: "Created_Mixture" })
-    .eq("branch_id", branchId)
-    .eq("status", "Added_Mixture");
+  const leftoverCount = await checkLeftovers(branchId);
 
-  if (error) {
-    console.error("Error updating data:", error);
+  if (leftoverCount > 0) {
+    showLeftoverModal(leftoverCount);
   } else {
-    console.log("Data updated successfully:", data);
+    const { data, error } = await supabase
+      .from("mixtures_table")
+      .update({ status: "Created_Mixture" })
+      .eq("branch_id", branchId)
+      .eq("status", "Added_Mixture");
 
-    alert("succesfull mixture are creted");
+    if (error) {
+      console.error("Error updating data:", error);
+    } else {
+      console.log("Data updated successfully:", data);
+      alert("Successful mixture creation.");
+    }
+
+    // mixture status dynamically
+    checkMixtures();
+  }
+});
+
+async function checkLeftovers(branchId) {
+  const { count, error: countError } = await supabase
+    .from("mixtures_table")
+    .select("*", { count: "exact", head: true })
+    .eq("branch_id", branchId)
+    .eq("status", "Leftover_Mixture");
+
+  if (countError) {
+    console.error("Error fetching leftover count:", countError);
+    return 0;
   }
 
-  // mixture status dynamically
-  checkMixtures();
-});
+  console.log(`Leftover mixtures: ${count}`);
+  return count;
+}
+
+// ***********************************
+
+async function loadLeftoverModal() {
+  const response = await fetch("leftover-modal.html");
+  const html = await response.text();
+  document.getElementById("modalContainer").innerHTML = html;
+
+  const modal = document.getElementById("leftoverModal");
+  const closeBtn = document.querySelector(".leftoverMixturesButtonclose");
+  const modalContent = document.getElementById("leftoverModalContent");
+
+  // Close when clicking the close button
+  closeBtn.addEventListener("click", function () {
+    modal.classList.add("hidden");
+  });
+
+  // Close when clicking outside the modal content
+  modal.addEventListener("click", function (event) {
+    if (!modalContent.contains(event.target)) {
+      modal.classList.add("hidden");
+    }
+  });
+}
+
+async function showLeftoverModal(count) {
+  if (!document.getElementById("leftoverModal")) {
+    await loadLeftoverModal();
+  }
+
+  document.getElementById(
+    "leftoverCountText"
+  ).textContent = `You have ${count} leftover mixtures.`;
+  document.getElementById("leftoverModal").classList.remove("hidden");
+}

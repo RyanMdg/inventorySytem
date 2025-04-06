@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/output.css" />
+    <link rel="stylesheet" href="./css/animation.css">
     <script
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js"
       defer
@@ -427,19 +428,19 @@
           
              <!--*STOCKS CONTAINER  -->
           <section class=" pb-2 rounded-2xl shadow drop-shadow-xl bg-[#E0CFD0] ">
-            <div class="flex justify-between p-3">
+            <div class="flex items-center justify-between p-3">
               <h4 class=" font-semibold uppercase text-[1rem]">Stocks</h4>
               
               <div class="relative">
                 <!-- Notification Bell -->
-                <button id="notificationBtn" class="relative p-3  rounded-full shadow-md hover:bg-gray-200">
-                    <ion-icon name="notifications-outline" class="text-2xl text-gray-700"></ion-icon>
+                <button id="notificationBtn" class="cursor-pointer bell-hover relative p-1   ">
+                    <ion-icon name="notifications-outline" class="text-2xl text-gray-700 "></ion-icon>
                     <!-- Notification Badge -->
-                    <span id="notifBadge" class="absolute top-5 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">3</span>
+                    <span id="notifBadge" class="absolute top-[-.2rem] -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">3</span>
                 </button>
-        
+           
                 <!-- Dropdown Menu -->
-                <div id="notificationDropdown" class="hidden absolute right-15 mt-3 w-64 bg-white shadow-lg rounded-lg">
+                <div id="notificationDropdown" class="hidden absolute right-0  w-64 bg-white z-50 shadow-lg rounded-sm">
                     <div class="p-4 border-b">
                         <h3 class="font-semibold text-gray-700">Notifications</h3>
                     </div>
@@ -561,9 +562,12 @@
               </table>
             </div>
   
-           
+      
 
              <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
+              <!-- placeholder to insert the modal -->
+         
+
                 <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
               <span id="sum" class=" font-semibold text-[1rem] me-14">400</span>
              </div>
@@ -759,6 +763,8 @@
       </div>
   </div>
 
+  <div id="modalContainer"></div>
+
     </main>
     <script type="module" src="./js/placeOrder.js"></script>
     <script type="module" src="./js/navigation.js"></script>
@@ -771,11 +777,5 @@
     <script type="module" src="./js/Add_Products/status.js"></script>
     <script type="module" src="./js/Add_Products/navbar.js"></script>
     <script type="module" src="./js/inventory/leftOver.js"></script>
-  
-
-
-      
-
-
   </body>
 </html>

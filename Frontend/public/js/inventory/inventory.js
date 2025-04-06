@@ -363,55 +363,76 @@ async function renderStocks() {
   }
 
   inventoryData.innerHTML = "";
-  notifContainer.innerHTML = ""; // Clear previous table data
+  notifContainer.innerHTML = "";
+
+  const notificationBtn = document.getElementById("notificationBtn");
+  const notifcontainer = document.getElementById("notificationcontainer");
+  const notificationDropdown = document.getElementById("notificationDropdown");
+  const notifbadge = document.getElementById("notifBadge");
+
+  // counter
+  let notifCount = 0;
 
   data.forEach((item) => {
-    const notificationBtn = document.getElementById("notificationBtn");
-    const notificationDropdown = document.getElementById(
-      "notificationDropdown"
-    );
-
-    notificationBtn.addEventListener("click", () => {
-      notificationDropdown.classList.toggle("hidden");
-    });
-
-    document.addEventListener("click", (event) => {
-      if (
-        !notificationBtn.contains(event.target) &&
-        !notificationDropdown.contains(event.target)
-      ) {
-        notificationDropdown.classList.add("hidden");
-      }
-    });
-    const quantity = Number(item.quantity);
-
-    if (quantity < 3) {
-      notifContainer.innerHTML += `
-     <li class="p-3 border-b hover:bg-gray-100 cursor-pointer">
-                            <p class="text-sm text-gray-700">${item.raw_mats} is low on stock! Only ${quantity} left. </p>
-                            <span class="text-xs text-gray-500">2 mins ago</span>
-                        </li>
-    `;
+    function timeAgo(date) {
+      const seconds = Math.floor((new Date() - date) / 1000);
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 1) return "just now";
+      if (minutes < 60) return `${minutes} mins ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours} hrs ago`;
+      const days = Math.floor(hours / 24);
+      return `${days} days ago`;
     }
+    const currentTime = timeAgo(new Date());
 
+    const quantity = Number(item.quantity);
+    // Render inventory row
     const formattedDate = new Date(item.exp_date).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
     });
+    //  if low stock
+    if (quantity < 3) {
+      notifCount++;
+      notifContainer.innerHTML += `
+        <li class="p-3  hover:bg-gray-100  cursor-pointer">
+          <p class="text-sm text-gray-700"><span class="text-[#B60205] font-semibold"> ${item.raw_mats} </span>  is low on stock! Only <span class="text-[#B60205] font-semibold"> ${quantity} ${item.unit}
+          </span>  left.</p>
+          <span class="text-xs text-gray-500">${currentTime}</span>
+        </li>
+      `;
+    }
 
     inventoryData.innerHTML += `
-       <tr class="border-b border-b-neutral-700">
-          <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
-          <td contentEditable="false"  class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedDate}</td>
-          <td contentEditable="false"  class="quantity  text-center text-[1rem] font-bold inventoryContent px-4 py-4">${item.quantity}</td>
-          <td contentEditable="false"  class="unimeasure text-center  inventoryContent px-4 py-4"><span >${item.unit}</span> </td>
-          
-          <td  class="px-4 text-center py-4">₱${item.prices}</td>
-        <td  class="px-4 text-center py-2">₱${item.total}</td>
-
-        </tr>
+      <tr class="border-b border-b-neutral-700">
+        <td contentEditable="false" class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
+        <td contentEditable="false" class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedDate}</td>
+        <td contentEditable="false" class="quantity text-center text-[1rem] font-bold inventoryContent px-4 py-4">${item.quantity}</td>
+        <td contentEditable="false" class="unimeasure text-center inventoryContent px-4 py-4"><span>${item.unit}</span></td>
+        <td class="px-4 text-center py-4">₱${item.prices}</td>
+        <td class="px-4 text-center py-2">₱${item.total}</td>
+      </tr>
     `;
+  });
+
+  // Update notification badge
+  notifbadge.textContent = notifCount;
+
+  // Toggle dropdown when button is clicked
+  notificationBtn.onclick = () => {
+    notificationDropdown.classList.toggle("hidden");
+  };
+
+  // Hide dropdown when clicking outside
+  document.addEventListener("click", (event) => {
+    if (
+      !notificationBtn.contains(event.target) &&
+      !notificationDropdown.contains(event.target)
+    ) {
+      notificationDropdown.classList.add("hidden");
+    }
   });
 }
 

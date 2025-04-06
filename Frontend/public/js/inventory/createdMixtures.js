@@ -101,6 +101,7 @@ mixtureBtn.addEventListener("click", async function () {
   }
 });
 
+// * CHECK IF THERES LEFTOVERS
 async function checkLeftovers(branchId) {
   const { count, error: countError } = await supabase
     .from("mixtures_table")
@@ -117,7 +118,7 @@ async function checkLeftovers(branchId) {
   return count;
 }
 
-// ***********************************
+// **MODAL
 
 async function loadLeftoverModal() {
   const response = await fetch("leftover-modal.html");
@@ -148,6 +149,6 @@ async function showLeftoverModal(count) {
 
   document.getElementById(
     "leftoverCountText"
-  ).textContent = `You have ${count} leftover mixtures.`;
+  ).textContent = `You have leftover mixtures!`;
   document.getElementById("leftoverModal").classList.remove("hidden");
 }

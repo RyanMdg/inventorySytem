@@ -6,6 +6,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/output.css" />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
     <title>Document</title>
   </head>
   <body>
@@ -15,13 +23,41 @@
       class="fixed inset-0 bg-opacity-50 backdrop-blur-sm flex items-center justify-center hidden"
     >
       <!-- Modal Content -->
-      <div class="bg-white p-6 rounded-lg shadow-lg" id="leftoverModalContent">
-        <p id="leftoverCountText" class="text-lg font-medium"></p>
-        <button
-          class="leftoverMixturesButtonclose mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Close
-        </button>
+      <div
+        class="bg-[#FEEBEC] relative h-[20rem] w-[20rem] rounded-sm shadow-lg"
+        id="leftoverModalContent"
+      >
+        <img
+          class=""
+          src="./images/Takoyaki___Japanese_cuisine___Traditional_Food_by_ilsol-removebg-preview 1.png"
+          alt=""
+        />
+        <div class="absolute mx-5">
+          <p id="leftoverCountText" class="text-lg font-medium"></p>
+          <button
+            class="leftoverMixturesButtonclose absolute bottom-[12rem] left-[17rem] cursor-pointer text-black rounded"
+          >
+            <ion-icon class="text-2xl" name="close"></ion-icon>
+          </button>
+          <div class="flex gap-5 justify-around mx-10 mt-5">
+            <button
+              class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
+            >
+              use
+            </button>
+            <button
+              class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
+            >
+              discard
+            </button>
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <img
+            src="./images/Elemen_Seni_Klip_Takoyaki__Cat_Air__Jepang__Masakan_PNG_Transparan_dan_Clipart_untuk_Unduhan_Gratis__1_-removebg-preview.png"
+            alt=""
+          />
+        </div>
       </div>
     </div>
 

@@ -30,8 +30,31 @@
     </h1>
 
     <div
-    class=" flex gap-5"
+    class=" flex items-center justify-center gap-5"
   >
+  <div class="relative">
+    <!-- Notification Bell -->
+    <button id="notificationBtn" class="cursor-pointer bell-hover relative p-1   ">
+        <ion-icon name="notifications-outline" class="text-2xl text-gray-700 "></ion-icon>
+        <!-- Notification Badge -->
+        <span id="notifBadge" class="absolute top-[-.2rem] -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">3</span>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div id="notificationDropdown" class="hidden absolute right-0  w-64 bg-white z-50 shadow-lg rounded-sm">
+        <div class="p-4 border-b">
+            <h3 class="font-semibold text-gray-700">Notifications</h3>
+        </div>
+        <ul id="notificationcontainer" class="max-h-60 overflow-y-auto">
+            <li class="p-3 border-b hover:bg-gray-100 cursor-pointer">
+                <p class="text-sm text-gray-700">📦 Your order has been shipped!</p>
+                <span class="text-xs text-gray-500">2 mins ago</span>
+            </li>
+           
+        </ul>
+        
+    </div>
+    </div>
     <figure>
       <img class=" w-10" src="./images/human.png" alt="" />
     </figure>
@@ -413,7 +436,7 @@
 
       <!-- ** INVENTORY PAGE -->
       <div x-show="page === 'inventory'" x-cloak x-data="{ intPage: 'Inventory' }">
-        <nav class=" mt-10 mb-3 mx-auto max-[69rem]:mx-1">
+        <nav class=" mt-24 mb-3 mx-auto max-[69rem]:mx-1">
           <ul class="flex justify-around max-[69rem]:gap-5 px-5 max-[69rem]:px-1">
             <li
               class="cursor-pointer w-[10rem] max-[69rem]:w-[5rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
@@ -448,43 +471,16 @@
            
           </ul>
         </nav>
-        <hr />
         
-        <main class="p-5">
+        <main class="px-14 h-[85vh] overflow-y-auto">
 
              <!-- ** INVENTORY PAGES CONTENTS -->
-        <div x-show="intPage === 'Inventory'" class="grid grid-cols-2 gap-10 mx-1  text-[#302D3D]" x-cloak>
+        <div x-show="intPage === 'Inventory'" class="flex flex-col gap-20 mx-1  text-[#302D3D]" x-cloak>
           
              <!--*STOCKS CONTAINER  -->
-          <section class=" pb-2 rounded-2xl shadow drop-shadow-xl bg-[#E0CFD0] ">
-            <div class="flex items-center justify-between p-3">
-              <h4 class=" font-semibold uppercase text-[1rem]">Stocks</h4>
-              
-              <div class="relative">
-                <!-- Notification Bell -->
-                <button id="notificationBtn" class="cursor-pointer bell-hover relative p-1   ">
-                    <ion-icon name="notifications-outline" class="text-2xl text-gray-700 "></ion-icon>
-                    <!-- Notification Badge -->
-                    <span id="notifBadge" class="absolute top-[-.2rem] -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">3</span>
-                </button>
-           
-                <!-- Dropdown Menu -->
-                <div id="notificationDropdown" class="hidden absolute right-0  w-64 bg-white z-50 shadow-lg rounded-sm">
-                    <div class="p-4 border-b">
-                        <h3 class="font-semibold text-gray-700">Notifications</h3>
-                    </div>
-                    <ul id="notificationcontainer" class="max-h-60 overflow-y-auto">
-                        <li class="p-3 border-b hover:bg-gray-100 cursor-pointer">
-                            <p class="text-sm text-gray-700">📦 Your order has been shipped!</p>
-                            <span class="text-xs text-gray-500">2 mins ago</span>
-                        </li>
-                       
-                    </ul>
-                    
-                </div>
-            </div>
-        
-
+          <section class="   rounded-sm shadow drop-shadow-xl bg-[#F2E8E8] ">
+            <div class="flex items-center bg-[#A3A0B3] justify-between p-3">
+              <h4 class=" font-semibold text-[#ffefef]  uppercase text-[1rem]">Stocks</h4>
             </div>
            <form class=" pb-6 font-semibold py-3  bg-[#F2E8E8] flex gap-5 px-3 justify-around" action="">
             <div class="w-[20%] gap-2 flex flex-col">
@@ -518,16 +514,16 @@
            <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
             <table class="w-full border-collapse">
               <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
-                <tr class="bg-[#EBE7E7] text-center">
-                  <th class="px-4 py-2">Raw Materials</th>
-                  <th class="px-4 py-2">Exp.Date</th>
-                  <th class="px-4 py-2">Quantity</th>
-                  <th class="px-4 py-2">Unit</th>
-                  <th class="px-4 py-2">Price</th>
-                  <th class="px-4 py-2">Total</th>
+                <tr class="bg-[#A3A0B3] text-center">
+                  <th class="px-4 text-white py-2">Raw Materials</th>
+                  <th class="px-4 text-white py-2">Exp.Date</th>
+                  <th class="px-4 text-white py-2">Quantity</th>
+                  <th class="px-4 text-white py-2">Unit</th>
+                  <th class="px-4 text-white py-2">Price</th>
+                  <th class="px-4 text-white py-2">Total</th>
                 </tr>
               </thead>
-              <tbody id="inventory-data" class="divide-y divide-gray-200">
+              <tbody id="inventory-data" class="divide-y bg-[#FFFFFF] divide-gray-200">
                 <!-- Dynamic Datas -->
               </tbody>
             </table>

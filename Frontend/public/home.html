@@ -21,27 +21,56 @@
     <link rel="icon" href="./images/logo_white.PNG" />
   </head>
   <body
-    class="flex text-[.8rem] h-screen bg-[#feebec] font-poppins"
-    x-data="{ page: 'dashboard' }"
+    class=" bg-[#F5F5F5] font-poppins"
+   
   >
-    <!--  -->
-    <!--  -->
-    <!--  -->
-    <!--  -->
-    <!-- SIDEBAR -->
+  <nav class="absolute w-svw flex top-0 z-50 shadow drop-shadow-xl justify-between px-20 py-3 items-center bg-white">
+    <h1 class=" uppercase text-2xl text-[#302D3D] font-extrabold  tracking-wider">
+    <span class="text-[#B60205]">Affo</span>tako
+    </h1>
 
-    <aside
-      class="w-[17%] nav bg-[#FFFFFF] h-screen text-[#302D3D] p-5 space-y-4 shadow max-[56rem]:gap-5 gap-14 drop-shadow-2xl flex flex-col max-[69rem]:w-[19%] max-[69rem]:gap-1"
+    <div
+    class=" flex gap-5"
+  >
+    <figure>
+      <img class=" w-10" src="./images/human.png" alt="" />
+    </figure>
+    <div class=" flex flex-col">
+      <h1
+      id="branch-name"
+      class="text-[1rem] font-semibold mt-1 text-[#302D3D]"
     >
-      <figure class="flex justify-center">
-        <img class="h-[10rem] p-5" src="./images/logo.png" alt="" />
-      </figure>
+      <img
+        src="./images/Iphone-spinner-2.gif"
+        class="bg-none w-5 mt-2"
+        alt=""
+      />
+    </h1>
+    <span id="role" class="text-[#B60205] text-[.7rem]"></span>
 
-      <ul class="space-y-2 mx-auto flex flex-col gap-14 max-[56rem]:gap-5 font-semibold max-[69rem]:gap-9">
-        <li id="Container" class="text-[#302D3D] cursor-pointer">
+    </div>
+   
+    
+  </div>
+  </nav>
+
+  <main  class="flex text-[.8rem] h-screen"
+  x-data="{ page: 'dashboard' }">
+
+  
+    <!-- SIDEBAR -->
+    
+    <aside
+      class="w-[14%] nav bg-[#302D3D] h-screen text-[#302D3D] p-5 space-y-4 shadow max-[56rem]:gap-5 gap-14 drop-shadow-2xl flex flex-col max-[69rem]:w-[19%] max-[69rem]:gap-1"
+    >
+    
+    
+
+      <ul class="space-y-2 mx-auto flex flex-col mt-20 gap-14 max-[56rem]:gap-5 font-semibold max-[69rem]:gap-9">
+        <li id="Container" class="text-[#ffff] cursor-pointer">
           <a
             @click="page='dashboard'"
-            class="text-[#B60205] bg-[#feebec] rounded-sm px-7 py-3 delay-200 ease-in duration-200 flex gap-2 items-center"
+            class="text-[#ffff] bg-[#B60205] rounded-sm px-10 py-3 delay-200 ease-in duration-200 flex gap-2 items-center"
             id="dashboard"
             ><ion-icon class="text-[1rem]" name="layers-outline"></ion-icon>
             Dashboard
@@ -50,10 +79,10 @@
         <!--  -->
         <!--  -->
 
-        <li id="Container" class="text-[#302D3D] cursor-pointer">
+        <li id="Container" class="text-[#ffff] cursor-pointer">
           <a
             @click="page='pos'"
-            class="flex gap-2 items-center delay-200 ease-in duration-200 w-[10rem]"
+            class="flex gap-2  items-center delay-200 ease-in duration-200 w-[10rem]"
             id="pos"
             ><ion-icon class="text-[1rem]" name="receipt-outline"></ion-icon>
             POS
@@ -61,7 +90,7 @@
         </li>
         <!--  -->
         <!--  -->
-        <li id="Container" class="text-[#302D3D] cursor-pointer">
+        <li id="Container" class="text-[#ffff] cursor-pointer">
           <a
             @click="page='inventory'"
             class="flex gap-2 items-center delay-200 ease-in duration-200"
@@ -74,7 +103,7 @@
         <!--  -->
         <!--  -->
       <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
-        <li id="branch" class="text-[#302D3D] cursor-pointer hidden">
+        <li id="branch" class="text-[#ffff] cursor-pointer hidden">
           <a
             @click="page='branches'"
             class="flex gap-2 items-center delay-200 ease-in duration-200"
@@ -119,7 +148,7 @@
     <!-- Main Content -->
 
     <main class="flex-1">
-      <div x-show="page === 'dashboard'">
+      <div x-show="page === 'dashboard'" class="mt-20">
         <h1 class="text-2xl font-bold">Dashboard</h1>
         <p>Welcome to the dashboard.</p>
       </div>
@@ -127,10 +156,10 @@
 
       <!-- *POS PAGE-->
       <!-- *POS PAGE-->
-      <div x-show="page === 'pos'" x-cloak x-data="{ posPage: 'takeorder' }">
+      <div x-show="page === 'pos'"  x-cloak x-data="{ posPage: 'takeorder' }" >
         <main class="flex justify-end">
           <div class="w-[100%]  flex flex-col gap-1 ">
-            <section class="ms-20 mt-10 flex flex-col gap-2 max-[69rem]:ms-4">
+            <section class="ms-10 mt-24 flex flex-col gap-2 max-[69rem]:ms-4">
              
 
              
@@ -208,7 +237,7 @@
                 </li>
               </ul>
             </nav>
-            <hr />
+         
 
             <!-- *POS Content Container -->
             <main class="p-5">
@@ -322,7 +351,7 @@
           </div>
 
           <!-- SIDE RECEIPT -->
-          <div id="mainreciept"  class="bg-white  shadow drop-shadow-2xl w-[30%] pt-8 h-dvh text-[#302D3D] flex flex-col">
+          <div id="mainreciept"  class="bg-white pt-24  shadow drop-shadow-2xl w-[30%]  h-dvh text-[#302D3D] flex flex-col">
              <ul class="flex max-[69rem]:text-[.8rem] font-semibold   gap-5  px-8">
                  <li>
                      <a id="togo" class="bg-[#EAEEF7] shadow drop-shadow-2xl px-5 max-[69rem]:px-2 py-1 rounded-md" href="#">To Go</a>
@@ -347,7 +376,7 @@
   </ul>
 
   <div class="flex-1">
-    <table class="mt-10  max-[69rem]:mt-5 w-full border-collapse">
+    <table class="mt-5  max-[69rem]:mt-5 w-full border-collapse">
       <thead class="pb-5">
         <tr class="border-b-2 border-gray-300">
           <th class="px-5 py-3 text-left">Items</th>
@@ -777,5 +806,6 @@
     <script type="module" src="./js/Add_Products/status.js"></script>
     <script type="module" src="./js/Add_Products/navbar.js"></script>
     <script type="module" src="./js/inventory/leftOver.js"></script>
+  </main>
   </body>
 </html>

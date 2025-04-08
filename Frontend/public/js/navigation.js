@@ -9,8 +9,8 @@ nav.addEventListener("click", function (event) {
 
   navItems.forEach((link) =>
     link.classList.remove(
-      "text-[#B60205]",
-      "bg-[#feebec]",
+      "text-[#ffff]",
+      "bg-[#B60205]",
       "rounded-sm",
       "px-7",
       "py-3",
@@ -19,8 +19,8 @@ nav.addEventListener("click", function (event) {
   );
 
   target.classList.add(
-    "text-[#B60205]",
-    "bg-[#feebec]",
+    "text-[#ffff]",
+    "bg-[#B60205]",
     "rounded-sm",
     "px-7",
     "py-3"

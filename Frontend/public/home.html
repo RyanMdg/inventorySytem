@@ -481,15 +481,22 @@
           <section class="   rounded-sm shadow drop-shadow-xl bg-[#ffffff] ">
             <div class="flex items-center bg-[#A3A0B3] justify-between p-3">
               <h4 class=" font-semibold text-[#ffffff]  uppercase text-[1rem]">Stocks</h4>
+              <select name="" id="inventory_status" class="  text-white outline-0">
+                <option value="New" class=" bg-[#A3A0B3] ">New</option>
+                <option value="Old" class=" bg-[#A3A0B3] ">Old</option>
+              </select>
+
             </div>
            <form class=" pb-6 font-semibold py-3  bg-[#ffffff] flex gap-5 px-3 justify-around" action="">
             <div class="w-[20%] justify-center gap-2 flex flex-col">
               <label for="">Raw Materials</label>
               <input placeholder="e.g., flour"  class=" outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="raw">
+              <label for="">Search Inventory</label>
+              <input type="search" name="" id="" class=" outline-0 rounded-sm py-1 bg-[#07070723]">
             </div>
             <div class="w-[20%] gap-2 flex flex-col">
               <label for="">Purchase.Date</label>
-              <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="date" placeholder="20"  name="" id="expDate">
+              <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="date" placeholder="20"  name="" id="prchasedate">
               <label for="">Exp.Date</label>
               <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="date" placeholder="20"  name="" id="expDate">
             </div>
@@ -517,6 +524,7 @@
               <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
                 <tr class="bg-[#A3A0B3] text-center">
                   <th class="px-4 text-white py-2">Raw Materials</th>
+                  <th class="px-4 text-white py-2">Purchase.Date</th>
                   <th class="px-4 text-white py-2">Exp.Date</th>
                   <th class="px-4 text-white py-2">Quantity</th>
                   <th class="px-4 text-white py-2">Unit</th>

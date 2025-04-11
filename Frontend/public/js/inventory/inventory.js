@@ -10,6 +10,7 @@ const unit = document.getElementById("unit");
 const createUnit = document.getElementById("createUnit");
 const prices = document.getElementById("price");
 const expdate = document.getElementById("expDate");
+const prchasedate = document.getElementById("prchasedate");
 const totalDisplay = document.querySelector(".total p");
 const createdtotal = document.querySelector(".createdTotal p");
 const inventoryData = document.getElementById("inventory-data");
@@ -21,6 +22,7 @@ const addToStack = document.querySelector(".addbtn");
 const createdMixtures = document.getElementById("created_mixtures");
 const createdLeftover = document.getElementById("leftover_mixtures");
 const notifContainer = document.getElementById("notificationcontainer");
+const inventory_status = document.getElementById("inventory_status");
 
 let inventoryid = "";
 addToStack.addEventListener("click", async function () {
@@ -71,6 +73,7 @@ addToStack.addEventListener("click", async function () {
           unit: unit.value,
           prices: parseFloat(prices.value), // Ensure numeric values
           exp_date: expdate.value,
+          prchse_date: prchasedate.value,
           total: totalPrice.toFixed(2),
         },
       ])
@@ -396,8 +399,9 @@ async function renderStocks() {
 
   const { data, error } = await supabase
     .from("inventory_table")
-    .select("total, quantity, unit, raw_mats, prices, exp_date")
-    .eq("branch_id", branchId);
+    .select("total, quantity, unit, raw_mats, prices, exp_date,prchse_date")
+    .eq("branch_id", branchId)
+    .eq("status", "new");
 
   if (error) {
     console.error("Error fetching products:", error.message);
@@ -415,48 +419,137 @@ async function renderStocks() {
   // counter
   let notifCount = 0;
 
-  data.forEach((item) => {
-    function timeAgo(date) {
-      const seconds = Math.floor((new Date() - date) / 1000);
-      const minutes = Math.floor(seconds / 60);
-      if (minutes < 1) return "just now";
-      if (minutes < 60) return `${minutes} mins ago`;
-      const hours = Math.floor(minutes / 60);
-      if (hours < 24) return `${hours} hrs ago`;
-      const days = Math.floor(hours / 24);
-      return `${days} days ago`;
-    }
-    const currentTime = timeAgo(new Date());
+  inventory_status.addEventListener("change", async () => {
+    const selected = inventory_status.value;
 
-    const quantity = Number(item.quantity);
-    // Render inventory row
-    const formattedDate = new Date(item.exp_date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    //  if low stock
-    if (quantity < 3) {
-      notifCount++;
-      notifContainer.innerHTML += `
-        <li class="p-3  hover:bg-gray-100  cursor-pointer">
-          <p class="text-sm text-gray-700"><span class="text-[#B60205] font-semibold"> ${item.raw_mats} </span>  is low on stock! Only <span class="text-[#B60205] font-semibold"> ${quantity} ${item.unit}
-          </span>  left.</p>
-          <span class="text-xs text-gray-500">${currentTime}</span>
-        </li>
-      `;
-    }
+    // Clear existing inventory data and notif count
+    inventoryData.innerHTML = "";
+    notifContainer.innerHTML = "";
+    let notifCount = 0;
 
-    inventoryData.innerHTML += `
-      <tr class="border-b border-b-neutral-700">
-        <td contentEditable="false" class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
-        <td contentEditable="false" class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedDate}</td>
-        <td contentEditable="false" class="quantity text-center text-[1rem] font-bold inventoryContent px-4 py-4">${item.quantity}</td>
-        <td contentEditable="false" class="unimeasure text-center inventoryContent px-4 py-4"><span>${item.unit}</span></td>
-        <td class="px-4 text-center py-4">₱${item.prices}</td>
-        <td class="px-4 text-center py-2">₱${item.total}</td>
-      </tr>
-    `;
+    if (selected === "New") {
+      // Fetch ng mga NEW status data
+      const { data, error } = await supabase
+        .from("inventory_table")
+        .select(
+          "total, quantity, unit, raw_mats, prices, exp_date, prchse_date"
+        )
+        .eq("branch_id", branchId)
+        .eq("status", "new");
+
+      if (error) {
+        console.error("Error fetching inventory:", error.message);
+        return;
+      }
+
+      data.forEach((item) => {
+        const quantity = Number(item.quantity);
+
+        const formattedExpDate = new Date(item.exp_date).toLocaleDateString(
+          "en-US",
+          {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }
+        );
+
+        const formattedPrchseDate = new Date(
+          item.prchse_date
+        ).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+
+        // Check low stock
+        if (quantity < 3) {
+          notifCount++;
+          notifContainer.innerHTML += `
+            <li class="p-3 hover:bg-gray-100 cursor-pointer">
+              <p class="text-sm text-gray-700">
+                <span class="text-[#B60205] font-semibold">${item.raw_mats}</span> is low on stock! 
+                Only <span class="text-[#B60205] font-semibold">${quantity} ${item.unit}</span> left.
+              </p>
+            </li>
+          `;
+        }
+
+        // Render inventory row
+        inventoryData.innerHTML += `
+          <tr class="border-b border-b-neutral-700">
+            <td class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
+            <td class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedPrchseDate}</td>
+            <td class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedExpDate}</td>
+            <td class="quantity text-center text-[1rem] font-bold inventoryContent px-4 py-4">${item.quantity}</td>
+            <td class="unimeasure text-center inventoryContent px-4 py-4"><span>${item.unit}</span></td>
+            <td class="px-4 text-center py-4">₱${item.prices}</td>
+            <td class="px-4 text-center py-2">₱${item.total}</td>
+          </tr>
+        `;
+      });
+    } else if (selected === "Old") {
+      // Fetch ng mga NEW status data
+      const { data, error } = await supabase
+        .from("inventory_table")
+        .select(
+          "total, quantity, unit, raw_mats, prices, exp_date, prchse_date"
+        )
+        .eq("branch_id", branchId)
+        .eq("status", "old");
+
+      if (error) {
+        console.error("Error fetching inventory:", error.message);
+        return;
+      }
+
+      data.forEach((item) => {
+        const quantity = Number(item.quantity);
+
+        const formattedExpDate = new Date(item.exp_date).toLocaleDateString(
+          "en-US",
+          {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }
+        );
+
+        const formattedPrchseDate = new Date(
+          item.prchse_date
+        ).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+
+        // Check low stock
+        if (quantity < 3) {
+          notifCount++;
+          notifContainer.innerHTML += `
+         <li class="p-3 hover:bg-gray-100 cursor-pointer">
+           <p class="text-sm text-gray-700">
+             <span class="text-[#B60205] font-semibold">${item.raw_mats}</span> is low on stock! 
+             Only <span class="text-[#B60205] font-semibold">${quantity} ${item.unit}</span> left.
+           </p>
+         </li>
+       `;
+        }
+
+        // Render inventory row
+        inventoryData.innerHTML += `
+       <tr class="border-b border-b-neutral-700">
+         <td class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
+         <td class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedPrchseDate}</td>
+         <td class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedExpDate}</td>
+         <td class="quantity text-center text-[1rem] font-bold inventoryContent px-4 py-4">${item.quantity}</td>
+         <td class="unimeasure text-center inventoryContent px-4 py-4"><span>${item.unit}</span></td>
+         <td class="px-4 text-center py-4">₱${item.prices}</td>
+         <td class="px-4 text-center py-2">₱${item.total}</td>
+       </tr>
+     `;
+      });
+    }
   });
 
   // Update notification badge

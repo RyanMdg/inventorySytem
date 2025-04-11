@@ -47,41 +47,54 @@ addToStack.addEventListener("click", async function () {
   }
 
   const branchId = userData.branch_id;
-  const totalPrice = parseFloat(prices.value) * parseFloat(pcs.value);
 
-  const { data: addStock, error: errorAddStock } = await supabase
+  const { data: inventory, error: inventoryerror } = await supabase
     .from("inventory_table")
-    .insert([
-      {
-        branch_id: branchId,
-        raw_mats: raw.value,
-        quantity: pcs.value,
-        unit: unit.value,
-        prices: parseFloat(prices.value), // Ensure numeric values
-        exp_date: expdate.value,
-        total: totalPrice.toFixed(2),
-      },
-    ])
-    .select("id")
-    .single();
+    .select("raw_mats")
+    .eq("branch_id", branchId);
 
-  if (errorAddStock) {
-    console.error("Error adding stock:", errorAddStock?.message);
-    alert("Failed to add the stock");
+  const isDubplicated = inventory.some((item) => item.raw_mats === raw.value);
+
+  if (isDubplicated) {
+    alert("This item is already in stock.");
     return;
+  } else {
+    const totalPrice = parseFloat(prices.value) * parseFloat(pcs.value);
+
+    const { data: addStock, error: errorAddStock } = await supabase
+      .from("inventory_table")
+      .insert([
+        {
+          branch_id: branchId,
+          raw_mats: raw.value,
+          quantity: pcs.value,
+          unit: unit.value,
+          prices: parseFloat(prices.value), // Ensure numeric values
+          exp_date: expdate.value,
+          total: totalPrice.toFixed(2),
+        },
+      ])
+      .select("id")
+      .single();
+
+    if (errorAddStock) {
+      console.error("Error adding stock:", errorAddStock?.message);
+      alert("Failed to add the stock");
+      return;
+    }
+
+    alert(`Stock added successfully`);
+    inventoryid += addStock.id;
+
+    renderStocks(); // Refresh table immediately
+
+    raw.value = "";
+    pcs.value = "";
+    unit.value = "";
+    prices.value = "";
+    expdate.value = "";
+    totalDisplay.textContent = "0.00";
   }
-
-  inventoryid += addStock.id;
-
-  alert(`Stock added successfully`);
-  renderStocks(); // Refresh table immediately
-
-  raw.value = "";
-  pcs.value = "";
-  unit.value = "";
-  prices.value = "";
-  expdate.value = "";
-  totalDisplay.textContent = "0.00";
 });
 
 createbtn.addEventListener("click", async function () {
@@ -188,6 +201,7 @@ createbtn.addEventListener("click", async function () {
 
 //*ADDED MIXTURES FORM
 async function renderaddedmixtures() {
+  const dropdown = document.querySelector(".drpdwn");
   const finalSum = document.getElementById("sum");
   const { data: userData, error: authError } = await supabase.auth.getUser();
   if (authError || !userData?.user) {
@@ -206,6 +220,16 @@ async function renderaddedmixtures() {
 
   const branchId = userBranch.branch_id;
 
+  const { data: inventory, error: inventory_error } = await supabase
+    .from("inventory_table")
+    .select("raw_mats,unit")
+    .eq("branch_id", branchId);
+
+  if (inventory_error) {
+    console.error("Error fetching products:", inventory_error.message);
+    return;
+  }
+
   const { data, error } = await supabase
     .from("mixtures_table")
     .select("raw_mats,quantity,unit,total")
@@ -216,6 +240,24 @@ async function renderaddedmixtures() {
     console.error("Error fetching products:", error.message);
     return;
   }
+
+  const unitMap = new Map();
+
+  dropdown.innerHTML = "";
+
+  inventory.forEach((stock) => {
+    dropdown.innerHTML += `
+    <option value="${stock.raw_mats}">${stock.raw_mats}</option>
+               
+    `;
+    unitMap.set(stock.raw_mats, stock.unit);
+  });
+
+  createRaw.addEventListener("change", () => {
+    const selectedRaw = createRaw.value;
+    const unit = unitMap.get(selectedRaw);
+    createUnit.value = unit || "";
+  });
 
   CreateinventoryData.innerHTML = "";
   let sum = 0;
@@ -550,6 +592,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Enable real-time updates
 
-  createRaw.addEventListener("input", fetchPriceAndUpdateTotal);
+  createRaw.addEventListener("change", fetchPriceAndUpdateTotal);
   createPcs.addEventListener("input", fetchPriceAndUpdateTotal);
 });

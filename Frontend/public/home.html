@@ -475,43 +475,44 @@
         <main class="px-14 h-[80vh] overflow-y-auto">
 
              <!-- ** INVENTORY PAGES CONTENTS -->
-        <div x-show="intPage === 'Inventory'" class="flex flex-col gap-20 mx-1  text-[#302D3D]" x-cloak>
+        <div x-show="intPage === 'Inventory'" class="flex flex-col gap-16 mx-1  text-[#302D3D]" x-cloak>
           
              <!--*STOCKS CONTAINER  -->
-          <section class="   rounded-sm shadow drop-shadow-xl bg-[#F2E8E8] ">
+          <section class="   rounded-sm shadow drop-shadow-xl bg-[#ffffff] ">
             <div class="flex items-center bg-[#A3A0B3] justify-between p-3">
-              <h4 class=" font-semibold text-[#ffefef]  uppercase text-[1rem]">Stocks</h4>
+              <h4 class=" font-semibold text-[#ffffff]  uppercase text-[1rem]">Stocks</h4>
             </div>
-           <form class=" pb-6 font-semibold py-3  bg-[#F2E8E8] flex gap-5 px-3 justify-around" action="">
-            <div class="w-[20%] gap-2 flex flex-col">
+           <form class=" pb-6 font-semibold py-3  bg-[#ffffff] flex gap-5 px-3 justify-around" action="">
+            <div class="w-[20%] justify-center gap-2 flex flex-col">
               <label for="">Raw Materials</label>
               <input placeholder="e.g., flour"  class=" outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="raw">
             </div>
             <div class="w-[20%] gap-2 flex flex-col">
+              <label for="">Purchase.Date</label>
+              <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="date" placeholder="20"  name="" id="expDate">
               <label for="">Exp.Date</label>
               <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="date" placeholder="20"  name="" id="expDate">
             </div>
             <div class=" gap-2 flex flex-col">
               <label for="">Quantity</label>
-              <input class=" w-[100%] outline-0 bg-[#07070723] px- py-1 rounded-md" type="number" placeholder="e.g,20"  name="" id="qty">
-            </div>
-            <div class=" gap-2 flex flex-col">
+              <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="number" placeholder="e.g,20"  name="" id="qty">
               <label for="">Unit</label>
               <input placeholder="kg" class="w-[100%]  outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="unit">
             </div>
+      
             <div class=" gap-2 flex flex-col">
               <label for="">Price</label>
               <input class="w-[100%] outline-0  bg-[#07070723] ps-3 py-1 rounded-md" type="number" placeholder="80" name="" id="price">
-            </div>
-            <div class=" gap-2 flex flex-col">
+
               <label for="">Total</label>
               <div class="total text-center w-[5rem] outline-0 bg-[#e946496b] px-4 py-1 rounded-md" type="text" name="" id="">
                 <p>0.00</p>
-              </div>
+            </div>
+           
             </div>
            </form>
            
-           <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+           <div class="max-h-[20rem] overflow-y-auto border border-gray-300 ">
             <table class="w-full border-collapse">
               <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
                 <tr class="bg-[#A3A0B3] text-center">
@@ -531,7 +532,7 @@
 
         
 
-           <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
+           <div class=" flex justify-end gap-7 me-10 mb-5 mt-5 mb-1">
             <button id="" class="savebtn hidden cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
               Save
              </button>
@@ -546,14 +547,17 @@
           </section>
 
              <!--*MIXTURES CONTAINER  -->
-          <section class="mb-20  pb-2 rounded-2xl shadow drop-shadow-xl bg-[#E0CFD0] ">
-            <div class=" p-3">
-              <h4 class=" font-semibold uppercase text-[1rem]">Mixtures</h4>
+          <section class="mb-10  pb-2  shadow drop-shadow-xl bg-[#ffffff] ">
+            <div class=" p-3 bg-[#A3A0B3]">
+              <h4 class=" font-semibold text-white uppercase text-[1rem]">Mixtures</h4>
             </div>
-            <form class=" pb-6 font-semibold py-3  bg-[#F2E8E8] flex gap-5 px-3 justify-around" action="">
+            <form class=" pb-6 font-semibold py-3  bg-[#ffffff] flex gap-5 px-3 justify-around" action="">
               <div class=" gap-2 flex flex-col">
                 <label for="">Raw Materials</label>
-                <input  class=" outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="createRaw">
+               
+                <select id="createRaw" class="drpdwn  outline-0 bg-[#07070723] px-4 py-1 rounded-md"  name="">
+                     <!-- Dynamic Datas -->
+                </select>
               </div>
               <div class=" gap-2 flex flex-col">
                 <label for="">Quantity</label>
@@ -571,10 +575,10 @@
                 </div>
               </div>
              </form>
-             <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+             <div class="max-h-[20rem] overflow-y-auto border border-gray-300 ">
               <table class="w-full border-collapse">
                 <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
-                  <tr class="bg-[#EBE7E7]">
+                  <tr class="bg-[#A3A0B3] text-white">
                     <th class="px-4 text-center py-2">Raw Materials</th>
                     <th class="px-4 text-center py-2">Quantity</th>
                     <th class="px-4 text-center py-2">Unit</th>
@@ -589,12 +593,12 @@
   
       
 
-             <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
+             <div class="py-2 bg-[#A3A0B3] flex justify-between pe-10 ">
               <!-- placeholder to insert the modal -->
          
 
-                <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
-              <span id="sum" class=" font-semibold text-[1rem] me-14">400</span>
+                <h1 class="text-white font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
+              <span id="sum" class=" text-white font-semibold text-[1rem] me-14">400</span>
              </div>
            <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
             
@@ -679,9 +683,8 @@
           
           <section id="leftovertablemixture" class="hidden">
             <div class=" p-3">
-              <h4 class=" font-semibold uppercase text-[1rem]">Leftovers</h4>
             </div>
-            <div class="max-h-[20rem] mx-20 overflow-y-auto border border-gray-300 rounded-lg">
+            <div class="max-h-[30rem] mx-20 overflow-y-auto border border-gray-300 rounded-lg">
               <table class="w-full border-collapse">
                 <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
                   <tr class="bg-[#EBE7E7]">

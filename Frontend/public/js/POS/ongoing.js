@@ -1,5 +1,5 @@
 "use strict";
-import supabase from "../Backend2/config/SupabaseClient.js";
+import supabase from "../../Backend2/config/SupabaseClient.js";
 
 // Function to fetch ongoing orders for the logged-in user's branch
 async function fetchOngoingOrders() {

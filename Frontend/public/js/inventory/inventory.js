@@ -2,6 +2,12 @@
 
 import supabase from "../../Backend2/config/SupabaseClient.js";
 
+import { renderStocks } from "./renders/renderStocks.js";
+import { renderaddedmixtures } from "./renders/renderaddedmixtures.js";
+import { renderCreadtedMixtures } from "./renders/renderCreadtedMixtures.js";
+import { renderleftOver } from "./renders/renderleftOver.js";
+import { subscribeToRealTimeOrders } from "./realtimeHandlers/subscribeToRealTimeOrders.js";
+
 const raw = document.getElementById("raw");
 const createRaw = document.getElementById("createRaw");
 const pcs = document.getElementById("qty");
@@ -13,18 +19,14 @@ const expdate = document.getElementById("expDate");
 const prchasedate = document.getElementById("prchasedate");
 const totalDisplay = document.querySelector(".total p");
 const createdtotal = document.querySelector(".createdTotal p");
-const inventoryData = document.getElementById("inventory-data");
-const CreateinventoryData = document.getElementById("create-inventory-data");
 const createdTotal = document.querySelector(".createdTotal");
 const updateBtn = document.querySelector(".updatebtn");
 const createbtn = document.querySelector(".createBtn");
 const addToStack = document.querySelector(".addbtn");
-const createdMixtures = document.getElementById("created_mixtures");
-const createdLeftover = document.getElementById("leftover_mixtures");
-const notifContainer = document.getElementById("notificationcontainer");
-const inventory_status = document.getElementById("inventory_status");
 
 let inventoryid = "";
+
+//* ADD BUTTON TO ADD PRODUCTS TO STOCK CONTAINER
 addToStack.addEventListener("click", async function () {
   const { data: user, error: authError } = await supabase.auth.getUser();
   if (authError || !user || !user.user) {
@@ -74,6 +76,7 @@ addToStack.addEventListener("click", async function () {
           prices: parseFloat(prices.value), // Ensure numeric values
           exp_date: expdate.value,
           prchse_date: prchasedate.value,
+          status: "new",
           total: totalPrice.toFixed(2),
         },
       ])
@@ -100,6 +103,7 @@ addToStack.addEventListener("click", async function () {
   }
 });
 
+//*  ADD BUTTON TO LIST IN  CREATEDMIXTURE AS "ADDED_MIXTURE"
 createbtn.addEventListener("click", async function () {
   // Ensure user is logged in
   const { data: user, error: authError } = await supabase.auth.getUser();
@@ -201,424 +205,6 @@ createbtn.addEventListener("click", async function () {
   createUnit.value = "";
   createdtotal.textContent = "0.00";
 });
-
-//*ADDED MIXTURES FORM
-async function renderaddedmixtures() {
-  const dropdown = document.querySelector(".drpdwn");
-  const finalSum = document.getElementById("sum");
-  const { data: userData, error: authError } = await supabase.auth.getUser();
-  if (authError || !userData?.user) {
-    throw new Error(authError?.message || "User not logged in");
-  }
-
-  const userId = userData.user.id;
-
-  const { data: userBranch, error: userError } = await supabase
-    .from("users_table")
-    .select("branch_id")
-    .eq("id", userId)
-    .single();
-
-  if (userError) throw new Error(userError.message);
-
-  const branchId = userBranch.branch_id;
-
-  const { data: inventory, error: inventory_error } = await supabase
-    .from("inventory_table")
-    .select("raw_mats,unit")
-    .eq("branch_id", branchId);
-
-  if (inventory_error) {
-    console.error("Error fetching products:", inventory_error.message);
-    return;
-  }
-
-  const { data, error } = await supabase
-    .from("mixtures_table")
-    .select("raw_mats,quantity,unit,total")
-    .eq("branch_id", branchId)
-    .eq("status", "Added_Mixture");
-
-  if (error) {
-    console.error("Error fetching products:", error.message);
-    return;
-  }
-
-  const unitMap = new Map();
-
-  dropdown.innerHTML = "";
-
-  inventory.forEach((stock) => {
-    dropdown.innerHTML += `
-    <option value="${stock.raw_mats}">${stock.raw_mats}</option>
-               
-    `;
-    unitMap.set(stock.raw_mats, stock.unit);
-  });
-
-  createRaw.addEventListener("change", () => {
-    const selectedRaw = createRaw.value;
-    const unit = unitMap.get(selectedRaw);
-    createUnit.value = unit || "";
-  });
-
-  CreateinventoryData.innerHTML = "";
-  let sum = 0;
-  // Clear previous table data
-
-  data.forEach((item) => {
-    sum += item.total;
-    CreateinventoryData.innerHTML += `
-      <tr class="border-b border-b-neutral-700">
-        <td contentEditable="false"  class="raw-mats inventoryContent px-4 text-center py-4">${item.raw_mats}</td>
-        <td contentEditable="false"  class="quantity inventoryContent px-4 text-center py-4">${item.quantity}</td>
-        <td contentEditable="false"  class="unimeasure font-bold inventoryContent text-center px-4 py-2">${item.unit}</td>
-        <td  class="px-4 text-center py-2">₱${item.total}</td>
-      </tr>
-     
-    `;
-  });
-  finalSum.textContent = `₱${sum}`;
-}
-
-//*ADDED CREATED_MIXTURES FORM
-async function renderCreadtedMixtures() {
-  const finalSum = document.getElementById("sum");
-  const cretedmixturesum = document.getElementById("createdmixture_sum");
-  const { data: userData, error: authError } = await supabase.auth.getUser();
-  if (authError || !userData?.user) {
-    throw new Error(authError?.message || "User not logged in");
-  }
-
-  const userId = userData.user.id;
-
-  const { data: userBranch, error: userError } = await supabase
-    .from("users_table")
-    .select("branch_id")
-    .eq("id", userId)
-    .single();
-
-  if (userError) throw new Error(userError.message);
-
-  const branchId = userBranch.branch_id;
-
-  const { data, error } = await supabase
-    .from("mixtures_table")
-    .select("raw_mats,quantity,unit,total")
-    .eq("branch_id", branchId)
-    .eq("status", "Created_Mixture");
-
-  if (error) {
-    console.error("Error fetching products:", error.message);
-    return;
-  }
-
-  createdMixtures.innerHTML = "";
-  let createdsum = 0;
-  // Clear previous table data
-
-  data.forEach((item) => {
-    createdsum += item.total;
-    createdMixtures.innerHTML += `
-      <tr class="border-b border-b-neutral-700">
-        <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
-        <td contentEditable="false"  class="quantity text-center inventoryContent px-4 py-4">${item.quantity}</td>
-        <td contentEditable="false"  class="unimeasure text-center font-bold inventoryContent px-4  py-2">${item.unit}</td>
-        <td  class="px-4 text-center py-2">₱${item.total}</td>
-      </tr>
-     
-    `;
-  });
-  cretedmixturesum.textContent = `₱${createdsum}`;
-}
-
-//*ADDED LEFTOVER_MIXTURES FORM
-async function renderleftOver() {
-  const { data: userData, error: authError } = await supabase.auth.getUser();
-  if (authError || !userData?.user) {
-    throw new Error(authError?.message || "User not logged in");
-  }
-
-  const userId = userData.user.id;
-
-  const { data: userBranch, error: userError } = await supabase
-    .from("users_table")
-    .select("branch_id")
-    .eq("id", userId)
-    .single();
-
-  if (userError) throw new Error(userError.message);
-
-  const branchId = userBranch.branch_id;
-
-  const { data, error } = await supabase
-    .from("mixtures_table")
-    .select("raw_mats,quantity,unit,total")
-    .eq("branch_id", branchId)
-    .eq("status", "Leftover_Mixture");
-
-  if (error) {
-    console.error("Error fetching products:", error.message);
-    return;
-  }
-
-  createdLeftover.innerHTML = "";
-  // Clear previous table data
-
-  data.forEach((item) => {
-    createdLeftover.innerHTML += `
-      <tr class="border-b border-b-neutral-700">
-        <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
-        <td contentEditable="false"  class="quantity text-center inventoryContent px-4 py-4">${item.quantity}</td>
-        <td contentEditable="false"  class="unimeasure text-center font-bold inventoryContent px-4  py-2">${item.unit}</td>
-        <td  class="px-4 text-center py-2">₱${item.total}</td>
-      </tr>
-     
-    `;
-  });
-}
-
-//*ADDED STOCKS/INVENTORY
-async function renderStocks() {
-  const { data: userData, error: authError } = await supabase.auth.getUser();
-  if (authError || !userData?.user) {
-    throw new Error(authError?.message || "User not logged in");
-  }
-
-  const userId = userData.user.id;
-
-  const { data: userBranch, error: userError } = await supabase
-    .from("users_table")
-    .select("branch_id")
-    .eq("id", userId)
-    .single();
-
-  if (userError) throw new Error(userError.message);
-
-  const branchId = userBranch.branch_id;
-
-  const { data, error } = await supabase
-    .from("inventory_table")
-    .select("total, quantity, unit, raw_mats, prices, exp_date,prchse_date")
-    .eq("branch_id", branchId)
-    .eq("status", "new");
-
-  if (error) {
-    console.error("Error fetching products:", error.message);
-    return;
-  }
-
-  inventoryData.innerHTML = "";
-  notifContainer.innerHTML = "";
-
-  const notificationBtn = document.getElementById("notificationBtn");
-  const notifcontainer = document.getElementById("notificationcontainer");
-  const notificationDropdown = document.getElementById("notificationDropdown");
-  const notifbadge = document.getElementById("notifBadge");
-
-  // counter
-  let notifCount = 0;
-
-  inventory_status.addEventListener("change", async () => {
-    const selected = inventory_status.value;
-
-    // Clear existing inventory data and notif count
-    inventoryData.innerHTML = "";
-    notifContainer.innerHTML = "";
-    let notifCount = 0;
-
-    if (selected === "New") {
-      // Fetch ng mga NEW status data
-      const { data, error } = await supabase
-        .from("inventory_table")
-        .select(
-          "total, quantity, unit, raw_mats, prices, exp_date, prchse_date"
-        )
-        .eq("branch_id", branchId)
-        .eq("status", "new");
-
-      if (error) {
-        console.error("Error fetching inventory:", error.message);
-        return;
-      }
-
-      data.forEach((item) => {
-        const quantity = Number(item.quantity);
-
-        const formattedExpDate = new Date(item.exp_date).toLocaleDateString(
-          "en-US",
-          {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          }
-        );
-
-        const formattedPrchseDate = new Date(
-          item.prchse_date
-        ).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-
-        // Check low stock
-        if (quantity < 3) {
-          notifCount++;
-          notifContainer.innerHTML += `
-            <li class="p-3 hover:bg-gray-100 cursor-pointer">
-              <p class="text-sm text-gray-700">
-                <span class="text-[#B60205] font-semibold">${item.raw_mats}</span> is low on stock! 
-                Only <span class="text-[#B60205] font-semibold">${quantity} ${item.unit}</span> left.
-              </p>
-            </li>
-          `;
-        }
-
-        // Render inventory row
-        inventoryData.innerHTML += `
-          <tr class="border-b border-b-neutral-700">
-            <td class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
-            <td class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedPrchseDate}</td>
-            <td class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedExpDate}</td>
-            <td class="quantity text-center text-[1rem] font-bold inventoryContent px-4 py-4">${item.quantity}</td>
-            <td class="unimeasure text-center inventoryContent px-4 py-4"><span>${item.unit}</span></td>
-            <td class="px-4 text-center py-4">₱${item.prices}</td>
-            <td class="px-4 text-center py-2">₱${item.total}</td>
-          </tr>
-        `;
-      });
-    } else if (selected === "Old") {
-      // Fetch ng mga NEW status data
-      const { data, error } = await supabase
-        .from("inventory_table")
-        .select(
-          "total, quantity, unit, raw_mats, prices, exp_date, prchse_date"
-        )
-        .eq("branch_id", branchId)
-        .eq("status", "old");
-
-      if (error) {
-        console.error("Error fetching inventory:", error.message);
-        return;
-      }
-
-      data.forEach((item) => {
-        const quantity = Number(item.quantity);
-
-        const formattedExpDate = new Date(item.exp_date).toLocaleDateString(
-          "en-US",
-          {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          }
-        );
-
-        const formattedPrchseDate = new Date(
-          item.prchse_date
-        ).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-
-        // Check low stock
-        if (quantity < 3) {
-          notifCount++;
-          notifContainer.innerHTML += `
-         <li class="p-3 hover:bg-gray-100 cursor-pointer">
-           <p class="text-sm text-gray-700">
-             <span class="text-[#B60205] font-semibold">${item.raw_mats}</span> is low on stock! 
-             Only <span class="text-[#B60205] font-semibold">${quantity} ${item.unit}</span> left.
-           </p>
-         </li>
-       `;
-        }
-
-        // Render inventory row
-        inventoryData.innerHTML += `
-       <tr class="border-b border-b-neutral-700">
-         <td class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
-         <td class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedPrchseDate}</td>
-         <td class="exp-date font-bold text-center inventoryContent px-4 py-4">${formattedExpDate}</td>
-         <td class="quantity text-center text-[1rem] font-bold inventoryContent px-4 py-4">${item.quantity}</td>
-         <td class="unimeasure text-center inventoryContent px-4 py-4"><span>${item.unit}</span></td>
-         <td class="px-4 text-center py-4">₱${item.prices}</td>
-         <td class="px-4 text-center py-2">₱${item.total}</td>
-       </tr>
-     `;
-      });
-    }
-  });
-
-  // Update notification badge
-  notifbadge.textContent = notifCount;
-
-  // Toggle dropdown when button is clicked
-  notificationBtn.onclick = () => {
-    notificationDropdown.classList.toggle("hidden");
-  };
-
-  // Hide dropdown when clicking outside
-  document.addEventListener("click", (event) => {
-    if (
-      !notificationBtn.contains(event.target) &&
-      !notificationDropdown.contains(event.target)
-    ) {
-      notificationDropdown.classList.add("hidden");
-    }
-  });
-}
-
-updateBtn.addEventListener("click", function () {
-  const inventorycontent = document.querySelectorAll(".inventoryContent");
-
-  inventorycontent.forEach((contentTable) => {
-    contentTable.contentEditable = "true";
-    contentTable.classList.add("outline-red-600", "outline-1");
-  });
-
-  savebtn?.classList.remove("hidden"); // Ensure savebtn exists before modifying
-});
-
-function subscribeToRealTimeOrders() {
-  const channel = supabase.channel("inventory-channel"); // Create a real-time channel
-
-  // Listen for changes in inventory_table
-  channel.on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "inventory_table",
-    },
-    (payload) => {
-      console.log("Inventory Table Change Detected:", payload);
-      renderStocks(); // Refresh the table on changes
-    }
-  );
-
-  // Listen for changes in mixtures_table
-  channel.on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "mixtures_table",
-    },
-    (payload) => {
-      // Refresh the table on changes
-      console.log("Mixtures Table Change Detected:", payload);
-      renderaddedmixtures();
-      renderCreadtedMixtures();
-      renderleftOver();
-    }
-  );
-
-  // Subscribe to the channel
-  channel.subscribe();
-}
 
 document.addEventListener("DOMContentLoaded", function () {
   renderaddedmixtures();

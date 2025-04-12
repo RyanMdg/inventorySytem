@@ -1,6 +1,6 @@
 "use strict";
-import supabase from "../Backend2/config/SupabaseClient.js";
-import orders from "./modal.js";
+import supabase from "../../Backend2/config/SupabaseClient.js";
+import orders from "../modal.js";
 
 const btnPlaceOrder = document.querySelector(".placeOrderBtn");
 const totalreciept = document.querySelector(".grandtotal");

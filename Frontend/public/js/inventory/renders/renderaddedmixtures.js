@@ -11,7 +11,7 @@ export async function renderaddedmixtures() {
 
   const { data: inventory, error: inventory_error } = await supabase
     .from("inventory_table")
-    .select("raw_mats,unit")
+    .select("raw_mats,unit,status")
     .eq("branch_id", branchId);
 
   if (inventory_error) {
@@ -35,11 +35,13 @@ export async function renderaddedmixtures() {
   dropdown.innerHTML = "";
 
   inventory.forEach((stock) => {
-    dropdown.innerHTML += `
-    <option value="${stock.raw_mats}">${stock.raw_mats}</option>
-               
-    `;
-    unitMap.set(stock.raw_mats, stock.unit);
+    if (stock.status === "new") {
+      dropdown.innerHTML += `
+        <option value="${stock.raw_mats}">${stock.raw_mats}</option>
+                   
+        `;
+      unitMap.set(stock.raw_mats, stock.unit);
+    }
   });
 
   createRaw.addEventListener("change", () => {

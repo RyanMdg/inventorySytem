@@ -54,14 +54,58 @@ addToStack.addEventListener("click", async function () {
 
   const { data: inventory, error: inventoryerror } = await supabase
     .from("inventory_table")
-    .select("raw_mats")
+    .select("raw_mats,status")
     .eq("branch_id", branchId);
 
-  const isDubplicated = inventory.some((item) => item.raw_mats === raw.value);
+  const isDubplicated = inventory.some(
+    (item) => item.raw_mats === raw.value && item.status === "new"
+  );
 
   if (isDubplicated) {
-    alert("This item is already in stock.");
-    return;
+    const totalPrice = parseFloat(prices.value) * parseFloat(pcs.value);
+
+    await supabase
+      .from("inventory_table")
+      .update({ status: "old" })
+      .eq("raw_mats", raw.value)
+      .eq("status", "new");
+
+    const { data: addStock, error: errorAddStock } = await supabase
+      .from("inventory_table")
+      .insert([
+        {
+          branch_id: branchId,
+          raw_mats: raw.value,
+          quantity: pcs.value,
+          unit: unit.value,
+          prices: parseFloat(prices.value),
+          exp_date: expdate.value,
+          prchse_date: prchasedate.value,
+          status: "new",
+          total: totalPrice.toFixed(2),
+        },
+      ])
+      .select("id")
+      .single();
+
+    if (errorAddStock) {
+      console.error("Error adding stock:", errorAddStock?.message);
+      alert("Failed to add the stock");
+      return;
+    }
+
+    alert(`Stock added successfully`);
+    inventoryid += addStock.id;
+
+    renderStocks();
+
+    // Clear ng inputs
+    raw.value = "";
+    pcs.value = "";
+    unit.value = "";
+    prices.value = "";
+    expdate.value = "";
+    totalDisplay.textContent = "0.00";
   } else {
     const totalPrice = parseFloat(prices.value) * parseFloat(pcs.value);
 

@@ -31,16 +31,17 @@ export async function renderaddedmixtures() {
   }
 
   const unitMap = new Map();
+  const seenRawMats = new Set(); //  track raw_mats already added
 
   dropdown.innerHTML = "";
 
   inventory.forEach((stock) => {
-    if (stock.status === "new") {
+    if (!seenRawMats.has(stock.raw_mats)) {
       dropdown.innerHTML += `
-        <option value="${stock.raw_mats}">${stock.raw_mats}</option>
-                   
-        `;
-      unitMap.set(stock.raw_mats, stock.unit);
+      <option value="${stock.raw_mats}">${stock.raw_mats}</option>
+    `;
+      seenRawMats.add(stock.raw_mats); // ✅ mark as added
+      unitMap.set(stock.raw_mats, stock.unit); // ✅ store unit for this raw_mat
     }
   });
 

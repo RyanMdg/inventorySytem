@@ -7,6 +7,7 @@ import { renderaddedmixtures } from "./renders/renderaddedmixtures.js";
 import { renderCreadtedMixtures } from "./renders/renderCreadtedMixtures.js";
 import { renderleftOver } from "./renders/renderleftOver.js";
 import { subscribeToRealTimeOrders } from "./realtimeHandlers/subscribeToRealTimeOrders.js";
+import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
 const raw = document.getElementById("raw");
 const createRaw = document.getElementById("createRaw");
@@ -25,6 +26,33 @@ const createbtn = document.querySelector(".createBtn");
 const addToStack = document.querySelector(".addbtn");
 
 let inventoryid = "";
+
+async function isDubplicated() {
+  const { branchId } = await getAuthUserAndBranch();
+
+  const { data: inventory, error: inventoryerror } = await supabase
+    .from("inventory_table")
+    .select("raw_mats,status")
+    .eq("branch_id", branchId);
+
+  return inventory?.some(
+    (item) => item.raw_mats === raw.value && item.status === "new"
+  );
+}
+
+async function forduplicated() {
+  const { branchId } = await getAuthUserAndBranch();
+
+  const rawMat = createRaw.value;
+
+  const { data: inventory, error: inventoryerror } = await supabase
+    .from("inventory_table")
+    .select("raw_mats,status")
+    .eq("branch_id", branchId);
+  const count = inventory?.filter((item) => item.raw_mats === rawMat).length;
+
+  return count >= 2;
+}
 
 //* ADD BUTTON TO ADD PRODUCTS TO STOCK CONTAINER
 addToStack.addEventListener("click", async function () {
@@ -57,11 +85,10 @@ addToStack.addEventListener("click", async function () {
     .select("raw_mats,status")
     .eq("branch_id", branchId);
 
-  const isDubplicated = inventory.some(
-    (item) => item.raw_mats === raw.value && item.status === "new"
-  );
+  const duplicated = await isDubplicated();
+  console.log(duplicated);
 
-  if (isDubplicated) {
+  if (duplicated) {
     const totalPrice = parseFloat(prices.value) * parseFloat(pcs.value);
 
     await supabase
@@ -174,12 +201,15 @@ createbtn.addEventListener("click", async function () {
 
   const branchId = userData.branch_id;
 
+  const duplicated = forduplicated();
+
   // Fetch current stock levels
   const { data: stockData, error: stockError } = await supabase
     .from("inventory_table")
     .select("quantity, raw_mats,prices,total")
     .eq("branch_id", branchId)
     .eq("raw_mats", createRaw.value)
+    .eq("status", duplicated ? "old" : "new")
     .single();
 
   if (stockError || !stockData) {
@@ -207,13 +237,15 @@ createbtn.addEventListener("click", async function () {
     .from("inventory_table")
     .update({ quantity: newStock, total: stockData.total - newTotal })
     .eq("branch_id", branchId)
-    .eq("raw_mats", createRaw.value);
+    .eq("raw_mats", createRaw.value)
+    .eq("status", duplicated ? "old" : "new");
 
   if (updateError) {
     console.error("Error updating stock:", updateError?.message);
     alert("Failed to deduct stock.");
     return;
   }
+  console.log("Is duplicated?", duplicated);
 
   // Insert new mixture into the database
   const { data: addMixture, error: mixtureError } = await supabase
@@ -274,14 +306,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const branchId = userBranch.branch_id;
 
-    const rawMat = createRaw.value; // Get what the user types
+    // Get what the user types
+    const rawMat = createRaw.value;
+
+    const { data: inventory, error: inventoryerror } = await supabase
+      .from("inventory_table")
+      .select("raw_mats,status")
+      .eq("branch_id", branchId);
+
+    function forduplicated() {
+      const count = inventory?.filter(
+        (item) => item.raw_mats === rawMat
+      ).length;
+
+      return count >= 2;
+    }
 
     if (!rawMat) return; // If input is empty, exit
+
+    const duplicated = forduplicated();
 
     const { data, error } = await supabase
       .from("inventory_table")
       .select("prices")
       .eq("raw_mats", rawMat)
+      .eq("status", duplicated ? "old" : "new")
       .eq("branch_id", branchId)
       .maybeSingle(); // Fetch the price of the typed raw material
 
@@ -293,7 +342,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (data && data.prices !== null) {
       mixtureTotal(data.prices); // Call function with fetched price
     } else {
-      createdTotal.textContent = "0.00"; // If no price found, set to 0
+      createdTotal.textContent = "0.00";
+      console.log(error); // If no price found, set to 0
     }
   }
 

@@ -20,7 +20,8 @@ export async function subscribeToRealTimeOrders() {
     },
     (payload) => {
       console.log("Inventory Table Change Detected:", payload);
-      renderStocks(); // Refresh the table on changes
+      renderStocks();
+      renderaddedmixtures(); // Refresh the table on changes
     }
   );
 

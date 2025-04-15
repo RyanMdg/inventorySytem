@@ -1,13 +1,14 @@
 "use strict";
 
 import supabase from "../../Backend2/config/SupabaseClient.js";
+import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
 const mixtureBtn = document.getElementById("mixtureBtn");
 const nomixalertContainer = document.getElementById("nomixtures");
 const createdMixture = document.getElementById("tablemixture");
 
 // Function to check if there are Created_Mixtures
-async function checkMixtures() {
+export async function checkMixtures() {
   const { data: userData, error: authError } = await supabase.auth.getUser();
   if (authError || !userData?.user) {
     console.error(authError?.message || "User not logged in");
@@ -57,26 +58,7 @@ document.addEventListener("DOMContentLoaded", checkMixtures);
 
 // Update status when the button is clicked
 mixtureBtn.addEventListener("click", async function () {
-  const { data: userData, error: authError } = await supabase.auth.getUser();
-  if (authError || !userData?.user) {
-    console.error(authError?.message || "User not logged in");
-    return;
-  }
-
-  const userId = userData.user.id;
-
-  const { data: userBranch, error: userError } = await supabase
-    .from("users_table")
-    .select("branch_id")
-    .eq("id", userId)
-    .single();
-
-  if (userError) {
-    console.error(userError.message);
-    return;
-  }
-
-  const branchId = userBranch.branch_id;
+  const { branchId } = await getAuthUserAndBranch();
 
   const leftoverCount = await checkLeftovers(branchId);
 

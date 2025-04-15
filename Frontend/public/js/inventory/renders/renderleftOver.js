@@ -6,6 +6,7 @@ import { getAuthUserAndBranch } from "../../Authentication/auth-utils.js";
 
 export async function renderleftOver() {
   const { branchId } = await getAuthUserAndBranch();
+  const createdleftOver_sum = document.getElementById("createdleftOver_sum");
 
   const { data, error } = await supabase
     .from("mixtures_table")
@@ -19,9 +20,11 @@ export async function renderleftOver() {
   }
 
   createdLeftover.innerHTML = "";
+  let leftOverSum = 0;
   // Clear previous table data
 
   data.forEach((item) => {
+    leftOverSum += item.total;
     createdLeftover.innerHTML += `
       <tr class="border-b border-b-neutral-700">
         <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
@@ -31,5 +34,6 @@ export async function renderleftOver() {
       </tr>
      
     `;
+    createdleftOver_sum.textContent = `₱${leftOverSum}`;
   });
 }

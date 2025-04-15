@@ -201,7 +201,7 @@ createbtn.addEventListener("click", async function () {
 
   const branchId = userData.branch_id;
 
-  const duplicated = forduplicated();
+  const duplicated = await forduplicated();
 
   // Fetch current stock levels
   const { data: stockData, error: stockError } = await supabase

@@ -6,6 +6,7 @@ import { renderStocks } from "../renders/renderStocks.js";
 import { renderaddedmixtures } from "../renders/renderaddedmixtures.js";
 import { renderCreadtedMixtures } from "../renders/renderCreadtedMixtures.js";
 import { renderleftOver } from "../renders/renderleftOver.js";
+import { checkMixtures } from "../createdMixtures.js";
 
 export async function subscribeToRealTimeOrders() {
   const channel = supabase.channel("inventory-channel"); // Create a real-time channel
@@ -39,6 +40,7 @@ export async function subscribeToRealTimeOrders() {
       renderaddedmixtures();
       renderCreadtedMixtures();
       renderleftOver();
+      checkMixtures();
     }
   );
 

@@ -1,10 +1,12 @@
 "use strict";
 
 import supabase from "../../Backend2/config/SupabaseClient.js";
+import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
 const leftOverBtn = document.getElementById("leftoverBtn");
 const noleftalertContainer = document.getElementById("noleftmixtures");
 const leftOverMixtures = document.getElementById("leftovertablemixture");
+const UseLeftOverBtn = document.getElementById("UseLeftOverBtn");
 
 // Function to check if there are Created_Mixtures
 async function checkleftovermixture() {
@@ -93,4 +95,38 @@ leftOverBtn.addEventListener("click", async function () {
 
   // mixture status dynamically
   checkleftovermixture();
+});
+
+// * USE LEFT OVER BUTTON ON MODAL POP UP
+document.addEventListener("DOMContentLoaded", () => {
+  if (UseLeftOverBtn) {
+    UseLeftOverBtn.addEventListener("click", async function () {
+      const { branchId } = await getAuthUserAndBranch();
+      const modal = document.getElementById("leftoverModal");
+      const closeBtn = document.querySelector(".leftoverMixturesButtonclose");
+
+      const { data, error } = await supabase
+        .from("mixture_table")
+        .update({ status: "Created_Mixture" })
+        .eq("branch_id", branchId)
+        .eq("status", "Leftover_Mixture");
+
+      if (error) {
+        console.error("Error updating data:", error);
+      } else {
+        console.log("Data updated successfully:", data);
+
+        alert("succesfull leftover use as mixture");
+
+        // Close when clicking the close button
+        closeBtn.addEventListener("click", function () {
+          modal.classList.add("hidden");
+        });
+      }
+      console.log("hi");
+      checkleftovermixture();
+    });
+  } else {
+    console.warn("UseLeftOverBtn not found in DOM");
+  }
 });

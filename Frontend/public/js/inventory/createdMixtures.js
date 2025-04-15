@@ -6,6 +6,7 @@ import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 const mixtureBtn = document.getElementById("mixtureBtn");
 const nomixalertContainer = document.getElementById("nomixtures");
 const createdMixture = document.getElementById("tablemixture");
+const mixtureModal = document.getElementById("mixtureModal");
 
 // Function to check if there are Created_Mixtures
 export async function checkMixtures() {
@@ -61,9 +62,12 @@ mixtureBtn.addEventListener("click", async function () {
   const { branchId } = await getAuthUserAndBranch();
 
   const leftoverCount = await checkLeftovers(branchId);
+  const CreatedMixtureCount = await checkCreatedMixture(branchId);
 
   if (leftoverCount > 0) {
     showLeftoverModal(leftoverCount);
+  } else if (CreatedMixtureCount > 0) {
+    mixtureModal.classList.remove("hidden");
   } else {
     const { data, error } = await supabase
       .from("mixtures_table")
@@ -100,10 +104,28 @@ async function checkLeftovers(branchId) {
   return count;
 }
 
+// * CHECK IF THERES ALREADY CREATED MIXTURE
+
+async function checkCreatedMixture(branchId) {
+  const { count, error: countError } = await supabase
+    .from("mixtures_table")
+    .select("*", { count: "exact", head: true })
+    .eq("branch_id", branchId)
+    .eq("status", "Created_Mixture");
+
+  if (countError) {
+    console.error("Error fetching leftover count:", countError);
+    return 0;
+  }
+
+  console.log(`CREATED MIXTURE: ${count}`);
+  return count;
+}
+
 // **MODAL
 
 async function loadLeftoverModal() {
-  const response = await fetch("leftover-modal.html");
+  const response = await fetch("/Frontend/alerts-modal/leftover-modal.html");
   const html = await response.text();
   document.getElementById("modalContainer").innerHTML = html;
 

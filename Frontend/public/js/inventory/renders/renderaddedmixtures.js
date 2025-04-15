@@ -40,8 +40,8 @@ export async function renderaddedmixtures() {
       dropdown.innerHTML += `
       <option value="${stock.raw_mats}">${stock.raw_mats}</option>
     `;
-      seenRawMats.add(stock.raw_mats); // ✅ mark as added
-      unitMap.set(stock.raw_mats, stock.unit); // ✅ store unit for this raw_mat
+      seenRawMats.add(stock.raw_mats); // mark as added
+      unitMap.set(stock.raw_mats, stock.unit); // store unit for this raw_mat
     }
   });
 

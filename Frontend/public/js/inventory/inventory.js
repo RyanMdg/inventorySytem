@@ -201,7 +201,7 @@ createbtn.addEventListener("click", async function () {
 
   const branchId = userData.branch_id;
 
-  const duplicated = forduplicated();
+  const duplicated = await forduplicated();
 
   // Fetch current stock levels
   const { data: stockData, error: stockError } = await supabase
@@ -210,10 +210,17 @@ createbtn.addEventListener("click", async function () {
     .eq("branch_id", branchId)
     .eq("raw_mats", createRaw.value)
     .eq("status", duplicated ? "old" : "new")
-    .single();
+    .limit(1)
+    .maybeSingle();
 
-  if (stockError || !stockData) {
-    console.error("Error fetching stock:", stockError?.message);
+  if (stockError) {
+    console.error("Supabase error fetching stock:", stockError.message);
+    alert("An error occurred while fetching stock.");
+    return;
+  }
+
+  if (!stockData) {
+    console.warn("No matching stock found in inventory.");
     alert("Raw material not found in inventory.");
     return;
   }

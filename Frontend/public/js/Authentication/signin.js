@@ -1,4 +1,4 @@
-import supabase from "/Frontend/public/Backend2/config/SupabaseClient.js";
+import supabase from "../../Backend2/config/SupabaseClient.js";
 
 const registerBtn = document.querySelector(".register-btn");
 

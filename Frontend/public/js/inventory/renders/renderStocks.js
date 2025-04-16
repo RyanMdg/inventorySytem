@@ -56,7 +56,7 @@ export async function renderStocks() {
       if (quantity < 3) {
         notifCount++;
         notifContainer.innerHTML += `
-          <li class="p-3 hover:bg-gray-100 cursor-pointer">
+          <li class="p-3 hover:bg-gray-100 cursor-pointer bg-[#f2f4f8] mx-3 mb-5 shadow drop-shadow-sm ">
             <p class="text-sm text-gray-700">
               <span class="text-[#B60205] font-semibold">${item.raw_mats}</span> is low on stock!
               Only <span class="text-[#B60205] font-semibold">${quantity} ${item.unit}</span> left.

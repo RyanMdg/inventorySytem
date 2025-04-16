@@ -520,6 +520,12 @@
   }
 }
 @layer utilities {
+  .pointer-events-auto {
+    pointer-events: auto;
+  }
+  .pointer-events-none {
+    pointer-events: none;
+  }
   .collapse {
     visibility: collapse;
   }
@@ -600,9 +606,6 @@
   }
   .mx-5 {
     margin-inline: calc(var(--spacing) * 5);
-  }
-  .mx-7 {
-    margin-inline: calc(var(--spacing) * 7);
   }
   .mx-10 {
     margin-inline: calc(var(--spacing) * 10);
@@ -824,6 +827,18 @@
     --tw-translate-y: calc(var(--spacing) * 5);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .scale-95 {
+    --tw-scale-x: 95%;
+    --tw-scale-y: 95%;
+    --tw-scale-z: 95%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .scale-100 {
+    --tw-scale-x: 100%;
+    --tw-scale-y: 100%;
+    --tw-scale-z: 100%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
   .transform {
     transform: var(--tw-rotate-x) var(--tw-rotate-y) var(--tw-rotate-z) var(--tw-skew-x) var(--tw-skew-y);
   }
@@ -1007,9 +1022,6 @@
   }
   .bg-\[\#e946496b\] {
     background-color: #e946496b;
-  }
-  .bg-\[\#eaeef7b4\] {
-    background-color: #eaeef7b4;
   }
   .bg-\[\#f2f4f8\] {
     background-color: #f2f4f8;
@@ -1260,11 +1272,17 @@
       color: #302D3D;
     }
   }
+  .opacity-0 {
+    opacity: 0%;
+  }
   .opacity-40 {
     opacity: 40%;
   }
   .opacity-50 {
     opacity: 50%;
+  }
+  .opacity-100 {
+    opacity: 100%;
   }
   .opacity-\[37\%\] {
     opacity: 37%;
@@ -1348,6 +1366,9 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
+  .delay-150 {
+    transition-delay: 150ms;
+  }
   .delay-200 {
     transition-delay: 200ms;
   }
@@ -1378,6 +1399,27 @@
   .placeholder\:opacity-\[0\.37\] {
     &::placeholder {
       opacity: 0.37;
+    }
+  }
+  .hover\:bg-\[\#000000\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #000000;
+      }
+    }
+  }
+  .hover\:bg-\[\#acacad\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #acacad;
+      }
+    }
+  }
+  .hover\:bg-\[\#cececf\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #cececf;
+      }
     }
   }
   .hover\:bg-gray-100 {
@@ -1747,6 +1789,21 @@
   syntax: "*";
   inherits: false;
   initial-value: 0;
+}
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
 }
 @property --tw-rotate-x {
   syntax: "*";

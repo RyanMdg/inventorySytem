@@ -98,35 +98,31 @@ leftOverBtn.addEventListener("click", async function () {
 });
 
 // * USE LEFT OVER BUTTON ON MODAL POP UP
-document.addEventListener("DOMContentLoaded", () => {
-  if (UseLeftOverBtn) {
-    UseLeftOverBtn.addEventListener("click", async function () {
-      const { branchId } = await getAuthUserAndBranch();
-      const modal = document.getElementById("leftoverModal");
-      const closeBtn = document.querySelector(".leftoverMixturesButtonclose");
 
-      const { data, error } = await supabase
-        .from("mixture_table")
-        .update({ status: "Created_Mixture" })
-        .eq("branch_id", branchId)
-        .eq("status", "Leftover_Mixture");
+UseLeftOverBtn.addEventListener("click", async function () {
+  const { branchId } = await getAuthUserAndBranch();
+  const modal = document.getElementById("leftoverModal");
+  const closeBtn = document.querySelector(".leftoverMixturesButtonclose");
 
-      if (error) {
-        console.error("Error updating data:", error);
-      } else {
-        console.log("Data updated successfully:", data);
+  const { data, error } = await supabase
+    .from("mixtures_table")
+    .update({ status: "Created_Mixture" })
+    .eq("branch_id", branchId)
+    .eq("status", "Leftover_Mixture");
 
-        alert("succesfull leftover use as mixture");
-
-        // Close when clicking the close button
-        closeBtn.addEventListener("click", function () {
-          modal.classList.add("hidden");
-        });
-      }
-      console.log("hi");
-      checkleftovermixture();
-    });
+  if (error) {
+    console.error("Error updating data:", error);
   } else {
-    console.warn("UseLeftOverBtn not found in DOM");
+    console.log("Data updated successfully:", data);
+
+    alert("succesfull leftover use as mixture");
+    modal.classList.add("hidden");
+
+    // Close when clicking the close button
+    closeBtn.addEventListener("click", function () {
+      modal.classList.add("hidden");
+    });
   }
+  console.log("hi");
+  checkleftovermixture();
 });

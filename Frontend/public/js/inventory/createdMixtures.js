@@ -7,6 +7,7 @@ const mixtureBtn = document.getElementById("mixtureBtn");
 const nomixalertContainer = document.getElementById("nomixtures");
 const createdMixture = document.getElementById("tablemixture");
 const mixtureModal = document.getElementById("mixtureModal");
+const leftoverModal = document.getElementById("leftoverModal");
 
 // Function to check if there are Created_Mixtures
 export async function checkMixtures() {
@@ -65,9 +66,31 @@ mixtureBtn.addEventListener("click", async function () {
   const CreatedMixtureCount = await checkCreatedMixture(branchId);
 
   if (leftoverCount > 0) {
-    showLeftoverModal(leftoverCount);
+    leftoverModal.classList.remove(
+      "opacity-0",
+      "scale-95",
+      "pointer-events-none",
+      "bg-opacity-0"
+    );
+    leftoverModal.classList.add(
+      "opacity-100",
+      "scale-100",
+      "pointer-events-auto",
+      "bg-opacity-50"
+    );
   } else if (CreatedMixtureCount > 0) {
-    mixtureModal.classList.remove("hidden");
+    mixtureModal.classList.remove(
+      "opacity-0",
+      "scale-95",
+      "pointer-events-none",
+      "bg-opacity-0"
+    );
+    mixtureModal.classList.add(
+      "opacity-100",
+      "scale-100",
+      "pointer-events-auto",
+      "bg-opacity-50"
+    );
   } else {
     const { data, error } = await supabase
       .from("mixtures_table")
@@ -124,35 +147,40 @@ async function checkCreatedMixture(branchId) {
 
 // **MODAL
 
-async function loadLeftoverModal() {
-  const response = await fetch("/Frontend/alerts-modal/leftover-modal.html");
-  const html = await response.text();
-  document.getElementById("modalContainer").innerHTML = html;
+const modal = document.getElementById("leftoverModal");
+const closeBtn = document.querySelector(".leftoverMixturesButtonclose");
+const modalContent = document.getElementById("leftoverModalContent");
 
-  const modal = document.getElementById("leftoverModal");
-  const closeBtn = document.querySelector(".leftoverMixturesButtonclose");
-  const modalContent = document.getElementById("leftoverModalContent");
+// Close when clicking the close button
+closeBtn.addEventListener("click", function () {
+  modal.classList.remove(
+    "opacity-100",
+    "scale-100",
+    "pointer-events-auto",
+    "bg-opacity-50"
+  );
+  modal.classList.add(
+    "opacity-0",
+    "scale-95",
+    "pointer-events-none",
+    "bg-opacity-0"
+  );
+});
 
-  // Close when clicking the close button
-  closeBtn.addEventListener("click", function () {
-    modal.classList.add("hidden");
-  });
-
-  // Close when clicking outside the modal content
-  modal.addEventListener("click", function (event) {
-    if (!modalContent.contains(event.target)) {
-      modal.classList.add("hidden");
-    }
-  });
-}
-
-async function showLeftoverModal(count) {
-  if (!document.getElementById("leftoverModal")) {
-    await loadLeftoverModal();
+// Close when clicking outside the modal content
+modal.addEventListener("click", function (event) {
+  if (!modalContent.contains(event.target)) {
+    modal.classList.remove(
+      "opacity-100",
+      "scale-100",
+      "pointer-events-auto",
+      "bg-opacity-50"
+    );
+    modal.classList.add(
+      "opacity-0",
+      "scale-95",
+      "pointer-events-none",
+      "bg-opacity-0"
+    );
   }
-
-  document.getElementById(
-    "leftoverCountText"
-  ).textContent = `You have leftover mixtures!`;
-  document.getElementById("leftoverModal").classList.remove("hidden");
-}
+});

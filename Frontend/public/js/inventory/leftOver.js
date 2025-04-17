@@ -7,6 +7,7 @@ const leftOverBtn = document.getElementById("leftoverBtn");
 const noleftalertContainer = document.getElementById("noleftmixtures");
 const leftOverMixtures = document.getElementById("leftovertablemixture");
 const UseLeftOverBtn = document.getElementById("UseLeftOverBtn");
+const leftoverModal = document.getElementById("leftoverModal");
 
 // Function to check if there are Created_Mixtures
 async function checkleftovermixture() {
@@ -114,14 +115,19 @@ UseLeftOverBtn.addEventListener("click", async function () {
     console.error("Error updating data:", error);
   } else {
     console.log("Data updated successfully:", data);
-
+    leftoverModal.classList.remove(
+      "opacity-100",
+      "scale-100",
+      "pointer-events-auto",
+      "bg-opacity-50"
+    );
+    leftoverModal.classList.add(
+      "opacity-0",
+      "scale-95",
+      "pointer-events-none",
+      "bg-opacity-0"
+    );
     alert("succesfull leftover use as mixture");
-    modal.classList.add("hidden");
-
-    // Close when clicking the close button
-    closeBtn.addEventListener("click", function () {
-      modal.classList.add("hidden");
-    });
   }
   console.log("hi");
   checkleftovermixture();

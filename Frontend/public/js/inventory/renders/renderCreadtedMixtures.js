@@ -36,6 +36,7 @@ export async function renderCreadtedMixtures() {
       </tr>
      
     `;
+    localStorage.setItem("rawsum", createdsum);
   });
   cretedmixturesum.textContent = `₱${createdsum}`;
 }

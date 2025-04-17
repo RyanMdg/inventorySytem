@@ -623,7 +623,7 @@
           
 
         <!-- *ALREADY MADE MIXTURES CONTAINER -->
-        <div x-show="intPage === 'Mixtures'" class=" flex justify-center " x-cloak>
+        <div x-show="intPage === 'Mixtures'" x-cloak>
              
             <div id="nomixtures" class=" flex flex-col justify-center mt-40 items-center">
               <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
@@ -635,15 +635,12 @@
               </p>
             </div>
              
-            <section id="tablemixture" class="w-[50rem] hidden   ">
-              <div class=" p-3">
-                <h4 class=" font-semibold uppercase text-[1rem]">Created Mixtures</h4>
-              </div>
+            <section id="tablemixture" class="hidden">
               
-              <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+              <div class="max-h-[30rem] mt-10 overflow-y-auto border border-gray-300">
                 <table class="w-full border-collapse">
-                  <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
-                    <tr class="bg-[#EBE7E7]">
+                  <thead class=" opacity-[65%] text-left sticky top-0">
+                    <tr class="bg-[#A3A0B3] text-white">
                       <th class="px-4 text-center py-2">Raw Materials</th>
                       <th class="px-4 text-center py-2">Quantity</th>
                       <th class="px-4 text-center py-2">Unit</th>
@@ -689,12 +686,10 @@
           
         
           
-          <section id="leftovertablemixture" class="hidden ">
-            <div class=" p-3">
-            </div>
-            <div class="max-h-[30rem]    overflow-y-auto border border-gray-300 ">
+          <section id="leftovertablemixture" class="hidden">
+          
+            <div class="max-h-[30rem] overflow-y-auto border border-gray-300 ">
               <table class="w-full border-collapse
-              
               ">
                 <thead class=" opacity-[65%] text-left sticky top-0">
                   <tr class="bg-[#A3A0B3] text-white">
@@ -909,6 +904,7 @@
     <script type="module" src="./js/Add_Products/navbar.js"></script>
     <script type="module" src="./js/inventory/leftOver.js"></script>
     <script type="module" src="./js/modals_Js/alreadyHaveMixtureAlert.js"></script>
+    <script type="module" src="./js/pos-inventory_communication/calculations.js"></script>
   </main>
   </body>
 </html>

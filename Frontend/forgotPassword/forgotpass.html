@@ -4,29 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../public/css/output.css" />
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js"
-      defer
-    ></script>
-    <script
-      type="module"
-      src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
     <title>Affotako</title>
-    <link rel="icon" href="./images/logo_white.PNG" />
+    <link rel="icon" href="../public/images/logo_white.PNG" />
+    <!-- <link rel="manifest" href="./manifest.json" /> -->
   </head>
-  <body>
+  <body class="font-poppins">
     <main>
-      <h1>please enter your email</h1>
-      <label for="">email</label>
-      <input type="email" name="" id="emailInput" />
-      <button id="forgotpassBtn">send</button>
-    </main>
+      <div
+        class="grid grid-cols-[auto_584px] max-lg:grid-cols-[auto_500px] h-dvh"
+      >
+        <!-- illustration side -->
+        <div class="flex flex-col items-center">
+          <img
+            class="w-[35rem] max-lg:w-[15rem] max-[86rem]:w-[20rem] mt-20"
+            src="../public/images/forgot-pass-image.png"
+            alt="illustration"
+          />
+        </div>
 
-    <script type="module" src="./js/passwordRecovery.js"></script>
+        <!-- login side -->
+        <div
+          class="bg-[#FEEBEC] w-[584px] max-lg:w-[500px] max-[86rem] flex items-center"
+        >
+          <div class="flex flex-col max-lg:w-[20rem] mx-20">
+            <h1
+              class="font-semibold text-[#B60205] max-[1400px]:text-[2rem] text-[2.25rem]"
+            >
+              Forgot Password
+            </h1>
+
+            <span class="">
+              <span
+                class="text-[0.87rem] max-[1400px]:text-[0.75rem] text-[#302D3D] opacity-[37%]"
+                >Don’t worry we’ll reset your password and send you a link to
+                create a new one.</span
+              >
+            </span>
+
+            <!-- INPUT FIELDS FOR LOGINS -->
+            <div class="flex flex-col" >
+              <input
+                class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] mb-5"
+                type="email"
+                placeholder="Enter your email adress"
+                id="emailInput"
+              />
+
+              </div>
+
+              <button
+                class="bg-[#B60205] login-btn rounded-[0.50rem] cursor-pointer text-white py-3 mt-7" id="forgotpassBtn"
+              >
+                Confirm Email
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="../forgotPassword/js/passwordRecovery.js"></script>
   </body>
 </html>

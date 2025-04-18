@@ -13,6 +13,7 @@ newPassBtn.addEventListener("click", async function () {
 
   if (data) {
     alert("Password successfully changed!");
+    window.location.href = "/";
   }
   if (error) {
     alert("Error: " + error.message);

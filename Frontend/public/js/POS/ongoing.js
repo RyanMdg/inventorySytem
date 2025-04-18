@@ -1,6 +1,7 @@
 "use strict";
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
+import { calculated } from "../pos-inventory_communication/calculations.js";
 
 // Function to fetch ongoing orders for the logged-in user's branch
 async function fetchOngoingOrders() {
@@ -33,6 +34,9 @@ async function fetchOngoingOrders() {
       .order("order_date", { ascending: false });
 
     if (ordersError) throw new Error(ordersError.message);
+
+    const totalOrder = orders.reduce((acc, item) => acc + item.total, 0);
+    console.log("total order sum: " + totalOrder);
 
     //* Group orders by receipt number
     return groupOrdersByReceipt(orders);
@@ -74,7 +78,7 @@ async function renderOngoingOrders() {
     orderCard.classList.add("order-card");
 
     orderCard.innerHTML = `
-    <div class=" bg-white basis-1/3  shadow drop-shadow-2xl  px-8 py-5 rounded-2xl text-[#302D3D]">
+    <div class=" bg-white basis-1/3   shadow drop-shadow-2xl  px-8 py-5 rounded-2xl text-[#302D3D]">
 
     <div class=" flex gap-10">
     <div class=" flex flex-col">
@@ -116,7 +120,7 @@ async function renderOngoingOrders() {
        </div>
       
      <div class=" flex justify-between mx-4 "> 
-     <button id="calculation" class="complete-btn cursor-pointer bg-[#B60205] text-white rounded-md px-5 py-2" data-receipt="${receipt}">Completed</button>
+     <button id="calculation" class="complete-btn .complete-btn-calc  cursor-pointer bg-[#B60205] text-white rounded-md px-5 py-2" data-receipt="${receipt}">Completed</button>
       <button class="cancel-btn cursor-pointer bg-[#B60205] text-white rounded-md px-5 py-2" data-receipt="${receipt}">Cancel</button>
      </div>
       
@@ -136,38 +140,9 @@ function attachButtonEventListeners() {
     button.addEventListener("click", async (event) => {
       const receiptNumber = event.target.dataset.receipt;
       await updateOrderStatus(receiptNumber, "completed");
-
-      const { branchId } = await getAuthUserAndBranch();
-      const { data: reciept, error: recieptError } = await supabase
-        .from("pos_orders_table")
-        .select("receipt_number,quantity")
-        .eq("branch_id", branchId);
-
-      if (reciept) {
-        console.log("succesfully fetch data");
-      }
-
-      if (recieptError) {
-        console.log("error fetching ", recieptError.message);
-      }
-
-      reciept.forEach((item) => {
-        let value = item.quantity;
-        let numberOnly = value.replace("s", ""); // removes 's'
-
-        console.log(sumUpRaw(numberOnly));
-      });
+      calculated(receiptNumber);
     });
   });
-
-  const sumUpRaw = (quantity) => {
-    const pricePerBall = 3.285;
-    const rawtotal = localStorage.getItem("rawsum");
-
-    const sum = pricePerBall * quantity;
-
-    return rawtotal - sum;
-  };
 
   document.querySelectorAll(".cancel-btn").forEach((button) => {
     button.addEventListener("click", async (event) => {

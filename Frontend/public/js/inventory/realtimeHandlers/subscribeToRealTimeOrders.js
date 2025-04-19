@@ -84,11 +84,10 @@ export async function subscribeToRealTimeOrders() {
       schema: "public",
       table: "reciepts_summary_table",
     },
-    (payload) => {
+    async (payload) => {
       console.log("reciepts_summary_table Change Detected:", payload);
       totalIncome();
-      renderSalesChart();
-      fetchWeeklyGrossSales(); // Refresh the table on changes
+      await renderSalesChart(); // Refresh the table on changes
     }
   );
 

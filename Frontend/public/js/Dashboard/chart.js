@@ -30,7 +30,6 @@ export async function renderSalesChart() {
   const salesData = await fetchWeeklyGrossSales(branchId);
 
   const ctx = document.getElementById("salesChart").getContext("2d");
-
   new Chart(ctx, {
     type: "bar",
     data: {

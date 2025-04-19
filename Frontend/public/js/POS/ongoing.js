@@ -2,6 +2,7 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import { calculated } from "../pos-inventory_communication/calculations.js";
+import { GrossIncome } from "../Dashboard/gross_Income.js";
 
 // Function to fetch ongoing orders for the logged-in user's branch
 async function fetchOngoingOrders() {
@@ -137,6 +138,7 @@ function attachButtonEventListeners() {
     button.addEventListener("click", async (event) => {
       const { branchId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
+      GrossIncome(receiptNumber);
       await updateOrderStatus(receiptNumber, "completed");
       calculated(receiptNumber);
       console.log("reciept num " + receiptNumber);

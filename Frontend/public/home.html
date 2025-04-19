@@ -17,6 +17,7 @@
       nomodule
       src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Affotako</title>
     <link rel="icon" href="./images/logo_white.PNG" />
   </head>
@@ -175,7 +176,7 @@
         <div class=" grid grid-cols-4 gap-5 mx-10 ">
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
-              <h1 class="font-semibold text-[1.2rem]">Total Income</h1>
+              <h1 class="font-semibold text-[1.2rem]">Gross Sales</h1>
               <select
                 id="incomeFilter"
                 class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
@@ -193,8 +194,27 @@
               <!-- dynamic price here -->
             </h2>
           </div>
+
+          <!-- GROSS INCOME -->
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
-            <h1 class=" font-semibold ps-5 pt-2">Net Income</h1>
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1 class="font-semibold text-[1.2rem]">Gross Income</h1>
+              <select
+                id="GrossincomeFilter"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+              >
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+          
+            <h2
+              class="flex justify-center text-2xl py-10"
+              id="totalGrossIncomeContainer"
+            >
+              <!-- dynamic price here -->
+            </h2>
           </div>
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
             <h1 class=" font-semibold ps-5 pt-2"> 
@@ -206,6 +226,12 @@
           </div>
         </div>
 
+
+        <!--DAILY SALES  -->
+        <div class="w-full max-w-4xl ms-10 p-6 bg-white rounded-sm shadow-md mt-10">
+          <h2 class="text-2xl font-bold mb-4 text-center">Daily Sales</h2>
+          <canvas id="salesChart" class="w-full h-6"></canvas>
+        </div>
 
       </div>
       <!--  -->
@@ -985,6 +1011,9 @@
     <script type="module" src="./js/modals_Js/alreadyHaveMixtureAlert.js"></script>
     <script type="module" src="./js/pos-inventory_communication/calculations.js"></script>
     <script type="module" src="./js/Dashboard/dashboard.js"></script>
+    <script type="module" src="./js/Dashboard/gross_Income.js"></script>
+    <script type="module" src="./js/Dashboard/renders/renderGrossIncome.js"></script>
+    <script type="module" src="./js/Dashboard/chart.js"></script>
   </main>
   </body>
 </html>

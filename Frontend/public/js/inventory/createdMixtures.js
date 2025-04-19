@@ -125,6 +125,7 @@ mixtureBtn.addEventListener("click", async function () {
     {
       branch_id: branchId,
       total: total,
+      expenses_raw_total: total,
       status: "Created_Mixture",
     },
   ]);

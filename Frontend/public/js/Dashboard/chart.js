@@ -3,7 +3,7 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
-async function fetchWeeklyGrossSales(branchId) {
+export async function fetchWeeklyGrossSales(branchId) {
   const { data, error } = await supabase
     .from("reciepts_summary_table")
     .select("created_at, total")

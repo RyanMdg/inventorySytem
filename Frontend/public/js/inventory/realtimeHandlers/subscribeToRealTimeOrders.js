@@ -10,6 +10,7 @@ import { checkMixtures } from "../createdMixtures.js";
 import { totalIncome } from "../../Dashboard/dashboard.js";
 import { totalGrossIncome } from "../../Dashboard/renders/renderGrossIncome.js";
 import { renderSalesChart } from "../../Dashboard/chart.js";
+import { fetchWeeklyGrossSales } from "../../Dashboard/chart.js";
 export async function subscribeToRealTimeOrders() {
   const channel = supabase.channel("inventory-channel"); // Create a real-time channel
   const channeldashboard = supabase.channel("dashboard-channel");
@@ -86,7 +87,8 @@ export async function subscribeToRealTimeOrders() {
     (payload) => {
       console.log("reciepts_summary_table Change Detected:", payload);
       totalIncome();
-      renderSalesChart(); // Refresh the table on changes
+      renderSalesChart();
+      fetchWeeklyGrossSales(); // Refresh the table on changes
     }
   );
 

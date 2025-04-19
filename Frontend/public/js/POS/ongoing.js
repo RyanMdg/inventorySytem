@@ -35,9 +35,6 @@ async function fetchOngoingOrders() {
 
     if (ordersError) throw new Error(ordersError.message);
 
-    const totalOrder = orders.reduce((acc, item) => acc + item.total, 0);
-    console.log("total order sum: " + totalOrder);
-
     //* Group orders by receipt number
     return groupOrdersByReceipt(orders);
   } catch (error) {
@@ -138,9 +135,23 @@ async function renderOngoingOrders() {
 function attachButtonEventListeners() {
   document.querySelectorAll(".complete-btn").forEach((button) => {
     button.addEventListener("click", async (event) => {
+      const { branchId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
       await updateOrderStatus(receiptNumber, "completed");
       calculated(receiptNumber);
+      console.log("reciept num " + receiptNumber);
+
+      const { error } = await supabase
+        .from("reciepts_summary_table")
+        .update({ status: "Completed" })
+        .eq("branch_id", branchId)
+        .eq("receipt_number", receiptNumber)
+        .eq("status", "ongoing");
+
+      if (error) {
+        console.error("Failed to update status:", error.message);
+        alert("Failed to update.");
+      }
     });
   });
 

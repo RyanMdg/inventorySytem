@@ -108,6 +108,31 @@ mixtureBtn.addEventListener("click", async function () {
     // mixture status dynamically
     checkMixtures();
   }
+
+  const { data: mixtureTable, error: errorMixture } = await supabase
+    .from("mixtures_table")
+    .select("total")
+    .eq("branch_id", branchId)
+    .eq("status", "Created_Mixture");
+
+  if (errorMixture) {
+    console.error("Error fetching receipts:", errorMixture.message);
+  }
+
+  const total = mixtureTable.reduce((sum, row) => sum + (row.total || 0), 0);
+
+  const { data, error } = await supabase.from("mixtures_summary_table").insert([
+    {
+      branch_id: branchId,
+      total: total,
+      status: "Created_Mixture",
+    },
+  ]);
+  if (error) {
+    console.error("Error inserting order:", error.message);
+    alert("Error placing order. Please try again.");
+    return;
+  }
 });
 
 // * CHECK IF THERES LEFTOVERS

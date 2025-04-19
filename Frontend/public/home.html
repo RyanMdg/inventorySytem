@@ -171,9 +171,42 @@
     <!-- Main Content -->
 
     <main class="flex-1">
-      <div x-show="page === 'dashboard'" class="mt-20">
-        <h1 class="text-2xl font-bold">Dashboard</h1>
-        <p>Welcome to the dashboard.</p>
+      <div x-show="page === 'dashboard'" class="mt-24">
+        <div class=" grid grid-cols-4 gap-5 mx-10 ">
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1 class="font-semibold text-[1.2rem]">Total Income</h1>
+              <select
+                id="incomeFilter"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+              >
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+          
+            <h2
+              class="flex justify-center text-2xl py-10"
+              id="totalIncomeContainer"
+            >
+              <!-- dynamic price here -->
+            </h2>
+          </div>
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <h1 class=" font-semibold ps-5 pt-2">Net Income</h1>
+          </div>
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <h1 class=" font-semibold ps-5 pt-2"> 
+              Total Orders
+            </h1>
+          </div>
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+           <h1 class=" font-semibold ps-5 pt-2">Total Expenses</h1> 
+          </div>
+        </div>
+
+
       </div>
       <!--  -->
 
@@ -951,6 +984,7 @@
     <script type="module" src="./js/inventory/leftOver.js"></script>
     <script type="module" src="./js/modals_Js/alreadyHaveMixtureAlert.js"></script>
     <script type="module" src="./js/pos-inventory_communication/calculations.js"></script>
+    <script type="module" src="./js/Dashboard/dashboard.js"></script>
   </main>
   </body>
 </html>

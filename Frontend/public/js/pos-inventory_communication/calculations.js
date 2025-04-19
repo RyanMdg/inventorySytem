@@ -10,7 +10,7 @@ export async function calculated(receiptNum) {
 
   const { data: receipt, error: receiptError } = await supabase
     .from("pos_orders_table")
-    .select("receipt_number, quantity, total, is_deducted")
+    .select("receipt_number, quantity, is_deducted")
     .eq("branch_id", branchId)
     .eq("status", "completed")
     .eq("receipt_number", receiptNum);
@@ -32,17 +32,16 @@ export async function calculated(receiptNum) {
 
   // ✅ Fetch created mixture totals (expenses raw)
   const { data: mixture, error: mixtureError } = await supabase
-    .from("mixtures_table")
+    .from("mixtures_summary_table")
     .select("total")
     .eq("branch_id", branchId)
-    .eq("status", "Created_Mixture");
+    .eq("status", "Created_Mixture")
+    .single();
 
   if (mixtureError) {
     console.error("Error fetching mixtures:", mixtureError.message);
     return;
   }
-
-  const totalExpensesRaw = parseFloat(localStorage.getItem("rawsum") || "0");
 
   const totalBalls = receipt.reduce((acc, item) => {
     if (item.quantity) {
@@ -52,14 +51,15 @@ export async function calculated(receiptNum) {
     return acc;
   }, 0);
 
-  const remainingRaw = sumUpRaw(totalExpensesRaw, totalBalls);
+  console.log(mixture.total);
 
-  console.log("Total Raw Materials Before:", totalExpensesRaw.toFixed(1));
+  console.log(typeof totalBalls);
+
+  const remainingRaw = sumUpRaw(mixture.total, totalBalls);
+  const raw = remainingRaw.toFixed(1);
+
   console.log("Total Balls Ordered:", totalBalls);
-  console.log("Remaining Raw Materials After:", remainingRaw.toFixed(1));
-
-  localStorage.setItem("rawsum", remainingRaw.toFixed(2));
-  cretedmixturesum.textContent = `₱${remainingRaw.toFixed(2)}`;
+  console.log("Remaining Raw Materials After:", raw);
 
   const { error: updateError } = await supabase
     .from("pos_orders_table")
@@ -68,6 +68,15 @@ export async function calculated(receiptNum) {
 
   if (updateError) {
     console.error("Failed to update is_deducted:", updateError.message);
+  }
+
+  const { data, error } = await supabase
+    .from("mixtures_summary_table")
+    .update({ total: raw })
+    .eq("branch_id", branchId);
+
+  if (error) {
+    console.error("Failed to update is_deducted:", error.message);
   }
 }
 

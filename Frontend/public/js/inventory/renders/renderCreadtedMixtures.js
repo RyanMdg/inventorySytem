@@ -38,6 +38,16 @@ export async function renderCreadtedMixtures() {
     `;
     localStorage.setItem("rawsum", createdsum);
   });
-  const allsum = localStorage.getItem("rawsum");
-  cretedmixturesum.textContent = `₱${allsum} `;
+
+  const { data: mixtureTable, error: errorMixture } = await supabase
+    .from("mixtures_summary_table")
+    .select("total")
+    .eq("branch_id", branchId)
+    .eq("status", "Created_Mixture")
+    .single();
+  if (errorMixture) {
+    console.error("Error fetching receipts:", errorMixture.message);
+  }
+
+  cretedmixturesum.textContent = `₱${mixtureTable.total}`;
 }

@@ -11,6 +11,7 @@ import { totalIncome } from "../../Dashboard/dashboard.js";
 import { totalGrossIncome } from "../../Dashboard/renders/renderGrossIncome.js";
 import { renderSalesChart } from "../../Dashboard/chart.js";
 import { fetchWeeklyGrossSales } from "../../Dashboard/chart.js";
+import { totalOrder } from "../../Dashboard/renders/renderTotalOrders.js";
 export async function subscribeToRealTimeOrders() {
   const channel = supabase.channel("inventory-channel"); // Create a real-time channel
   const channeldashboard = supabase.channel("dashboard-channel");
@@ -87,6 +88,7 @@ export async function subscribeToRealTimeOrders() {
     async (payload) => {
       console.log("reciepts_summary_table Change Detected:", payload);
       totalIncome();
+      totalOrder();
       await renderSalesChart(); // Refresh the table on changes
     }
   );

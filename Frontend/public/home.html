@@ -216,11 +216,29 @@
               <!-- dynamic price here -->
             </h2>
           </div>
+
+          <!-- TOTAL ORDERS -->
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
-            <h1 class=" font-semibold ps-5 pt-2"> 
-              Total Orders
-            </h1>
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1 class="font-semibold text-[1.2rem]">Total Orders</h1>
+              <select
+                id="totalOrderFilter"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+              >
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+          
+            <h2
+              class="flex justify-center text-2xl py-10"
+              id="totalOrderContainer"
+            >
+              <!-- dynamic price here -->
+            </h2>
           </div>
+
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
            <h1 class=" font-semibold ps-5 pt-2">Total Expenses</h1> 
           </div>
@@ -238,6 +256,33 @@
             <canvas id="salesChart" class="w-full h-6"></canvas>
           </div>
         </div>
+
+        <!-- TOP SELLING  -->
+         <div class=" grid grid-cols-3 gap-5 mt-5 mx-10">
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <h1 class="font-semibold pt-2 ps-3 text-[1rem]">Top Selling Products</h1>
+            <div class="flex  flex-col justify-center  px-5 pt-2">
+              <ul id="TopProductList" class="max-h-[100%] overflow-y-auto">
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- NOTIFICATIONS -->
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1>Notifications</h1>
+            </div>
+          </div>
+
+          <!-- QUICK ACTIONS -->
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1>Quick Actions</h1>
+            </div>
+          </div>
+         </div>
         
 
       </div>
@@ -1021,6 +1066,8 @@
     <script type="module" src="./js/Dashboard/gross_Income.js"></script>
     <script type="module" src="./js/Dashboard/renders/renderGrossIncome.js"></script>
     <script type="module" src="./js/Dashboard/chart.js"></script>
+    <script type="module" src="./js/Dashboard/renders/renderTotalOrders.js"></script>
+    <script type="module" src="./js/Dashboard/renders/rendersTopSellings.js"></script>
   </main>
   </body>
 </html>

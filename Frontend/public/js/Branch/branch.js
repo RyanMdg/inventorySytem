@@ -1,10 +1,10 @@
 "strict";
 
 import { renderBranches } from "./renderBranches.js";
-renderBranches();
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
+renderBranches();
 export async function franchiseData() {
   const { branchId } = await getAuthUserAndBranch();
 
@@ -14,7 +14,7 @@ export async function franchiseData() {
     .neq("id", branchId);
 
   if (branchesError) {
-    console.log("error fetiching branches", branchesError.message);
+    console.log("error fetching branches", branchesError.message);
   }
 
   return {

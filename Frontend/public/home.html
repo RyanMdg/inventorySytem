@@ -828,16 +828,36 @@
       </div>
 
       <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
-      <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'" x-cloak>
+      <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'" x-cloak x-cloak x-data="{ posPage: 'franchise' }" >
         <main>
           <div class="mx-5 mt-7 mb-10">
             <h1 class="text-2xl ps-5 py-3 font-bold text-[#ffff] bg-[#302D3D]">Branches</h1>
           </div>
 
-          <div id="branches_container" class="  grid grid-cols-5 gap-5 mx-10">
+          <div id="branches_container"  
+          @click="posPage = 'franchise'"
+          :class="{ 'grid grid-cols-5 gap-5 mx-10  ': posPage === 'franchise' }"
+          >
 
             <!--*** branchesProfile **** -->
+
+            <a  class="bg-white flex cursor-pointer justify-center flex-col items-center gap-3  ms-10 py-5 px-10 rounded-md shadow drop-shadow-md " 
+     @click="posPage = 'branchesProfileData'"
+    >
+    <figure>
+      <img src="./images/branches_logo.png" alt="branch-icon" />
+    </figure>
+    
+    <h1 class=" uppercase font-semibold">${item.name}</h1>
+    <span class=" relative text-[#302D3D] flex justify-center items-center font-bold"><ion-icon class=" pb-2  text-[1.5rem] text-[#B60205]"  name="pin-sharp"></ion-icon>    ${item.location}</span>
+  </a>
           
+           </div>
+           
+            <!--*** branchesProfileData **** -->
+
+           <div x-show="posPage === 'branchesProfileData'" x-cloak >
+hi
            </div>
             
         </main>

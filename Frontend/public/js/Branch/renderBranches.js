@@ -1,30 +1,20 @@
 "strict";
 
-import supabase from "../../Backend2/config/SupabaseClient.js";
-import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 const branches_container = document.getElementById("branches_container");
 const brancheProfileContainer = document.getElementById(
   "brancheProfileContainer"
 );
 
+import { franchiseData } from "./branch.js";
+
 export async function renderBranches() {
-  const { branchId } = await getAuthUserAndBranch();
-
-  const { data: branches, error: branchesError } = await supabase
-    .from("branches_table")
-    .select("id,location,name,role")
-    .neq("id", branchId);
-
-  if (branchesError) {
-    console.log("error fetiching branches", branchesError.message);
-  }
-
+  const { data } = await franchiseData();
   branches_container.innerHTML = "";
 
-  branches.forEach((item) => {
+  data.forEach((item) => {
     branches_container.innerHTML += `
     <a  class="bg-white flex cursor-pointer justify-center flex-col items-center gap-3  ms-10 py-5 px-10 rounded-md shadow drop-shadow-md " 
-    
+     @click="posPage = 'branchesProfileData'"
     >
     <figure>
       <img src="./images/branches_logo.png" alt="branch-icon" />

@@ -94,7 +94,7 @@
         <li id="Container" class="text-[#ffff] cursor-pointer">
           <a
             @click="page='dashboard'"
-            class="text-[#ffff] bg-[#B60205] rounded-sm px-10 py-3 delay-200 ease-in duration-200 flex gap-2 items-center"
+            class="text-[#ffff] bg-[#B60205] rounded-sm py-3 delay-200 ease-in duration-200 flex gap-2 items-center"
             id="dashboard"
             ><ion-icon class="text-[1rem]" name="layers-outline"></ion-icon>
             Dashboard
@@ -171,6 +171,8 @@
 
     <!-- Main Content -->
 
+    <!-- ***** DASHBOARD ***** -->
+
     <main class="flex-1">
       <div x-show="page === 'dashboard'" class="mt-24">
         <div class=" grid grid-cols-4 gap-5 mx-10 ">
@@ -195,7 +197,7 @@
             </h2>
           </div>
 
-          <!-- GROSS INCOME -->
+          <!--* GROSS INCOME -->
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
               <h1 class="font-semibold text-[1.2rem]">Gross Income</h1>
@@ -217,7 +219,7 @@
             </h2>
           </div>
 
-          <!-- TOTAL ORDERS -->
+          <!--* TOTAL ORDERS -->
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
               <h1 class="font-semibold text-[1.2rem]">Total Orders</h1>
@@ -245,7 +247,7 @@
         </div>
 
 
-        <!--DAILY SALES  -->
+        <!--* DAILY SALES  -->
         <div class=" grid grid-cols-2 mx-10 gap-5 ">
           <div class="w-full max-w-4xl p-6 bg-white rounded-sm shadow-md mt-5">
             <h2 class="text-2xl font-bold mb-4 text-center">Daily Sales</h2>
@@ -257,7 +259,7 @@
           </div>
         </div>
 
-        <!-- TOP SELLING  -->
+        <!-- * TOP SELLING  -->
          <div class=" grid grid-cols-3 gap-5 mt-5 mx-10">
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
             <h1 class="font-semibold pt-2 ps-3 text-[1rem]">Top Selling Products</h1>
@@ -269,14 +271,14 @@
             </div>
           </div>
 
-          <!-- NOTIFICATIONS -->
+          <!--* NOTIFICATIONS -->
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
               <h1>Notifications</h1>
             </div>
           </div>
 
-          <!-- QUICK ACTIONS -->
+          <!--* QUICK ACTIONS -->
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
               <h1>Quick Actions</h1>
@@ -308,7 +310,7 @@
               </label>
             </section>
 
-            <!-- POS Sub-Navigation -->
+            <!--* POS Sub-Navigation -->
             <nav class="mt-10 mb-3 mx-auto max-[69rem]:mx-1">
               <ul class="flex max-[69rem]:gap-5 px-5 max-[69rem]:px-1">
                 <li
@@ -484,7 +486,7 @@
             </main>
           </div>
 
-          <!-- SIDE RECEIPT -->
+          <!--* SIDE RECEIPT -->
           <div id="mainreciept"  class="bg-white pt-24  shadow drop-shadow-2xl w-[30%]  h-dvh text-[#302D3D] flex flex-col">
              <ul class="flex max-[69rem]:text-[.8rem] font-semibold   gap-5  px-8">
                  <li>
@@ -826,32 +828,37 @@
       </div>
 
       <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
-      <div id="branchcontent" class=" hidden" x-show="page === 'branches'" x-cloak>
+      <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'" x-cloak>
         <main>
-          <div class="mx-5 my-5">
-            <h1 class="text-2xl font-bold text-[#302D3D]">Branches</h1>
+          <div class="mx-5 mt-7 mb-10">
+            <h1 class="text-2xl ps-5 py-3 font-bold text-[#ffff] bg-[#302D3D]">Branches</h1>
           </div>
 
-          <div class="branches_container  flex flex-row gap-5">
-            <a class="bg-white flex cursor-pointer justify-center flex-col items-center gap-3  ms-10 p-5 rounded-md shadow drop-shadow-2xl w-[10%]">
-              <figure>
-                <img
-                 
-                  src="./images/1000073888.png"
-                  alt="branch-icon"
-                />
-              </figure>
-              <h1>Branch_Name</h1>
-            </a>
+          <div id="branches_container" class="  grid grid-cols-5 gap-5 mx-10">
+
+            <!--*** branchesProfile **** -->
+          
+           </div>
             
         </main>
       </div>
+
+      <!-- <div x-show="page === 'branchesProfile'" x-cloak>
+        <div id="brancheProfileContainer">
+        </div>
+        <h1 class="text-2xl font-bold">Profile</h1>
+         <p>View and manage Your profile.</p>
+    </div> -->
+
+      <!--*** PROFIle **** -->
       <div x-show="page === 'profile'" x-cloak>
         <h1 class="text-2xl font-bold">Profile</h1>
         <p>View and manage Your profile.</p>
       </div>
     </main>
 
+
+    <!--* MODALSSSSSSSSS *-->
        <!-- Modal Background -->
     <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center  justify-center hidden">
      
@@ -914,7 +921,7 @@
 
 
 
-  <!-- MODALSSSSSS -->
+  <!--* MODALSSSSSS *-->
 
    <!-- CURRENTLY HAVE LEFTOVER MODAL ALERT -->
   <div
@@ -1068,6 +1075,8 @@
     <script type="module" src="./js/Dashboard/chart.js"></script>
     <script type="module" src="./js/Dashboard/renders/renderTotalOrders.js"></script>
     <script type="module" src="./js/Dashboard/renders/rendersTopSellings.js"></script>
+    <script type="module" src="./js/Branch/branch.js"></script>
+    <script type="module" src="./js/Branch/renderBranches.js"></script>
   </main>
   </body>
 </html>

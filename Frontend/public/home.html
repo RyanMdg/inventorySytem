@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/output.css" />
+    <link rel="stylesheet" href="./css/animation.css">
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js"
+      defer
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Affotako</title>
+    <link rel="icon" href="./images/logo_white.PNG" />
+  </head>
+  <body
+    class=" bg-[#F5F5F5] font-poppins"
+   
+  >
+  <nav class="absolute w-svw flex top-0 z-50 shadow drop-shadow-xl justify-between px-20 py-3 items-center bg-white">
+    <h1 class=" uppercase text-2xl text-[#302D3D] font-extrabold  tracking-wider">
+    <span class="text-[#B60205]">Affo</span>tako
+    </h1>
+
+    <div
+    class=" flex items-center justify-center gap-5"
+  >
+  <div class="relative">
+    <!-- Notification Bell -->
+    <button id="notificationBtn" class="cursor-pointer bell-hover relative p-1   ">
+        <ion-icon name="notifications-outline" class="text-2xl text-gray-700 "></ion-icon>
+        <!-- Notification Badge -->
+        <span id="notifBadge" class="absolute top-[-.2rem] -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">3</span>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div id="notificationDropdown" class="hidden absolute right-0  w-64 bg-white z-50 shadow-lg rounded-sm">
+        <div class="p-4">
+            <h3 class="font-semibold text-gray-700">Notifications</h3>
+        </div>
+        <ul id="notificationcontainer" class="max-h-60 overflow-y-auto">
+            <li class="p-3 border-b hover:bg-gray-100 cursor-pointer">
+                <p class="text-sm text-gray-700">📦 Your order has been shipped!</p>
+                <span class="text-xs text-gray-500">2 mins ago</span>
+            </li>
+           
+        </ul>
+        
+    </div>
+    </div>
+    <figure>
+      <img class=" w-10" src="./images/human.png" alt="" />
+    </figure>
+    <div class=" flex flex-col">
+      <h1
+      id="branch-name"
+      class="text-[1rem] font-semibold mt-1 text-[#302D3D]"
+    >
+      <img
+        src="./images/Iphone-spinner-2.gif"
+        class="bg-none w-5 mt-2"
+        alt=""
+      />
+    </h1>
+    <span id="role" class="text-[#B60205] text-[.7rem]"></span>
+
+    </div>
+   
+    
+  </div>
+  </nav>
+
+  <main  class="flex text-[.8rem] h-screen"
+  x-data="{ page: 'dashboard' }">
+
+  
+    <!-- SIDEBAR -->
+    
+    <aside
+      class="w-[14%] nav bg-[#302D3D] h-screen text-[#302D3D] p-5 space-y-4 shadow max-[56rem]:gap-5 gap-14 drop-shadow-2xl flex flex-col max-[69rem]:w-[19%] max-[69rem]:gap-1"
+    >
+    
+    
+
+      <ul class="space-y-2 mx-auto flex flex-col mt-20 gap-14 max-[56rem]:gap-5 font-semibold max-[69rem]:gap-9">
+        <li id="Container" class="text-[#ffff] cursor-pointer">
+          <a
+            @click="page='dashboard'"
+            class="text-[#ffff] bg-[#B60205] rounded-sm py-3 delay-200 ease-in duration-200 flex gap-2 items-center"
+            id="dashboard"
+            ><ion-icon class="text-[1rem]" name="layers-outline"></ion-icon>
+            Dashboard
+          </a>
+        </li>
+        <!--  -->
+        <!--  -->
+
+        <li id="Container" class="text-[#ffff] cursor-pointer">
+          <a
+            @click="page='pos'"
+            class="flex gap-2  items-center delay-200 ease-in duration-200 w-[10rem]"
+            id="pos"
+            ><ion-icon class="text-[1rem]" name="receipt-outline"></ion-icon>
+            POS
+          </a>
+        </li>
+        <!--  -->
+        <!--  -->
+        <li id="Container" class="text-[#ffff] cursor-pointer">
+          <a
+            @click="page='inventory'"
+            class="flex gap-2 items-center delay-200 ease-in duration-200"
+            id="inventory"
+          >
+            <ion-icon class="text-[1rem]" name="cube-outline"></ion-icon>
+            Inventory
+          </a>
+        </li>
+        <!--  -->
+        <!--  -->
+      <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
+        <li id="branch" class="text-[#ffff] cursor-pointer hidden">
+          <a
+            @click="page='branches'"
+            class="flex gap-2 items-center delay-200 ease-in duration-200"
+            id="Branch"
+            ><ion-icon
+              class="text-[1rem]"
+              name="share-social-outline"
+            ></ion-icon>
+            Branches
+          </a>
+        </li>
+      </ul>
+      <div
+        class="flex flex-col hidden items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-auto px-14 max-[69rem]:px-10 max-[69rem]:mt-[1rem]"
+      >
+        <figure>
+          <img src="./images/human.png" alt="" />
+        </figure>
+        <h1
+          id="branch-name"
+          class="text-[1rem] font-semibold mt-1 text-[#302D3D]"
+        >
+          <img
+            src="./images/Iphone-spinner-2.gif"
+            class="bg-none w-5 mt-2"
+            alt=""
+          />
+        </h1>
+        <span id="role" class="text-[#B60205]"></span>
+        <button
+          @click="page='profile'"
+          class="cursor-pointer text-[.8rem] bg-[#302D3D] text-white rounded-md px-5 py-1 mt-8 max-[69rem]:mt-2"
+        >
+          Profile
+        </button>
+      </div>
+    </aside>
+    <!--  -->
+    <!--  -->
+    <!--  -->
+
+    <!-- Main Content -->
+
+    <!-- ***** DASHBOARD ***** -->
+
+    <main class="flex-1">
+      <div x-show="page === 'dashboard'" class="mt-24">
+        <div class=" grid grid-cols-4 gap-5 mx-10 ">
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1 class="font-semibold text-[1.2rem]">Gross Sales</h1>
+              <select
+                id="incomeFilter"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+              >
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+          
+            <h2
+              class="flex justify-center text-2xl py-10"
+              id="totalIncomeContainer"
+            >
+              <!-- dynamic price here -->
+            </h2>
+          </div>
+
+          <!--* GROSS INCOME -->
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1 class="font-semibold text-[1.2rem]">Gross Income</h1>
+              <select
+                id="GrossincomeFilter"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+              >
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+          
+            <h2
+              class="flex justify-center text-2xl py-10"
+              id="totalGrossIncomeContainer"
+            >
+              <!-- dynamic price here -->
+            </h2>
+          </div>
+
+          <!--* TOTAL ORDERS -->
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1 class="font-semibold text-[1.2rem]">Total Orders</h1>
+              <select
+                id="totalOrderFilter"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+              >
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+          
+            <h2
+              class="flex justify-center text-2xl py-10"
+              id="totalOrderContainer"
+            >
+              <!-- dynamic price here -->
+            </h2>
+          </div>
+
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+           <h1 class=" font-semibold ps-5 pt-2">Total Expenses</h1> 
+          </div>
+        </div>
+
+
+        <!--* DAILY SALES  -->
+        <div class=" grid grid-cols-2 mx-10 gap-5 ">
+          <div class="w-full max-w-4xl p-6 bg-white rounded-sm shadow-md mt-5">
+            <h2 class="text-2xl font-bold mb-4 text-center">Daily Sales</h2>
+            <canvas id="salesChart" class="w-full h-6"></canvas>
+          </div>
+          <div class="w-full max-w-4xl p-6 bg-white rounded-sm shadow-md mt-5">
+            <h2 class="text-2xl font-bold mb-4 text-center">Daily Sales</h2>
+            <canvas id="salesChart" class="w-full h-6"></canvas>
+          </div>
+        </div>
+
+        <!-- * TOP SELLING  -->
+         <div class=" grid grid-cols-3 gap-5 mt-5 mx-10">
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <h1 class="font-semibold pt-2 ps-3 text-[1rem]">Top Selling Products</h1>
+            <div class="flex  flex-col justify-center  px-5 pt-2">
+              <ul id="TopProductList" class="max-h-[100%] overflow-y-auto">
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+
+          <!--* NOTIFICATIONS -->
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1>Notifications</h1>
+            </div>
+          </div>
+
+          <!--* QUICK ACTIONS -->
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+            <div class="flex justify-between items-center px-5 pt-2">
+              <h1>Quick Actions</h1>
+            </div>
+          </div>
+         </div>
+        
+
+      </div>
+      <!--  -->
+
+      <!-- *POS PAGE-->
+      <!-- *POS PAGE-->
+      <div x-show="page === 'pos'"  x-cloak x-data="{ posPage: 'takeorder' }" >
+        <main class="flex justify-end">
+          <div class="w-[100%]  flex flex-col gap-1 ">
+            <section class="ms-10 mt-24 flex flex-col gap-2 max-[69rem]:ms-4">
+             
+
+             
+              <label for="search">
+                <input
+                  class="bg-white shadow drop-shadow-md flex outline-0 rounded-2xl py-3 w-[70%] px-10"
+                  type="search"
+                  name="search"
+                  placeholder="Search for products"
+                  id=""
+                />
+              </label>
+            </section>
+
+            <!--* POS Sub-Navigation -->
+            <nav class="mt-10 mb-3 mx-auto max-[69rem]:mx-1">
+              <ul class="flex max-[69rem]:gap-5 px-5 max-[69rem]:px-1">
+                <li
+                  class="cursor-pointer w-[10rem] max-[69rem]:w-[5rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+                >
+                  <a
+                    @click="posPage = 'takeorder'"
+                    :class="{ 'text-red-600 font-bold reciept  ': posPage === 'takeorder' }"
+                  >
+                    Take Order
+                  </a>
+                </li>
+
+            <!-- *POS ONGOING -->
+                <li
+                  class="actionhidereciept cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+                >
+                  <a
+                    @click="posPage = 'ongoing'"
+                    :class="{ 'text-red-600 font-bold': posPage === 'ongoing' }"
+                  >
+                    On Going Order
+                  </a>
+                </li>
+
+            <!-- *POS CANCELED -->
+                <li
+                  class="actionhidereciept cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+                >
+                  <a
+                    @click="posPage = 'cancel'"
+                    :class="{ 'text-red-600 font-bold': posPage === 'cancel' }"
+                  >
+                    Cancel Order
+                  </a>
+                </li>
+
+                <!-- *POS COMPLETE -->
+                <li
+                  class="actionhidereciept cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+                >
+                  <a
+                    @click="posPage = 'complete'"
+                    :class="{ 'text-red-600 font-bold': posPage === 'complete' }"
+                  >
+                    Complete Order
+                  </a>
+                </li>
+                <li
+                id="add_prod_container"
+                  class="actionhidereciept cursor-pointer hidden w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200  ease-in duration-200"
+                >
+                  <a
+                    @click="posPage = 'add'"
+                    :class="{ 'text-red-600 font-bold': posPage === 'add' }"
+                    
+                  >
+                    Add Products
+                  </a>
+                </li>
+              </ul>
+            </nav>
+         
+
+            <!-- *POS Content Container -->
+            <main class="p-5">
+
+            <!-- *POS ONGOING -->
+                <div id="" class="flex productContainer items-center justify-center gap-20"
+                 x-show="posPage === 'takeorder'">
+  
+                    <div id="takeorderContainer" 
+                   class="flex cursor-pointer transform translate-y-5  gap-5 relative min-h-[200px] transition duration-300">
+                     </div>
+
+                 </div>
+                   <div x-show="posPage === 'ongoing'" x-cloak class="">
+        
+               
+                      <div id="orders-container" class="max-h-[40rem] overflow-y-auto  flex flex-wrap justify-center gap-10 ms-10 mt-10" >
+                     
+                     </div>
+
+              </div>
+
+            <!-- *POS CANCELED -->
+              <div x-show="posPage === 'cancel'" x-cloak>
+                <div class="mb-4 flex gap-2">
+                  <label class="font-semibold" for="startDate">Start Date:</label>
+                  <input type="date" id="cancelstartDate" class="border px-2 py-1 rounded">
+                  
+                  <label class="font-semibold" for="endDate">End Date:</label>
+                  <input type="date" id="cancelendDate" class="border px-2 py-1 rounded">
+                  
+                  <button id="cancelfilterBtn" class="bg-[#B60205] cursor-pointer text-white px-4 py-1 rounded">Filter</button>
+                </div>
+                
+                <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+                  <table class="w-full border-collapse">
+                    <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                      <tr class="bg-[#EBE7E7]">
+                        <th class="px-4 py-2">Order ID</th>
+                        <th class="px-4 py-2">Product Name</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Payment Method</th>
+                        <th class="px-4 py-2">Order Date</th>
+                        <th class="px-4 py-2">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cancelTable" class="divide-y divide-gray-200">
+                      <!-- Dynamic Datas -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            <!-- *POS COMPLETE -->
+              <div x-show="posPage === 'complete'" x-cloak>
+                <div class="mb-4 flex gap-2">
+                  <label class="font-semibold" for="startDate">Start Date:</label>
+                  <input type="date" id="startDate" class="border px-2 py-1 rounded">
+                  
+                  <label class="font-semibold" for="endDate">End Date:</label>
+                  <input type="date" id="endDate" class="border px-2 py-1 rounded">
+                  
+                  <button id="filterBtn" class="bg-[#B60205] cursor-pointer text-white px-4 py-1 rounded">Filter</button>
+                </div>
+                
+                <div class="max-h-[20rem] overflow-y-auto border border-gray-300 rounded-lg">
+                  <table class="w-full border-collapse">
+                    <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                      <tr class="bg-[#EBE7E7]">
+                        <th class="px-4 py-2">Order ID</th>
+                        <th class="px-4 py-2">Product Name</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Payment Method</th>
+                        <th class="px-4 py-2">Order Date</th>
+                        <th class="px-4 py-2">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="completedTable" class="divide-y divide-gray-200">
+                      <!-- Dynamic Datas -->
+                    </tbody>
+                  </table>
+                </div>
+                
+              </div>
+
+              <!--*-----------ADD------------*-->
+              <div x-show="posPage === 'add'" x-cloak>
+                <main class="flex mx-auto bg-[#302D3D] w-[40%] shadow-2xl drop-shadow-2xl justify-center rounded-sm text-white">
+                  <form class="p-6">
+                    <h2 class="text-xl font-bold mb-4">Product Form</h2>
+
+                    <label class="block ">Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Product Name"
+                      id="product_name"
+                      class="w-full p-2 border productName border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    />
+                    <div class=" flex gap-5">
+                      <input type="file" class=" border border2 rounded-sm" id="fileInput" />
+                      <a
+                        class="w-full submit_product cursor-pointer bg-[#B60205] px-10 text-white py-2 rounded-md"
+                      >
+                        Submit
+                      </a></div>
+                    
+                  </form>
+                </main>
+              </div>
+            </main>
+          </div>
+
+          <!--* SIDE RECEIPT -->
+          <div id="mainreciept"  class="bg-white pt-24  shadow drop-shadow-2xl w-[30%]  h-dvh text-[#302D3D] flex flex-col">
+             <ul class="flex max-[69rem]:text-[.8rem] font-semibold   gap-5  px-8">
+                 <li>
+                     <a id="togo" class="bg-[#EAEEF7] shadow drop-shadow-2xl px-5 max-[69rem]:px-2 py-1 rounded-md" href="#">To Go</a>
+                </li>
+                 <li>
+                       <a id="del" class="bg-[#EAEEF7] shadow drop-shadow-2xl px-4 py-1 rounded-md" href="#">Delivery</a>
+                 </li>
+             </ul>
+
+  <h1 class="text-2xl ms-4 mb-3 mt-5 font-semibold  max-[69rem]:text-[1rem]">Payment Method</h1>
+
+  <ul class="px-8 font-semibold max-[69rem]:px-5 max-[69rem]:text-[.8rem]   flex gap-5 max-[69rem]:gap-2">
+    <li>
+      <a id="cash" class="bg-[#EAEEF7] px-4 py-1 shadow drop-shadow-2xl  rounded-md" href="#">Cash</a>
+    </li>
+    <li>
+      <a id="gcash" class="bg-[#EAEEF7] px-4 py-1 shadow drop-shadow-2xl rounded-md" href="#">Gcash</a>
+    </li>
+    <li>
+      <a id="bank" class="bg-[#EAEEF7] px-4 py-1 shadow drop-shadow-2xl rounded-md" href="#">Bank</a>
+    </li>
+  </ul>
+
+  <div class="flex-1">
+    <table class="mt-5  max-[69rem]:mt-5 w-full border-collapse">
+      <thead class="pb-5">
+        <tr class="border-b-2 border-gray-300">
+          <th class="px-5 py-3 text-left">Items</th>
+          <th class="px-5 py-3 text-left">QTY</th>
+          <th class="px-5 py-3 text-left">Price</th>
+        </tr>
+      </thead>
+     
+    </table>
+    <div >
+      <div id="listProducts">
+
+      </div>
+      <div id="add_Container" class=" flex mx-5 gap-3 text-[.8rem]">
+      
+      </div>
+      
+   
+    </div>
+   
+  </div>
+
+  <!-- Gray Div at the Bottom -->
+             <div class="h-[7%] text-[1rem] font-semibold flex items-center justify-between px-[1rem] text-white bg-gray-400">
+                 <h1 class=" uppercase ">Total</h1> <span class="grandTotal"></span></div>
+                     <button  class="flex cursor-pointer placeOrderBtn justify-center items-center text-white  h-[10%] text-[1.5rem] bg-[#B60205]">Place Order </button>
+
+</div>
+
+          </div>
+        
+      </div>
+
+
+      <!-- ** INVENTORY PAGE -->
+      <div x-show="page === 'inventory'" x-cloak x-data="{ intPage: 'Inventory' }">
+        <nav class=" mt-24 mb-3 mx-auto max-[69rem]:mx-1">
+          <ul class="flex justify-around max-[69rem]:gap-5 px-5 max-[69rem]:px-1">
+            <li
+              class="cursor-pointer w-[10rem] max-[69rem]:w-[5rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+            >
+              <a
+                @click="intPage = 'Inventory'"
+                :class="{ 'text-red-600 font-bold ': intPage === 'Inventory' }"
+              >
+                Inventory
+              </a>
+            </li>
+            <li
+              class="cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+            >
+              <a
+                @click="intPage = 'Mixtures'"
+                :class="{ 'text-red-600 font-bold': intPage === 'Mixtures' }"
+              >
+                Mixtures
+              </a>
+            </li>
+            <li
+              class="cursor-pointer w-[10rem] max-[69rem]:w-[7rem] flex items-center justify-center hover:text-red-400 delay-200 ease-in duration-200"
+            >
+              <a
+                @click="intPage = 'Left Over'"
+                :class="{ 'text-red-600 font-bold': intPage === 'Left Over' }"
+              >
+                Left Overs
+              </a>
+            </li>
+           
+          </ul>
+        </nav>
+        
+        <main class="px-14 h-[80vh] overflow-y-auto">
+
+             <!-- ** INVENTORY PAGES CONTENTS -->
+        <div x-show="intPage === 'Inventory'" class="flex flex-col gap-16 mx-1  text-[#302D3D]" x-cloak>
+          
+             <!--*STOCKS CONTAINER  -->
+          <section class="   rounded-sm shadow drop-shadow-xl bg-[#ffffff] ">
+            <div class="flex items-center bg-[#A3A0B3] justify-between p-3">
+              <h4 class=" font-semibold text-[#ffffff]  uppercase text-[1rem]">Stocks</h4>
+              <select name="" id="inventory_status" class="  text-white outline-0">
+                <option value="New" class=" bg-[#A3A0B3] ">New</option>
+                <option value="Old" class=" bg-[#A3A0B3] ">Old</option>
+              </select>
+
+            </div>
+           <form class=" pb-6 font-semibold py-3  bg-[#ffffff] flex gap-5 px-3 justify-around" action="">
+            <div class="w-[20%] justify-center gap-2 flex flex-col">
+              <label for="">Raw Materials</label>
+              <input placeholder="e.g., flour"  class=" outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="raw">
+              <label for="">Search Inventory</label>
+              <input type="search" name="" id="" class=" outline-0 rounded-sm py-1 bg-[#07070723]">
+            </div>
+            <div class="w-[20%] gap-2 flex flex-col">
+              <label for="">Purchase.Date</label>
+              <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="date" placeholder="20"  name="" id="prchasedate">
+              <label for="">Exp.Date</label>
+              <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="date" placeholder="20"  name="" id="expDate">
+            </div>
+            <div class=" gap-2 flex flex-col">
+              <label for="">Quantity</label>
+              <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="number" placeholder="e.g,20"  name="" id="qty">
+              <label for="">Unit</label>
+              <input placeholder="kg" class="w-[100%]  outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="unit">
+            </div>
+      
+            <div class=" gap-2 flex flex-col">
+              <label for="">Price</label>
+              <input class="w-[100%] outline-0  bg-[#07070723] ps-3 py-1 rounded-md" type="number" placeholder="80" name="" id="price">
+
+              <label for="">Total</label>
+              <div class="total text-center w-[5rem] outline-0 bg-[#e946496b] px-4 py-1 rounded-md" type="text" name="" id="">
+                <p>0.00</p>
+            </div>
+           
+            </div>
+           </form>
+           
+           <div class="max-h-[20rem] overflow-y-auto border border-gray-300 ">
+            <table class="w-full border-collapse">
+              <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                <tr class="bg-[#A3A0B3] text-center">
+                  <th class="px-4 text-white py-2">Raw Materials</th>
+                  <th class="px-4 text-white py-2">Purchase.Date</th>
+                  <th class="px-4 text-white py-2">Exp.Date</th>
+                  <th class="px-4 text-white py-2">Quantity</th>
+                  <th class="px-4 text-white py-2">Unit</th>
+                  <th class="px-4 text-white py-2">Price</th>
+                  <th class="px-4 text-white py-2">Total</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-data" class="divide-y bg-[#FFFFFF] divide-gray-200">
+                <!-- Dynamic Datas -->
+              </tbody>
+            </table>
+          </div>
+
+        
+
+           <div class=" flex justify-end gap-7 me-10 mb-5 mt-5 mb-1">
+            <button id="" class="savebtn hidden cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+              Save
+             </button>
+            <button id="" class="updatebtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+              Update
+             </button>
+             <button class="addbtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+              Add
+             </button>
+           </div>
+           
+          </section>
+
+             <!--*MIXTURES CONTAINER  -->
+          <section class="mb-10  pb-2  shadow drop-shadow-xl bg-[#ffffff] ">
+            <div class=" p-3 bg-[#A3A0B3]">
+              <h4 class=" font-semibold text-white uppercase text-[1rem]">Mixtures</h4>
+            </div>
+            <form class=" pb-6 font-semibold py-3  bg-[#ffffff] flex gap-5 px-3 justify-around" action="">
+              <div class=" gap-2 flex flex-col">
+                <label for="">Raw Materials</label>
+               
+                <select id="createRaw" class="drpdwn  outline-0 bg-[#07070723] px-4 py-1 rounded-md"  name="">
+                     <!-- Dynamic Datas -->
+                </select>
+              </div>
+              <div class=" gap-2 flex flex-col">
+                <label for="">Quantity</label>
+                <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="number" name="" id="createQty">
+              </div>
+              <div class=" gap-2 flex flex-col">
+                <label for="">Unit</label>
+                <input class=" w-[100%] outline-0 bg-[#07070723] px-4 py-1 rounded-md" type="text" name="" id="createUnit">
+              </div>
+              <div class=" gap-2 flex flex-col">
+                <label for="">Total</label>
+                <div class="createdTotal text-center w-[5rem] outline-0 bg-[#e946496b] px-4 py-1 rounded-md" type="text" name="" id="">
+                <p>0.00</p>
+
+                </div>
+              </div>
+             </form>
+             <div class="max-h-[20rem] overflow-y-auto border border-gray-300 ">
+              <table class="w-full border-collapse">
+                <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                  <tr class="bg-[#A3A0B3] text-white">
+                    <th class="px-4 text-center py-2">Raw Materials</th>
+                    <th class="px-4 text-center py-2">Quantity</th>
+                    <th class="px-4 text-center py-2">Unit</th>
+                    <th class="px-4 text-center py-2">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="create-inventory-data" class="divide-y divide-gray-200">
+                  <!-- Dynamic Datas -->
+                </tbody>
+              </table>
+            </div>
+  
+      
+
+             <div class="py-2 bg-[#A3A0B3] flex justify-between pe-10 ">
+              <!-- placeholder to insert the modal -->
+         
+
+                <h1 class="text-white font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
+              <span id="sum" class=" text-white font-semibold text-[1rem] me-14">400</span>
+             </div>
+           <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
+            
+             <button id="mixtureBtn" class="createdMixtureAlert cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+              Create
+             </button>
+             <button class="createBtn cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+              Add
+             </button>
+           </div>
+         
+          </section>
+        </div>
+          
+
+        <!-- *ALREADY MADE MIXTURES CONTAINER -->
+        <div x-show="intPage === 'Mixtures'" x-cloak>
+             
+            <div id="nomixtures" class=" flex flex-col justify-center mt-40 items-center">
+              <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
+              <h2 class=" text-center text-[#ff4d4d] font-semibold" >
+                ❌ You don't have any mixtures yets!
+              </h2>
+              <p style="text-align: center; color: #666;">
+                Start creating mixtures to see them here.
+              </p>
+            </div>
+             
+            <section id="tablemixture" class="hidden">
+              
+              <div class="max-h-[30rem] mt-10 overflow-y-auto border border-gray-300">
+                <table class="w-full border-collapse">
+                  <thead class=" opacity-[65%] text-left sticky top-0">
+                    <tr class="bg-[#A3A0B3] text-white">
+                      <th class="px-4 text-center py-2">Raw Materials</th>
+                      <th class="px-4 text-center py-2">Quantity</th>
+                      <th class="px-4 text-center py-2">Unit</th>
+                      <th class="px-4 text-center py-2">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody id="created_mixtures" class="divide-y divide-gray-200">
+                    <!-- Dynamic Datas -->
+                  </tbody>
+                </table>
+              </div>
+              <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
+                <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
+              <span id="createdmixture_sum" class=" font-semibold text-[1rem] me-14">400</span>
+             </div>
+
+             <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
+              
+             
+               <button id="leftoverBtn" class=" cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+                Left Over
+               </button>
+
+               
+             </div>
+           
+            </section>
+        
+        </div>
+
+
+        <!-- *ALREADY LEFTOVER CONTAINER -->
+        <div x-show="intPage === 'Left Over'" x-cloak>
+          <div id="noleftmixtures" class=" flex flex-col justify-center mt-40 items-center">
+            <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
+            <h2 class="text-center text-[#ff4d4d] font-semibold">
+              ❌ You don't have any leftovers yets!
+            </h2>
+            <p style="text-align: center; color: #666;">
+              Leftovers will be displayed here!
+            </p>
+          </div>
+          
+        
+          
+          <section id="leftovertablemixture" class="hidden">
+          
+            <div class="max-h-[30rem] overflow-y-auto border border-gray-300 ">
+              <table class="w-full border-collapse
+              ">
+                <thead class=" opacity-[65%] text-left sticky top-0">
+                  <tr class="bg-[#A3A0B3] text-white">
+                    <th class="px-4 text-center py-2">Raw Materials</th>
+                    <th class="px-4 text-center py-2">Quantity</th>
+                    <th class="px-4 text-center py-2">Unit</th>
+                    <th class="px-4 text-center py-2">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="leftover_mixtures" class="divide-y divide-gray-200">
+                  <!-- Dynamic Datas -->
+                </tbody>
+              </table>
+            </div>
+            <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
+              <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
+            <span id="createdleftOver_sum" class=" font-semibold text-[1rem] me-14">400</span>
+           </div>
+          </section>
+         
+
+        </div>
+      </div>
+
+      <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
+      <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'" x-cloak>
+        <main>
+          <div class="mx-5 mt-7 mb-10">
+            <h1 class="text-2xl ps-5 py-3 font-bold text-[#ffff] bg-[#302D3D]">Branches</h1>
+          </div>
+
+          <div id="branches_container" class="  grid grid-cols-5 gap-5 mx-10">
+
+            <!--*** branchesProfile **** -->
+          
+           </div>
+            
+        </main>
+      </div>
+
+      <!-- <div x-show="page === 'branchesProfile'" x-cloak>
+        <div id="brancheProfileContainer">
+        </div>
+        <h1 class="text-2xl font-bold">Profile</h1>
+         <p>View and manage Your profile.</p>
+    </div> -->
+
+      <!--*** PROFIle **** -->
+      <div x-show="page === 'profile'" x-cloak>
+        <h1 class="text-2xl font-bold">Profile</h1>
+        <p>View and manage Your profile.</p>
+      </div>
+    </main>
+
+
+    <!--* MODALSSSSSSSSS *-->
+       <!-- Modal Background -->
+    <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center  justify-center hidden">
+     
+      <div class="bg-white flex flex-col   gap-2 p-6 rounded-lg shadow-lg ">
+
+        <!-- <figure class=" flex justify-center ">
+          <img id="img_modal" class="  w-[17rem]" src="" alt="">
+        </figure> -->
+
+          <h2 id="modal_prod_name" class="text-xl text-start mt-2 uppercase font-semibold mb-4"></h2>
+
+          <div id="qtycontainer" class="  flex justify-center  gap-10 text-[1.2rem] mb-5">
+            <button class=" btnQuantity cursor-pointer  px-4 py-1  rounded-md " data-value="45">4s</button>
+            <button class=" btnQuantity cursor-pointer px-4 py-1 rounded-md " data-value="80">8s</button>
+            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="125">12s</button>
+            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="160">16s</button>
+            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="205">20s</button>
+            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="450">42s</button>
+          </div>
+
+          <h1 class=" font-semibold text-[1rem]">Add Ons:</h1>
+          <ul class=" flex justify-around gap-2 text-[1rem] ">
+            <li class=" addOns cursor-pointer" data-value="5">Bonito Flakes</li>
+            <li class=" addOns cursor-pointer" data-value="5">Shereded Nori</li>
+            <li class=" addOns cursor-pointer" data-value="5">Meat Floss</li>
+            <li class=" addOns cursor-pointer" data-value="5">Extra Sauce</li>
+          </ul>
+          <hr class=" opacity-50">
+          <ul class="flex justify-around gap-2 text-[1rem] mb-10 ">
+            <li class=" addOns cursor-pointer" data-value="10">Grated Cheese</li>
+            <li class=" addOns cursor-pointer" data-value="10">Grilled Chesse</li>
+            <li class=" addOns cursor-pointer" data-value="10">Cheese Sauce</li>
+          </ul> 
+
+          <div class=" flex flex-col gap-5">
+          <div>
+              <h1 class=" text-[1rem] font-semibold">Quantity</h1>
+               <div class=" flex justify-between mx-auto">  
+                <p id="pcs" class=" text-[.8rem]"></p>
+                <p id="total" class=" text-[.8rem]"></p>
+              </div>
+          </div>
+         <div>
+          <h2 class="text-[1rem] font-semibold">Add On</h2>
+          <div id="AddonContainer" class=" flex flex-col mx-auto">
+          </div></div>
+          </div>
+
+          <hr>
+          <div class=" flex justify-between items-center">
+            <h1>Total</h1>
+            <p id="totalPrice" class=" text-2xl"></p>
+          </div>
+          <button  class="mt-4 btnaddtobill  cursor-pointer  close bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem]
+          " >Add to Bill</button>  <button  class="mt-4  cursor-pointer  closed bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem]
+          " >cancel</button>
+      </div>
+  </div>
+
+
+
+
+  <!--* MODALSSSSSS *-->
+
+   <!-- CURRENTLY HAVE LEFTOVER MODAL ALERT -->
+  <div
+     id="leftoverModal"
+     class="fixed inset-0 bg-opacity-0 opacity-0 scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+   >
+     <!-- Modal Content -->
+     <div
+       class="bg-[#FEEBEC] relative h-[20rem] w-[20rem] rounded-sm shadow-lg"
+       id="leftoverModalContent"
+     >
+       <img
+         class=""
+         src="./images/Takoyaki___Japanese_cuisine___Traditional_Food_by_ilsol-removebg-preview 1.png"
+         alt=""
+       />
+       <div class="absolute mx-5">
+         <p id="leftoverCountText" class="text-lg font-medium">You have leftover mixtures!</p>
+         <button
+           class="leftoverMixturesButtonclose absolute bottom-[12rem] left-[17rem] cursor-pointer text-black rounded"
+         >
+           <ion-icon class="text-2xl" name="close"></ion-icon>
+         </button>
+         <div class="flex gap-5 justify-around mx-10 mt-5">
+           <button
+             class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
+             id="UseLeftOverBtn"
+           >
+             use
+           </button>
+           <button
+             class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
+           >
+             discard
+           </button>
+         </div>
+       </div>
+       <div class="flex justify-end">
+         <img
+           src="../public/images/Elemen_Seni_Klip_Takoyaki__Cat_Air__Jepang__Masakan_PNG_Transparan_dan_Clipart_untuk_Unduhan_Gratis__1_-removebg-preview.png"
+           alt=""
+         />
+       </div>
+     </div>
+   </div>
+
+   <div id="leftoverModal"
+    class="fixed inset-100 bg-opacity-0 opacity-0 scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+ >
+   <!-- Modal Content -->
+   <div
+     class="bg-[#FEEBEC] relative h-[20rem] w-[20rem] rounded-sm shadow-lg"
+     id="leftoverModalContent"
+   >
+     <img
+       class=""
+       src="/Frontend/public/images/Takoyaki___Japanese_cuisine___Traditional_Food_by_ilsol-removebg-preview 1.png"
+       alt=""
+     />
+     <div class="absolute mx-5">
+       <p id="leftoverCountText" class="text-lg font-medium">
+         You have leftover mixtures!
+       </p>
+       <button
+         class="leftoverMixturesButtonclose absolute bottom-[12rem] left-[17rem] cursor-pointer text-black rounded"
+       >
+         <ion-icon class="text-2xl" name="close"></ion-icon>
+       </button>
+       <div class="flex gap-5 justify-around mx-10 mt-5">
+         <button
+           class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
+           id="UseLeftOverBtn"
+         >
+           use
+         </button>
+         <button
+           class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
+         >
+           discard
+         </button>
+       </div>
+     </div>
+     <div class="flex justify-end">
+       <img
+         src="../public/images/Elemen_Seni_Klip_Takoyaki__Cat_Air__Jepang__Masakan_PNG_Transparan_dan_Clipart_untuk_Unduhan_Gratis__1_-removebg-preview.png"
+         alt=""
+       />
+     </div>
+   </div>
+ </div>
+
+
+
+
+   
+
+   <!-- CURRENTLY HAVE MIXTURE MODAL ALERT -->
+     <div
+     id="mixtureModal"
+     class="fixed inset-0 bg-opacity-0 opacity-0 scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+   >
+     <!-- Modal Content -->
+     <div
+       class="bg-[#FEEBEC] relative h-[20rem] w-[20rem] rounded-sm shadow-lg"
+       id="createdMixtureModalContent"
+     >    
+       
+       <img
+         class=""
+         src="./images/Takoyaki___Japanese_cuisine___Traditional_Food_by_ilsol-removebg-preview 1.png"
+         alt=""
+       />
+       <div class="absolute mx-5">
+         <p id="leftoverCountText" class="text-lg font-medium">YOU CURRENTLY HAVE A MIXTURE!</p>
+         <button
+           class="createdMixturesButtonclose absolute bottom-[11rem] left-[17rem] cursor-pointer text-black rounded"
+         >
+           <ion-icon class="text-2xl" name="close"></ion-icon>
+         </button>
+        
+       </div>
+       <div class="flex justify-end">
+         <img
+           src="./images/Elemen_Seni_Klip_Takoyaki__Cat_Air__Jepang__Masakan_PNG_Transparan_dan_Clipart_untuk_Unduhan_Gratis__1_-removebg-preview.png"
+           alt=""
+         />
+       </div>
+     </div>
+
+     
+
+
+
+    </main>
+    <script type="module" src="./js/POS/placeOrder.js"></script>
+    <script type="module" src="./js/navigation.js"></script>
+    <script type="module" src="./js/POS/pos.js"></script>
+    <script type="module" src="./js/Add_Products/addproduct.js"></script>
+    <script type="module" src="./js/modal.js"></script>
+    <script type="module" src="./js/POS/ongoing.js"></script>
+    <script type="module" src="./js/inventory/inventory.js"></script>
+    <script type="module" src="./js/inventory/createdMixtures.js"></script>
+    <script type="module" src="./js/Add_Products/status.js"></script>
+    <script type="module" src="./js/Add_Products/navbar.js"></script>
+    <script type="module" src="./js/inventory/leftOver.js"></script>
+    <script type="module" src="./js/modals_Js/alreadyHaveMixtureAlert.js"></script>
+    <script type="module" src="./js/pos-inventory_communication/calculations.js"></script>
+    <script type="module" src="./js/Dashboard/dashboard.js"></script>
+    <script type="module" src="./js/Dashboard/gross_Income.js"></script>
+    <script type="module" src="./js/Dashboard/renders/renderGrossIncome.js"></script>
+    <script type="module" src="./js/Dashboard/chart.js"></script>
+    <script type="module" src="./js/Dashboard/renders/renderTotalOrders.js"></script>
+    <script type="module" src="./js/Dashboard/renders/rendersTopSellings.js"></script>
+    <script type="module" src="./js/Branch/branch.js"></script>
+    <script type="module" src="./js/Branch/renderBranches.js"></script>
+  </main>
+  </body>
+</html>

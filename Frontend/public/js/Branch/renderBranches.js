@@ -1,15 +1,17 @@
 "strict";
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { BranchIncome } from "./rendeBranchIncome.js";
+import {
+  renderFranchiseSalesChart,
+  fetchWeeklyFranchise_GS,
+} from "./renderChart.js";
 const branches_container = document.getElementById("branches_container");
-const branchesProfileData = document.getElementById("branchesProfileData");
 
 import { franchiseData } from "./branch.js";
 
 export async function renderBranches() {
   const { data } = await franchiseData();
   branches_container.innerHTML = "";
-  branchesProfileData.innerHTML = "";
 
   data.forEach((item, index) => {
     branches_container.innerHTML += `
@@ -35,6 +37,8 @@ export async function renderBranches() {
       const index = this.getAttribute("data-index");
       const selectedBranch = data[index];
       BranchIncome(selectedBranch);
+      renderFranchiseSalesChart(selectedBranch);
+      fetchWeeklyFranchise_GS(selectedBranch);
     });
   });
 }

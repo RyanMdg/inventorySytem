@@ -1,6 +1,9 @@
 "strict";
 
 import supabase from "../../Backend2/config/SupabaseClient.js";
+const branchesProfileData = document.getElementById(
+  "totalIncomeFranchiseContainer"
+);
 
 export async function BranchIncome(selectedBranch) {
   const branchId = selectedBranch.id;
@@ -14,11 +17,9 @@ export async function BranchIncome(selectedBranch) {
     console.error("Error fetching employees:", prodError.message);
   }
 
-  // Hide list, show profile
   branches_container.classList.add("hidden");
   branchesProfileData.classList.remove("hidden");
 
-  // Show only the selected branch's data
   branchesProfileData.innerHTML = `
         <h1 class="text-2xl font-bold">${selectedBranch.name}</h1>
         <p class="text-gray-700">Location: ${selectedBranch.location}</p>

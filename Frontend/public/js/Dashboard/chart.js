@@ -25,12 +25,18 @@ export async function fetchWeeklyGrossSales(branchId) {
   return dailyTotals;
 }
 
+let ChartInstance = null;
+
 export async function renderSalesChart() {
   const { branchId } = await getAuthUserAndBranch();
   const salesData = await fetchWeeklyGrossSales(branchId);
 
   const ctx = document.getElementById("salesChart").getContext("2d");
-  new Chart(ctx, {
+
+  if (ChartInstance) {
+    ChartInstance.destroy();
+  }
+  ChartInstance = new Chart(ctx, {
     type: "bar",
     data: {
       labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],

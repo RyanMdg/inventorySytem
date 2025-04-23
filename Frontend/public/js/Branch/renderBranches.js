@@ -37,8 +37,8 @@ export async function renderBranches() {
       const index = this.getAttribute("data-index");
       const selectedBranch = data[index];
       BranchIncome(selectedBranch);
-      renderFranchiseSalesChart(selectedBranch);
-      fetchWeeklyFranchise_GS(selectedBranch);
+      fetchWeeklyFranchise_GS(selectedBranch.id);
+      renderFranchiseSalesChart(selectedBranch.id);
     });
   });
 }

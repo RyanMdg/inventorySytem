@@ -11,6 +11,7 @@ import { franchiseData } from "./branch.js";
 
 export async function renderBranches() {
   const { data } = await franchiseData();
+
   branches_container.innerHTML = "";
 
   data.forEach((item, index) => {
@@ -31,11 +32,13 @@ export async function renderBranches() {
   });
 
   const branchBtns = document.querySelectorAll(".branchBtn");
+  const branchNameHeader = document.getElementById("branchNameHeader");
 
   branchBtns.forEach((btn) => {
     btn.addEventListener("click", async function () {
       const index = this.getAttribute("data-index");
       const selectedBranch = data[index];
+      branchNameHeader.innerHTML = selectedBranch.name;
       BranchIncome(selectedBranch);
       fetchWeeklyFranchise_GS(selectedBranch.id);
       renderFranchiseSalesChart(selectedBranch.id);

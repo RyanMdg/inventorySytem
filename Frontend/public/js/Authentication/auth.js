@@ -49,11 +49,19 @@ async function login(email, password) {
   window.location.href = "home.html";
 }
 
-login_btn.addEventListener("click", async function () {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 
-  await login(email, password);
+// Add Enter key event listener ONCE
+[emailInput, passwordInput].forEach((input) => {
+  input.addEventListener("keydown", async function (event) {
+    if (event.key === "Enter") {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      await login(email, password);
+    }
+  });
 });
 
 // * Check if user is logged in

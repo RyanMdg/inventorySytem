@@ -57,4 +57,3 @@ export async function renderFranchiseSalesChart(branchId) {
     },
   });
 }
-renderFranchiseSalesChart();

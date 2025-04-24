@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/output.css" />
+    <title>Document</title>
+  </head>
+  <body class="font-poppins min-h-screen">
+    <main class="h-screen flex justify-center items-center">
+      <div
+        id="receipt-container"
+        class="w-[20%] bg-[#ffffff] rounded-md flex flex-col items-center justify-center shadow drop-shadow-md"
+      >
+        <!--Red Header For Close Button-->
+        <div
+          id="red-bar"
+          class="w-full bg-[#B60205] rounded-t-md p-1 flex justify-end"
+        >
+          <!--Logo-->
+          <img src="../public/images/close-button.png" class="w-[1.5rem]" />
+        </div>
+        <div id="receipt-logo" clas="">
+          <img
+            src="../public/images/logo.png"
+            id="logo"
+            class="w-[8rem] p-3 pb-2"
+          />
+        </div>
+
+        <!--Order Placed Successfully-->
+        <div id="placedorder-number" class="flex flex-col items-center">
+          <h5 id="placeorder-text" class="font-semibold text-[#B60205]">
+            Order
+          </h5>
+          <h5 id="placeorder-text" class="font-semibold text-[#B60205]">
+            Placed Sucessfully!
+          </h5>
+
+          <!--Receipt No-->
+          <p
+            id="receipt-number"
+            class="text-gray-700 text-xs font-semibold p-2"
+          >
+            Receipt No:
+            <span class="text-gray-500">RCPT-1742227670375</span>
+          </p>
+        </div>
+
+        <!--Order Summary-->
+        <div class="text-left p-4 text-xs mb-10" id="order-summary ml-0 gap-15">
+          <div class="font-semibold mb-1">Order Summary</div>
+
+          <div class="flex justify-between" id="add-ons-1">
+            <span>Ham & Cheese</span>
+            <div class="flex gap-10 min-w-[10rem] justify-end">
+              <span>16s</span>
+              <span>₱160</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between" id="add-ons-2">
+            <span>Octo</span>
+            <div class="flex gap-12 min-w-[10rem] justify-end">
+              <span>4s</span>
+              <span>₱45</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between" id="add-ons-3">
+            <span>Bonito Flakes</span>
+            <div class="flex gap-14 min-w-[10rem] justify-end">
+              <span>1s</span>
+              <span>₱5</span>
+            </div>
+          </div>
+
+          <hr class="my-2" />
+
+          <div class="flex justify-between">
+            <span class="font-semibold">Total</span>
+            <span>₱210</span>
+          </div>
+        </div>
+
+        <!--ZigZag Pattern-->
+        <div class="w-full overflow-hidden leading-none -mb-1">
+          <svg
+            viewBox="0 0 100 10"
+            preserveAspectRatio="none"
+            class="w-full h-6"
+          >
+            <polygon
+              fill="#ffffff"
+              points="0,10 5,0 10,10 15,0 20,10 25,0 30,10 35,0 40,10 45,0 50,10 55,0 60,10 65,0 70,10 75,0 80,10 85,0 90,10 95,0 100,10"
+            />
+          </svg>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

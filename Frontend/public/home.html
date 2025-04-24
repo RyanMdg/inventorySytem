@@ -828,19 +828,80 @@
       </div>
 
       <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
-      <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'" x-cloak>
+      <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'"  x-cloak x-data="{ branchPage: 'franchise' }" >
         <main>
           <div class="mx-5 mt-7 mb-10">
-            <h1 class="text-2xl ps-5 py-3 font-bold text-[#ffff] bg-[#302D3D]">Branches</h1>
+            <h1 id="branchNameHeader" class="text-2xl ps-5 py-3 font-bold text-[#ffff] bg-[#302D3D]">Branches</h1>
           </div>
-
-          <div id="branches_container" class="  grid grid-cols-5 gap-5 mx-10">
-
-            <!--*** branchesProfile **** -->
+        
           
+          <div id="branches_container"  
+          class="grid grid-cols-5 gap-5 mx-10"
+          >
+            <!--*** branchesProfile **** -->
            </div>
-            
+        
         </main>
+
+         <!--*** branchesProfileData **** -->
+        <div x-show="branchPage === 'branchesProfileData'" x-cloak  >
+          
+            <div class=" flex mx-5 gap-5">
+              <!-- *THIS IS CHART CONTAINER -->
+              <div class="w-full max-w-4xl p-6 bg-white rounded-sm shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-center">Sales Performance</h2>
+                <canvas id="franchiseSaleChart" class="w-full h-6"></canvas>
+              </div>
+
+              <!-- * THIS IS GROSS SALES CONTAINER AND GROSS INCOME CONTAINER   -->
+
+              <div class=" flex flex-col gap-10">
+                <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+                  <div class="flex justify-between items-center px-5 pt-2">
+                    <h1 class="font-semibold text-[1.2rem]">Branch Gross Sales</h1>
+                    <select
+                      id="incomefranchiseFilter"
+                      class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+                    >
+                      <option value="today">Today</option>
+                      <option value="week">This Week</option>
+                      <option value="month">This Month</option>
+                    </select>
+                  </div>
+                
+                  <h2
+                    class="flex justify-center text-2xl py-10"
+                    id="totalIncomeFranchiseContainer"
+                  >
+                    <!-- dynamic price here -->
+                  </h2>
+                </div>
+
+                <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+                  <div class="flex justify-between items-center px-5 pt-2">
+                    <h1 class="font-semibold text-[1.2rem]">Branch Gross Income</h1>
+                    <select
+                      id="incomefranchiseFilter"
+                      class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+                    >
+                      <option value="today">Today</option>
+                      <option value="week">This Week</option>
+                      <option value="month">This Month</option>
+                    </select>
+                  </div>
+                
+                  <h2
+                    class="flex justify-center text-2xl py-10"
+                    id="totalIncomeFranchiseContainer"
+                  >
+                    <!-- dynamic price here -->
+                  </h2>
+                </div>
+              </div>
+              
+            </div>
+
+        </div>
       </div>
 
       <!-- <div x-show="page === 'branchesProfile'" x-cloak>

@@ -13,6 +13,8 @@ import { renderSalesChart } from "../../Dashboard/chart.js";
 
 import { totalOrder } from "../../Dashboard/renders/renderTotalOrders.js";
 import { renderFranchiseSalesChart } from "../../Branch/renderChart.js";
+import { FranchiseeGrossIncome } from "../../Branch/renderBranchNetIncome.js";
+import { FranchiseetotalIncome } from "../../Branch/renderBranchSales.js";
 
 export async function subscribeToRealTimeOrders() {
   const channel = supabase.channel("inventory-channel"); // Create a real-time channel
@@ -92,7 +94,9 @@ export async function subscribeToRealTimeOrders() {
       totalIncome();
       totalOrder();
       await renderSalesChart();
-      await renderFranchiseSalesChart(); // Refresh the table on
+      await renderFranchiseSalesChart();
+      await FranchiseeGrossIncome();
+      await FranchiseetotalIncome();
     }
   );
 

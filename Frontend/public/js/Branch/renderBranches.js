@@ -5,6 +5,12 @@ import {
   renderFranchiseSalesChart,
   fetchWeeklyFranchise_GS,
 } from "./renderChart.js";
+import {
+  FranchiseetotalIncome,
+  setCurrentBranchId,
+} from "./renderBranchSales.js";
+import { FranchiseeGrossIncome, setBranch } from "./renderBranchNetIncome.js";
+
 const branches_container = document.getElementById("branches_container");
 
 import { franchiseData } from "./branch.js";
@@ -42,6 +48,10 @@ export async function renderBranches() {
       BranchIncome(selectedBranch);
       fetchWeeklyFranchise_GS(selectedBranch.id);
       renderFranchiseSalesChart(selectedBranch.id);
+      setCurrentBranchId(selectedBranch.id);
+      setBranch(selectedBranch.id);
+      FranchiseetotalIncome("today", selectedBranch.id);
+      FranchiseeGrossIncome("today", selectedBranch.id);
     });
   });
 }

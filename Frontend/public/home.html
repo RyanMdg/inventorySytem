@@ -830,7 +830,7 @@
       <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
       <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'"  x-cloak x-data="{ branchPage: 'franchise' }" >
         <main>
-          <div class="mx-5 mt-7 mb-10">
+          <div class="mx-5  mb-5">
             <h1 id="branchNameHeader" class="text-2xl ps-5 py-3 font-bold text-[#ffff] bg-[#302D3D]">Branches</h1>
           </div>
         
@@ -848,14 +848,14 @@
           
             <div class=" flex mx-5 gap-5">
               <!-- *THIS IS CHART CONTAINER -->
-              <div class="w-full max-w-4xl p-6 bg-white rounded-sm shadow-md">
+              <div class="w-full h-[20rem] max-w-4xl p-6 bg-white rounded-sm shadow-md">
                 <h2 class="text-2xl font-bold mb-4 text-center">Sales Performance</h2>
-                <canvas id="franchiseSaleChart" class="w-full h-6"></canvas>
+                <canvas id="franchiseSaleChart" class="w-full h-[20rem]"></canvas>
               </div>
 
               <!-- * THIS IS GROSS SALES CONTAINER AND GROSS INCOME CONTAINER   -->
 
-              <div class=" flex flex-col gap-10">
+              <div class=" mx-auto flex flex-col gap-5 ">
                 <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
                   <div class="flex justify-between items-center px-5 pt-2">
                     <h1 class="font-semibold text-[1.2rem]">Branch Gross Sales</h1>

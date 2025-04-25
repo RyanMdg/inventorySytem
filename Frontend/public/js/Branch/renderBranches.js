@@ -10,6 +10,8 @@ import {
   setCurrentBranchId,
 } from "./renderBranchSales.js";
 import { FranchiseeGrossIncome, setBranch } from "./renderBranchNetIncome.js";
+import { renderBranchInventory } from "./renderBranchInventory.js";
+import { branchStockAlert } from "./renderBranchStockAlert.js";
 
 const branches_container = document.getElementById("branches_container");
 
@@ -57,6 +59,8 @@ export async function renderBranches() {
       setBranch(selectedBranch.id);
       FranchiseetotalIncome("today", selectedBranch.id);
       FranchiseeGrossIncome("today", selectedBranch.id);
+      renderBranchInventory(selectedBranch.id);
+      branchStockAlert(selectedBranch.id);
     });
   });
 }

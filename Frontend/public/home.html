@@ -845,7 +845,7 @@
         </main>
 
          <!--*** branchesProfileData **** -->
-        <div id="branchData" x-show="branchPage === 'branchesProfileData'" x-cloak  >
+        <div id="branchData" x-show="branchPage === 'branchesProfileData'" x-cloak  class="max-h-[38rem] overflow-y-auto"  >
           
             <div class=" flex mx-5 gap-5">
               <!-- *THIS IS CHART CONTAINER -->
@@ -901,7 +901,39 @@
               </div>
               
             </div>
+           
+            <!-- *THIS IS BRANCH INVENTORY CONTAINER AND STOCKS ALERT -->
+            <div class=" flex mx-5 gap-5 mt-10 my-5">
+              <div class="w-[64%] h-[20rem] rounded-sm shadow drop-shadow-md bg-[#ffff]">
+                <h1 class=" font-semibold p-3 text-[1.2rem]">Inventory Status</h1>
+                <ul id="branchStocksList" class="  flex 
+                flex-wrap justify-between mx-[10rem]">
+                  
+                  <li class=" flex gap-5 px-5 py-2">
+                    <h1 class=" text-[1.2rem]">flour</h1>
+                    <p class=" text-[1.2rem]">17</p>
+                  </li>
+                </ul>
+              </div>
 
+              <div class=" flex mx-auto flex-col gap-5 items-center">
+                <!-- Stock Alert Container -->
+                <div class=" px-7 py-3 bg-[#ffff] rounded-sm shadow drop-shadow-md ">
+                    <h1 class=" font-semibold text-[1.2rem]">
+                      Stock Alert
+                    </h1>
+                    <ul id="stockAlert">
+
+                    </ul>
+                   
+                </div>
+                 
+                <!-- Top Selling Prod Container -->
+                 <div>
+                  <h1>Top Selling Products</h1>
+                 </div>
+              </div>
+            </div>
         </div>
       </div>
 
@@ -1141,6 +1173,8 @@
     <script type="module" src="./js/Branch/renderBranches.js"></script>
     <script type="module" src="./js/Branch/renderBranchSales.js"></script>
     <script type="module" src="./js/Branch/renderBranchNetIncome.js"></script>
+    <script type="module" src="./js/Branch/renderBranchInventory.js"></script>
+    <script type="module" src="./js/Branch/renderBranchStockAlert.js"></script>
   </main>
   </body>
 </html>

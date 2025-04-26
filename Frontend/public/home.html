@@ -845,21 +845,21 @@
         </main>
 
          <!--*** branchesProfileData **** -->
-        <div id="branchData" x-show="branchPage === 'branchesProfileData'" x-cloak  class="max-h-[38rem] overflow-y-auto"  >
+        <div id="branchData" x-show="branchPage === 'branchesProfileData'" x-cloak  class="max-h-[45rem]  overflow-y-auto"  >
           
-            <div class=" flex mx-5 gap-5">
+            <div class=" grid grid-cols-3 mx-5 gap-5">
               <!-- *THIS IS CHART CONTAINER -->
-              <div class="w-full h-[20rem] max-w-4xl p-6 bg-white rounded-sm shadow-md">
+              <div class=" h-[25rem] col-span-2  p-6 bg-white rounded-sm shadow-md">
                 <h2 class="text-2xl font-bold mb-4 text-center">Sales Performance</h2>
-                <canvas id="franchiseSaleChart" class="w-full h-[20rem]"></canvas>
+                <canvas id="franchiseSaleChart" class="w-full h-full"></canvas>
               </div>
 
               <!-- * THIS IS GROSS SALES CONTAINER AND GROSS INCOME CONTAINER   -->
 
-              <div class=" mx-auto flex flex-col gap-5 ">
-                <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+              <div class="mx-auto  flex flex-col gap-10 ">
+                <div class="bg-[#ffff] h-[50%] shadow drop-shadow-md rounded-[.1rem]">
                   <div class="flex justify-between items-center px-5 pt-2">
-                    <h1 class="font-semibold text-[1.2rem]">Branch Gross Sales</h1>
+                    <h1 class="font-semibold text-[1.2rem] text-[#302D3D]">Branch Gross Sales</h1>
                     <select
                       id="GrossSalefranchiseFilter"
                       class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
@@ -871,16 +871,16 @@
                   </div>
                 
                   <h2
-                    class="flex justify-center text-2xl py-10"
+                    class="flex  text-3xl font-semibold ps-5 py-10"
                     id="GrossSaleFranchiseContainer"
                   >
                     <!-- dynamic price here -->
                   </h2>
                 </div>
 
-                <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
-                  <div class="flex justify-between items-center px-5 pt-2">
-                    <h1 class="font-semibold text-[1.2rem]">Branch Gross Income</h1>
+                <div class="bg-[#ffff] h-[50%] shadow drop-shadow-md rounded-[.1rem]">
+                  <div class="flex justify-between gap-5 items-center px-5 pt-2">
+                    <h1 class="font-semibold text-[1.2rem] text-[#302D3D]">Branch Gross Income</h1>
                     <select
                       id="incomefranchiseFilter"
                       class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
@@ -892,7 +892,7 @@
                   </div>
                 
                   <h2
-                    class="flex justify-center text-2xl py-10"
+                    class="flex  text-3xl font-semibold ps-5 py-10"
                     id="totalIncomeFranchiseContainer"
                   >
                     <!-- dynamic price here -->
@@ -903,9 +903,9 @@
             </div>
            
             <!-- *THIS IS BRANCH INVENTORY CONTAINER AND STOCKS ALERT -->
-            <div class=" flex mx-5 gap-5 mt-10 my-5">
-              <div class="w-[64%] h-[20rem] rounded-sm shadow drop-shadow-md bg-[#ffff]">
-                <h1 class=" font-semibold p-3 text-[1.2rem]">Inventory Status</h1>
+            <div class=" grid grid-cols-2 mx-5 gap-5 mt-10 my-5">
+              <div class="w-[65rem] h-[25rem]  rounded-sm shadow drop-shadow-md bg-[#ffff]">
+                <h1 class=" font-semibold p-3 text-[1.2rem] text-[#302D3D]">Inventory Status</h1>
                 <ul id="branchStocksList" class="  flex 
                 flex-wrap justify-between mx-[10rem]">
                   
@@ -919,7 +919,7 @@
               <div class=" flex mx-auto flex-col gap-5 items-center">
                 <!-- Stock Alert Container -->
                 <div class=" px-7 py-3 bg-[#ffff] rounded-sm shadow drop-shadow-md ">
-                    <h1 class=" font-semibold text-[1.2rem]">
+                    <h1 class=" font-semibold text-[1.2rem] text-[#302D3D]">
                       Stock Alert
                     </h1>
                     <ul id="stockAlert">

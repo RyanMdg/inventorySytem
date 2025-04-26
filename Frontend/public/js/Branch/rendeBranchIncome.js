@@ -29,10 +29,12 @@ backBtn.addEventListener("click", function () {
   const branches_container = document.getElementById("branches_container");
   const backBtn = document.getElementById("backBtn");
   const branchNameHeader = document.getElementById("branchNameHeader");
+  const refreshBtn = document.getElementById("refreshBtn");
 
   branchNameHeader.innerHTML = "Branches";
 
   backBtn.classList.add("hidden");
   branchData.classList.add("hidden");
   branches_container.classList.remove("hidden");
+  refreshBtn.classList.add("hidden");
 });

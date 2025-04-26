@@ -39,6 +39,8 @@ export async function renderBranches() {
     `;
   });
 
+  const refreshBtn = document.getElementById("refreshBtn");
+
   const backBtn = document.getElementById("backBtn");
   const branchData = document.getElementById("branchData");
 
@@ -51,6 +53,7 @@ export async function renderBranches() {
       const selectedBranch = data[index];
       branchNameHeader.innerHTML = selectedBranch.name;
       backBtn.classList.remove("hidden");
+      refreshBtn.classList.remove("hidden");
       branchData.classList.remove("hidden");
       BranchIncome(selectedBranch);
       fetchWeeklyFranchise_GS(selectedBranch.id);
@@ -61,6 +64,8 @@ export async function renderBranches() {
       FranchiseeGrossIncome("today", selectedBranch.id);
       renderBranchInventory(selectedBranch.id);
       branchStockAlert(selectedBranch.id);
+
+      refreshBtn.addEventListener("click", async () => {});
     });
   });
 }

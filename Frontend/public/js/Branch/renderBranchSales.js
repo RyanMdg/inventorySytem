@@ -29,7 +29,7 @@ export async function FranchiseetotalIncome(filter = "today", branchId) {
 
   const now = new Date();
   let fromDate;
-  let toDate;
+  let toDate = now.toISOString();
   let yesterdayStart, yesterdayEnd;
 
   if (filter === "today") {
@@ -119,7 +119,7 @@ export async function FranchiseetotalIncome(filter = "today", branchId) {
         })}
        <span class = "flex flex-col items-center ps-32">
        ${percentHTML}
-       <span class="text-[#9b9b9bb0] text-[.7rem] ml-2">(vs yesterday ${yesterdayTotal})</span>
+       <span class="text-[#9b9b9bb0] text-[.7rem] ml-2">(vs yesterday ₱${yesterdayTotal})</span>
        </span> 
       </p>
     `;

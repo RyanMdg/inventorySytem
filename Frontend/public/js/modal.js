@@ -24,7 +24,6 @@ product_Cont.addEventListener("click", function () {
     // Show modal and update product name
     modal_Container.classList.remove("hidden");
     modal_Product_name.textContent = selectedProductName;
-    image_modal.src = selectedProductImage;
   }
 });
 

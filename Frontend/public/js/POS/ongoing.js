@@ -1,5 +1,8 @@
 "use strict";
 import supabase from "../../Backend2/config/SupabaseClient.js";
+import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
+import { calculated } from "../pos-inventory_communication/calculations.js";
+import { GrossIncome } from "../Dashboard/gross_Income.js";
 
 // Function to fetch ongoing orders for the logged-in user's branch
 async function fetchOngoingOrders() {
@@ -73,7 +76,7 @@ async function renderOngoingOrders() {
     orderCard.classList.add("order-card");
 
     orderCard.innerHTML = `
-    <div class=" bg-white basis-1/3  shadow drop-shadow-2xl  px-8 py-5 rounded-2xl text-[#302D3D]">
+    <div class=" bg-white basis-1/3   shadow drop-shadow-2xl  px-8 py-5 rounded-2xl text-[#302D3D]">
 
     <div class=" flex gap-10">
     <div class=" flex flex-col">
@@ -115,7 +118,7 @@ async function renderOngoingOrders() {
        </div>
       
      <div class=" flex justify-between mx-4 "> 
-     <button class="complete-btn cursor-pointer bg-[#B60205] text-white rounded-md px-5 py-2" data-receipt="${receipt}">Completed</button>
+     <button id="calculation" class="complete-btn .complete-btn-calc  cursor-pointer bg-[#B60205] text-white rounded-md px-5 py-2" data-receipt="${receipt}">Completed</button>
       <button class="cancel-btn cursor-pointer bg-[#B60205] text-white rounded-md px-5 py-2" data-receipt="${receipt}">Cancel</button>
      </div>
       
@@ -133,8 +136,24 @@ async function renderOngoingOrders() {
 function attachButtonEventListeners() {
   document.querySelectorAll(".complete-btn").forEach((button) => {
     button.addEventListener("click", async (event) => {
+      const { branchId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
+      GrossIncome(receiptNumber);
       await updateOrderStatus(receiptNumber, "completed");
+      calculated(receiptNumber);
+      console.log("reciept num " + receiptNumber);
+
+      const { error } = await supabase
+        .from("reciepts_summary_table")
+        .update({ status: "Completed" })
+        .eq("branch_id", branchId)
+        .eq("receipt_number", receiptNumber)
+        .eq("status", "ongoing");
+
+      if (error) {
+        console.error("Failed to update status:", error.message);
+        alert("Failed to update.");
+      }
     });
   });
 

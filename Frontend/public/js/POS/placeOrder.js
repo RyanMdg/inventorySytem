@@ -68,7 +68,6 @@ btnPlaceOrder.addEventListener("click", async function () {
         product_price: placeOrder_Tot,
         add_ons: placeOrder_AddOns,
         status: "ongoing",
-        total: grandTotal,
         payment_method: paymentmethod,
         pickup_method: pickupMethod,
         order_date: new Date(), // Store the current date
@@ -80,6 +79,28 @@ btnPlaceOrder.addEventListener("click", async function () {
       alert("Error placing order. Please try again.");
       return;
     }
+  }
+  const grandTotals = localStorage.getItem("grantotal");
+  const paymentmethods = localStorage.getItem("paymentMethod");
+
+  const parsedTotal = parseFloat(grandTotals);
+
+  const { recieptsum, errorrecieptsum } = await supabase
+    .from("reciepts_summary_table")
+    .insert([
+      {
+        branch_id: branchId,
+        receipt_number: receiptNumber,
+        total: parsedTotal,
+        payment_method: paymentmethods,
+        status: "ongoing",
+      },
+    ]);
+
+  if (errorrecieptsum) {
+    console.error("Error inserting order:", errorrecieptsum.message);
+    alert("Error placing order. Please try again.");
+    return;
   }
 
   alert(`Order placed successfully! Receipt No: ${receiptNumber}`);

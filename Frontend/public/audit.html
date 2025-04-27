@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/output.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="flex flex-col">
+      <div class="p-10 flex justify- ml-10 gap-5">
+        <div>
+          <select
+            class="border py-1 px-5 border-[#9CA3AF] bg-white rounded-sm"
+            id="audit_categories"
+          >
+            <option value="All Categories">All Categories</option>
+            <option value="Completed Orders">Completed Orders</option>
+            <option value="Cancelled Orders">Canceled Orders</option>
+            <option value="Expense">Expense</option>
+            <option value="Mixture">Mixture</option>
+            <option value="Leftovers">Leftovers</option>
+          </select>
+        </div>
+
+        <div>
+          <input
+            type="text"
+            placeholder="Search"
+            name="Search"
+            id="Search "
+            class="bg-[#ffffff] py-1 px-5 border border-[#9CA3AF] flex rounded-sm"
+          />
+        </div>
+      </div>
+      <div
+        class="border py-5 px-3 rounded-sm mx-20 w-[50%] border-[#9CA3AF] flex gap-40 place-items-end items-start mb-10"
+      >
+        <div class="flex gap-3 w-[60%] ms-5">
+          <img src="../public/images/check bold.png" />
+          <span class="flex flex-col gap-1 -mb-60">
+            <p class="font-medium text-lg ms-3">Completed Order</p>
+            <p class="ms-3 text-m">Total - 100</p>
+            <p class="ms-3 text-m">Order #123</p>
+          </span>
+        </div>
+        <div class="flex flex-col items-start gap-1">
+          <p class="font-medium text-lg">April 3,2025</p>
+          <p>Cashier</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

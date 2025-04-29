@@ -50,6 +50,7 @@ export async function renderSalesChart() {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,

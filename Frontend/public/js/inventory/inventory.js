@@ -8,6 +8,7 @@ import { renderCreadtedMixtures } from "./renders/renderCreadtedMixtures.js";
 import { renderleftOver } from "./renders/renderleftOver.js";
 import { subscribeToRealTimeOrders } from "./realtimeHandlers/subscribeToRealTimeOrders.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
+import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 
 const raw = document.getElementById("raw");
 const createRaw = document.getElementById("createRaw");
@@ -24,7 +25,7 @@ const createdTotal = document.querySelector(".createdTotal");
 const updateBtn = document.querySelector(".updatebtn");
 const createbtn = document.querySelector(".createBtn");
 const addToStack = document.querySelector(".addbtn");
-
+const dynamicmodal = document.getElementById("dynamicmodal");
 let inventoryid = "";
 
 async function isDubplicated() {
@@ -121,7 +122,10 @@ addToStack.addEventListener("click", async function () {
       return;
     }
 
-    alert(`Stock added successfully`);
+    const status = "Stock added";
+    const description = "Stock added successfully";
+    dynamicAlert(status, description);
+
     inventoryid += addStock.id;
 
     renderStocks();
@@ -160,7 +164,10 @@ addToStack.addEventListener("click", async function () {
       return;
     }
 
-    alert(`Stock added successfully`);
+    const status = "Stock added";
+    const description = "Stock added successfully";
+
+    dynamicAlert(status, description);
     inventoryid += addStock.id;
 
     renderStocks(); // Refresh table immediately
@@ -276,7 +283,9 @@ createbtn.addEventListener("click", async function () {
     return;
   }
 
-  alert("Mixture created successfully!");
+  const status = "Mixture Added";
+  const description = "Mixture Added successfully";
+  dynamicAlert(status, description);
 
   // Refresh UI
 

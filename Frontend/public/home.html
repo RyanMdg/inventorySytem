@@ -200,7 +200,7 @@
           <!--* GROSS INCOME -->
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
-              <h1 class="font-semibold text-[1.2rem]">Gross Income</h1>
+              <h1 class="font-semibold  text-[1.2rem]">Gross Income</h1>
               <select
                 id="GrossincomeFilter"
                 class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
@@ -1017,6 +1017,38 @@
 
 
   <!--* MODALSSSSSS *-->
+  <div
+  id="dynamicmodal"
+  class="fixed inset-0 bg-opacity-0 opacity-0  scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+>
+
+   <div
+       class="bg-[#ffffff] relative pb-5 w-[30%] rounded-sm shadow-lg"
+       id="dynamicAlert"
+     >    
+     <div class="w-full bg-[#302D3D] flex justify-center p-3" id="black-bar">
+      <img src="../public/images/check-green-image.png" class="w-[4rem]" />
+    </div>
+
+    <div class="flex flex-col items-center">
+      <h2 id="status" class="font-semibold text-3xl mt-4"></h2>
+      <h1 id="description" class="p-2 text-sm">
+      </h1>
+    </div>
+
+    <!--Button-->
+    <div class="flex justify-center items-center">
+      <div
+        class="text-sm cursor-pointer text-white font-medium text-center bg-[#B60205] w-[20%] p-1 m-3 rounded-sm shadow drop-shadow-md"
+        id="dynamicBtn"
+      >
+        Okay
+      </div>
+    </div>
+     
+     </div>
+  </div>
+
 
 
    <!--* ORDER SUCCESS MODAL ALERT-->
@@ -1245,6 +1277,7 @@
     <script type="module" src="./js/Branch/renderBranchNetIncome.js"></script>
     <script type="module" src="./js/Branch/renderBranchInventory.js"></script>
     <script type="module" src="./js/Branch/renderBranchStockAlert.js"></script>
+    <script type="module" src="./js/modals_Js/dynamicInventory.js"></script>
   </main>
   </body>
 </html>

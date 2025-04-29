@@ -6,5 +6,5 @@ yarn-error.log
 
 # Tailwind build files
 *.css.map
-public/build/
-dist/
+Frontend/public/css/output.css
+

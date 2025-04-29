@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/Frontend/public/css/output.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body class="font-poppins min-h-screen">
+    <main class="h-screen flex justify-center items-center">
+      <!--Container-->
+      <div
+        class="w-[21%] rounded-md bg-[#ffffff] shadow drop-shadow-md flex flex-col relative"
+      >
+        <!--Black Bar-->
+        <div
+          class="w-full rounded-t-md bg-[#302D3D] relative flex p-1 position"
+        >
+          <p class="text-white font-semibold ml-2">Leftover Mixture Details</p>
+          <div>
+            <img
+              src="../public/images/red-line.png"
+              class="w-[3rem] absolute left-10 top-15"
+            />
+            <img
+              src="../public/images/close-button.png"
+              class="w-[1.5rem] absolute right-1"
+            />
+          </div>
+        </div>
+
+        <!--Gold Receipt with Expense ID-->
+        <div>
+          <img
+            class="mt-3 ml-8 w-[4rem]"
+            src="../public/images/mixture-bowl.png"
+          />
+          <div
+            class="text-xs text-gray-900 absolute top-11 left-25 p-2 flex flex-col"
+          >
+            <div class="flex flex-col gap-1">
+              <div class="text-gray-900 w-full">
+                <span class="font-medium">Receipt No:</span>
+                <span class="font-light">RCPT-1742227670375</span>
+              </div>
+
+              <div class="text-gray-900">
+                <span class="font-medium">Status:</span>
+                <span class="font-light">Discarded</span>
+              </div>
+
+              <div class="text-gray-900">
+                <span class="font-medium">Date:</span>
+                <span class="font-light">August 10, 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Mixture Summary-->
+        <div class="ml-6 mt-4 font-semibold text-sm text-red-600">
+          <p>Ingredients</p>
+        </div>
+
+        <div class="text-left text-xs ml-8 mx-5 mb-5 mt-2">
+          <div class="flex justify-between mb-1">
+            <span>Octo</span>
+            <div class="flex gap-10 min-w-[10rem] justify-end">
+              <span>₱250</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between mb-1">
+            <span>Flour</span>
+            <div class="flex gap-12 min-w-[10rem] justify-end">
+              <span>₱80</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between mb-1">
+            <span>Sauce</span>
+            <div class="flex gap-12 min-w-[10rem] justify-end">
+              <span>₱390</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between mb-1">
+            <span>Ham</span>
+            <div class="flex gap-12 min-w-[10rem] justify-end">
+              <span>₱120</span>
+            </div>
+          </div>
+
+          <hr class="mt-10 my-2" />
+
+          <div class="text-red-600 flex justify-between mb-3">
+            <span class="font-semibold">Total</span>
+            <span>₱840</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

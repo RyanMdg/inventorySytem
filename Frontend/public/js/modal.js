@@ -209,6 +209,23 @@ addbillButton.forEach((buttonbill) => {
 
     console.log("Current Orders:", Array.from(orders.values()));
 
+    const addOrders = document.getElementById("addOrders");
+    addOrders.innerHTML = "";
+    orders.forEach((ord) => {
+      addOrders.innerHTML += `
+     
+
+      <table class="table-fixed w-full">
+          <tr class="text-left text-xs">
+      <td class="px-4 py-2">${ord.placeOrder_Name}</td>
+      <td class="px-4 py-2">${ord.placeOrder_Qty}</td>
+      <td class="px-4 py-2">${ord.placeOrder_Tot}</td>
+    </tr>
+        </table>
+          
+      `;
+    });
+
     // orders.clear(); // Clears all orders
     // console.log("Orders cleared:", orders);
     liContainer.classList.add("recieptProdName");

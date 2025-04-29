@@ -4,6 +4,16 @@ import orders from "../modal.js";
 
 const btnPlaceOrder = document.querySelector(".placeOrderBtn");
 const totalreciept = document.querySelector(".grandtotal");
+const reciept_num = document.getElementById("reciept_num");
+const reciept_container = document.getElementById("reciept_container");
+
+function closeModalOnOutsideClick(event) {
+  if (!reciept_container.contains(event.target)) {
+    reciept_container.classList.add("opacity-0");
+    // Remove the event listener after closing the modal to avoid memory leaks
+    document.removeEventListener("click", closeModalOnOutsideClick);
+  }
+}
 
 btnPlaceOrder.addEventListener("click", async function () {
   const { data: user, error: autherror } = await supabase.auth.getUser();
@@ -103,10 +113,18 @@ btnPlaceOrder.addEventListener("click", async function () {
     return;
   }
 
-  alert(`Order placed successfully! Receipt No: ${receiptNumber}`);
+  // Display the receipt number and total amount in the receipt container
+  const grandTotalReciept = document.getElementById("grandTotalReciept");
+
+  reciept_container.classList.remove("opacity-0");
+
+  document.addEventListener("click", closeModalOnOutsideClick);
+
+  reciept_num.textContent = `${receiptNumber}`;
+  grandTotalReciept.textContent = ` ${grandTotals}`;
+  console.log(receiptNumber);
 
   // Clear the orders after inserting into database
-
   orders.clear();
 
   localStorage.removeItem("receiptNumber");

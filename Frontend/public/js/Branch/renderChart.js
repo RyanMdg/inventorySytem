@@ -43,12 +43,13 @@ export async function renderFranchiseSalesChart(branchId) {
         {
           label: "Gross Sales (₱)",
           data: salesData,
-          backgroundColor: "rgb(182,2,5)",
+          backgroundColor: "rgb(48,45,61)",
         },
       ],
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,
@@ -57,4 +58,3 @@ export async function renderFranchiseSalesChart(branchId) {
     },
   });
 }
-renderFranchiseSalesChart();

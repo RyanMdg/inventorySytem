@@ -2,6 +2,7 @@
 
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
+import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 
 const leftOverBtn = document.getElementById("leftoverBtn");
 const noleftalertContainer = document.getElementById("noleftmixtures");
@@ -91,7 +92,9 @@ leftOverBtn.addEventListener("click", async function () {
   } else {
     console.log("Data updated successfully:", data);
 
-    alert("succesfull mixture are leftover");
+    const status = "Leftover Created!";
+    const description = "Successfully Mixture are leftover!";
+    dynamicAlert(status, description);
   }
 
   // mixture status dynamically

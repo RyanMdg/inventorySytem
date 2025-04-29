@@ -5,6 +5,14 @@ import {
   renderFranchiseSalesChart,
   fetchWeeklyFranchise_GS,
 } from "./renderChart.js";
+import {
+  FranchiseetotalIncome,
+  setCurrentBranchId,
+} from "./renderBranchSales.js";
+import { FranchiseeGrossIncome, setBranch } from "./renderBranchNetIncome.js";
+import { renderBranchInventory } from "./renderBranchInventory.js";
+import { branchStockAlert } from "./renderBranchStockAlert.js";
+
 const branches_container = document.getElementById("branches_container");
 
 import { franchiseData } from "./branch.js";
@@ -31,6 +39,11 @@ export async function renderBranches() {
     `;
   });
 
+  const refreshBtn = document.getElementById("refreshBtn");
+
+  const backBtn = document.getElementById("backBtn");
+  const branchData = document.getElementById("branchData");
+
   const branchBtns = document.querySelectorAll(".branchBtn");
   const branchNameHeader = document.getElementById("branchNameHeader");
 
@@ -39,9 +52,20 @@ export async function renderBranches() {
       const index = this.getAttribute("data-index");
       const selectedBranch = data[index];
       branchNameHeader.innerHTML = selectedBranch.name;
+      backBtn.classList.remove("hidden");
+      refreshBtn.classList.remove("hidden");
+      branchData.classList.remove("hidden");
       BranchIncome(selectedBranch);
       fetchWeeklyFranchise_GS(selectedBranch.id);
       renderFranchiseSalesChart(selectedBranch.id);
+      setCurrentBranchId(selectedBranch.id);
+      setBranch(selectedBranch.id);
+      FranchiseetotalIncome("today", selectedBranch.id);
+      FranchiseeGrossIncome("today", selectedBranch.id);
+      renderBranchInventory(selectedBranch.id);
+      branchStockAlert(selectedBranch.id);
+
+      refreshBtn.addEventListener("click", async () => {});
     });
   });
 }

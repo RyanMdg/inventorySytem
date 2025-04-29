@@ -176,12 +176,12 @@
     <main class="flex-1">
       <div x-show="page === 'dashboard'" class="mt-24">
         <div class=" grid grid-cols-4 gap-5 mx-10 ">
-          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+          <div class="bg-[#ffff] max-[1025px]:h-[9rem] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
-              <h1 class="font-semibold text-[1.2rem]">Gross Sales</h1>
+              <h1 class="font-semibold max-[1497px]:text-[1.1rem] max-[1445px]:text-[1rem] max-[1245px]:text-[0.9rem]  text-[1.2rem]">Gross Sales</h1>
               <select
                 id="incomeFilter"
-                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem] max-[1189px]:w-[1rem]"
               >
                 <option value="today">Today</option>
                 <option value="week">This Week</option>
@@ -190,7 +190,7 @@
             </div>
           
             <h2
-              class="flex justify-center text-2xl py-10"
+              class="flex justify-center text-[1.5rem] py-10 max-[1025px]:py-8 max-[1245px]:text-[1.4rem]"
               id="totalIncomeContainer"
             >
               <!-- dynamic price here -->
@@ -198,12 +198,12 @@
           </div>
 
           <!--* GROSS INCOME -->
-          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem] max-[1025px]:h-[9rem]">
             <div class="flex justify-between items-center px-5 pt-2">
-              <h1 class="font-semibold text-[1.2rem]">Gross Income</h1>
-              <select
+              <h1 class="font-semibold max-[1497px]:text-[1.1rem] max-[1445px]:text-[1rem] max-[1245px]:text-[0.9rem] text-[1.2rem]">Gross Income</h1>
+              <select   
                 id="GrossincomeFilter"
-                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem] max-[1189px]:w-[1rem]"
               >
                 <option value="today">Today</option>
                 <option value="week">This Week</option>
@@ -212,7 +212,7 @@
             </div>
           
             <h2
-              class="flex justify-center text-2xl py-10"
+              class="flex justify-center text-[1.5rem] max-[1245px]:text-[1.4rem] py-10 max-[1025px]:py-8"
               id="totalGrossIncomeContainer"
             >
               <!-- dynamic price here -->
@@ -220,12 +220,12 @@
           </div>
 
           <!--* TOTAL ORDERS -->
-          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
-            <div class="flex justify-between items-center px-5 pt-2">
-              <h1 class="font-semibold text-[1.2rem]">Total Orders</h1>
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem] max-[1025px]:h-[9rem]">
+            <div class="flex justify-between items-center px-5 pt-2"">
+              <h1 class="font-semibold max-[1497px]:text-[1.1rem] max-[1445px]:text-[1rem] max-[1245px]:text-[0.9rem]  text-[1.2rem]">Total Orders</h1>
               <select
                 id="totalOrderFilter"
-                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+                class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem] max-[1189px]:w-[1rem] "
               >
                 <option value="today">Today</option>
                 <option value="week">This Week</option>
@@ -234,27 +234,27 @@
             </div>
           
             <h2
-              class="flex justify-center text-2xl py-10"
+              class="flex justify-center text-[1.7rem] py-10  max-[1025px]:py-8 max-[1245px]:text-[1.4rem] "
               id="totalOrderContainer"
             >
               <!-- dynamic price here -->
             </h2>
           </div>
 
-          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
-           <h1 class=" font-semibold ps-5 pt-2">Total Expenses</h1> 
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem] max-[1025]:h-[9rem]">
+           <h1 class=" font-semibold ps-5 pt-2 max-[1497px]:text-[1.1rem] max-[1445px]:text-[1rem]  max-[1245px]:text-[0.9rem] text-[1.2rem]">Total Expenses</h1> 
           </div>
         </div>
 
 
         <!--* DAILY SALES  -->
-        <div class=" grid grid-cols-2 mx-10 gap-5 ">
+        <div class=" grid grid-cols-2 mx-10 gap-5  ">
           <div class="w-full max-w-4xl p-6 bg-white rounded-sm shadow-md mt-5">
-            <h2 class="text-2xl font-bold mb-4 text-center">Daily Sales</h2>
-            <canvas id="salesChart" class="w-full h-6"></canvas>
+            <h2 class="text-[1.5rem] font-bold mb-4 text-center max-[1245px]:text-[1.4rem]  max-[1100px]:text-[1.2rem]">Daily Sales</h2>
+            <canvas id="salesChart" class="w-full h-6 max-[975px]:h-10 "></canvas>
           </div>
           <div class="w-full max-w-4xl p-6 bg-white rounded-sm shadow-md mt-5">
-            <h2 class="text-2xl font-bold mb-4 text-center">Daily Sales</h2>
+            <h2 class="text-[1.5rem] font-bold mb-4 text-center max-[1245px]:text-[1.4rem] max-[1100px]:text-[1.2rem]">Daily Sales</h2>
             <canvas id="salesChart" class="w-full h-6"></canvas>
           </div>
         </div>
@@ -262,7 +262,7 @@
         <!-- * TOP SELLING  -->
          <div class=" grid grid-cols-3 gap-5 mt-5 mx-10">
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
-            <h1 class="font-semibold pt-2 ps-3 text-[1rem]">Top Selling Products</h1>
+            <h1 class="font-semibold pt-2 ps-3 text-[1rem] max-[1245px]:text-[0.9rem]">Top Selling Products</h1>
             <div class="flex  flex-col justify-center  px-5 pt-2">
               <ul id="TopProductList" class="max-h-[100%] overflow-y-auto">
                 <li></li>
@@ -863,7 +863,7 @@
                     <h1 class="font-semibold text-[1.2rem] text-[#302D3D]">Branch Gross Sales</h1>
                     <select
                       id="GrossSalefranchiseFilter"
-                      class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+                      class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm  "
                     >
                       <option value="today">Today</option>
                       <option value="week">This Week</option>
@@ -872,7 +872,7 @@
                   </div>
                 
                   <h2
-                    class="flex  text-3xl font-semibold ps-5 py-10"
+                    class="flex  text-[1.9rem] font-semibold ps-5 py-10 max-[1245px]:text-[1.5rem]"
                     id="GrossSaleFranchiseContainer"
                   >
                     <!-- dynamic price here -->
@@ -884,7 +884,7 @@
                     <h1 class="font-semibold text-[1.2rem] text-[#302D3D]">Branch Gross Income</h1>
                     <select
                       id="incomefranchiseFilter"
-                      class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm"
+                      class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem]"
                     >
                       <option value="today">Today</option>
                       <option value="week">This Week</option>
@@ -893,7 +893,7 @@
                   </div>
                 
                   <h2
-                    class="flex  text-3xl font-semibold ps-5 py-10"
+                    class="flex  text-[1.9rem] font-semibold ps-5 py-10"
                     id="totalIncomeFranchiseContainer"
                   >
                     <!-- dynamic price here -->

@@ -2,6 +2,7 @@
 
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
+import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 
 const mixtureBtn = document.getElementById("mixtureBtn");
 const nomixalertContainer = document.getElementById("nomixtures");
@@ -66,18 +67,10 @@ mixtureBtn.addEventListener("click", async function () {
   const CreatedMixtureCount = await checkCreatedMixture(branchId);
 
   if (leftoverCount > 0) {
-    leftoverModal.classList.remove(
-      "opacity-0",
-      "scale-95",
-      "pointer-events-none",
-      "bg-opacity-0"
-    );
-    leftoverModal.classList.add(
-      "opacity-100",
-      "scale-100",
-      "pointer-events-auto",
-      "bg-opacity-50"
-    );
+    const status = "You Still have leftover mixtures!";
+    const description = "Use it or discard?";
+
+    dynamicAlert(status, description);
   } else if (CreatedMixtureCount > 0) {
     mixtureModal.classList.remove(
       "opacity-0",

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/Frontend/public/css/output.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body class="font-poppins min-h-screen">
+    <main class="h-screen flex justify-center items-center">
+      <!--Container-->
+      <div
+        class="w-[22%] rounded-md bg-[#ffffff] shadow drop-shadow-md flex flex-col relative"
+      >
+        <!--Black Bar-->
+        <div
+          class="w-full rounded-t-md bg-[#302D3D] relative flex p-1 position"
+        >
+          <p class="text-white font-semibold ml-2">Order Details</p>
+          <div>
+            <img
+              src="../public/images/close-button.png"
+              class="w-[1.5rem] absolute right-1"
+            />
+          </div>
+        </div>
+
+        <!--Gold Receipt with Receipt No.-->
+        <div>
+          <img
+            class="ml-5 mt-2 w-[5rem]"
+            src="../public/images/gold-receipt.png"
+          />
+          <div
+            class="text-xs text-gray-900 absolute top-11 left-25 p-2 flex flex-col"
+          >
+            <div class="flex flex-col gap-1">
+              <div class="text-gray-900 w-full">
+                <span class="font-medium">Receipt No:</span>
+                <span class="font-light">RCPT-1742227670375</span>
+              </div>
+
+              <div class="text-gray-900">
+                <span class="font-medium">Status:</span>
+                <span class="font-light">Completed</span>
+              </div>
+
+              <div class="text-gray-900">
+                <span class="font-medium">Date:</span>
+                <span class="font-light">August 10, 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Items Ordered-->
+        <div class="ml-6 mt-1 font-semibold text-sm text-red-600">
+          <p>Items Ordered</p>
+        </div>
+
+        <div class="text-left text-xs ml-6 mx-5 mb-5 mt-2">
+          <div class="flex justify-between">
+            <span>Ham & Cheese</span>
+            <div class="flex gap-10 min-w-[10rem] justify-end">
+              <span>16s</span>
+              <span>₱160</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between">
+            <span>Octo</span>
+            <div class="flex gap-12 min-w-[10rem] justify-end">
+              <span>4s</span>
+              <span>₱45</span>
+            </div>
+          </div>
+
+          <hr class="mt-10 my-2" />
+
+          <div class="flex justify-between">
+            <span class="font-semibold">Total</span>
+            <span>₱210</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

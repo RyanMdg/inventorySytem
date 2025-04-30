@@ -19,6 +19,7 @@
     ></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Affotako</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="./images/logo_white.PNG" />
   </head>
   <body
@@ -176,9 +177,17 @@
     <main class="flex-1">
       <div x-show="page === 'dashboard'" class="mt-24">
         <div class=" grid grid-cols-4 gap-5 mx-10 ">
-          <div class="bg-[#ffff] max-[1025px]:h-[9rem] shadow drop-shadow-md rounded-[.1rem]">
+          <div class="bg-[#ffff] max-[1025px]:h-[9rem]  max-[954px]:h-[8rem] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
-              <h1 class="font-semibold max-[1497px]:text-[1.1rem] max-[1445px]:text-[1rem] max-[1245px]:text-[0.9rem] max-[954px]:text-[0.8rem]  text-[1.2rem]">Gross Sales</h1>
+              <h1 class="font-semibold
+               max-[1497px]:text-[1.1rem] 
+               max-[1445px]:text-[1rem]
+                max-[1245px]:text-[0.9rem] 
+                max-[1189px]:text-[1.1rem]
+                max-[1104px]:text-[0.9rem]
+               max-[954px]:text-[0.8rem] 
+               text-[1.2rem]"
+              >Gross <span class="hidden max-[899px]:inline"><br></span> Sales</h1> <!--gross sale og-->
               <select
                 id="incomeFilter"
                 class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem] max-[1189px]:w-[1rem]"
@@ -190,7 +199,7 @@
             </div>
           
             <h2
-              class="flex justify-center text-[1.5rem] py-10 max-[1025px]:py-8 max-[1245px]:text-[1.4rem]"
+              class="flex justify-center text-[1.5rem] py-10 max-[1025px]:py-8 max-[1245px]:text-[1.4rem] max-[954px]:text-[1.2rem] max-[954px]:py-7"
               id="totalIncomeContainer"
             >
               <!-- dynamic price here -->
@@ -200,7 +209,15 @@
           <!--* GROSS INCOME -->
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem] max-[1025px]:h-[9rem]  max-[954px]:h-[8rem]">
             <div class="flex justify-between items-center px-5 pt-2">
-              <h1 class="font-semibold max-[1497px]:text-[1.1rem] max-[1445px]:text-[1rem] max-[1245px]:text-[0.9rem] max-[954px]:text-[0.8rem]  text-[1.2rem]">Gross Income</h1>
+              <h1 class="font-semibold 
+              max-[1497px]:text-[1.1rem]
+               max-[1445px]:text-[1rem] 
+               max-[1245px]:text-[0.9rem] 
+               max-[1189px]:text-[1.1rem] 
+               max-[1104px]:text-[0.9rem]
+               max-[954px]:text-[0.8rem] 
+               
+                text-[1.2rem]">Gross Income</h1> <!--gross income-->
               <select
                 id="GrossincomeFilter"
                 class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem] max-[1189px]:w-[1rem]"
@@ -212,7 +229,13 @@
             </div>
           
             <h2
-              class="flex justify-center text-[1.5rem] max-[1245px]:text-[1.4rem]  max-[954px]:text-[1.2rem] py-10 max-[1025px]:py-8 max-[954px]:py-7 "
+              class="flex justify-center 
+              text-[1.5rem] 
+              max-[1245px]:text-[1.4rem] 
+               max-[954px]:text-[1.2rem] 
+               py-10 
+               max-[1025px]:py-8
+                max-[954px]:py-7 "
               id="totalGrossIncomeContainer"
             >
               <!-- dynamic price here -->
@@ -220,9 +243,16 @@
           </div>
 
           <!--* TOTAL ORDERS -->
-          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem] max-[1025px]:h-[9rem]">
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem] max-[1025px]:h-[9rem]  max-[954px]:h-[8rem]">
             <div class="flex justify-between items-center px-5 pt-2"">
-              <h1 class="font-semibold max-[1497px]:text-[1.1rem] max-[1445px]:text-[1rem] max-[1245px]:text-[0.9rem] max-[954px]:text-[0.8rem] text-[1.2rem]">Total Orders</h1>
+              <h1 class="font-semibold 
+              max-[1497px]:text-[1.1rem] 
+              max-[1445px]:text-[1rem]
+               max-[1245px]:text-[0.9rem] 
+               max-[1189px]:text-[1.1rem]
+               max-[1104px]:text-[0.9rem]
+              max-[954px]:text-[0.8rem] 
+              text-[1.2rem]">Total <span class="hidden max-[899px]:inline"><br></span> Orders</h1> <!--total orders-->
               <select
                 id="totalOrderFilter"
                 class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem] max-[1189px]:w-[1rem] "
@@ -234,15 +264,24 @@
             </div>
           
             <h2
-              class="flex justify-center text-[1.7rem] py-10  max-[1025px]:py-8 max-[1245px]:text-[1.4rem] "
+              class="flex justify-center text-[1.7rem] py-10  max-[1025px]:py-8  max-[954px]:py-7 max-[1245px]:text-[1.4rem] max-[954px]:text-[1.2rem] "
               id="totalOrderContainer"
             >
               <!-- dynamic price here -->
             </h2>
           </div>
 
-          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem] max-[1025]:h-[9rem]">
-           <h1 class=" font-semibold ps-5 pt-2 max-[1497px]:text-[1.1rem] max-[1445px]:text-[1rem]  max-[1245px]:text-[0.9rem] max-[954px]:text-[0.8rem] text-[1.2rem]">Total Expenses</h1> 
+          <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem] max-[1025]:h-[9rem] max-[954px]:h-[8rem]">
+           <h1 class=" font-semibold 
+           ps-5 pt-2
+            max-[1497px]:text-[1.1rem] 
+            max-[1445px]:text-[1rem] 
+             max-[1245px]:text-[0.9rem] 
+             max-[954px]:text-[0.8rem]
+             max-[1189px]:text-[1.1rem]
+             max-[1104px]:text-[0.9rem]
+              text-[1.2rem]"
+              >Total <span class="hidden max-[899px]:inline"><br></span> Expenses</h1> <!--total expenses-->
           </div>
         </div>
 
@@ -250,11 +289,11 @@
         <!--* DAILY SALES  -->
         <div class=" grid grid-cols-2 mx-10 gap-5  ">
           <div class="w-full h-[15rem] max-w-4xl p-6 bg-white rounded-sm shadow-md mt-5">
-            <h2 class="text-[1.5rem] font-bold mb-4 text-center max-[1245px]:text-[1.4rem]  max-[1100px]:text-[1.2rem]">Daily Sales</h2>
+            <h2 class="text-[1.5rem] font-bold mb-4 text-center max-[1245px]:text-[1.4rem]  max-[1100px]:text-[1.2rem] max-[700px]:text-[1rem]">Daily Sales</h2>
               <canvas id="salesChart" class="w-full  h-full"></canvas>
           </div>
           <div class="w-full h-[10rem] max-w-4xl p-6 bg-white rounded-sm shadow-md mt-5">
-            <h2 class="text-[1.5rem] font-bold mb-4 text-center max-[1245px]:text-[1.4rem] max-[1100px]:text-[1.2rem]">Daily Sales</h2>
+            <h2 class="text-[1.5rem] font-bold mb-4 text-center max-[1245px]:text-[1.4rem] max-[1100px]:text-[1.2rem] max-[700px]:text-[1rem]">Daily Sales</h2>
             <canvas id="salesChart1" class="w-full h-full"></canvas>
           </div>
         </div>
@@ -262,7 +301,7 @@
         <!-- * TOP SELLING  -->
          <div class=" grid grid-cols-3 gap-5 mt-5 mx-10">
           <div class="bg-[#ffff] shadow drop-shadow-md rounded-[.1rem]">
-            <h1 class="font-semibold pt-2 ps-3 text-[1rem] max-[1245px]:text-[0.9rem]">Top Selling Products</h1>
+            <h1 class="font-semibold pt-2 ps-3 text-[1rem] max-[1245px]:text-[0.9rem] max-[700px]:text-[0.8rem]">Top Selling Products</h1>
             <div class="flex  flex-col justify-center  px-5 pt-2">
               <ul id="TopProductList" class="max-h-[100%] overflow-y-auto">
                 <li></li>

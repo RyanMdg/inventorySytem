@@ -44,7 +44,7 @@ export async function renderCreadtedMixtures() {
     .select("total")
     .eq("branch_id", branchId)
     .eq("status", "Created_Mixture")
-    .single();
+    .maybeSingle();
   if (errorMixture) {
     console.error("Error fetching receipts:", errorMixture.message);
   }

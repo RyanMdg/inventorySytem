@@ -9,6 +9,8 @@ const nomixalertContainer = document.getElementById("nomixtures");
 const createdMixture = document.getElementById("tablemixture");
 const mixtureModal = document.getElementById("mixtureModal");
 const leftoverModal = document.getElementById("leftoverModal");
+const ok_container = document.getElementById("ok_container");
+const use_discard_container = document.getElementById("use_discard_container");
 
 // Function to check if there are Created_Mixtures
 export async function checkMixtures() {
@@ -70,6 +72,9 @@ mixtureBtn.addEventListener("click", async function () {
     const status = "You Still have leftover mixtures!";
     const description = "Use it or discard?";
 
+    ok_container.classList.add("hidden");
+    use_discard_container.classList.remove("hidden");
+
     dynamicAlert(status, description);
   } else if (CreatedMixtureCount > 0) {
     mixtureModal.classList.remove(
@@ -95,7 +100,12 @@ mixtureBtn.addEventListener("click", async function () {
       console.error("Error updating data:", error);
     } else {
       console.log("Data updated successfully:", data);
-      alert("Successful mixture creation.");
+      const status = "Mixture Created!";
+      const description = "Your now deducting to this mixtures!";
+      ok_container.classList.remove("hidden");
+      use_discard_container.classList.add("hidden");
+
+      dynamicAlert(status, description);
     }
 
     // mixture status dynamically

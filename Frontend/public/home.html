@@ -1037,13 +1037,26 @@
     </div>
 
     <!--Button-->
-    <div class="flex justify-center items-center">
+    <div id="ok_container" class="flex justify-center items-center">
       <div
         class="text-sm cursor-pointer text-white font-medium text-center bg-[#B60205] w-[20%] p-1 m-3 rounded-sm shadow drop-shadow-md"
         id="dynamicBtn"
       >
         Ok
       </div>
+    </div>
+    <div id="use_discard_container" class="flex hidden gap-5 justify-around mx-10 mt-5">
+      <button
+        class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
+        id="UseLeftOverBtn"
+      >
+        use
+      </button>
+      <button
+        class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
+      >
+        discard
+      </button>
     </div>
      
      </div>
@@ -1137,19 +1150,7 @@
          >
            <ion-icon class="text-2xl" name="close"></ion-icon>
          </button>
-         <div class="flex gap-5 justify-around mx-10 mt-5">
-           <button
-             class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
-             id="UseLeftOverBtn"
-           >
-             use
-           </button>
-           <button
-             class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
-           >
-             discard
-           </button>
-         </div>
+         
        </div>
        <div class="flex justify-end">
          <img

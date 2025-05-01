@@ -135,8 +135,8 @@ UseLeftOverBtn.addEventListener("click", async function () {
 
     const status = "Successful leftover use as mixture!";
     const description = "You are currently deducting in your leftovers";
-    ok_container.classList.add("hidden");
-    use_discard_container.classList.remove("hidden");
+    ok_container.classList.remove("hidden");
+    use_discard_container.classList.add("hidden");
     dynamicAlert(status, description);
   }
   console.log("hi");

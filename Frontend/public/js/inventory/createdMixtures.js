@@ -77,18 +77,12 @@ mixtureBtn.addEventListener("click", async function () {
 
     dynamicAlert(status, description);
   } else if (CreatedMixtureCount > 0) {
-    mixtureModal.classList.remove(
-      "opacity-0",
-      "scale-95",
-      "pointer-events-none",
-      "bg-opacity-0"
-    );
-    mixtureModal.classList.add(
-      "opacity-100",
-      "scale-100",
-      "pointer-events-auto",
-      "bg-opacity-50"
-    );
+    const status = "You still have mixture!";
+    const description = "Finish it before creating a new one.";
+    ok_container.classList.remove("hidden");
+    use_discard_container.classList.add("hidden");
+
+    dynamicAlert(status, description);
   } else {
     const { data, error } = await supabase
       .from("mixtures_table")
@@ -110,32 +104,36 @@ mixtureBtn.addEventListener("click", async function () {
 
     // mixture status dynamically
     checkMixtures();
-  }
 
-  const { data: mixtureTable, error: errorMixture } = await supabase
-    .from("mixtures_table")
-    .select("total")
-    .eq("branch_id", branchId)
-    .eq("status", "Created_Mixture");
+    const { data: mixtureTable, error: errorMixture } = await supabase
+      .from("mixtures_table")
+      .select("total")
+      .eq("branch_id", branchId)
+      .eq("status", "Created_Mixture");
 
-  if (errorMixture) {
-    console.error("Error fetching receipts:", errorMixture.message);
-  }
+    if (errorMixture) {
+      console.error("Error fetching receipts:", errorMixture.message);
+      return;
+    }
 
-  const total = mixtureTable.reduce((sum, row) => sum + (row.total || 0), 0);
+    const total = mixtureTable.reduce((sum, row) => sum + (row.total || 0), 0);
 
-  const { data, error } = await supabase.from("mixtures_summary_table").insert([
-    {
-      branch_id: branchId,
-      total: total,
-      expenses_raw_total: total,
-      status: "Created_Mixture",
-    },
-  ]);
-  if (error) {
-    console.error("Error inserting order:", error.message);
-    alert("Error placing order. Please try again.");
-    return;
+    const { data: insertedData, error: insertError } = await supabase
+      .from("mixtures_summary_table")
+      .insert([
+        {
+          branch_id: branchId,
+          total: total,
+          expenses_raw_total: total,
+          status: "Created_Mixture",
+        },
+      ]);
+
+    if (insertError) {
+      console.error("Error inserting order:", insertError.message);
+      alert("Error placing order. Please try again.");
+      return;
+    }
   }
 });
 

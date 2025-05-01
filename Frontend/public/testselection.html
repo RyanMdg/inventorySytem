@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/animation.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js"
+      defer
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Affotako</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      id="modal"
+      class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
+    >
+      <div
+        class="bg-white flex flex-col gap-2 p-6 rounded-lg shadow-lg max-[700px]:w-[380px] max-[640px]:w-[280px]"
+      >
+        <!-- <figure class=" flex justify-center ">
+        <img id="img_modal" class="  w-[17rem]" src="" alt="">
+      </figure> -->
+
+        <h2
+          id="modal_prod_name"
+          class="text-xl text-start mt-2 uppercase font-semibold mb-4 max"
+        ></h2>
+
+        <div
+          id="qtycontainer"
+          class="flex justify-center gap-5 text-[1.2rem] mb-5 max-[700px]:w-[330px] max-[700px]:grid max-[700px]:grid-cols-3 max-[700px]:grid-rows-2 max-[700px]:gap-2"
+        >
+          <div class="flex justify-center items-center">
+            <button
+              class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+              data-value="45"
+            >
+              4s
+            </button>
+          </div>
+
+          <div class="flex justify-center items-center">
+            <button
+              class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+              data-value="80"
+            >
+              8s
+            </button>
+          </div>
+
+          <div class="flex justify-center items-center">
+            <button
+              class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+              data-value="125"
+            >
+              12s
+            </button>
+          </div>
+
+          <div class="flex justify-center items-center">
+            <button
+              class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+              data-value="160"
+            >
+              16s
+            </button>
+          </div>
+
+          <div class="flex justify-center items-center">
+            <button
+              class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+              data-value="205"
+            >
+              20s
+            </button>
+          </div>
+
+          <div class="flex justify-center items-center">
+            <button
+              class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+              data-value="450"
+            >
+              42s
+            </button>
+          </div>
+        </div>
+
+        <h1 class="font-semibold text-[1rem]">Add Ons:</h1>
+        <div class="max-[700px]:w-[330px]">
+          <ul class="flex justify-around gap-2 text-[1rem]">
+            <li class="addOns cursor-pointer" data-value="5">Bonito Flakes</li>
+            <li class="addOns cursor-pointer" data-value="5">Shereded Nori</li>
+            <li class="addOns cursor-pointer" data-value="5">Meat Floss</li>
+            <li class="addOns cursor-pointer" data-value="5">Extra Sauce</li>
+          </ul>
+          <hr class="opacity-50" />
+          <ul class="flex justify-around gap-2 text-[1rem] mb-10">
+            <li class="addOns cursor-pointer" data-value="10">Grated Cheese</li>
+            <li class="addOns cursor-pointer" data-value="10">
+              Grilled Chesse
+            </li>
+            <li class="addOns cursor-pointer" data-value="10">Cheese Sauce</li>
+          </ul>
+        </div>
+
+        <div class="flex flex-col gap-5">
+          <div>
+            <h1 class="text-[1rem] font-semibold">Quantity</h1>
+            <div class="flex justify-between mx-auto">
+              <p id="pcs" class="text-[.8rem]"></p>
+              <p id="total" class="text-[.8rem]"></p>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-[1rem] font-semibold">Add On</h2>
+            <div id="AddonContainer" class="flex flex-col mx-auto"></div>
+          </div>
+        </div>
+
+        <hr class="max-[700px]:w-[330px]" />
+        <div class="flex justify-between items-center">
+          <h1>Total</h1>
+          <p id="totalPrice" class="text-2xl"></p>
+        </div>
+        <button
+          class="mt-4 btnaddtobill cursor-pointer close bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem] max-[700px]:w-[330px]"
+        >
+          Add to Bill
+        </button>
+        <button
+          class="mt-4 cursor-pointer closed bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem] max-[700px]:w-[330px]"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

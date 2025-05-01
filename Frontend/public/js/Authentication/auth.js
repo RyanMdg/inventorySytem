@@ -1,5 +1,6 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
-
+import { getAuthUserAndBranch } from "./auth-utils.js";
+import { audit_Logs } from "../audit/audit.js";
 const login_btn = document.querySelector(".login-btn");
 
 async function login(email, password) {
@@ -42,10 +43,13 @@ async function login(email, password) {
     return;
   }
 
-  localStorage.setItem("branch_id", userData.branch_id);
-  console.log("Logged in with branch:", userData.branch_id);
+  const branch_id = userData.branch_id;
+  localStorage.setItem("branch_id", branch_id);
+  console.log("Logged in with branch:", branch_id);
 
-  // Redirect to home page
+  await audit_Logs(branch_id, "login");
+
+  //  AFTER ng audit log
   window.location.href = "home.html";
 }
 
@@ -59,7 +63,7 @@ const passwordInput = document.getElementById("password");
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
 
-      await login(email, password);
+      await login(email, password); // login handles logging + redirect
     }
   });
 });

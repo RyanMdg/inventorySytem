@@ -5,8 +5,6 @@ import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 
 const btnPlaceOrder = document.querySelector(".placeOrderBtn");
 const totalreciept = document.querySelector(".grandtotal");
-const reciept_num = document.getElementById("reciept_num");
-const reciept_container = document.getElementById("reciept_container");
 
 btnPlaceOrder.addEventListener("click", async function () {
   const { data: user, error: autherror } = await supabase.auth.getUser();
@@ -106,18 +104,12 @@ btnPlaceOrder.addEventListener("click", async function () {
     return;
   }
 
-  // Display the receipt number and total amount in the receipt container
-  const grandTotalReciept = document.getElementById("grandTotalReciept");
-
   const status = "Order Placed Successfully";
   const reciept_details = `Receipt No: ${receiptNumber}`;
   dynamicAlert(status, reciept_details);
 
-  reciept_num.textContent = `${receiptNumber}`;
-  grandTotalReciept.textContent = ` ${grandTotals}`;
-  console.log(receiptNumber);
-
   // Clear the orders after inserting into database
+
   orders.clear();
 
   localStorage.removeItem("receiptNumber");

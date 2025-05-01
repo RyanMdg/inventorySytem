@@ -3,6 +3,7 @@ import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import { calculated } from "../pos-inventory_communication/calculations.js";
 import { GrossIncome } from "../Dashboard/gross_Income.js";
+import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 
 // Function to fetch ongoing orders for the logged-in user's branch
 async function fetchOngoingOrders() {
@@ -168,14 +169,25 @@ function attachButtonEventListeners() {
 // Function to update order status in Supabase
 async function updateOrderStatus(receiptNumber, newStatus) {
   try {
+    const greenCheck = document.getElementById("greenCheck");
+    const redCheck = document.getElementById("redCheck");
+
     const { error } = await supabase
       .from("pos_orders_table")
       .update({ status: newStatus })
       .eq("receipt_number", receiptNumber);
 
     if (error) throw new Error(error.message);
-
-    alert(`Order ${receiptNumber} marked as ${newStatus}.`);
+    if (newStatus === "cancelled") {
+      greenCheck.classList.add("hidden");
+      redCheck.classList.remove("hidden");
+    } else if (newStatus === "completed") {
+      greenCheck.classList.remove("hidden");
+      redCheck.classList.add("hidden");
+    }
+    const status = `Order ${newStatus}!`;
+    const description = `Order ${receiptNumber} marked as ${newStatus}.`;
+    dynamicAlert(status, description);
     renderOngoingOrders(); // Refresh orders list
   } catch (error) {
     console.error(`Error updating order ${receiptNumber}:`, error.message);

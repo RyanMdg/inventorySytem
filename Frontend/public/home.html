@@ -143,6 +143,18 @@
             Branches
           </a>
         </li>
+
+        <li id="audit_Log" class="text-[#ffff] cursor-pointer">
+          <a
+            @click="page='audit'"
+            class="flex gap-2 items-center delay-200 ease-in duration-200"
+            id="audit"
+            >
+               <img src="./images/auditlog.png" class=" w-[1rem]" alt="">
+            
+            Audit Log
+          </a>
+        </li>
       </ul>
       <div
         class="flex flex-col hidden items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-auto px-14 max-[69rem]:px-10 max-[69rem]:mt-[1rem]"
@@ -992,74 +1004,197 @@
         <h1 class="text-2xl font-bold">Profile</h1>
         <p>View and manage Your profile.</p>
       </div>
+
+
+      <!--*** AUDIT LOG **** -->
+
+        <div x-show="page === 'audit'" class="mt-24">
+          <main class="flex flex-col">
+            <div class="p-10 flex justify- ml-10 gap-5">
+              <div>
+                <select
+                  class="border py-1 px-5 border-[#9CA3AF] bg-white rounded-sm"
+                  id="audit_categories"
+                >
+                  <option value="All Categories">All Categories</option>
+                  <option value="Completed Orders">Completed Orders</option>
+                  <option value="Cancelled Orders">Canceled Orders</option>
+                  <option value="Expense">Expense</option>
+                  <option value="Mixture">Mixture</option>
+                  <option value="Leftovers">Leftovers</option>
+                </select>
+              </div>
+      
+              <div>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  name="Search"
+                  id="Search "
+                  class="bg-[#ffffff] py-1 px-5 border border-[#9CA3AF] flex rounded-sm"
+                />
+              </div>
+            </div>
+            <div
+              class="border py-5 px-3 rounded-sm mx-20 w-[50%] border-[#9CA3AF] flex gap-40 place-items-end items-start mb-10"
+            >
+              <div class="flex gap-3 w-[60%] ms-5">
+                <img src="../public/images/check bold.png" />
+                <span class="flex flex-col gap-1 -mb-60">
+                  <p class="font-medium text-lg ms-3">Completed Order</p>
+                  <p class="ms-3 text-m">Total - 100</p>
+                  <p class="ms-3 text-m">Order #123</p>
+                </span>
+              </div>
+              <div class="flex flex-col items-start gap-1">
+                <p class="font-medium text-lg">April 3,2025</p>
+                <p>Cashier</p>
+              </div>
+            </div>
+          </main>
+          </div>
+          
+
+
+        
+
     </main>
 
 
     <!--* MODALSSSSSSSSS *-->
        <!-- Modal Background -->
-    <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center ">
-     
-      <div class="bg-white flex flex-col gap-2 p-6 rounded-lg shadow-lg max-[700px]:w-[500px]">
+       <div
+       id="modal"
+       class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
+     >
+     <div class="bg-white flex flex-col gap-2 p-6 rounded-lg shadow-lg 
+     max-w-[50rem] 
+     md:w-[40rem] 
+     sm:w-[30rem] 
+     w-[20rem]">
 
-        <!-- <figure class=" flex justify-center ">
-          <img id="img_modal" class="  w-[17rem]" src="" alt="">
-        </figure> -->
+         <!-- <figure class=" flex justify-center ">
+         <img id="img_modal" class="  w-[17rem]" src="" alt="">
+       </figure> -->
+ 
+         <h2
+           id="modal_prod_name"
+           class="text-xl text-start mt-2 uppercase font-semibold mb-4 max"
+         ></h2>
+ 
+         <div
+           id="qtycontainer"
+           class="flex justify-center gap-5 text-[1.2rem] mb-5 max-[700px]:grid max-[700px]:grid-cols-3 max-[700px]:grid-rows-2 max-[700px]:gap-2 w-full overflow-x-auto whitespace-nowrap"
+         >
+           <div class="inline-flex min-w-max mx-auto">
+             <div class="flex justify-center items-center">
+               <button
+                 class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+                 data-value="45"
+               >
+                 4s
+               </button>
+             </div>
+ 
+             <div class="flex justify-center items-center">
+               <button
+                 class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+                 data-value="80"
+               >
+                 8s
+               </button>
+             </div>
+ 
+             <div class="flex justify-center items-center">
+               <button
+                 class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+                 data-value="125"
+               >
+                 12s
+               </button>
+             </div>
+ 
+             <div class="flex justify-center items-center">
+               <button
+                 class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+                 data-value="160"
+               >
+                 16s
+               </button>
+             </div>
+ 
+             <div class="flex justify-center items-center">
+               <button
+                 class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+                 data-value="205"
+               >
+                 20s
+               </button>
+             </div>
+ 
+             <div class="inline-flex min-w-max justify-center items-center">
+               <button
+                 class="btnQuantity cursor-pointer px-4 py-1 rounded-md"
+                 data-value="450"
+               >
+                 42s
+               </button>
+             </div>
+           </div>
+         </div>
+ 
+         <h1 class="font-semibold text-[1rem]">Add Ons:</h1>
+         <div class="w-full overflow-x-auto whitespace-nowrap 
+         max-[700px]:flex max-[700px]:flex-col max-[700px]:items-center max-[700px]:gap-2">
 
-          <h2 id="modal_prod_name" class="text-xl text-start mt-2 uppercase font-semibold mb-4 max"></h2>
+<ul class="inline-flex gap-2 text-[1rem] min-w-max">
+ <li class="addOns cursor-pointer" data-value="5">Bonito Flakes</li>
+ <li class="addOns cursor-pointer" data-value="5">Shredded Nori</li>
+ <li class="addOns cursor-pointer" data-value="5">Meat Floss</li>
+ <li class="addOns cursor-pointer" data-value="5">Extra Sauce</li>
+</ul>
 
-          <div id="qtycontainer" class="flex justify-center gap-10 text-[1.2rem] mb-5 max-[700px]:flex max-[700px]:justify-around">
-            <button class=" btnQuantity cursor-pointer  px-4 py-1  rounded-md " data-value="45">4s</button>
-            <button class=" btnQuantity cursor-pointer px-4 py-1 rounded-md " data-value="80">8s</button>
-            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="125">12s</button>
-            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="160">16s</button>
-            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="205">20s</button>
-            <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="450">42s</button>
-          </div>
+<hr class="opacity-50 my-2 w-full" />
 
+<ul class="inline-flex gap-2 text-[1rem] min-w-max mb-10">
+ <li class="addOns cursor-pointer" data-value="10">Grated Cheese</li>
+ <li class="addOns cursor-pointer" data-value="10">Grilled Cheese</li>
+ <li class="addOns cursor-pointer" data-value="10">Cheese Sauce</li>
+</ul>
+</div>
 
-
-
-
-
-
-          <h1 class=" font-semibold text-[1rem]">Add Ons:</h1>
-          <ul class=" flex justify-around gap-2 text-[1rem] ">
-            <li class=" addOns cursor-pointer" data-value="5">Bonito Flakes</li>
-            <li class=" addOns cursor-pointer" data-value="5">Shereded Nori</li>
-            <li class=" addOns cursor-pointer" data-value="5">Meat Floss</li>
-            <li class=" addOns cursor-pointer" data-value="5">Extra Sauce</li>
-          </ul>
-          <hr class=" opacity-50">
-          <ul class="flex justify-around gap-2 text-[1rem] mb-10 ">
-            <li class=" addOns cursor-pointer" data-value="10">Grated Cheese</li>
-            <li class=" addOns cursor-pointer" data-value="10">Grilled Chesse</li>
-            <li class=" addOns cursor-pointer" data-value="10">Cheese Sauce</li>
-          </ul> 
-
-          <div class=" flex flex-col gap-5">
-          <div>
-              <h1 class=" text-[1rem] font-semibold">Quantity</h1>
-               <div class=" flex justify-between mx-auto">  
-                <p id="pcs" class=" text-[.8rem]"></p>
-                <p id="total" class=" text-[.8rem]"></p>
-              </div>
-          </div>
-         <div>
-          <h2 class="text-[1rem] font-semibold">Add On</h2>
-          <div id="AddonContainer" class=" flex flex-col mx-auto">
-          </div></div>
-          </div>
-
-          <hr>
-          <div class=" flex justify-between items-center">
-            <h1>Total</h1>
-            <p id="totalPrice" class=" text-2xl"></p>
-          </div>
-          <button  class="mt-4 btnaddtobill  cursor-pointer  close bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem]
-          " >Add to Bill</button>  <button  class="mt-4  cursor-pointer  closed bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem]
-          " >cancel</button>
-      </div>
-  </div>
+ 
+         <div class="flex flex-col gap-5">
+           <div>
+             <h1 class="text-[1rem] font-semibold">Quantity</h1>
+             <div class="flex justify-between mx-auto">
+               <p id="pcs" class="text-[.8rem]"></p>
+               <p id="total" class="text-[.8rem]"></p>
+             </div>
+           </div>
+           <div>
+             <h2 class="text-[1rem] font-semibold">Add On</h2>
+             <div id="AddonContainer" class="flex flex-col mx-auto"></div>
+           </div>
+         </div>
+ 
+         <hr class="max-[700px]:w-[330px]" />
+         <div class="flex justify-between items-center">
+           <h1>Total</h1>
+           <p id="totalPrice" class="text-2xl"></p>
+         </div>
+         <button
+           class="mt-4 btnaddtobill cursor-pointer close bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem] max-[700px]:w-[330px]"
+         >
+           Add to Bill
+         </button>
+         <button
+           class="mt-4 cursor-pointer closed bg-[#302D3D] rounded-sm px-10 py-3 text-white text-[1rem] max-[700px]:w-[330px]"
+         >
+           Cancel
+         </button>
+     </div>
+     </div>
 
 
 

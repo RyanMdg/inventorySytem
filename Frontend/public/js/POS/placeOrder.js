@@ -1,19 +1,12 @@
 "use strict";
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import orders from "../modal.js";
+import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 
 const btnPlaceOrder = document.querySelector(".placeOrderBtn");
 const totalreciept = document.querySelector(".grandtotal");
 const reciept_num = document.getElementById("reciept_num");
 const reciept_container = document.getElementById("reciept_container");
-
-function closeModalOnOutsideClick(event) {
-  if (!reciept_container.contains(event.target)) {
-    reciept_container.classList.add("opacity-0");
-    // Remove the event listener after closing the modal to avoid memory leaks
-    document.removeEventListener("click", closeModalOnOutsideClick);
-  }
-}
 
 btnPlaceOrder.addEventListener("click", async function () {
   const { data: user, error: autherror } = await supabase.auth.getUser();
@@ -116,9 +109,9 @@ btnPlaceOrder.addEventListener("click", async function () {
   // Display the receipt number and total amount in the receipt container
   const grandTotalReciept = document.getElementById("grandTotalReciept");
 
-  reciept_container.classList.remove("opacity-0");
-
-  document.addEventListener("click", closeModalOnOutsideClick);
+  const status = "Order Placed Successfully";
+  const reciept_details = `Receipt No: ${receiptNumber}`;
+  dynamicAlert(status, reciept_details);
 
   reciept_num.textContent = `${receiptNumber}`;
   grandTotalReciept.textContent = ` ${grandTotals}`;

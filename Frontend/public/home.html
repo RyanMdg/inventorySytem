@@ -997,17 +997,17 @@
 
     <!--* MODALSSSSSSSSS *-->
        <!-- Modal Background -->
-    <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center  justify-center">
+    <div id="modal" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center ">
      
-      <div class="bg-white flex flex-col   gap-2 p-6 rounded-lg shadow-lg ">
+      <div class="bg-white flex flex-col gap-2 p-6 rounded-lg shadow-lg max-[700px]:w-[500px]">
 
         <!-- <figure class=" flex justify-center ">
           <img id="img_modal" class="  w-[17rem]" src="" alt="">
         </figure> -->
 
-          <h2 id="modal_prod_name" class="text-xl text-start mt-2 uppercase font-semibold mb-4"></h2>
+          <h2 id="modal_prod_name" class="text-xl text-start mt-2 uppercase font-semibold mb-4 max"></h2>
 
-          <div id="qtycontainer" class="  flex justify-center  gap-10 text-[1.2rem] mb-5">
+          <div id="qtycontainer" class="flex justify-center gap-10 text-[1.2rem] mb-5 max-[700px]:flex max-[700px]:justify-around">
             <button class=" btnQuantity cursor-pointer  px-4 py-1  rounded-md " data-value="45">4s</button>
             <button class=" btnQuantity cursor-pointer px-4 py-1 rounded-md " data-value="80">8s</button>
             <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="125">12s</button>
@@ -1015,6 +1015,12 @@
             <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="205">20s</button>
             <button class=" btnQuantity cursor-pointer  px-4 py-1 rounded-md " data-value="450">42s</button>
           </div>
+
+
+
+
+
+
 
           <h1 class=" font-semibold text-[1rem]">Add Ons:</h1>
           <ul class=" flex justify-around gap-2 text-[1rem] ">

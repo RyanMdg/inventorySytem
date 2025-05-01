@@ -11,6 +11,8 @@ const UseLeftOverBtn = document.getElementById("UseLeftOverBtn");
 const leftoverModal = document.getElementById("leftoverModal");
 const ok_container = document.getElementById("ok_container");
 const use_discard_container = document.getElementById("use_discard_container");
+const greenCheck = document.getElementById("greenCheck");
+const redCheck = document.getElementById("redCheck");
 
 // Function to check if there are Created_Mixtures
 async function checkleftovermixture() {
@@ -96,6 +98,8 @@ leftOverBtn.addEventListener("click", async function () {
 
     const status = "Leftover Created!";
     const description = "Successfully Mixture are leftover!";
+    greenCheck.classList.remove("hidden");
+    redCheck.classList.add("hidden");
     dynamicAlert(status, description);
   }
 
@@ -137,6 +141,8 @@ UseLeftOverBtn.addEventListener("click", async function () {
     const description = "You are currently deducting in your leftovers";
     ok_container.classList.remove("hidden");
     use_discard_container.classList.add("hidden");
+    greenCheck.classList.remove("hidden");
+    redCheck.classList.add("hidden");
     dynamicAlert(status, description);
   }
   console.log("hi");

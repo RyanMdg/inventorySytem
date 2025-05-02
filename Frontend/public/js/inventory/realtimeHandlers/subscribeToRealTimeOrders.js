@@ -89,10 +89,10 @@ export async function subscribeToRealTimeOrders() {
       schema: "public",
       table: "audit",
     },
-    (payload) => {
+    async (payload) => {
       // Refresh the table on changes
       console.log("audit Change Detected:", payload);
-      render_Audit_logs();
+      await render_Audit_logs();
     }
   );
 

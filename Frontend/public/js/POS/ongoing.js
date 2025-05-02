@@ -141,7 +141,7 @@ function attachButtonEventListeners() {
       const { branchId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
       GrossIncome(receiptNumber);
-      audit_Logs(branchId, `Punch Completed Order ${receiptNumber}`);
+      audit_Logs(branchId, `Completed Order ${receiptNumber}`);
       await updateOrderStatus(receiptNumber, "completed");
       calculated(receiptNumber);
       console.log("reciept num " + receiptNumber);

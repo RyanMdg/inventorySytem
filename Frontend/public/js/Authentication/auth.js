@@ -63,20 +63,20 @@ const passwordInput = document.getElementById("password");
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
 
-      await login(email, password); // login handles logging + redirect
+      await login(email, password);
     }
   });
 });
 
-// * Check if user is logged in
-async function checkUser() {
-  const { data, error } = await supabase.auth.getUser();
+// // * Check if user is logged in
+// async function checkUser() {
+//   const { data, error } = await supabase.auth.getUser();
 
-  if (error || !data.user) {
-    console.warn("No user found. Redirecting to login page...");
-    window.location.href = "index.html";
-  }
-}
+//   if (error || !data.user) {
+//     console.warn("No user found. Redirecting to login page...");
+//     window.location.href = "index.html";
+//   }
+// }
 
-// Run the checkUser function if needed
+// // Run the checkUser function if needed
 // checkUser();

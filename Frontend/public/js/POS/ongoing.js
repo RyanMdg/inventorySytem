@@ -4,6 +4,7 @@ import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import { calculated } from "../pos-inventory_communication/calculations.js";
 import { GrossIncome } from "../Dashboard/gross_Income.js";
 import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
+import { audit_Logs } from "../audit/audit.js";
 
 // Function to fetch ongoing orders for the logged-in user's branch
 async function fetchOngoingOrders() {
@@ -140,6 +141,7 @@ function attachButtonEventListeners() {
       const { branchId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
       GrossIncome(receiptNumber);
+      audit_Logs(branchId, `Completed Order ${receiptNumber}`);
       await updateOrderStatus(receiptNumber, "completed");
       calculated(receiptNumber);
       console.log("reciept num " + receiptNumber);

@@ -2,6 +2,7 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import orders from "../modal.js";
 import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
+import { audit_Logs } from "../audit/audit.js";
 
 const btnPlaceOrder = document.querySelector(".placeOrderBtn");
 const totalreciept = document.querySelector(".grandtotal");
@@ -107,6 +108,10 @@ btnPlaceOrder.addEventListener("click", async function () {
   const status = "Order Placed Successfully";
   const reciept_details = `Receipt No: ${receiptNumber}`;
   dynamicAlert(status, reciept_details);
+
+  const action = "Place an Order";
+
+  audit_Logs(branchId, action);
 
   // Clear the orders after inserting into database
 

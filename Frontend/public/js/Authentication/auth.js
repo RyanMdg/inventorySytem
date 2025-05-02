@@ -1,5 +1,6 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
-
+import { getAuthUserAndBranch } from "./auth-utils.js";
+import { audit_Logs } from "../audit/audit.js";
 const login_btn = document.querySelector(".login-btn");
 
 async function login(email, password) {
@@ -42,10 +43,13 @@ async function login(email, password) {
     return;
   }
 
-  localStorage.setItem("branch_id", userData.branch_id);
-  console.log("Logged in with branch:", userData.branch_id);
+  const branch_id = userData.branch_id;
+  localStorage.setItem("branch_id", branch_id);
+  console.log("Logged in with branch:", branch_id);
 
-  // Redirect to home page
+  await audit_Logs(branch_id, "login");
+
+  //  AFTER ng audit log
   window.location.href = "home.html";
 }
 
@@ -64,15 +68,15 @@ const passwordInput = document.getElementById("password");
   });
 });
 
-// * Check if user is logged in
-async function checkUser() {
-  const { data, error } = await supabase.auth.getUser();
+// // * Check if user is logged in
+// async function checkUser() {
+//   const { data, error } = await supabase.auth.getUser();
 
-  if (error || !data.user) {
-    console.warn("No user found. Redirecting to login page...");
-    window.location.href = "index.html";
-  }
-}
+//   if (error || !data.user) {
+//     console.warn("No user found. Redirecting to login page...");
+//     window.location.href = "index.html";
+//   }
+// }
 
-// Run the checkUser function if needed
+// // Run the checkUser function if needed
 // checkUser();

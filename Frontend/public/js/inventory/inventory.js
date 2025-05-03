@@ -9,6 +9,7 @@ import { renderleftOver } from "./renders/renderleftOver.js";
 import { subscribeToRealTimeOrders } from "./realtimeHandlers/subscribeToRealTimeOrders.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
+import { audit_Logs } from "../audit/audit.js";
 
 const raw = document.getElementById("raw");
 const createRaw = document.getElementById("createRaw");
@@ -80,6 +81,9 @@ addToStack.addEventListener("click", async function () {
   }
 
   const branchId = userData.branch_id;
+
+  const status = `Added Stock`;
+  audit_Logs(branchId, status);
 
   const { data: inventory, error: inventoryerror } = await supabase
     .from("inventory_table")

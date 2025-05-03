@@ -9,7 +9,8 @@ export async function render_Audit_logs() {
   const { data: auditData, error: auditError } = await supabase
     .from("audit")
     .select("*")
-    .eq("branch_id", branchId);
+    .eq("branch_id", branchId)
+    .order("date", { ascending: false });
 
   if (auditError) {
     console.error("Failed fetching audit data", auditError.message);

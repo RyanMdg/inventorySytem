@@ -162,8 +162,12 @@ function attachButtonEventListeners() {
 
   document.querySelectorAll(".cancel-btn").forEach((button) => {
     button.addEventListener("click", async (event) => {
+      const { branchId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
+      const status = `Cancelled Order ${receiptNumber}`;
+
       await updateOrderStatus(receiptNumber, "cancelled");
+      await audit_Logs(branchId, status);
     });
   });
 }

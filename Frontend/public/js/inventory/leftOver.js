@@ -124,19 +124,6 @@ UseLeftOverBtn.addEventListener("click", async function () {
     console.error("Error updating data:", error);
   } else {
     console.log("Data updated successfully:", data);
-    leftoverModal.classList.remove(
-      "opacity-100",
-      "scale-100",
-      "pointer-events-auto",
-      "bg-opacity-50"
-    );
-    leftoverModal.classList.add(
-      "opacity-0",
-      "scale-95",
-      "pointer-events-none",
-      "bg-opacity-0"
-    );
-
     const status = "Successful leftover use as mixture!";
     const description = "You are currently deducting in your leftovers";
     ok_container.classList.remove("hidden");
@@ -145,6 +132,5 @@ UseLeftOverBtn.addEventListener("click", async function () {
     redCheck.classList.add("hidden");
     dynamicAlert(status, description);
   }
-  console.log("hi");
   checkleftovermixture();
 });

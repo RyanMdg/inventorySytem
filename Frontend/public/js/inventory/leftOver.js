@@ -3,6 +3,7 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
+import { audit_Logs } from "../audit/audit.js";
 
 const leftOverBtn = document.getElementById("leftoverBtn");
 const noleftalertContainer = document.getElementById("noleftmixtures");
@@ -95,7 +96,8 @@ leftOverBtn.addEventListener("click", async function () {
     console.error("Error updating data:", error);
   } else {
     console.log("Data updated successfully:", data);
-
+    const update = `Mixture moved to leftover`;
+    audit_Logs(branchId, update);
     const status = "Leftover Created!";
     const description = "Successfully Mixture are leftover!";
     greenCheck.classList.remove("hidden");
@@ -124,6 +126,8 @@ UseLeftOverBtn.addEventListener("click", async function () {
     console.error("Error updating data:", error);
   } else {
     console.log("Data updated successfully:", data);
+    const audit_status = `leftover used as mixture`;
+    audit_Logs(branchId, audit_status);
     const status = "Successful leftover use as mixture!";
     const description = "You are currently deducting in your leftovers";
     ok_container.classList.remove("hidden");

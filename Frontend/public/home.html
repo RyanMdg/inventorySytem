@@ -140,7 +140,7 @@
               class="text-[1rem]"
               name="share-social-outline"
             ></ion-icon>
-            Branches
+            franchisee
           </a>
         </li>
 
@@ -153,6 +153,18 @@
                <img src="./images/auditlog.png" class=" w-[1rem]" alt="">
             
             Audit Log
+          </a>
+        </li>
+
+        <li id="registerPage" class="text-[#ffff] cursor-pointer">
+          <a
+            @click="page='newFranchise'"
+            class="flex gap-2 items-center delay-200 ease-in duration-200"
+            id="audit"
+            >
+               <img src="./images/auditlog.png" class=" w-[1rem]" alt="">
+            
+            Register new franchise
           </a>
         </li>
       </ul>
@@ -1045,6 +1057,110 @@
           </div>
           
 
+          <!-- New Franchisee Page -->
+     
+          <div x-show="page === 'newFranchise'" class="mt-24">
+
+            <main>
+              <div
+              
+              >
+                <!-- Illustration Side -->
+             
+                <!-- Login Side (Animated) -->
+                <div
+                  class="bg-[#FEEBEC] w-[584px] max-lg:w-[500px] max-[56rem]:w-[400px] max-sm:w-[300px] flex items-center"
+                >
+                  <div class="w-[100%]">
+                    <figure id="figure" class="flex hidden justify-center items-center">
+                      <img
+                        class="w-30 animate-ping"
+                        src="./images/5100_3_05-Photoroom.png"
+                        alt=""
+                      />
+                    </figure>
+        
+                    <div
+                      id="signup_container"
+                      class="flex flex-col max-[56rem]:mx-[2rem] mx-20"
+                    >
+                      <p
+                        id="exist"
+                        class="bg-[#b602059a] hidden text-[.8rem] w-50 text-center py-3 text-white rounded-md"
+                      ></p>
+                      <h1
+                        class="font-semibold text-[#B60205] max-[56rem]:text-[1.8rem] max-[1400px]:text-[2rem] text-[2.25rem]"
+                      >
+                        Sign up
+                      </h1>
+                      <span>
+                        <span
+                          class="text-[0.87rem] max-[56rem]:text-[0.6rem] max-[1400px]:text-[0.75rem] text-[#302D3D] opacity-[37%]"
+                        >
+                          Already have an account?
+                        </span>
+                        <a
+                          class="text-[#B60205] max-[56rem]:text-[0.6rem] text-[0.87rem] max-[1400px]:text-[0.75rem]"
+                          href="./index.html"
+                          >Log in</a
+                        >
+                      </span>
+        
+                      <span id="message"></span>
+        
+                      <!-- Input Fields -->
+                      <div class="flex flex-col">
+                        <input
+                          class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] max-[56rem]:placeholder:text-[0.7rem] max-sm:mt-3 max-sm:w-[16rem] max-sm:py-2"
+                          type="email"
+                          placeholder="email"
+                          id="signin_email"
+                        />
+                        <div class="relative">
+                          <input
+                            type="password"
+                            id="signin_password"
+                            class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] max-[56rem]:placeholder:text-[0.7rem] max-sm:w-[16rem] max-sm:py-2 max-sm:mt-3"
+                            placeholder="Password"
+                          />
+                          <img
+                            class="w-5 cursor-pointer eye-icon absolute top-9 max-sm:top-6 max-sm:right-1 max-sm:w-4 right-6 opacity-40"
+                            src="./images/hide.png"
+                            alt="closed-eye"
+                            id="eye"
+                          />
+                          <img
+                            class="w-5 cursor-pointer hidden eye-icons absolute top-9 right-6 opacity-40"
+                            src="./images/view.png"
+                            alt="open-eye"
+                            id="eyes"
+                          />
+                        </div>
+                        <input
+                          class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] max-[56rem]:placeholder:text-[0.7rem] max-sm:w-[16rem] max-sm:py-2 max-sm:mt-3"
+                          type="text"
+                          placeholder="Franchisee Name"
+                          id="branch_name"
+                        />
+                        <input
+                          class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] max-[56rem]:placeholder:text-[0.7rem] max-sm:w-[16rem] max-sm:py-2 max-sm:mt-3"
+                          type="text"
+                          placeholder="Branch Location"
+                          id="branch_location"
+                        />
+        
+                        <button
+                          class="bg-[#B60205] register-btn rounded-[0.50rem] max-[56rem]:text-[.9rem] max-lg:w-[20rem] cursor-pointer text-white py-3 mt-7 max-sm:mt-5 max-sm:w-[15rem] max-sm:py-2"
+                        >
+                          Register
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
 
         
 

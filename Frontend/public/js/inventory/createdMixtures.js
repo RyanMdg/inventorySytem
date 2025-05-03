@@ -3,6 +3,7 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
+import { audit_Logs } from "../audit/audit.js";
 
 const mixtureBtn = document.getElementById("mixtureBtn");
 const nomixalertContainer = document.getElementById("nomixtures");
@@ -98,6 +99,8 @@ mixtureBtn.addEventListener("click", async function () {
       console.error("Error updating data:", error);
     } else {
       console.log("Data updated successfully:", data);
+      const audit_status = `Created a mixture`;
+      audit_Logs(branchId, audit_Logs);
       const status = "Mixture Created!";
       const description = "Your now deducting to this mixtures!";
       greenCheck.classList.remove("hidden");

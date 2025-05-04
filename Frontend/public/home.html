@@ -160,7 +160,7 @@
           <a
             @click="page='newFranchise'"
             class="flex gap-2 items-center delay-200 ease-in duration-200"
-            id="audit"
+            id="register"
             >
                <img src="./images/auditlog.png" class=" w-[1rem]" alt="">
             
@@ -1023,17 +1023,19 @@
         <div x-show="page === 'audit'" class="mt-24">
           <main class="flex flex-col ">
             <div class="pb-5 pt-2 flex ml-5 gap-5">
-              <div>
+              <div class=" mb-5">
                 <select
-                  class="border py-1 px-5 border-[#9CA3AF] bg-white rounded-sm"
+                  class="border py-2 px-5 shadow drop-shadow-sm bg-white outline-0 rounded-md"
                   id="audit_categories"
                 >
                   <option value="All Categories">All Categories</option>
-                  <option value="Completed Orders">Completed Orders</option>
-                  <option value="Cancelled Orders">Canceled Orders</option>
-                  <option value="Expense">Expense</option>
-                  <option value="Mixture">Mixture</option>
-                  <option value="Leftovers">Leftovers</option>
+                  <option value="Completed">Completed Orders</option>
+                  <option value="Cancelled Order">Canceled Orders</option>
+                  <option value="login">Login</option>
+                  <option value="mixture">Mixture</option>
+                  <option value="leftover mixture">Leftovers</option>
+                  <option value="Place Order">Place Order</option>
+
                 </select>
               </div>
       
@@ -1043,14 +1045,13 @@
                   placeholder="Search"
                   name="Search"
                   id="Search "
-                  class="bg-[#ffffff] py-1 px-5 border border-[#9CA3AF] flex rounded-sm"
+                  class="bg-[#ffffff] py-2 px-5 shadow drop-shadow-sm flex rounded-md outline-0"
                 />
               </div>
             </div>
       
-            <div id="audit_container" class="flex flex-col items-center  overflow-y-auto max-h-[32rem]">
-       
-              
+            <div id="audit_container" class="flex flex-col items-center   overflow-y-auto max-h-[32rem]">
+              <!-- AUDIT DATA -->
             </div>
            
           </main>
@@ -1059,19 +1060,19 @@
 
           <!-- New Franchisee Page -->
      
-          <div x-show="page === 'newFranchise'" class="mt-24">
+          <div x-show="page === 'newFranchise'" class="mt-24 ">
 
-            <main>
+            <main  >
               <div
-              
+          
               >
                 <!-- Illustration Side -->
              
                 <!-- Login Side (Animated) -->
                 <div
-                  class="bg-[#FEEBEC] w-[584px] max-lg:w-[500px] max-[56rem]:w-[400px] max-sm:w-[300px] flex items-center"
+                  class="bg-[#FEEBEC] mx-auto w-[80%] max-lg:w-[500px] max-[56rem]:w-[400px] max-sm:w-[300px] flex items-center"
                 >
-                  <div class="w-[100%]">
+                  <div class="w-[100%] flex justify-center py-14">
                     <figure id="figure" class="flex hidden justify-center items-center">
                       <img
                         class="w-30 animate-ping"
@@ -1093,18 +1094,7 @@
                       >
                         Sign up
                       </h1>
-                      <span>
-                        <span
-                          class="text-[0.87rem] max-[56rem]:text-[0.6rem] max-[1400px]:text-[0.75rem] text-[#302D3D] opacity-[37%]"
-                        >
-                          Already have an account?
-                        </span>
-                        <a
-                          class="text-[#B60205] max-[56rem]:text-[0.6rem] text-[0.87rem] max-[1400px]:text-[0.75rem]"
-                          href="./index.html"
-                          >Log in</a
-                        >
-                      </span>
+                     
         
                       <span id="message"></span>
         

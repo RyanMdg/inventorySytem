@@ -97,7 +97,8 @@ leftOverBtn.addEventListener("click", async function () {
   } else {
     console.log("Data updated successfully:", data);
     const update = `Mixture moved to leftover`;
-    audit_Logs(branchId, update);
+    const category = "leftover mixture";
+    audit_Logs(branchId, update, category);
     const status = "Leftover Created!";
     const description = "Successfully Mixture are leftover!";
     greenCheck.classList.remove("hidden");

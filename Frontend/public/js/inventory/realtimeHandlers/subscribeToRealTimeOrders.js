@@ -15,7 +15,10 @@ import { totalOrder } from "../../Dashboard/renders/renderTotalOrders.js";
 import { renderFranchiseSalesChart } from "../../Branch/renderChart.js";
 import { FranchiseeGrossIncome } from "../../Branch/renderBranchNetIncome.js";
 import { FranchiseetotalIncome } from "../../Branch/renderBranchSales.js";
-import { render_Audit_logs } from "../../audit/renders/renderAuditLogs.js";
+import {
+  render_Audit_logs,
+  initAuditLogs,
+} from "../../audit/renders/renderAuditLogs.js";
 
 export async function subscribeToRealTimeOrders() {
   const channel = supabase.channel("inventory-channel"); // Create a real-time channel
@@ -92,6 +95,7 @@ export async function subscribeToRealTimeOrders() {
     async (payload) => {
       // Refresh the table on changes
       console.log("audit Change Detected:", payload);
+      initAuditLogs();
       await render_Audit_logs();
     }
   );

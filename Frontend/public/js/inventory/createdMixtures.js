@@ -100,7 +100,8 @@ mixtureBtn.addEventListener("click", async function () {
     } else {
       console.log("Data updated successfully:", data);
       const audit_status = `Created a mixture`;
-      audit_Logs(branchId, audit_Logs);
+      const category = "mixture";
+      audit_Logs(branchId, audit_status, category);
       const status = "Mixture Created!";
       const description = "Your now deducting to this mixtures!";
       greenCheck.classList.remove("hidden");

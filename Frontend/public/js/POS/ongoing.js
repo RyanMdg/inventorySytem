@@ -140,8 +140,9 @@ function attachButtonEventListeners() {
     button.addEventListener("click", async (event) => {
       const { branchId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
+      const category = "Completed";
       GrossIncome(receiptNumber);
-      audit_Logs(branchId, `Completed Order ${receiptNumber}`);
+      audit_Logs(branchId, `Completed Order\n${receiptNumber}`, category);
       await updateOrderStatus(receiptNumber, "completed");
       calculated(receiptNumber);
       console.log("reciept num " + receiptNumber);
@@ -164,10 +165,11 @@ function attachButtonEventListeners() {
     button.addEventListener("click", async (event) => {
       const { branchId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
-      const status = `Cancelled Order ${receiptNumber}`;
+      const status = `Cancelled Order\n${receiptNumber}`;
+      const category = "Cancelled Order";
 
       await updateOrderStatus(receiptNumber, "cancelled");
-      await audit_Logs(branchId, status);
+      await audit_Logs(branchId, status, category);
     });
   });
 }

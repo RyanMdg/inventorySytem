@@ -47,7 +47,7 @@ async function login(email, password) {
   localStorage.setItem("branch_id", branch_id);
   console.log("Logged in with branch:", branch_id);
 
-  await audit_Logs(branch_id, "login");
+  await audit_Logs(branch_id, "login", "login");
 
   //  AFTER ng audit log
   window.location.href = "home.html";

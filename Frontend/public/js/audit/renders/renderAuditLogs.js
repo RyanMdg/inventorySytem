@@ -33,7 +33,7 @@ export async function render_Audit_logs(logs) {
         <div class="flex w-full justify-between gap-3 ms-5">
           <span class="flex gap-5 ms-10  -mb-60">
            <div>
-          <img src="/public/images/check_bold.png" />
+          <img src="../../../images/check_bold.png" />
            </div>
           <span class=" flex-col">
            <p class="font-medium text-lg"> 

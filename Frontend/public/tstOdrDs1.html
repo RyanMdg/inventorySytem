@@ -3,19 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/Frontend/public/css/output.css" rel="stylesheet" />
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="font-poppins min-h-screen">
     <main class="h-screen flex justify-center items-center">
       <!--Container-->
       <div
-        class="w-[22%] rounded-md bg-[#ffffff] shadow drop-shadow-md flex flex-col relative"
+        class="rounded-md w-[17%] bg-[#ffffff] shadow drop-shadow-md flex flex-col relative"
       >
         <!--Black Bar-->
-        <div
-          class="w-full rounded-t-md bg-[#302D3D] relative flex p-1 position"
-        >
+        <div class="rounded-t-md bg-[#302D3D] relative flex p-1 position">
           <p class="text-white font-semibold ml-2">Order Details</p>
           <div>
             <img
@@ -26,30 +24,26 @@
         </div>
 
         <!--Gold Receipt with Receipt No.-->
-        <div>
-          <img
-            class="ml-5 mt-2 w-[5rem]"
-            src="../public/images/gold-receipt.png"
-          />
-          <div
-            class="text-xs text-gray-900 absolute top-11 left-25 p-2 flex flex-col"
-          >
-            <div class="flex flex-col gap-1">
-              <div class="text-gray-900 w-full">
-                <span class="font-medium">Receipt No:</span>
+        <div class="flex items-center gap-5 mt-2">
+          <img class="ml-5 w-[5rem]" src="../public/images/gold-receipt.png" />
+          <div class="text-xs text-gray-900 top-11 left-25 p-2 flex flex-col">
+            <div>
+              <div class="flex flex-col gap-1 text-gray-900 w-full">
+                <span class="text-[1.2rem] font-semibold">Receipt No.</span>
                 <span class="font-light">RCPT-1742227670375</span>
               </div>
-
-              <div class="text-gray-900">
-                <span class="font-medium">Status:</span>
-                <span class="font-light">Completed</span>
-              </div>
-
-              <div class="text-gray-900">
-                <span class="font-medium">Date:</span>
-                <span class="font-light">August 10, 2025</span>
-              </div>
             </div>
+          </div>
+        </div>
+        <div class="flex gap-20 my-5 mx-auto">
+          <div class="flex flex-col text-gray-900">
+            <span class="font-medium">Status:</span>
+            <span class="font-light">Completed</span>
+          </div>
+
+          <div class="flex flex-col text-gray-900">
+            <span class="font-medium">Date:</span>
+            <span class="font-light">August 10, 2025</span>
           </div>
         </div>
 

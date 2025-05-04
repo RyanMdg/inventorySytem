@@ -3,7 +3,7 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
-export async function audit_Logs(branchid, actions, category) {
+export async function audit_Logs(branchid, actions, category, orderName) {
   const { data: branchData, error: errorBranchData } = await supabase
     .from("branches_table")
     .select("*")
@@ -24,6 +24,7 @@ export async function audit_Logs(branchid, actions, category) {
             role: branch.role,
             actions: actions,
             category: category,
+            order_name: orderName,
             date: new Date().toISOString(),
           },
         ]);

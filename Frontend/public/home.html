@@ -60,25 +60,60 @@
         
     </div>
     </div>
-    <figure>
-      <img class=" w-10" src="./images/human.png" alt="" />
-    </figure>
-    <div class=" flex flex-col">
-      <h1
-      id="branch-name"
-      class="text-[1rem] font-semibold mt-1 text-[#302D3D]"
-    >
-      <img
-        src="./images/Iphone-spinner-2.gif"
-        class="bg-none w-5 mt-2"
-        alt=""
-      />
-    </h1>
-    <span id="role" class="text-[#B60205] text-[.7rem]"></span>
 
-    </div>
-   
+    <!-- *PROFILE DROPDOWN -->
+
+    <div class="relative">
+            <!-- NAV PROFILE CONTAINER -->
+      <div class=" flex gap-3">
+        <figure>
+          <img class=" w-10" src="./images/human.png" alt="" />
+        </figure>
+        <div class=" flex flex-col">
+          <h1
+          id="branch-name"
+          class="text-[1rem] font-semibold mt-1 text-[#302D3D]"
+        >
+          <img
+            src="/public/images/Iphone-spinner-2.gif"
+            class="bg-none w-5 mt-2"
+            alt=""
+          />
+        </h1>
+        <span id="role" class="text-[#B60205] text-[.7rem]"></span>
     
+        </div>
+      </div>
+      <!-- Dropdown Menu -->
+      <div id="notificationDropdown" class="hiddens absolute right-0 top-[4rem]  w-64 bg-white z-50 shadow-lg rounded-sm">
+        <div class=" flex gap-3">
+          <figure>
+            <img class=" w-10" src="./images/human.png" alt="" />
+          </figure>
+          <div class=" flex flex-col">
+            <h1
+            id="branch-name"
+            class="text-[1rem] font-semibold mt-1 text-[#302D3D]"
+          >
+            <img
+              src="/public/images/Iphone-spinner-2.gif"
+              class="bg-none w-5 mt-2"
+              alt=""
+            />
+          </h1>
+          <span id="role" class="text-[#B60205] text-[.7rem]"></span>
+      
+          </div>
+          <ul id="notificationcontainer" class="max-h-60 overflow-y-auto">
+              <li class="p-3 border-b hover:bg-gray-100 cursor-pointer">
+                  <p class="text-sm text-gray-700">📦 Your order has been shipped!</p>
+                  <span class="text-xs text-gray-500">2 mins ago</span>
+              </li>
+             
+          </ul>
+          
+      </div>
+      </div>
   </div>
   </nav>
 
@@ -1051,6 +1086,7 @@
             </div>
       
             <div id="audit_container" class="flex flex-col items-center   overflow-y-auto max-h-[32rem]">
+              
               <!-- AUDIT DATA -->
             </div>
            
@@ -1345,6 +1381,82 @@
   </div>
 
 
+
+  <!-- * MAIN DYNAMIC MODAL FOR AUDIT -->
+
+  <div
+  id="dynamicauditmodal"
+  class="fixed inset-0   bg-opacity-0 opacity-0  scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+>
+
+<div
+        class="rounded-md w-[17%] bg-[#ffffff] shadow drop-shadow-md flex flex-col relative"
+      >
+        <!--Black Bar-->
+        <div class="rounded-t-md bg-[#302D3D] relative flex p-1 position">
+          <p class="text-white font-semibold ml-2">Order Details</p>
+          <div>
+            <img
+              id="auditclosebtn"
+              src="../public/images/close-button.png"
+              class="w-[1.5rem] absolute right-1 cursor-pointer"
+            />
+          </div>
+        </div>
+
+        <!--Gold Receipt with Receipt No.-->
+        <div class="flex items-center gap-5 mt-2">
+          <img class="ml-5 w-[5rem]" src="../public/images/gold-receipt.png" />
+          <div class="text-xs text-gray-900 top-11 left-25 p-2 flex flex-col">
+            <div>
+              <div class="flex flex-col gap-1 text-gray-900 w-full">
+                <span class="text-[1.2rem] font-semibold">Receipt No.</span>
+                <span id="auditreceipt" class="font-light">RCPT-1742227670375</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-20 px-5 my-5 mx-auto">
+          <div class=" flex flex-col text-gray-900">
+            <span class="font-medium">Action:</span>
+            <span id="auditStatus" class="font-light">Completed</span>
+          </div>
+
+          <div class="flex flex-col text-gray-900">
+            <span class="font-medium">Date:</span>
+            <span id="auditDate" class="font-light">August 10, 2025</span>
+          </div>
+        </div>
+
+        <!--Items Ordered-->
+       
+        <table class="w-full table-auto mb-10">
+          <thead>
+            <tr class="flex justify-between px-10">
+              <th >Name</th>
+              <th >Products</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="flex justify-between px-10">
+              <td id="auditName"></td>
+              <td id="auditRole"></td>
+            </tr>
+          </tbody>
+        </table>
+        
+       
+
+        
+
+          
+        </div>
+      </div>
+
+</div>
+
+
+
    
     
 
@@ -1379,6 +1491,7 @@
     <script type="module" src="./js/Branch/renderBranchStockAlert.js"></script>
     <script type="module" src="./js/modals_Js/dynamicInventory.js"></script>
     <script type="module" src="./js/audit/renders/renderAuditLogs.js"></script>
+    <script type="module" src="./js/audit/audit.js"></script>
 
   </main>
   </body>

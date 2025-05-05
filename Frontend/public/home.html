@@ -46,7 +46,7 @@
     </button>
 
     <!-- Dropdown Menu -->
-    <div id="notificationDropdown" class="hidden absolute right-0  w-64 bg-white z-50 shadow-lg rounded-sm">
+    <div id="notificationDropdown" class="transition-all duration-300 ease-in-out transform translate-y-[-10px] opacity-0 absolute right-0 w-64 bg-white z-50 shadow-lg rounded-sm">
         <div class="p-4">
             <h3 class="font-semibold text-gray-700">Notifications</h3>
         </div>
@@ -61,11 +61,9 @@
     </div>
     </div>
 
-    <!-- *PROFILE DROPDOWN -->
 
-    <div class="relative">
-            <!-- NAV PROFILE CONTAINER -->
-      <div class=" flex gap-3">
+    <div id="profileBtn" class="relative ">
+      <div class="cursor-pointer flex gap-3">
         <figure>
           <img class=" w-10" src="./images/human.png" alt="" />
         </figure>
@@ -83,34 +81,56 @@
         <span id="role" class="text-[#B60205] text-[.7rem]"></span>
     
         </div>
-      </div>
-      <!-- Dropdown Menu -->
-      <div id="notificationDropdown" class="hiddens absolute right-0 top-[4rem]  w-64 bg-white z-50 shadow-lg rounded-sm">
-        <div class=" flex gap-3">
+      </div>  
+      <!-- * Notification Dropdown Menu --> 
+      <div id="ProfileDropdown" class="transition-all duration-300 ease-in-out transform translate-y-[-10px] opacity-0 absolute right-[-3rem] top-[4rem] w-64 bg-[#F0EFF0] z-50 shadow-lg rounded-2xl">
+        <div class=" flex flex-col items-center gap-2 mt-5">
           <figure>
-            <img class=" w-10" src="./images/human.png" alt="" />
+            <img class=" w-14" src="./images/human.png" alt="" />
           </figure>
-          <div class=" flex flex-col">
-            <h1
-            id="branch-name"
-            class="text-[1rem] font-semibold mt-1 text-[#302D3D]"
-          >
-            <img
-              src="/public/images/Iphone-spinner-2.gif"
-              class="bg-none w-5 mt-2"
-              alt=""
-            />
-          </h1>
-          <span id="role" class="text-[#B60205] text-[.7rem]"></span>
+          <div class=" flex flex-col items-center">
+            <span class=" flex"> Good day,<h1
+              id="profile_name"
+              class="text-[1rem] font-semibold  text-[#302D3D]"
+            >   
+            
+              <img
+                src="/public/images/Iphone-spinner-2.gif"
+                class="bg-none hidden w-5 mt-2"
+                alt=""
+              />
+            </h1></span>
+            
+          <span id="role" class="text-[#B60205] text-[.7rem]">Main Branch</span>
       
           </div>
-          <ul id="notificationcontainer" class="max-h-60 overflow-y-auto">
-              <li class="p-3 border-b hover:bg-gray-100 cursor-pointer">
-                  <p class="text-sm text-gray-700">📦 Your order has been shipped!</p>
-                  <span class="text-xs text-gray-500">2 mins ago</span>
+          </div>
+          <ul id="Accountscontainer" class="max-h-60 border-y-2 my-2 border-[#929292] mx-3 overflow-y-auto px-5 py-2">
+        
+
+              <li class=" flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
+                <img src="./images/human.png" class=" w-[2rem]" alt="" srcset="">
+                  <span class="text-sm text-[#000000] font-semibold">Sauyo Branch</span>
               </li>
              
           </ul>
+          <div id="addNewAcc" class="border-b-2 mb-2 mx-3 pb-2 cursor-pointer border-[#929292]">
+            <h1 class="flex gap-2 px-5 text-sm items-center">
+            <span><img src="./images/profile.png" alt="" class=" w-[1.5rem]" srcset=""></span>
+             Add Another Account
+          </h1>
+          </div>
+
+          <div class=" flex flex-col gap-4 my-4 mx-auto">
+            <div class="flex gap-2 px-5 text-sm items-center">
+              <img src="./images/setting.png"  class=" w-[1.5rem]" alt="settingsicon">
+              <h1>Settings</h1>
+            </div>
+            <div class="flex gap-2 px-5 text-sm items-center">
+              <img src="./images/logout.png"  class=" w-[1.5rem]" alt="settingsicon">
+              <h1>Logout</h1>
+            </div>
+          </div>
           
       </div>
       </div>
@@ -199,34 +219,11 @@
             >
                <img src="./images/auditlog.png" class=" w-[1rem]" alt="">
             
-            Register new franchise
+            New Franchise
           </a>
         </li>
       </ul>
-      <div
-        class="flex flex-col hidden items-center shadow drop-shadow-sm py-5 justify-center bg-[#feebec] rounded-md mx-auto px-14 max-[69rem]:px-10 max-[69rem]:mt-[1rem]"
-      >
-        <figure>
-          <img src="./images/human.png" alt="" />
-        </figure>
-        <h1
-          id="branch-name"
-          class="text-[1rem] font-semibold mt-1 text-[#302D3D]"
-        >
-          <img
-            src="./images/Iphone-spinner-2.gif"
-            class="bg-none w-5 mt-2"
-            alt=""
-          />
-        </h1>
-        <span id="role" class="text-[#B60205]"></span>
-        <button
-          @click="page='profile'"
-          class="cursor-pointer text-[.8rem] bg-[#302D3D] text-white rounded-md px-5 py-1 mt-8 max-[69rem]:mt-2"
-        >
-          Profile
-        </button>
-      </div>
+  
     </aside>
     <!--  -->
     <!--  -->
@@ -1099,91 +1096,85 @@
           <div x-show="page === 'newFranchise'" class="mt-24 ">
 
             <main  >
-              <div
-          
-              >
+              <h1>Register New Franchise</h1>
+
+             
                 <!-- Illustration Side -->
              
                 <!-- Login Side (Animated) -->
-                <div
-                  class="bg-[#FEEBEC] mx-auto w-[80%] max-lg:w-[500px] max-[56rem]:w-[400px] max-sm:w-[300px] flex items-center"
-                >
-                  <div class="w-[100%] flex justify-center py-14">
-                    <figure id="figure" class="flex hidden justify-center items-center">
-                      <img
-                        class="w-30 animate-ping"
-                        src="./images/5100_3_05-Photoroom.png"
-                        alt=""
-                      />
-                    </figure>
-        
-                    <div
-                      id="signup_container"
-                      class="flex flex-col max-[56rem]:mx-[2rem] mx-20"
-                    >
-                      <p
-                        id="exist"
-                        class="bg-[#b602059a] hidden text-[.8rem] w-50 text-center py-3 text-white rounded-md"
-                      ></p>
-                      <h1
-                        class="font-semibold text-[#B60205] max-[56rem]:text-[1.8rem] max-[1400px]:text-[2rem] text-[2.25rem]"
-                      >
-                        Sign up
-                      </h1>
-                     
-        
-                      <span id="message"></span>
-        
-                      <!-- Input Fields -->
-                      <div class="flex flex-col">
-                        <input
-                          class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] max-[56rem]:placeholder:text-[0.7rem] max-sm:mt-3 max-sm:w-[16rem] max-sm:py-2"
-                          type="email"
-                          placeholder="email"
-                          id="signin_email"
-                        />
-                        <div class="relative">
-                          <input
-                            type="password"
-                            id="signin_password"
-                            class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] max-[56rem]:placeholder:text-[0.7rem] max-sm:w-[16rem] max-sm:py-2 max-sm:mt-3"
-                            placeholder="Password"
-                          />
-                          <img
-                            class="w-5 cursor-pointer eye-icon absolute top-9 max-sm:top-6 max-sm:right-1 max-sm:w-4 right-6 opacity-40"
-                            src="./images/hide.png"
-                            alt="closed-eye"
-                            id="eye"
-                          />
-                          <img
-                            class="w-5 cursor-pointer hidden eye-icons absolute top-9 right-6 opacity-40"
-                            src="./images/view.png"
-                            alt="open-eye"
-                            id="eyes"
-                          />
+      
+                <div class=" ">
+                  <div class=" rounded-b-sm mx-[10rem] shadow drop-shadow-md">
+                    <div class="rounded-t-sm bg-slate-400 h-8">
+
+                    </div>
+                    <form id="registerForm" class="px-10 bg-white py-7 grid grid-cols-2 gap-5" action="">
+                      <!-- Left -->
+                      <div class="flex gap-4 flex-col">
+                        <label class="font-semibold">Franchisee Name</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="person-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                          <input type="text" class="outline-none w-full" placeholder="Enter name" name="franchiseeName">
                         </div>
-                        <input
-                          class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] max-[56rem]:placeholder:text-[0.7rem] max-sm:w-[16rem] max-sm:py-2 max-sm:mt-3"
-                          type="text"
-                          placeholder="Franchisee Name"
-                          id="branch_name"
-                        />
-                        <input
-                          class="bg-white placeholder-[#302D3D] max-[1400px]:text-[0.8rem] max-[1400px]:placeholder:text-[0.8rem] placeholder:opacity-[0.37] placeholder:text-[1rem] rounded-sm w-[427px] mt-5 py-3 ps-4 outline-0 font-semibold text-[#302D3D] max-lg:w-[20rem] max-[56rem]:placeholder:text-[0.7rem] max-sm:w-[16rem] max-sm:py-2 max-sm:mt-3"
-                          type="text"
-                          placeholder="Branch Location"
-                          id="branch_location"
-                        />
-        
-                        <button
-                          class="bg-[#B60205] register-btn rounded-[0.50rem] max-[56rem]:text-[.9rem] max-lg:w-[20rem] cursor-pointer text-white py-3 mt-7 max-sm:mt-5 max-sm:w-[15rem] max-sm:py-2"
-                        >
+                    
+                        <label class="font-semibold">Birthday</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="calendar-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                          <input type="date" name="birthday" class="outline-none w-full">
+                        </div>
+                    
+                        <label class="font-semibold">Contact Number</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="call-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                          <input type="number" name="contactNumber" class="outline-none w-full" placeholder="09xxxxxxxxx">
+                        </div>
+                    
+                        <label class="font-semibold">Email</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="mail-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                          <input type="email" name="email" class="outline-none w-full" placeholder="example@email.com">
+                        </div>
+                      </div>
+                    
+                      <!-- Right -->
+                      <div class="flex gap-4 flex-col">
+                        <label class="font-semibold">Branch Location</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="location-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                          <input type="text" name="branchLocation" class="outline-none w-full" placeholder="Enter location">
+                        </div>
+                    
+                        <label class="font-semibold">Gender</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="male-female-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                          <select class="outline-none w-full" name="gender">
+                            <option value="">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                          </select>
+                        </div>
+                    
+                        <label class="font-semibold">Address</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="home-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                          <input type="text" name="address" class="outline-none w-full" placeholder="Enter address">
+                        </div>
+                    
+                        <label class="font-semibold">Password</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                          <input type="password" name="password" class="outline-none w-full" placeholder="Enter password">
+                        </div>
+                      </div>
+                    
+                      <!-- Submit Button (full width on bottom of form) -->
+                      <div class="col-span-2 mt-5">
+                        <button type="submit" class="w-full bg-red-700 text-white py-3 rounded-lg hover:bg-red-800 transition">
                           Register
                         </button>
                       </div>
-                    </div>
+                    </form>
                   </div>
-                </div>
               </div>
             </main>
           </div>
@@ -1406,7 +1397,7 @@
 
         <!--Gold Receipt with Receipt No.-->
         <div class="flex items-center gap-5 mt-2">
-          <img class="ml-5 w-[5rem]" src="../public/images/gold-receipt.png" />
+          <img class="ml-5 w-[5rem]" src="/public/images/gold-receipt.png" />
           <div class="text-xs text-gray-900 top-11 left-25 p-2 flex flex-col">
             <div>
               <div class="flex flex-col gap-1 text-gray-900 w-full">
@@ -1492,6 +1483,7 @@
     <script type="module" src="./js/modals_Js/dynamicInventory.js"></script>
     <script type="module" src="./js/audit/renders/renderAuditLogs.js"></script>
     <script type="module" src="./js/audit/audit.js"></script>
+    <script type="module" src="./js/profile/profile.js"></script>
 
   </main>
   </body>

@@ -91,8 +91,36 @@ export async function renderStocks() {
   });
 
   // Toggle dropdown
-  notificationBtn.onclick = () => {
-    notificationDropdown.classList.toggle("hidden");
+  notificationBtn.onclick = (event) => {
+    event.stopPropagation();
+
+    const isVisible = notificationDropdown.classList.contains("opacity-100");
+
+    if (isVisible) {
+      // Hide dropdown
+      notificationDropdown.classList.add(
+        "translate-y-[-10px]",
+        "opacity-0",
+        "pointer-events-none"
+      );
+      notificationDropdown.classList.remove(
+        "translate-y-0",
+        "opacity-100",
+        "pointer-events-auto"
+      );
+    } else {
+      // Show dropdown
+      notificationDropdown.classList.remove(
+        "translate-y-[-10px]",
+        "opacity-0",
+        "pointer-events-none"
+      );
+      notificationDropdown.classList.add(
+        "translate-y-0",
+        "opacity-100",
+        "pointer-events-auto"
+      );
+    }
   };
 
   document.addEventListener("click", (event) => {
@@ -100,7 +128,16 @@ export async function renderStocks() {
       !notificationBtn.contains(event.target) &&
       !notificationDropdown.contains(event.target)
     ) {
-      notificationDropdown.classList.add("hidden");
+      notificationDropdown.classList.add(
+        "translate-y-[-10px]",
+        "opacity-0",
+        "pointer-events-none"
+      );
+      notificationDropdown.classList.remove(
+        "translate-y-0",
+        "opacity-100",
+        "pointer-events-auto"
+      );
     }
   });
 }

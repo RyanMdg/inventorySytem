@@ -120,6 +120,12 @@
              Add Another Account
           </h1>
           </div>
+          <div id="addNewAcc" class="border-b-2 mb-2 mx-3 pb-2 cursor-pointer border-[#929292]">
+            <h1 class="flex gap-2 px-5 text-sm items-center">
+            <span><ion-icon name="person" class="text-[1.3rem]"></ion-icon></span>
+             Add Admin Account
+          </h1>
+          </div>
 
           <div class=" flex flex-col gap-4 my-4 mx-auto">
             <div class="flex gap-2 px-5 text-sm items-center">
@@ -1327,13 +1333,14 @@
   <!-- * MAIN DYNAMIC MODAL ALERT -->
   <div
   id="dynamicmodal"
-  class="fixed inset-0 bg-opacity-0 opacity-0  scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+  class="fixed inset-0 bg-opacity-0 opacity-100  scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
 >
 
    <div
        class="bg-[#ffffff] relative pb-5 w-[50%] rounded-sm shadow-lg"
        id="dynamicAlert"
-     >    
+     >
+        
      <div class="w-full bg-[#302D3D] flex justify-center p-3" id="black-bar">
       <img id="greenCheck" src="./images/check-green-image.png" alt="greenCheck"  class="w-[4rem]" />
       <img id="redCheck" src="./images/wrong-red-image 1.png" alt="redCheck"  class="w-[4rem] hidden">
@@ -1344,6 +1351,37 @@
       <h1 id="description" class="p-2 text-sm">
       </h1>
     </div>
+    <form id="registerForm" class="px-10 bg-white pb-7 " action="">
+      <!-- add staff account -->
+      <div class="flex gap-4 flex-col">
+        
+        <label class="font-semibold">Username</label>
+        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+          <ion-icon name="person-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+          <input type="text" name="email" class="outline-none w-full" placeholder="kyla">
+        </div>
+
+        <label class="font-semibold">Email</label>
+        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+          <ion-icon name="mail-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+          <input type="email" name="email" class="outline-none w-full" placeholder="example@email.com">
+        </div>
+
+        <label class="font-semibold">Password</label>
+        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+          <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+          <input type="password" class="outline-none w-full" placeholder="Enter name" name="password">
+        </div>
+      </div>
+    
+    
+      <!-- Submit Button (full width on bottom of form) -->
+      <div class="col-span-2 mt-5">
+        <button type="submit" class="w-full bg-red-700 text-white py-3 rounded-lg hover:bg-red-800 transition">
+          Register
+        </button>
+      </div>
+    </form>
 
     <!--Button-->
     <div id="ok_container" class="flex justify-center items-center">

@@ -1,10 +1,12 @@
 "strict";
 
 import supabase from "../../Backend2/config/SupabaseClient.js";
+import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
 const prod_Name = document.querySelector(".productName");
 const prodPrice = document.querySelector(".productprice");
 const addbtn = document.querySelector(".submit_product");
+const profile_name = document.getElementById("profile_name");
 const statusBtn = document.getElementById("statusButton");
 
 //* ========= IMAGE UPLOADS =========
@@ -185,57 +187,49 @@ fetchProducts();
 
 //*=========FETCHING USER=========
 async function fetchUser() {
-  //* logged-in user
-  const { data: userData, error: authError } = await supabase.auth.getUser();
-
-  if (authError || !userData?.user) {
-    console.error(
-      "Error fetching user:",
-      authError?.message || "User not logged in"
-    );
-    return;
-  }
-
-  const userId = userData.user.id;
-
-  const { data: userBranch, error: userError } = await supabase
-    .from("users_table")
-    .select("branch_id")
-    .eq("id", userId)
-    .single();
-
-  if (userError) {
-    console.error("Error fetching user's branch:", userError.message);
-    return;
-  }
-
-  const branchId = userBranch.branch_id;
+  const { branchId, userId } = await getAuthUserAndBranch();
 
   const { data: branchData, error: branchError } = await supabase
-    .from("branches_table")
+    .from("users_table")
     .select("name, role")
-    .eq("id", branchId)
-    .single();
+    .eq("branch_id", branchId)
+    .eq("id", userId);
 
   if (branchError) {
     console.error("Error fetching branch name:", branchError.message);
     return;
   }
 
-  if (branchData.role == "Owner") {
-    const branchContainer = document.getElementById("branch");
-    const addProdContainer = document.getElementById("add_prod_container");
-    const branch_Content = document.getElementById("branchcontent");
-    branchContainer.classList.toggle("hidden");
-    branch_Content.classList.toggle("hidden");
-    addProdContainer.classList.toggle("hidden");
+  if (!branchData || branchData.length === 0) {
+    console.warn("No matching users found for branch ID:", branchId);
+    return;
   }
 
-  console.log("Branch Name:", branchData.name);
+  branchData.forEach((user) => {
+    if (user.role == "Main Branch") {
+      const mainPage = document.getElementById("mainPage");
+      document.getElementById("branch").classList.toggle("hidden");
+      document.getElementById("branchcontent").classList.toggle("hidden");
+      document.getElementById("add_prod_container").classList.toggle("hidden");
+      document.getElementById("Container").classList.toggle("hidden");
+      document.getElementById("registerPage").classList.toggle("hidden");
+      document.getElementById("audit_Log").classList.toggle("hidden");
+      document
+        .getElementById("featuresownercontainer")
+        .classList.toggle("hidden");
+      profile_name.textContent = user.name;
+      document.getElementById("branch-name").textContent = user.name;
+      document.getElementById("role").textContent = user.role;
 
-  document.getElementById("branch-name").textContent = branchData.name;
-  document.getElementById("role").textContent = branchData.role;
-  console.log(branchData.role, branchData.name);
+      console.log(user.role, user.name);
+    } else if (user.role == "staff") {
+      profile_name.textContent = user.name;
+      document.getElementById("branch-name").textContent = user.name;
+      document.getElementById("role").textContent = user.role;
+
+      console.log(user.role, user.name);
+    }
+  });
 }
 
 fetchUser();

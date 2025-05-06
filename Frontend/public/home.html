@@ -105,7 +105,8 @@
       
           </div>
           </div>
-          <ul id="Accountscontainer" class="max-h-60 border-y-2 my-2 border-[#929292] mx-3 overflow-y-auto px-5 py-2">
+          <div id="featuresownercontainer" class="hidden">
+            <ul id="Accountscontainer" class="max-h-60 border-y-2 my-2 border-[#929292] mx-3 overflow-y-auto px-5 py-2">
         
 
               <li class=" flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
@@ -114,7 +115,7 @@
               </li>
              
           </ul>
-          <div id="addNewAcc" class="border-b-2 mb-2 mx-3 pb-2 cursor-pointer border-[#929292]">
+          <div id="" class="border-b-2 mb-2 mx-3 pb-2 cursor-pointer border-[#929292]">
             <h1 class="flex gap-2 px-5 text-sm items-center">
             <span><img src="./images/profile.png" alt="" class=" w-[1.5rem]" srcset=""></span>
              Add Another Account
@@ -126,6 +127,9 @@
              Add Admin Account
           </h1>
           </div>
+
+          </div>
+        
 
           <div class=" flex flex-col gap-4 my-4 mx-auto">
             <div class="flex gap-2 px-5 text-sm items-center">
@@ -143,10 +147,10 @@
   </div>
   </nav>
 
-  <main  class="flex text-[.8rem] h-screen"
-  x-data="{ page: 'dashboard' }">
-
-  
+  <main id="mainPage"  class="flex text-[.8rem] h-screen"
+  x-data="{ page: 'home' }">
+    
+     
     <!-- SIDEBAR -->
     
     <aside
@@ -156,7 +160,7 @@
     
 
       <ul class="space-y-2 mx-auto flex flex-col mt-20 gap-14 max-[56rem]:gap-5 font-semibold max-[69rem]:gap-9">
-        <li id="Container" class="text-[#ffff] cursor-pointer">
+        <li id="Container" class="text-[#ffff] hidden cursor-pointer">
           <a
             @click="page='dashboard'"
             class="text-[#ffff] bg-[#B60205] rounded-sm py-3 delay-200 ease-in duration-200 flex gap-2 items-center"
@@ -205,7 +209,7 @@
           </a>
         </li>
 
-        <li id="audit_Log" class="text-[#ffff] cursor-pointer">
+        <li id="audit_Log" class="text-[#ffff] hidden cursor-pointer">
           <a
             @click="page='audit'"
             class="flex gap-2 items-center delay-200 ease-in duration-200"
@@ -217,7 +221,7 @@
           </a>
         </li>
 
-        <li id="registerPage" class="text-[#ffff] cursor-pointer">
+        <li id="registerPage" class="text-[#ffff] hidden cursor-pointer">
           <a
             @click="page='newFranchise'"
             class="flex gap-2 items-center delay-200 ease-in duration-200"
@@ -240,7 +244,7 @@
     <!-- ***** DASHBOARD ***** -->
 
     <main class="flex-1">
-      <div x-show="page === 'dashboard'" class="mt-24">
+      <div x-show="page === 'dashboard'" class=" mt-24">
         <div class=" grid grid-cols-4 gap-5 mx-10 ">
           <div class="bg-[#ffff] max-[1025px]:h-[9rem]  max-[954px]:h-[8rem] shadow drop-shadow-md rounded-[.1rem]">
             <div class="flex justify-between items-center px-5 pt-2">
@@ -1048,11 +1052,17 @@
         <h1 class="text-2xl font-bold">Profile</h1>
          <p>View and manage Your profile.</p>
     </div> -->
-
+      
       <!--*** PROFIle **** -->
       <div x-show="page === 'profile'" x-cloak>
         <h1 class="text-2xl font-bold">Profile</h1>
         <p>View and manage Your profile.</p>
+      </div>
+
+      <!-- *HOME PAGE -->
+      <div class=" flex justify-center items-center h-screen" x-show="page === 'home'" x-cloak>
+        
+        <p class=" uppercase text-[5rem] ">welcome to affotako pos</p>
       </div>
 
 
@@ -1333,7 +1343,7 @@
   <!-- * MAIN DYNAMIC MODAL ALERT -->
   <div
   id="dynamicmodal"
-  class="fixed inset-0 bg-opacity-0 opacity-100  scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+  class="fixed inset-0 bg-opacity-0 opacity-0  scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
 >
 
    <div
@@ -1341,24 +1351,25 @@
        id="dynamicAlert"
      >
         
-     <div class="w-full bg-[#302D3D] flex justify-center p-3" id="black-bar">
-      <img id="greenCheck" src="./images/check-green-image.png" alt="greenCheck"  class="w-[4rem]" />
+     <div class="w-full bg-[#302D3D] flex items-center justify-center p-3" id="black-bar">
+      <img id="greenCheck" src="./images/check-green-image.png" alt="greenCheck"  class="w-[4rem] " />
       <img id="redCheck" src="./images/wrong-red-image 1.png" alt="redCheck"  class="w-[4rem] hidden">
+      <h1 id="headerTxt" class=" text-[#ffff] hidden font-semibold">Add Staff Account</h1>
     </div>
 
-    <div class="flex flex-col items-center">
+    <div id="contextContainer" class="flex flex-col items-center">
       <h2 id="status" class="font-semibold text-3xl mt-4"></h2>
       <h1 id="description" class="p-2 text-sm">
       </h1>
     </div>
-    <form id="registerForm" class="px-10 bg-white pb-7 " action="">
+    <form id="addStaff" class="px-10 bg-white pb-7 hidden " action="">
       <!-- add staff account -->
       <div class="flex gap-4 flex-col">
         
         <label class="font-semibold">Username</label>
         <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
           <ion-icon name="person-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-          <input type="text" name="email" class="outline-none w-full" placeholder="kyla">
+          <input type="text" name="name" class="outline-none w-full" placeholder="kyla">
         </div>
 
         <label class="font-semibold">Email</label>
@@ -1374,11 +1385,13 @@
         </div>
       </div>
     
-    
       <!-- Submit Button (full width on bottom of form) -->
-      <div class="col-span-2 mt-5">
+      <div class="flex gap-5 mt-5">
         <button type="submit" class="w-full bg-red-700 text-white py-3 rounded-lg hover:bg-red-800 transition">
           Register
+        </button>
+        <button id="addStaffCancelBtn" type="button" class="w-full bg-red-700 text-white py-3 rounded-lg hover:bg-red-800 transition">
+          Cancel
         </button>
       </div>
     </form>
@@ -1522,6 +1535,8 @@
     <script type="module" src="./js/audit/renders/renderAuditLogs.js"></script>
     <script type="module" src="./js/audit/audit.js"></script>
     <script type="module" src="./js/profile/profile.js"></script>
+    <script type="module" src="./js/profile/addStaffAccount.js"></script>
+    <script type="module" src="./js/profile/renders/signUpStaffAcc.js"></script>
 
   </main>
   </body>

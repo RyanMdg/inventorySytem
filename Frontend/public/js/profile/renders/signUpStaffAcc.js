@@ -1,17 +1,11 @@
-"use strict";
+"strict";
 
-import supabase from "../../Backend2/config/SupabaseClient.js";
-import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
-import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
+import { getAuthUserAndBranch } from "../../Authentication/auth-utils.js";
+import { dynamicAlert } from "../../modals_Js/dynamicInventory.js";
+import supabase from "../../../Backend2/config/SupabaseClient.js";
 
-const profile_name = document.getElementById("profile_name");
-const form = document.getElementById("registerForm");
-const redCheck = document.getElementById("redCheck");
-const greenCheck = document.getElementById("greenCheck");
+const form = document.getElementById("addStaff");
 
-// Load and display current profile name
-
-// Main form handler
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -34,22 +28,7 @@ form.addEventListener("submit", async function (e) {
   }
 
   try {
-    // Create branch
-    const { data: branchData, error: branchErr } = await supabase
-      .from("branches_table")
-      .insert([
-        {
-          name: values.franchiseeName,
-          location: values.branchLocation,
-          role: "franchise",
-        },
-      ])
-      .select("id")
-      .single();
-
-    if (branchErr) throw branchErr;
-    const branchId = branchData.id;
-
+    const { branchId } = await getAuthUserAndBranch();
     // Sign up user
     const { data: signData, error: signErr } = await supabase.auth.signUp({
       email: values.email,
@@ -63,8 +42,8 @@ form.addEventListener("submit", async function (e) {
         id: userId,
         email: values.email,
         password: values.password,
-        name: values.franchiseeName,
-        role: "franchisee",
+        name: values.name,
+        role: "staff",
         branch_id: branchId,
       },
     ]);
@@ -73,7 +52,7 @@ form.addEventListener("submit", async function (e) {
     greenCheck.classList.remove("hidden");
     redCheck.classList.add("hidden");
     dynamicAlert(
-      "New Franchise Account Registered!",
+      "New Staff Account register!",
       "Please notify them to verify their email accounts."
     );
 
@@ -90,5 +69,3 @@ form.addEventListener("submit", async function (e) {
     );
   }
 });
-
-// initialize

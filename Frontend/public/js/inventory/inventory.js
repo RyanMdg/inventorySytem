@@ -83,7 +83,7 @@ addToStack.addEventListener("click", async function () {
   const branchId = userData.branch_id;
 
   const status = `Added Stock`;
-  audit_Logs(branchId, status);
+  audit_Logs(userId, branchId, status, "added");
 
   const { data: inventory, error: inventoryerror } = await supabase
     .from("inventory_table")

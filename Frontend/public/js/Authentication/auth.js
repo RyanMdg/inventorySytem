@@ -47,7 +47,7 @@ async function login(email, password) {
   localStorage.setItem("branch_id", branch_id);
   console.log("Logged in with branch:", branch_id);
 
-  await audit_Logs(branch_id, "login", "login");
+  await audit_Logs(user.id, branch_id, "login", "login");
 
   //  AFTER ng audit log
   window.location.href = "home.html";
@@ -69,14 +69,3 @@ const passwordInput = document.getElementById("password");
 });
 
 // // * Check if user is logged in
-// async function checkUser() {
-//   const { data, error } = await supabase.auth.getUser();
-
-//   if (error || !data.user) {
-//     console.warn("No user found. Redirecting to login page...");
-//     window.location.href = "index.html";
-//   }
-// }
-
-// // Run the checkUser function if needed
-// checkUser();

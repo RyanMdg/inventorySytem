@@ -3,11 +3,18 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
-export async function audit_Logs(branchid, actions, category, orderName) {
+export async function audit_Logs(
+  userId,
+  branchid,
+  actions,
+  category,
+  orderName
+) {
   const { data: branchData, error: errorBranchData } = await supabase
-    .from("branches_table")
+    .from("users_table")
     .select("*")
-    .eq("id", branchid);
+    .eq("branch_id", branchid)
+    .eq("id", userId);
 
   if (errorBranchData) {
     console.error("Error fetching branch", errorBranchData.message);

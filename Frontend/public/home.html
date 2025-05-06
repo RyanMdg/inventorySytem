@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/animation.css">
+    <script type="module" src="./js/logout/checkUser.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js"
       defer
@@ -89,9 +90,9 @@
             <img class=" w-14" src="./images/human.png" alt="" />
           </figure>
           <div class=" flex flex-col items-center">
-            <span class=" flex"> Good day,<h1
+            <span class=" flex font-semibold"> Good day,<h1
               id="profile_name"
-              class="text-[1rem] font-semibold  text-[#302D3D]"
+              class="text-[1rem]  text-[#302D3D]"
             >   
             
               <img
@@ -99,7 +100,7 @@
                 class="bg-none hidden w-5 mt-2"
                 alt=""
               />
-            </h1></span>
+            </h1>!</span>
             
           <span id="role" class="text-[#B60205] text-[.7rem]">Main Branch</span>
       
@@ -136,7 +137,7 @@
               <img src="./images/setting.png"  class=" w-[1.5rem]" alt="settingsicon">
               <h1>Settings</h1>
             </div>
-            <div class="flex gap-2 px-5 text-sm items-center">
+            <div id="logout" class="flex cursor-pointer gap-2 px-5 text-sm items-center">
               <img src="./images/logout.png"  class=" w-[1.5rem]" alt="settingsicon">
               <h1>Logout</h1>
             </div>
@@ -1060,9 +1061,10 @@
       </div>
 
       <!-- *HOME PAGE -->
-      <div class=" flex justify-center items-center h-screen" x-show="page === 'home'" x-cloak>
+      <div class=" flex flex-col justify-center items-center h-screen" x-show="page === 'home'" x-cloak>
         
-        <p class=" uppercase text-[5rem] ">welcome to affotako pos</p>
+        <h1 class=" uppercase text-[5rem] font-bold  ">welcome to affotako pos</h1>
+        <p class=" text-[#B60205] font-semibold text-[1rem]">Simplifying your sales, inventory, and operations.</p>
       </div>
 
 
@@ -1111,8 +1113,16 @@
      
           <div x-show="page === 'newFranchise'" class="mt-24 ">
 
-            <main  >
-              <h1>Register New Franchise</h1>
+            <main>
+
+              <div class=" flex gap-5 justify-center mt-3 items-center">
+              <h1 class=" text-[1rem] font-semibold">Register Franchise</h1>
+                <select name="" id="" class=" outline-0 bg-[#B60205] px-2 py-1 mb-1 text-[#ffffff]">
+                  <option value="New Franchise">New Franchise</option>
+                  <option value="Existing Franchise">Existing Franchise</option>
+                </select>
+
+              </div>
 
              
                 <!-- Illustration Side -->
@@ -1537,6 +1547,7 @@
     <script type="module" src="./js/profile/profile.js"></script>
     <script type="module" src="./js/profile/addStaffAccount.js"></script>
     <script type="module" src="./js/profile/renders/signUpStaffAcc.js"></script>
+    <script type="module" src="./js/logout/logout.js"></script>
 
   </main>
   </body>

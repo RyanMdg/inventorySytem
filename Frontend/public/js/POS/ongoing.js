@@ -138,11 +138,16 @@ async function renderOngoingOrders() {
 function attachButtonEventListeners() {
   document.querySelectorAll(".complete-btn").forEach((button) => {
     button.addEventListener("click", async (event) => {
-      const { branchId } = await getAuthUserAndBranch();
+      const { branchId, userId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
       const category = "Completed";
       GrossIncome(receiptNumber);
-      audit_Logs(branchId, `Completed Order\n${receiptNumber}`, category);
+      audit_Logs(
+        userId,
+        branchId,
+        `Completed Order\n${receiptNumber}`,
+        category
+      );
       await updateOrderStatus(receiptNumber, "completed");
       calculated(receiptNumber);
       console.log("reciept num " + receiptNumber);
@@ -163,13 +168,13 @@ function attachButtonEventListeners() {
 
   document.querySelectorAll(".cancel-btn").forEach((button) => {
     button.addEventListener("click", async (event) => {
-      const { branchId } = await getAuthUserAndBranch();
+      const { branchId, userId } = await getAuthUserAndBranch();
       const receiptNumber = event.target.dataset.receipt;
       const status = `Cancelled Order\n${receiptNumber}`;
       const category = "Cancelled Order";
 
       await updateOrderStatus(receiptNumber, "cancelled");
-      await audit_Logs(branchId, status, category);
+      await audit_Logs(userId, branchId, status, category);
     });
   });
 }

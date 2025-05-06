@@ -112,7 +112,7 @@ btnPlaceOrder.addEventListener("click", async function () {
   const action = `Place an Order\n${receiptNumber}`;
   const category = "Place Order";
 
-  audit_Logs(branchId, action, category);
+  audit_Logs(userId,branchId, action, category);
 
   // Clear the orders after inserting into database
 

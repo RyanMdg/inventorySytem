@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", checkMixtures);
 
 // Update status when the button is clicked
 mixtureBtn.addEventListener("click", async function () {
-  const { branchId } = await getAuthUserAndBranch();
+  const { branchId, userId } = await getAuthUserAndBranch();
 
   const leftoverCount = await checkLeftovers(branchId);
   const CreatedMixtureCount = await checkCreatedMixture(branchId);
@@ -101,7 +101,7 @@ mixtureBtn.addEventListener("click", async function () {
       console.log("Data updated successfully:", data);
       const audit_status = `Created a mixture`;
       const category = "mixture";
-      audit_Logs(branchId, audit_status, category);
+      audit_Logs(userId, branchId, audit_status, category);
       const status = "Mixture Created!";
       const description = "Your now deducting to this mixtures!";
       greenCheck.classList.remove("hidden");

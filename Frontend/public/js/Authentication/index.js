@@ -22,15 +22,3 @@ openEyes.addEventListener("click", function () {
   closeEyes.classList.toggle("hidden");
   openEye.classList.toggle("hidden");
 });
-
-// * if user are login
-// async function checkUser() {
-//   const {
-//     data: { user },
-//   } = await supabase.auth.getUser();
-//   if (!user) {
-//     window.location.href = "index.html";
-//   }
-// }
-
-// checkUser();

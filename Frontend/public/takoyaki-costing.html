@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Takoyaki Costing Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="./images/logo_white.PNG" />
+  </head>
+  <body
+    class="font-poppins bg-[#FEEBEC] min-h-screen flex items-center justify-center"
+  >
+    <main class="w-full p-4">
+      <div class="bg-white rounded-lg shadow-lg p-6 w-full">
+        <h1 class="text-2xl font-bold mb-4 text-center text-[#B60205]">
+          Takoyaki Costing Calculator
+        </h1>
+
+        <!-- Add Menu Item Form -->
+        <div class="mb-4 flex flex-wrap gap-2 items-end">
+          <input
+            id="new-menu-variant"
+            type="text"
+            placeholder="Variant Name"
+            class="border rounded px-2 py-1 w-40"
+          />
+          <input
+            id="new-menu-size"
+            type="number"
+            min="1"
+            step="1"
+            placeholder="Size (balls/set)"
+            class="border rounded px-2 py-1 w-32"
+          />
+          <input
+            id="new-menu-price"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="Price per Set (₱)"
+            class="border rounded px-2 py-1 w-32"
+          />
+          <button
+            id="add-menu-btn"
+            class="bg-[#B60205] text-white px-4 py-1 rounded font-semibold hover:bg-red-700 transition"
+          >
+            Add Menu Item
+          </button>
+        </div>
+        <!-- Dynamic Set Planner Table -->
+        <div id="dynamic-set-planner"></div>
+
+        <!-- Add Ingredient Form -->
+        <div class="mb-4 flex flex-wrap gap-2 items-end">
+          <input
+            id="new-ingredient-name"
+            type="text"
+            placeholder="Ingredient Name"
+            class="border rounded px-2 py-1 w-40"
+          />
+          <input
+            id="new-ingredient-price"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="Price/Unit (₱)"
+            class="border rounded px-2 py-1 w-32"
+          />
+          <input
+            id="new-ingredient-qty"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="Quantity Used"
+            class="border rounded px-2 py-1 w-32"
+          />
+          <button
+            id="add-ingredient-btn"
+            class="bg-[#B60205] text-white px-4 py-1 rounded font-semibold hover:bg-red-700 transition"
+          >
+            Add
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+          <!-- Ingredient Table -->
+          <div>
+            <h2 class="text-xl font-semibold mb-2 text-[#B60205]">
+              Ingredients
+            </h2>
+            <table class="min-w-full mb-4 border rounded-lg overflow-hidden">
+              <thead>
+                <tr class="bg-gray-200">
+                  <th class="p-2">Ingredient</th>
+                  <th class="p-2">Price/Unit (₱)</th>
+                  <th class="p-2">Quantity Used</th>
+                  <th class="p-2">Total Cost (₱)</th>
+                </tr>
+              </thead>
+              <tbody id="ingredient-table-body">
+                <!-- JS will populate rows here with input fields -->
+              </tbody>
+            </table>
+            <div class="mb-4">
+              <span class="font-semibold">Total Raw Cost for 742 Balls:</span>
+              <span
+                id="total-raw-cost"
+                class="text-lg font-bold text-blue-600"
+              ></span>
+            </div>
+          </div>
+          <!-- Cost Per Ball & Menu Price Table -->
+          <div>
+            <div class="mb-6">
+              <span class="font-semibold">Dynamic Cost Per Ball:</span>
+              <span
+                id="cost-per-ball"
+                class="text-lg font-bold text-green-600"
+              ></span>
+            </div>
+            <div>
+              <h2 class="text-xl font-semibold mb-2 text-[#B60205]">
+                Menu Prices & Profit
+              </h2>
+              <div class="overflow-x-auto">
+                <table class="min-w-full border rounded-lg overflow-hidden">
+                  <thead>
+                    <tr class="bg-gray-200">
+                      <th class="p-2">Variant</th>
+                      <th class="p-2">Size</th>
+                      <th class="p-2">Original Menu Price (₱)</th>
+                      <th class="p-2">Suggested Selling Price (₱)</th>
+                      <th class="p-2">Raw Cost (₱)</th>
+                      <th class="p-2">Profit (Revenue - Raw Cost)</th>
+                      <th class="p-2">Profit Margin (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="menu-table-body">
+                    <!-- JS will populate rows here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Summary Section -->
+        <div class="mt-10">
+          <h2 class="text-xl font-semibold mb-2 text-[#B60205]">Summary</h2>
+          <div class="overflow-x-auto">
+            <table class="min-w-[400px] border rounded-lg overflow-hidden">
+              <tbody>
+                <tr>
+                  <td class="p-2 font-semibold">Expenses Raw Materials</td>
+                  <td class="p-2"><span id="summary-raw-cost"></span></td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-semibold">Gross Sales</td>
+                  <td class="p-2">
+                    <span id="summary-gross-sales"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-semibold">Net Sales</td>
+                  <td class="p-2"><span id="summary-net-sales"></span></td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-semibold">Utilities Expense</td>
+                  <td class="p-2">
+                    <input
+                      id="summary-utilities"
+                      type="number"
+                      min="0"
+                      value="620"
+                      class="border rounded px-2 py-1 w-24"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-semibold">Salaries Expense</td>
+                  <td class="p-2">
+                    <input
+                      id="summary-salaries"
+                      type="number"
+                      min="0"
+                      value="1100"
+                      class="border rounded px-2 py-1 w-24"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-semibold">PROFIT</td>
+                  <td class="p-2">
+                    <span
+                      id="summary-profit"
+                      class="font-bold text-yellow-600"
+                    ></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="js/takoyaki-costing.js"></script>
+  </body>
+</html>

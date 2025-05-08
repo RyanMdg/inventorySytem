@@ -3,6 +3,7 @@
 import supabase from "../../../Backend2/config/SupabaseClient.js";
 
 import { renderStocks } from "../renders/renderStocks.js";
+import { renderIngredientTable, renderMenuTable } from "../../pos-inventory_communication/takoyaki-calculation.js";
 import { renderaddedmixtures } from "../renders/renderaddedmixtures.js";
 import { renderCreadtedMixtures } from "../renders/renderCreadtedMixtures.js";
 import { renderleftOver } from "../renders/renderleftOver.js";
@@ -47,10 +48,12 @@ export async function subscribeToRealTimeOrders() {
       schema: "public",
       table: "mixtures_table",
     },
-    (payload) => {
+    async (payload) => {
       // Refresh the table on changes
       console.log("Mixtures Table Change Detected:", payload);
       renderaddedmixtures();
+      await renderIngredientTable();
+      await renderMenuTable();
       renderCreadtedMixtures();
       renderleftOver();
       checkMixtures();

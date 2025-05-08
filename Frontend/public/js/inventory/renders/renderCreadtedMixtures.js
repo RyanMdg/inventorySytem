@@ -40,14 +40,22 @@ export async function renderCreadtedMixtures() {
   });
 
   const { data: mixtureTable, error: errorMixture } = await supabase
-    .from("mixtures_summary_table")
-    .select("total")
-    .eq("branch_id", branchId)
-    .eq("status", "Created_Mixture")
-    .maybeSingle();
+  .from("mixtures_table")
+  .select("raw_mats,prices,quantity")
+  .eq("branch_id",branchId)
+  .eq("status", "Created_Mixture")
   if (errorMixture) {
     console.error("Error fetching receipts:", errorMixture.message);
-  }
+  } 
 
-  cretedmixturesum.textContent = `₱${mixtureTable.total}`;
+  let totalRawCost = 0;
+
+
+  mixtureTable.forEach((item) => {
+   const  createdsum = item.prices * item.quantity;
+   totalRawCost += createdsum;
+  cretedmixturesum.textContent = `₱${totalRawCost}`;
+
+  });
+
 }

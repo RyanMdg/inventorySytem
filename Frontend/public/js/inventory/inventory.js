@@ -272,6 +272,7 @@ createbtn.addEventListener("click", async function () {
       {
         branch_id: branchId,
         raw_mats: createRaw.value,
+        prices: updatedPrice,
         quantity: requiredQty,
         unit: createUnit.value,
         total: requiredQty * updatedPrice,

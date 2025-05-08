@@ -21,10 +21,10 @@ const ballsPerBatch = 742;
 
 // --- Menu Items Array (initial menu) ---
 let menuItems = [
-  { variant: "42s", size: 42, price: 450, count: 17 },
+  { variant: "42s", size: 42, price: 450, count: 0 },
   { variant: "20s", size: 20, price: 205, count: 0 },
-  { variant: "16s", size: 16, price: 160, count: 1 },
-  { variant: "12s", size: 12, price: 125, count: 1 },
+  { variant: "16s", size: 16, price: 160, count: 0 },
+  { variant: "12s", size: 12, price: 125, count: 0 },
   { variant: "8s", size: 8, price: 80, count: 0 },
   { variant: "4s", size: 4, price: 45, count: 0 },
 ];
@@ -87,23 +87,48 @@ function renderIngredientTable() {
   });
 }
 
+// --- Calculation Functions ---
+
+/**
+ * Calculates the total cost of all ingredients for one batch
+ * Formula: Sum of (each ingredient's price × quantity used)
+ * @returns {number} Total cost for one batch of takoyaki
+ */
 function calculateTotalBatchCost() {
   return ingredients.reduce((sum, ing) => sum + ing.price * ing.quantity, 0);
 }
 
+/**
+ * Calculates the cost per individual takoyaki ball
+ * Formula: Total batch cost ÷ Number of balls per batch (742)
+ * @returns {number} Cost per individual takoyaki ball
+ */
 function calculateDynamicCostPerBall() {
   return calculateTotalBatchCost() / ballsPerBatch;
 }
 
-function calculateSuggestedMenuPrice(
-  costPerBall,
-  ballsPerServing,
-  originalMargin
-) {
-  // New Menu Price = Cost / (1 - Original Margin)
+/**
+ * Calculates the suggested selling price for a menu item
+ * Formula: (Cost per ball × Number of balls in serving) ÷ (1 - Original profit margin)
+ * @param {number} costPerBall - Cost of one takoyaki ball
+ * @param {number} ballsPerServing - Number of balls in the serving size
+ * @param {number} originalMargin - Original profit margin as decimal (e.g., 0.3 for 30%)
+ * @returns {number} Suggested selling price for the menu item
+ */
+function calculateSuggestedMenuPrice(costPerBall, ballsPerServing, originalMargin) {
   return (costPerBall * ballsPerServing) / (1 - originalMargin);
 }
 
+/**
+ * Calculates profit metrics for a serving size
+ * @param {number} costPerBall - Cost of one takoyaki ball
+ * @param {number} menuPrice - Current selling price of the menu item
+ * @param {number} ballsPerServing - Number of balls in the serving size
+ * @returns {Object} Object containing:
+ *   - totalCost: Raw cost for the serving
+ *   - profit: Profit amount (Revenue - Cost)
+ *   - profitMargin: Profit margin as percentage
+ */
 function calculateProfitPerServing(costPerBall, menuPrice, ballsPerServing) {
   const totalCost = costPerBall * ballsPerServing;
   const profit = menuPrice - totalCost;
@@ -156,8 +181,13 @@ function renderMenuTable(costPerBall) {
   });
 }
 
+/**
+ * Calculates the average suggested selling price per ball across all menu items
+ * Used to determine overall pricing strategy
+ * @param {number} costPerBall - Cost of one takoyaki ball
+ * @returns {number} Average suggested selling price per ball
+ */
 function calculateAverageSuggestedSellingPrice(costPerBall) {
-  // Use all menu items and sizes to get the average suggested selling price per ball
   let totalSuggested = 0;
   let totalBalls = 0;
   Object.keys(menuPrices).forEach((variant) => {
@@ -295,31 +325,42 @@ function setupSetPlannerListeners() {
   });
 }
 
+/**
+ * Updates the summary section with all financial calculations
+ * @param {number} costPerBall - Cost of one takoyaki ball
+ */
 function updateSummary(costPerBall) {
+  // Calculate total raw cost for the batch
   const totalRawCost = calculateTotalBatchCost();
-  const rawCostSpan = document.getElementById("summary-raw-cost");
-  if (rawCostSpan) rawCostSpan.textContent = `₱${totalRawCost.toFixed(2)}`;
-
-  // Use gross sales from set planner
+  
+  // Get gross sales from set planner
   const grossSales = lastPlannerGrossSales;
-  const grossSalesSpan = document.getElementById("summary-gross-sales");
-  if (grossSalesSpan)
-    grossSalesSpan.textContent = `₱${grossSales.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
-
+  
+  // Calculate net sales (Gross Sales - Raw Cost)
   const netSales = grossSales - totalRawCost;
-  const netSalesSpan = document.getElementById("summary-net-sales");
-  if (netSalesSpan) netSalesSpan.textContent = `₱${netSales.toFixed(2)}`;
-
-  // Utilities and Salaries
+  
+  // Get utilities and salaries expenses
   const utilitiesInput = document.getElementById("summary-utilities");
   const salariesInput = document.getElementById("summary-salaries");
   const utilities = utilitiesInput ? parseFloat(utilitiesInput.value) || 0 : 0;
   const salaries = salariesInput ? parseFloat(salariesInput.value) || 0 : 0;
-
+  
+  // Calculate final profit (Net Sales - Utilities - Salaries)
   const profit = netSales - utilities - salaries;
+  
+  // Update all summary displays
+  const rawCostSpan = document.getElementById("summary-raw-cost");
+  if (rawCostSpan) rawCostSpan.textContent = `₱${totalRawCost.toFixed(2)}`;
+
+  const grossSalesSpan = document.getElementById("summary-gross-sales");
+  if (grossSalesSpan) grossSalesSpan.textContent = `₱${grossSales.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+
+  const netSalesSpan = document.getElementById("summary-net-sales");
+  if (netSalesSpan) netSalesSpan.textContent = `₱${netSales.toFixed(2)}`;
+
   const profitSpan = document.getElementById("summary-profit");
   if (profitSpan) profitSpan.textContent = `₱${profit.toFixed(2)}`;
 }
@@ -397,3 +438,4 @@ setupAddMenuForm();
 setupSetPlannerListeners();
 setupDeleteMenuListeners();
 updateSetPlanner();
+setupAddIngredientForm();

@@ -818,16 +818,45 @@
               <table class="w-full border-collapse">
                 <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
                   <tr class="bg-[#A3A0B3] text-white">
-                    <th class="px-4 text-center py-2">Raw Materials</th>
-                    <th class="px-4 text-center py-2">Quantity</th>
-                    <th class="px-4 text-center py-2">Unit</th>
-                    <th class="px-4 text-center py-2">Total</th>
+                 
+                    <th class="px-4 text-center py-2">Ingredient</th>
+                  <th class="px-4 text-center py-2">Price/Unit (₱)</th>
+                  <th class="px-4 text-center py-2">Quantity Used</th>
+                  <th class="px-4 text-center py-2">Total Cost (₱)</th>
+                  <th class="px-4 text-center py-2">Action</th>
                   </tr>
                 </thead>
-                <tbody id="create-inventory-data" class="divide-y divide-gray-200">
-                  <!-- Dynamic Datas -->
+                <!-- <tbody id="create-inventory-data" class="divide-y divide-gray-200">
+                </tbody> -->
+                <tbody id="ingredient-table-body">
+                  <!-- JS will populate rows here with input fields -->
                 </tbody>
               </table>
+            </div>
+
+            <!-- Menu Prices & Profit Table -->
+            <div class="mt-4">
+              <div class="mb-2">
+                <span class="font-semibold ps-5">Cost Per Ball:</span>
+                <span id="cost-per-ball" class="text-lg font-bold text-red-600"></span>
+              </div>
+              <div class="max-h-[20rem] overflow-y-auto border border-gray-300">
+                <table class="w-full border-collapse">
+                  <thead class="bg-[#EBE7E7] opacity-[65%] text-left sticky top-0">
+                    <tr class="bg-[#A3A0B3] text-white">
+                      <th class="px-4 text-center py-2">Size</th>
+                      <th class="px-4 text-center py-2">Original Menu Price (₱)</th>
+                      <th class="px-4 text-center py-2">Suggested Selling Price (₱)</th>
+                      <th class="px-4 text-center py-2">Raw Cost (₱)</th>
+                      <th class="px-4 text-center py-2">Profit (₱)</th>
+                      <th class="px-4 text-center py-2">Profit Margin (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="menu-table-body">
+                    <!-- JS will populate rows here -->
+                  </tbody>
+                </table>
+              </div>
             </div>
   
       
@@ -837,7 +866,7 @@
          
 
                 <h1 class="text-white font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
-              <span id="sum" class=" text-white font-semibold text-[1rem] me-14">400</span>
+              <span id="sum" class="totalrawmat text-white font-semibold text-[1rem] me-14">400</span>
              </div>
            <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
             
@@ -1555,6 +1584,7 @@
     <script type="module" src="./js/profile/profile.js"></script>
     <script type="module" src="./js/profile/addStaffAccount.js"></script>
     <script type="module" src="./js/profile/renders/signUpStaffAcc.js"></script>
+    <script type="module" src="./js/pos-inventory_communication/takoyaki-calculation.js"></script>
    
 
   </main>

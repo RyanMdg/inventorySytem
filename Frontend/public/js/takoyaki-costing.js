@@ -117,8 +117,17 @@ function calculateProfitPerServing(costPerBall, menuPrice, ballsPerServing) {
 
 function renderMenuTable(costPerBall) {
   menuTableBody.innerHTML = "";
-  Object.keys(menuPrices).forEach((variant) => {
-    Object.keys(menuPrices[variant]).forEach((size) => {
+  // Only show these specific variant/size pairs:
+  const showPairs = [
+    { variant: "OCTO", size: "4s" },
+    { variant: "HAM & CHEESE", size: "8s" },
+    { variant: "MIX #3", size: "12s" },
+    { variant: "CHEESE", size: "16s" },
+    { variant: "TAKOPARTY", size: "20s" },
+    { variant: "TAKOPARTY", size: "42s" },
+  ];
+  showPairs.forEach(({ variant, size }) => {
+    if (menuPrices[variant] && menuPrices[variant][size]) {
       const origMenuPrice = menuPrices[variant][size];
       const balls = servingSizes[size];
       if (!balls) return;
@@ -135,16 +144,15 @@ function renderMenuTable(costPerBall) {
       );
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td class=\"p-2\">${variant}</td>
-        <td class=\"p-2\">${size}</td>
-        <td class=\"p-2\">₱${origMenuPrice}</td>
-        <td class=\"p-2\">₱${suggestedMenuPrice.toFixed(2)}</td>
-        <td class=\"p-2\" title=\"Raw Cost: Total ingredient cost for this serving size\">₱${totalCost}</td>
-        <td class=\"p-2\" title=\"Profit = Revenue (Selling Price) - Raw Cost\">₱${profit}</td>
-        <td class=\"p-2\" title=\"Profit Margin = (Profit / Revenue) × 100\">${profitMargin}%</td>
+        <td class="p-2">${size}</td>
+        <td class="p-2">₱${origMenuPrice}</td>
+        <td class="p-2">₱${suggestedMenuPrice.toFixed(2)}</td>
+        <td class="p-2" title="Raw Cost: Total ingredient cost for this serving size">₱${totalCost}</td>
+        <td class="p-2" title="Profit = Revenue (Selling Price) - Raw Cost">₱${profit}</td>
+        <td class="p-2" title="Profit Margin = (Profit / Revenue) × 100">${profitMargin}%</td>
       `;
       menuTableBody.appendChild(row);
-    });
+    }
   });
 }
 

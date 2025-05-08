@@ -153,6 +153,7 @@
     
      
     <!-- SIDEBAR -->
+    
     <aside
        id="asides"
       class="w-[14%]   nav bg-[#302D3D] h-screen text-[#302D3D] p-5 space-y-4 shadow max-[56rem]:gap-5 gap-14 drop-shadow-2xl flex flex-col max-[69rem]:w-[19%] max-[69rem]:gap-1"
@@ -160,7 +161,7 @@
     
     
 
-      <ul class="space-y-2 mx-auto flex flex-col mt-20 gap-14 max-[56rem]:gap-5 font-semibold max-[69rem]:gap-9">
+      <ul id="navTextContent" class="space-y-2 mx-auto flex flex-col mt-20 gap-14 max-[56rem]:gap-5 font-semibold max-[69rem]:gap-9">
         <li id="Container" class="text-[#ffff] hidden cursor-pointer">
           <a
             @click="page='dashboard'"
@@ -235,8 +236,14 @@
           </a>
         </li>
       </ul>
+
+
+     
   
     </aside>
+
+
+    
    
     <!--  -->
     <!--  -->
@@ -1515,6 +1522,7 @@
    
 
     </main>
+    <script type="module" src="./js/settings/settings.js"></script>
     <script type="module" src="./css/tailwind.js"></script>
     <script type="module" src="./js/POS/placeOrder.js"></script>
     <script type="module" src="./js/navigation.js"></script>
@@ -1547,7 +1555,7 @@
     <script type="module" src="./js/profile/profile.js"></script>
     <script type="module" src="./js/profile/addStaffAccount.js"></script>
     <script type="module" src="./js/profile/renders/signUpStaffAcc.js"></script>
-    <script type="module" src="./js/settings/settings.js"></script>
+   
 
   </main>
   </body>

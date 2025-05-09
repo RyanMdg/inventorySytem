@@ -65,10 +65,10 @@ export async function renderMenuTable() {
     .select("raw_mats,prices,quantity")
     .eq("branch_id", branchId);
 
-  // Fetch menu items dynamically from Supabase
+  // Fetch menu items dynamically from Supabase, including original_margin
   const { data: menuItems } = await supabase
     .from("menu_items")
-    .select("name, quantity, price")
+    .select("name, quantity, price, original_margin")
     .eq("branch_id", branchId);
 
   // Calculate dynamic cost per ball
@@ -76,32 +76,17 @@ export async function renderMenuTable() {
     mixturedata.reduce((sum, ing) => sum + ing.prices * ing.quantity, 0) /
     ballsPerBatch;
 
-  // Compute original margins from DB
-  const originalCostPerBall =
-    mixturedata.reduce((sum, ing) => sum + ing.prices * ing.quantity, 0) /
-    ballsPerBatch;
-  const originalMargins = {};
-  menuItems.forEach((item) => {
-    const menuPrice = item.price;
-    const balls = item.quantity;
-    const totalCost = originalCostPerBall * balls;
-    const profit = menuPrice - totalCost;
-    const margin = menuPrice > 0 ? profit / menuPrice : 0.3;
-    if (!originalMargins[item.name]) originalMargins[item.name] = {};
-    originalMargins[item.name][balls] = margin;
-  });
-
   menuTableBody.innerHTML = "";
 
   menuItems.forEach((item) => {
     const ballsInServing = item.quantity;
     const origMenuPrice = item.price;
     const rawCost = costPerBall * ballsInServing;
-    // Use original margin for suggested price
+    // Use the stored original margin from the DB
     const origMargin =
-      (originalMargins[item.name] &&
-        originalMargins[item.name][ballsInServing]) ||
-      0.3;
+      item.original_margin !== null && item.original_margin !== undefined
+        ? item.original_margin
+        : 0.3; // fallback if missing
     const suggestedSellingPrice = rawCost / (1 - origMargin);
     const profit = suggestedSellingPrice - rawCost;
     const profitMargin =

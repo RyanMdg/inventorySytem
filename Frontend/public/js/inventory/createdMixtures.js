@@ -89,61 +89,46 @@ mixtureBtn.addEventListener("click", async function () {
 
     dynamicAlert(status, description);
   } else {
-    const { data, error } = await supabase
-      .from("mixtures_table")
-      .update({ status: "Created_Mixture" })
-      .eq("branch_id", branchId)
-      .eq("status", "Added_Mixture");
+    // 1. Fetch all recipes
+    const { data: recipes, error: recipeError } = await supabase
+      .from("recipe_table")
+      .select("*")
+      .eq("branch_id", branchId);
 
-    if (error) {
-      console.error("Error updating data:", error);
-    } else {
-      console.log("Data updated successfully:", data);
-      const audit_status = `Created a mixture`;
-      const category = "mixture";
-      audit_Logs(userId, branchId, audit_status, category);
-      const status = "Mixture Created!";
-      const description = "Your now deducting to this mixtures!";
-      greenCheck.classList.remove("hidden");
-      redCheck.classList.add("hidden");
-      ok_container.classList.remove("hidden");
-      use_discard_container.classList.add("hidden");
-
-      dynamicAlert(status, description);
-    }
-
-    // mixture status dynamically
-    checkMixtures();
-
-    const { data: mixtureTable, error: errorMixture } = await supabase
-      .from("mixtures_table")
-      .select("total")
-      .eq("branch_id", branchId)
-      .eq("status", "Created_Mixture");
-
-    if (errorMixture) {
-      console.error("Error fetching receipts:", errorMixture.message);
+    if (recipeError) {
+      console.error("Error fetching recipes:", recipeError.message);
       return;
     }
 
-    const total = mixtureTable.reduce((sum, row) => sum + (row.total || 0), 0);
+    // 2. Insert each recipe as a new mixture with status 'Created_Mixture'
+    const inserts = recipes.map((recipe) => ({
+      branch_id: branchId,
+      raw_mats: recipe.raw_mats,
+      quantity: recipe.quantity,
+      unit: recipe.unit,
+      prices: recipe.prices, // or whatever price field you use
+      status: "Created_Mixture",
+    }));
 
-    const { data: insertedData, error: insertError } = await supabase
-      .from("mixtures_summary_table")
-      .insert([
-        {
-          branch_id: branchId,
-          total: total,
-          expenses_raw_total: total,
-          status: "Created_Mixture",
-        },
-      ]);
+    const { error: insertError } = await supabase
+      .from("mixtures_table")
+      .insert(inserts);
 
     if (insertError) {
-      console.error("Error inserting order:", insertError.message);
-      alert("Error placing order. Please try again.");
+      console.error("Error inserting mixtures:", insertError.message);
+      alert("Error creating mixture. Please try again.");
       return;
     }
+
+    audit_Logs(userId, branchId, "Created a mixture", "mixture");
+    const status = "Mixture Created!";
+    const description = "Your now deducting to this mixtures!";
+    greenCheck.classList.remove("hidden");
+    redCheck.classList.add("hidden");
+    ok_container.classList.remove("hidden");
+    use_discard_container.classList.add("hidden");
+    dynamicAlert(status, description);
+    checkMixtures();
   }
 });
 

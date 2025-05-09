@@ -267,7 +267,7 @@ createbtn.addEventListener("click", async function () {
 
   // Insert new mixture into the database
   const { data: addMixture, error: mixtureError } = await supabase
-    .from("mixtures_table") // Separate table for created mixtures
+    .from("recipe_table") // Separate table for created mixtures
     .insert([
       {
         branch_id: branchId,

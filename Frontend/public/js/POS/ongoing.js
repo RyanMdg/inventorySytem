@@ -5,6 +5,7 @@ import { calculated } from "../pos-inventory_communication/calculations.js";
 import { GrossIncome } from "../Dashboard/gross_Income.js";
 import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 import { audit_Logs } from "../audit/audit.js";
+import { deductIngredientsForSale } from "../pos-inventory_communication/takoyaki-calculation.js";
 
 // Function to fetch ongoing orders for the logged-in user's branch
 async function fetchOngoingOrders() {
@@ -162,6 +163,28 @@ function attachButtonEventListeners() {
       if (error) {
         console.error("Failed to update status:", error.message);
         alert("Failed to update.");
+      }
+
+      // Deduct ingredients for this completed order
+      const { data: completedOrders } = await supabase
+        .from("pos_orders_table")
+        .select("quantity")
+        .eq("receipt_number", receiptNumber)
+        .eq("status", "completed");
+
+      let ballsSold = 0;
+      if (completedOrders && completedOrders.length > 0) {
+        ballsSold = completedOrders.reduce((sum, order) => {
+          let qty = order.quantity;
+          if (typeof qty === "string" && qty.endsWith("s")) {
+            qty = parseInt(qty.slice(0, -1));
+          }
+          return sum + (parseInt(qty) || 0);
+        }, 0);
+      }
+
+      if (ballsSold > 0) {
+        await deductIngredientsForSale(ballsSold);
       }
     });
   });

@@ -29,10 +29,15 @@ export async function renderCreadtedMixtures() {
     createdsum += item.total;
     createdMixtures.innerHTML += `
       <tr class="border-b border-b-neutral-700">
-        <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${item.raw_mats}</td>
-        <td contentEditable="false"  class="quantity text-center inventoryContent px-4 py-4">${item.quantity}</td>
-        <td contentEditable="false"  class="unimeasure text-center font-bold inventoryContent px-4  py-2">${item.unit}</td>
-        <td  class="px-4 text-center py-2">₱${item.total}</td>
+        <td contentEditable="false"  class="raw-mats text-center inventoryContent px-4 py-4">${
+          item.raw_mats
+        }</td>
+        <td contentEditable="false"  class="quantity text-center inventoryContent px-4 py-4">${item.quantity.toFixed(
+          2
+        )}</td>
+        <td contentEditable="false"  class="unimeasure text-center font-bold inventoryContent px-4  py-2">${
+          item.unit
+        }</td>
       </tr>
      
     `;
@@ -40,22 +45,19 @@ export async function renderCreadtedMixtures() {
   });
 
   const { data: mixtureTable, error: errorMixture } = await supabase
-  .from("mixtures_table")
-  .select("raw_mats,prices,quantity")
-  .eq("branch_id",branchId)
-  .eq("status", "Created_Mixture")
+    .from("mixtures_table")
+    .select("raw_mats,prices,quantity")
+    .eq("branch_id", branchId)
+    .eq("status", "Created_Mixture");
   if (errorMixture) {
     console.error("Error fetching receipts:", errorMixture.message);
-  } 
+  }
 
   let totalRawCost = 0;
 
-
   mixtureTable.forEach((item) => {
-   const  createdsum = item.prices * item.quantity;
-   totalRawCost += createdsum;
-  cretedmixturesum.textContent = `₱${totalRawCost}`;
-
+    const createdsum = item.prices * item.quantity;
+    totalRawCost += createdsum;
+    cretedmixturesum.textContent = `₱${totalRawCost.toFixed(2)}`;
   });
-
 }

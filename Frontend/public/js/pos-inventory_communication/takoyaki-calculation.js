@@ -61,14 +61,14 @@ export async function renderMenuTable() {
   // Fetch dynamic ingredients data
   const { branchId } = await getAuthUserAndBranch();
   const { data: mixturedata } = await supabase
-    .from("mixtures_table")
+    .from("recipe_table")
     .select("raw_mats,prices,quantity")
     .eq("branch_id", branchId);
 
   // Fetch menu items dynamically from Supabase, including original_margin
   const { data: menuItems } = await supabase
     .from("menu_items")
-    .select("name, quantity, price, original_margin")
+    .select("name, quantity, price, original_margin,id")
     .eq("branch_id", branchId);
 
   // Calculate dynamic cost per ball
@@ -82,25 +82,28 @@ export async function renderMenuTable() {
     const ballsInServing = item.quantity;
     const origMenuPrice = item.price;
     const rawCost = costPerBall * ballsInServing;
-    // Use the stored original margin from the DB
-    const origMargin =
+    // Use user margin if set, else original margin from DB
+    let marginToUse =
       item.original_margin !== null && item.original_margin !== undefined
         ? item.original_margin
-        : 0.3; // fallback if missing
-    const suggestedSellingPrice = rawCost / (1 - origMargin);
+        : 0.3;
+    const suggestedSellingPrice = rawCost / (1 - marginToUse);
     const profit = suggestedSellingPrice - rawCost;
     const profitMargin =
       suggestedSellingPrice > 0 ? (profit / suggestedSellingPrice) * 100 : 0;
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td class="px-4 text-center py-2">${ballsInServing}s</td>
-      <td class="px-4 text-center py-2">₱${origMenuPrice}</td>
-      <td class="px-4 text-center py-2">₱${suggestedSellingPrice.toFixed(
+      <td class=\"px-4 text-center py-2\">${ballsInServing}s</td>
+      <td class=\"px-4 text-center py-2\">₱${origMenuPrice}</td>
+      <td class=\"px-4 text-center py-2\">₱${suggestedSellingPrice.toFixed(
         2
       )}</td>
-      <td class="px-4 text-center py-2">₱${rawCost.toFixed(2)}</td>
-      <td class="px-4 text-center py-2">₱${profit.toFixed(2)}</td>
-      <td class="px-4 text-center py-2">${profitMargin.toFixed(2)}%</td>
+      <td class=\"px-4 text-center py-2\">₱${rawCost.toFixed(2)}</td>
+      <td class=\"px-4 text-center py-2\">₱${profit.toFixed(2)}</td>
+      <td class=\"px-4 text-center py-2\">${profitMargin.toFixed(2)}%</td>
+      <td class=\"px-4 text-center py-2\"><button onclick=\"deleteMenuItem(${
+        item.id
+      })\" class=\"text-white rounded px-2 py-1\">🗑️</button></td>
     `;
     menuTableBody.appendChild(row);
   });
@@ -115,7 +118,7 @@ export async function renderIngredientTable() {
   const { branchId } = await getAuthUserAndBranch();
 
   const { data: mixturedata, error: mixtureError } = await supabase
-    .from("mixtures_table")
+    .from("recipe_table")
     .select("raw_mats,prices,quantity")
     .eq("branch_id", branchId);
 
@@ -132,9 +135,11 @@ export async function renderIngredientTable() {
       <td id="prices" class=\"px-4 text-center py-2\"><input type=\"number\" min=\"0\" step=\"0.01\" value=\"${
         ing.prices
       }\" data-idx=\"${idx}\" data-type=\"price\" class=\"ingredient-input border rounded px-2 py-1 w-24\" /></td>
-      <td id="quantity" class=\"px-4 text-center py-2\"><input type=\"number\" min=\"0\" step=\"0.01\" value=\"${
+      <td id="quantity" class=\"px-4 text-center py-2\"><input type=\"number\" min=\"0\" step=\"0.01\" value=\"${Number(
         ing.quantity
-      }\" data-idx=\"${idx}\" data-type=\"quantity\" class=\"ingredient-input border rounded px-2 py-1 w-24\" /></td>
+      ).toFixed(
+        2
+      )}\" data-idx=\"${idx}\" data-type=\"quantity\" class=\"ingredient-input border rounded px-2 py-1 w-24\" /></td>
       <td id="total" class=\"px-4 text-center py-2\">₱${totalCost.toFixed(
         2
       )}</td>
@@ -182,9 +187,9 @@ function setupInputListeners() {
       const row = target.closest("tr");
       const rawMats = row.querySelector("#raws").textContent;
 
-      // Update the database
+      // Update the recipe_table (not mixtures_table)
       const { error, data } = await supabase
-        .from("mixtures_table")
+        .from("recipe_table")
         .update({
           [type === "price" ? "prices" : "quantity"]: value,
         })
@@ -192,7 +197,7 @@ function setupInputListeners() {
         .eq("raw_mats", rawMats);
 
       if (error) {
-        console.error("Error updating mixture:", error);
+        console.error("Error updating recipe:", error);
         return;
       }
       console.log("Update result:", data);
@@ -213,7 +218,7 @@ function setupDeleteListeners() {
       const { branchId } = await getAuthUserAndBranch();
       if (confirm(`Are you sure you want to delete "${rawMats}"?`)) {
         const { error } = await supabase
-          .from("mixtures_table")
+          .from("recipe_table")
           .delete()
           .eq("branch_id", branchId)
           .eq("raw_mats", rawMats);
@@ -229,6 +234,94 @@ function setupDeleteListeners() {
       }
     }
   });
+}
+
+// Add menu item functionality
+const addMenuItemForm = document.getElementById("add-menu-item-form");
+if (addMenuItemForm) {
+  addMenuItemForm.innerHTML = `
+    <input id="new-menu-size" type="number" min="1" placeholder="Size (e.g. 4)" class="border rounded px-2 py-1 w-36" required />
+    <input id="new-menu-price" type="number" min="0" step="0.01" placeholder="Price (₱)" class="border rounded px-2 py-1 w-36" required />
+    <input id="new-menu-margin" type="number" min="0" max="99.9999" step="0.0001" placeholder="e.g. 0.3000 or 30" class="border rounded px-2 py-1 w-36" required />
+    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white rounded px-4 py-1">Add Menu Price</button>
+  `;
+  addMenuItemForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const sizeInput = document.getElementById("new-menu-size");
+    const priceInput = document.getElementById("new-menu-price");
+    const marginInput = document.getElementById("new-menu-margin");
+    const size = parseInt(sizeInput.value);
+    const price = parseFloat(priceInput.value);
+    let margin = parseFloat(marginInput.value);
+    if (!size || !price || isNaN(margin)) return;
+    // If margin > 1, treat as percent and convert to decimal
+    if (margin > 1) margin = margin / 100;
+    // Always store as float with up to 4 decimals
+    margin = parseFloat(margin.toFixed(4));
+    const { branchId } = await getAuthUserAndBranch();
+    await supabase.from("menu_items").insert([
+      {
+        name: `${size}s`,
+        quantity: size,
+        price: price,
+        original_margin: margin,
+        branch_id: branchId,
+      },
+    ]);
+    sizeInput.value = "";
+    priceInput.value = "";
+    marginInput.value = "";
+    await renderMenuTable();
+  });
+}
+
+// Delete menu item functionality
+window.deleteMenuItem = async function (id) {
+  const { branchId } = await getAuthUserAndBranch();
+  await supabase
+    .from("menu_items")
+    .delete()
+    .eq("id", id)
+    .eq("branch_id", branchId);
+  await renderMenuTable();
+};
+
+// Deduct ingredients for a sale and update UI/alert if any are zero
+export async function deductIngredientsForSale(ballsSold) {
+  const { branchId } = await getAuthUserAndBranch();
+  const { data: mixturedata } = await supabase
+    .from("mixtures_table")
+    .select("raw_mats, prices, quantity")
+    .eq("branch_id", branchId);
+
+  let anyZero = false;
+
+  for (const ing of mixturedata) {
+    // Calculate how much to deduct for this sale
+    const deductAmount = ing.quantity * (ballsSold / ballsPerBatch);
+    const newQty = ing.quantity - deductAmount;
+
+    // If any ingredient is zero or less, set flag
+    if (newQty <= 0) anyZero = true;
+
+    // Update the ingredient in the DB
+    await supabase
+      .from("mixtures_table")
+      .update({ quantity: newQty })
+      .eq("branch_id", branchId)
+      .eq("raw_mats", ing.raw_mats);
+  }
+
+  // Update the UI
+  await renderIngredientTable();
+
+  // Show alert if any ingredient is zero or less
+  if (anyZero) {
+    dynamicAlert(
+      "Mixture Zero!",
+      "One or more ingredients have run out. Please restock."
+    );
+  }
 }
 
 // Initialize the table and set up listeners

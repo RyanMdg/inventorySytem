@@ -2,6 +2,7 @@
 
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import supabase from "../../Backend2/config/SupabaseClient.js";
+import { calculateDynamicCostPerBall } from "./takoyaki-calculation.js";
 
 const cretedmixturesum = document.getElementById("createdmixture_sum");
 
@@ -55,8 +56,8 @@ export async function calculated(receiptNum) {
 
   console.log(typeof totalBalls);
 
-  const remainingRaw = sumUpRaw(mixture.total, totalBalls);
-  const raw = remainingRaw.toFixed(1);
+  const remainingRaw = await sumUpRaw(mixture.total, totalBalls);
+  const raw = remainingRaw.toFixed(2);
 
   console.log("Total Balls Ordered:", totalBalls);
   console.log("Remaining Raw Materials After:", raw);
@@ -80,7 +81,7 @@ export async function calculated(receiptNum) {
   }
 }
 
-const sumUpRaw = (expensesRaw, quantity) => {
-  const pricePerBall = 3.285;
+const sumUpRaw = async (expensesRaw, quantity) => {
+  const pricePerBall = await calculateDynamicCostPerBall();
   return expensesRaw - pricePerBall * quantity;
 };

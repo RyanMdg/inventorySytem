@@ -26,7 +26,7 @@ const menuItems = [
  * Formula: Total batch cost ÷ Number of balls per batch (742)
  * @returns {number} Cost per individual takoyaki ball
  */
-async function calculateDynamicCostPerBall() {
+export async function calculateDynamicCostPerBall() {
   const totalCost = await calculateTotalBatchCost();
   return totalCost / ballsPerBatch;
 }
@@ -286,41 +286,69 @@ window.deleteMenuItem = async function (id) {
   await renderMenuTable();
 };
 
+// Spinner helpers (Tailwind)
+function showSpinner() {
+  let spinner = document.getElementById("loading-spinner");
+  if (!spinner) {
+    spinner = document.createElement("div");
+    spinner.id = "loading-spinner";
+    spinner.className =
+      "fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50";
+    spinner.innerHTML = `
+      <div class="flex flex-col items-center">
+        <svg class="animate-spin h-12 w-12 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+        </svg>
+        <span class="mt-4 text-lg font-semibold text-red-600">Processing...</span>
+      </div>
+    `;
+    document.body.appendChild(spinner);
+  }
+  spinner.style.display = "flex";
+}
+function hideSpinner() {
+  const spinner = document.getElementById("loading-spinner");
+  if (spinner) spinner.style.display = "none";
+}
+
 // Deduct ingredients for a sale and update UI/alert if any are zero
 export async function deductIngredientsForSale(ballsSold) {
-  const { branchId } = await getAuthUserAndBranch();
-  const { data: mixturedata } = await supabase
-    .from("mixtures_table")
-    .select("raw_mats, prices, quantity")
-    .eq("branch_id", branchId);
-
-  let anyZero = false;
-
-  for (const ing of mixturedata) {
-    // Calculate how much to deduct for this sale
-    const deductAmount = ing.quantity * (ballsSold / ballsPerBatch);
-    const newQty = ing.quantity - deductAmount;
-
-    // If any ingredient is zero or less, set flag
-    if (newQty <= 0) anyZero = true;
-
-    // Update the ingredient in the DB
-    await supabase
+  showSpinner();
+  try {
+    const { branchId } = await getAuthUserAndBranch();
+    const { data: mixturedata } = await supabase
       .from("mixtures_table")
-      .update({ quantity: newQty })
-      .eq("branch_id", branchId)
-      .eq("raw_mats", ing.raw_mats);
-  }
+      .select("raw_mats, prices, quantity")
+      .eq("branch_id", branchId);
 
-  // Update the UI
-  await renderIngredientTable();
+    let anyZero = false;
+    // Prepare all update promises
+    const updatePromises = mixturedata.map((ing) => {
+      const deductAmount = ing.quantity * (ballsSold / ballsPerBatch);
+      const newQty = ing.quantity - deductAmount;
+      if (newQty <= 0) anyZero = true;
+      return supabase
+        .from("mixtures_table")
+        .update({ quantity: newQty })
+        .eq("branch_id", branchId)
+        .eq("raw_mats", ing.raw_mats);
+    });
 
-  // Show alert if any ingredient is zero or less
-  if (anyZero) {
-    dynamicAlert(
-      "Mixture Zero!",
-      "One or more ingredients have run out. Please restock."
-    );
+    // Run all updates in parallel
+    await Promise.all(updatePromises);
+
+    // Optimistically update the UI
+    renderIngredientTable();
+
+    if (anyZero) {
+      dynamicAlert(
+        "Mixture Zero!",
+        "One or more ingredients have run out. Please restock."
+      );
+    }
+  } finally {
+    hideSpinner();
   }
 }
 

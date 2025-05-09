@@ -11,6 +11,19 @@ const ballsPerBatch = 742;
 const menuTableBody = document.getElementById("menu-table-body");
 const costPerBallSpan = document.getElementById("cost-per-ball");
 
+// Static menu items array
+const menuItems = [
+  { name: "4s", quantity: 4, price: 45 },
+  { name: "8s", quantity: 8, price: 80 },
+  { name: "12s", quantity: 12, price: 125 },
+  { name: "16s", quantity: 16, price: 160 },
+  { name: "20s", quantity: 20, price: 205 },
+  { name: "42s", quantity: 42, price: 450 }
+];
+
+// Get the profit margin input element (assume it exists in the HTML)
+const profitMarginInput = document.getElementById("profit-margin-input");
+
 /**
  * Calculates the cost per individual takoyaki ball
  * Formula: Total batch cost ÷ Number of balls per batch (742)
@@ -45,7 +58,7 @@ function calculateProfitPerServing(costPerBall, menuPrice, ballsPerServing) {
 }
 
 /**
- * Renders the menu table with prices and profit calculations
+ * Renders the menu table with prices and profit calculations using dynamic cost per ball and menuItems.quantity
  */
 export async function renderMenuTable() {
   // Fetch dynamic ingredients data
@@ -66,21 +79,27 @@ export async function renderMenuTable() {
     mixturedata.reduce((sum, ing) => sum + ing.prices * ing.quantity, 0) /
     ballsPerBatch;
 
+  // Get user-adjustable profit margin (as a decimal)
+  let targetProfitMargin = 0.3; // fallback default
+  if (profitMarginInput && !isNaN(parseFloat(profitMarginInput.value))) {
+    targetProfitMargin = parseFloat(profitMarginInput.value) / 100;
+  }
+
   menuTableBody.innerHTML = "";
 
-  menuItems.forEach((item, idx) => {
-    const size = item.quantity + "s";
+  menuItems.forEach((item) => {
+    const ballsInServing = item.quantity;
     const origMenuPrice = item.price;
-    const rawCost = costPerBall * item.quantity;
-    const profit = origMenuPrice - rawCost;
-    const menuprice = rawCost + profit;
-    let suggestedMenuPrice = menuprice;
-    const profitMargin = origMenuPrice > 0 ? (profit / origMenuPrice) * 100 : 0;
+    const rawCost = costPerBall * ballsInServing;
+    // Calculate suggested selling price dynamically
+    const suggestedSellingPrice = rawCost / (1 - targetProfitMargin);
+    const profit = suggestedSellingPrice - rawCost;
+    const profitMargin = suggestedSellingPrice > 0 ? (profit / suggestedSellingPrice) * 100 : 0;
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td class="px-4 text-center py-2">${size}</td>
+      <td class="px-4 text-center py-2">${ballsInServing}s</td>
       <td class="px-4 text-center py-2">₱${origMenuPrice}</td>
-      <td class="px-4 text-center py-2">₱${suggestedMenuPrice.toFixed(2)}</td>
+      <td class="px-4 text-center py-2">₱${suggestedSellingPrice.toFixed(2)}</td>
       <td class="px-4 text-center py-2">₱${rawCost.toFixed(2)}</td>
       <td class="px-4 text-center py-2">₱${profit.toFixed(2)}</td>
       <td class="px-4 text-center py-2">${profitMargin.toFixed(2)}%</td>
@@ -91,6 +110,13 @@ export async function renderMenuTable() {
   if (costPerBallSpan) {
     costPerBallSpan.textContent = `₱${costPerBall.toFixed(2)}`;
   }
+}
+
+// Re-render the menu table when the profit margin input changes
+if (profitMarginInput) {
+  profitMarginInput.addEventListener('input', () => {
+    renderMenuTable();
+  });
 }
 
 // Update the renderIngredientTable function to also update menu calculations

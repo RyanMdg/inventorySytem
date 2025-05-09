@@ -79,6 +79,57 @@ export async function renderStocks() {
     });
 
     notifbadge.textContent = notifCount;
+
+    // Toggle dropdown
+    notificationBtn.onclick = (event) => {
+      event.stopPropagation();
+
+      const isVisible = notificationDropdown.classList.contains("opacity-100");
+
+      if (isVisible) {
+        // Hide dropdown
+        notificationDropdown.classList.add(
+          "translate-y-[-10px]",
+          "opacity-0",
+          "pointer-events-none"
+        );
+        notificationDropdown.classList.remove(
+          "translate-y-0",
+          "opacity-100",
+          "pointer-events-auto"
+        );
+      } else {
+        // Show dropdown
+        notificationDropdown.classList.remove(
+          "translate-y-[-10px]",
+          "opacity-0",
+          "pointer-events-none"
+        );
+        notificationDropdown.classList.add(
+          "translate-y-0",
+          "opacity-100",
+          "pointer-events-auto"
+        );
+      }
+    };
+
+    document.addEventListener("click", (event) => {
+      if (
+        !notificationBtn.contains(event.target) &&
+        !notificationDropdown.contains(event.target)
+      ) {
+        notificationDropdown.classList.add(
+          "translate-y-[-10px]",
+          "opacity-0",
+          "pointer-events-none"
+        );
+        notificationDropdown.classList.remove(
+          "translate-y-0",
+          "opacity-100",
+          "pointer-events-auto"
+        );
+      }
+    });
   }
 
   // Initial render for "New" stock
@@ -88,56 +139,5 @@ export async function renderStocks() {
   inventory_status.addEventListener("change", async () => {
     const selected = inventory_status.value.toLowerCase(); // in case it's "New"/"Old"
     await fetchAndRenderInventory(selected);
-  });
-
-  // Toggle dropdown
-  notificationBtn.onclick = (event) => {
-    event.stopPropagation();
-
-    const isVisible = notificationDropdown.classList.contains("opacity-100");
-
-    if (isVisible) {
-      // Hide dropdown
-      notificationDropdown.classList.add(
-        "translate-y-[-10px]",
-        "opacity-0",
-        "pointer-events-none"
-      );
-      notificationDropdown.classList.remove(
-        "translate-y-0",
-        "opacity-100",
-        "pointer-events-auto"
-      );
-    } else {
-      // Show dropdown
-      notificationDropdown.classList.remove(
-        "translate-y-[-10px]",
-        "opacity-0",
-        "pointer-events-none"
-      );
-      notificationDropdown.classList.add(
-        "translate-y-0",
-        "opacity-100",
-        "pointer-events-auto"
-      );
-    }
-  };
-
-  document.addEventListener("click", (event) => {
-    if (
-      !notificationBtn.contains(event.target) &&
-      !notificationDropdown.contains(event.target)
-    ) {
-      notificationDropdown.classList.add(
-        "translate-y-[-10px]",
-        "opacity-0",
-        "pointer-events-none"
-      );
-      notificationDropdown.classList.remove(
-        "translate-y-0",
-        "opacity-100",
-        "pointer-events-auto"
-      );
-    }
   });
 }

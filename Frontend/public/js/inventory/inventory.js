@@ -389,3 +389,75 @@ document.addEventListener("DOMContentLoaded", function () {
   createRaw.addEventListener("change", fetchPriceAndUpdateTotal);
   createPcs.addEventListener("input", fetchPriceAndUpdateTotal);
 });
+
+// Add global delete function
+window.deleteInventoryItem = async function (rawMats, branchId) {
+  const { error } = await supabase
+    .from("inventory_table")
+    .delete()
+    .eq("raw_mats", rawMats)
+    .eq("branch_id", branchId)
+    .eq("status", "new");
+  if (error) {
+    alert("Failed to delete item: " + error.message);
+  }
+};
+
+// Add global edit (populate form) function
+window.populateEditForm = async function (rawMats, branchId) {
+  const { data, error } = await supabase
+    .from("inventory_table")
+    .select("*")
+    .eq("raw_mats", rawMats)
+    .eq("branch_id", branchId)
+    .eq("status", "new")
+    .single();
+  if (data) {
+    raw.value = data.raw_mats;
+    pcs.value = data.quantity;
+    unit.value = data.unit;
+    prices.value = data.prices;
+    expdate.value = data.exp_date;
+    prchasedate.value = data.prchse_date;
+    window.currentEditRaw = rawMats;
+    window.currentEditBranch = branchId;
+  }
+};
+
+// Update button logic
+updateBtn.addEventListener("click", async function () {
+  const rawMats = window.currentEditRaw;
+  const branchId = window.currentEditBranch;
+  if (!rawMats || !branchId) {
+    alert("No item selected for update.");
+    return;
+  }
+  const { error } = await supabase
+    .from("inventory_table")
+    .update({
+      raw_mats: raw.value,
+      quantity: pcs.value,
+      unit: unit.value,
+      prices: parseFloat(prices.value),
+      exp_date: expdate.value,
+      prchse_date: prchasedate.value,
+      total: (parseFloat(prices.value) * parseFloat(pcs.value)).toFixed(2),
+    })
+    .eq("raw_mats", rawMats)
+    .eq("branch_id", branchId)
+    .eq("status", "new");
+  if (error) {
+    alert("Failed to update item: " + error.message);
+  } else {
+    await renderStocks();
+    // Optionally clear the form
+    raw.value = "";
+    pcs.value = "";
+    unit.value = "";
+    prices.value = "";
+    expdate.value = "";
+    prchasedate.value = "";
+    window.currentEditRaw = null;
+    window.currentEditBranch = null;
+  }
+});

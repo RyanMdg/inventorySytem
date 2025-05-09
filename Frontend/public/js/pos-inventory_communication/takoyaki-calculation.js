@@ -18,11 +18,8 @@ const menuItems = [
   { name: "12s", quantity: 12, price: 125 },
   { name: "16s", quantity: 16, price: 160 },
   { name: "20s", quantity: 20, price: 205 },
-  { name: "42s", quantity: 42, price: 450 }
+  { name: "42s", quantity: 42, price: 450 },
 ];
-
-// Get the profit margin input element (assume it exists in the HTML)
-const profitMarginInput = document.getElementById("profit-margin-input");
 
 /**
  * Calculates the cost per individual takoyaki ball
@@ -79,11 +76,20 @@ export async function renderMenuTable() {
     mixturedata.reduce((sum, ing) => sum + ing.prices * ing.quantity, 0) /
     ballsPerBatch;
 
-  // Get user-adjustable profit margin (as a decimal)
-  let targetProfitMargin = 0.3; // fallback default
-  if (profitMarginInput && !isNaN(parseFloat(profitMarginInput.value))) {
-    targetProfitMargin = parseFloat(profitMarginInput.value) / 100;
-  }
+  // Compute original margins from DB
+  const originalCostPerBall =
+    mixturedata.reduce((sum, ing) => sum + ing.prices * ing.quantity, 0) /
+    ballsPerBatch;
+  const originalMargins = {};
+  menuItems.forEach((item) => {
+    const menuPrice = item.price;
+    const balls = item.quantity;
+    const totalCost = originalCostPerBall * balls;
+    const profit = menuPrice - totalCost;
+    const margin = menuPrice > 0 ? profit / menuPrice : 0.3;
+    if (!originalMargins[item.name]) originalMargins[item.name] = {};
+    originalMargins[item.name][balls] = margin;
+  });
 
   menuTableBody.innerHTML = "";
 
@@ -91,15 +97,22 @@ export async function renderMenuTable() {
     const ballsInServing = item.quantity;
     const origMenuPrice = item.price;
     const rawCost = costPerBall * ballsInServing;
-    // Calculate suggested selling price dynamically
-    const suggestedSellingPrice = rawCost / (1 - targetProfitMargin);
+    // Use original margin for suggested price
+    const origMargin =
+      (originalMargins[item.name] &&
+        originalMargins[item.name][ballsInServing]) ||
+      0.3;
+    const suggestedSellingPrice = rawCost / (1 - origMargin);
     const profit = suggestedSellingPrice - rawCost;
-    const profitMargin = suggestedSellingPrice > 0 ? (profit / suggestedSellingPrice) * 100 : 0;
+    const profitMargin =
+      suggestedSellingPrice > 0 ? (profit / suggestedSellingPrice) * 100 : 0;
     const row = document.createElement("tr");
     row.innerHTML = `
       <td class="px-4 text-center py-2">${ballsInServing}s</td>
       <td class="px-4 text-center py-2">₱${origMenuPrice}</td>
-      <td class="px-4 text-center py-2">₱${suggestedSellingPrice.toFixed(2)}</td>
+      <td class="px-4 text-center py-2">₱${suggestedSellingPrice.toFixed(
+        2
+      )}</td>
       <td class="px-4 text-center py-2">₱${rawCost.toFixed(2)}</td>
       <td class="px-4 text-center py-2">₱${profit.toFixed(2)}</td>
       <td class="px-4 text-center py-2">${profitMargin.toFixed(2)}%</td>
@@ -110,13 +123,6 @@ export async function renderMenuTable() {
   if (costPerBallSpan) {
     costPerBallSpan.textContent = `₱${costPerBall.toFixed(2)}`;
   }
-}
-
-// Re-render the menu table when the profit margin input changes
-if (profitMarginInput) {
-  profitMarginInput.addEventListener('input', () => {
-    renderMenuTable();
-  });
 }
 
 // Update the renderIngredientTable function to also update menu calculations

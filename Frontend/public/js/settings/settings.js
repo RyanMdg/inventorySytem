@@ -12,6 +12,6 @@ const aside2 = document.getElementById("aside2");
 settingsBtn.addEventListener("click", function () {
   navTextContent.classList.add("hidden");
   // asidesForSettings.classList.remove("hidden");
-  aside2.classList.remove("hidden");
+  // aside2.classList.remove("hidden");
   console.log("hello");
 });

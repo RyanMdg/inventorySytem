@@ -228,6 +228,16 @@ async function fetchUser() {
       document.getElementById("role").textContent = user.role;
 
       console.log(user.role, user.name);
+    } else if (user.role == "franchisee") {
+      const mainPage = document.getElementById("mainPage");
+      document.getElementById("branch").classList.toggle("hidden");
+      document.getElementById("branchcontent").classList.toggle("hidden");
+
+      document.getElementById("Container").classList.toggle("hidden");
+      document.getElementById("audit_Log").classList.toggle("hidden");
+      profile_name.textContent = user.name;
+      document.getElementById("branch-name").textContent = user.name;
+      document.getElementById("role").textContent = user.role;
     }
   });
 }

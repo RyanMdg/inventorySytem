@@ -113,11 +113,11 @@
 
               <li class=" flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
                 <img src="./images/human.png" class=" w-[2rem]" alt="" srcset="">
-                  <span class="text-sm text-[#000000] font-semibold">Sauyo Branch</span>
+                  <span id="quicklogdisplay" class="text-sm text-[#000000] font-semibold">No quick login</span>
               </li>
              
           </ul>
-          <div id="" class="border-b-2 mb-2 mx-3 pb-2 cursor-pointer border-[#929292]">
+          <div id="addNewAcc" class="border-b-2 mb-2 mx-3 pb-2 cursor-pointer border-[#929292]">
             <h1 class="flex gap-2 px-5 text-sm items-center">
             <span><img src="./images/profile.png" alt="" class=" w-[1.5rem]" srcset=""></span>
              Add Another Account
@@ -165,7 +165,7 @@
         <li id="Container" class="text-[#ffff] hidden cursor-pointer">
           <a
             @click="page='dashboard'"
-            class="text-[#ffff] bg-[#B60205] rounded-sm py-3 delay-200 ease-in duration-200 flex gap-2 items-center"
+            class="text-[#ffff] bg-[#B60205] rounded-sm py-3 delay-200 ease-in duration-200 flex gap-2 items-center px-7"
             id="dashboard"
             ><ion-icon class="text-[1rem]" name="layers-outline"></ion-icon>
             Dashboard
@@ -1101,104 +1101,90 @@
          <p>View and manage Your profile.</p>
     </div> -->
 
-    <div x-show="page === 'staffForm'" class="flex flex-col gap-5 mt-[7rem]">
-      <h1 class=" font-semibold text-2xl px-5">Add Role Account</h1>
-      
-      <form id="addStaff"  class="px-4 md:px-10 my-auto flex flex-col   gap-6 w-full " action="">
-        <!-- add staff account -->
-         <div class="flex justify-around">
-
-          <div class="flex gap-4 flex-col">
+    <div x-show="page === 'staffForm'" class="flex flex-col gap-5 mt-[7rem] overflow-y-auto max-h-[80vh]">
+      <h1 class="font-semibold text-2xl px-5">Add Role Account</h1>
+      <form id="addStaff" class="px-2 sm:px-4 md:px-10 my-auto flex flex-col gap-6 w-full" action="">
+        <!-- Responsive columns for fields -->
+        <div class="flex flex-col md:flex-row md:justify-around gap-6 md:gap-10">
+          <!-- Column 1 -->
+          <div class="flex gap-4 flex-col w-full md:w-1/3">
             <label class="font-semibold">Username</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
               <ion-icon name="person-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-              <input type="text" name="name" class="outline-none w-full" placeholder="kyla">
+              <input type="text" name="name" class="bg-transparent outline-none w-full" placeholder="kyla">
             </div>
-    
             <label class="font-semibold">Password</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
               <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-              <input type="password" class="outline-none w-full" placeholder="Enter password" name="password">
+              <input type="password" class="bg-transparent outline-none w-full" placeholder="Enter password" name="password">
             </div>
-    
             <label class="font-semibold">Confirm Password</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
               <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-              <input type="password" class="outline-none w-full" placeholder="Confirm password" name="confirm_password">
+              <input type="password" class="bg-transparent outline-none w-full" placeholder="Confirm password" name="confirm_password">
             </div>
             <span id="password-mismatch" class="text-red-600 text-xs hidden">Passwords do not match.</span>
-        </div>
-    
-          <div class="flex gap-4 flex-col">
+          </div>
+          <!-- Column 2 -->
+          <div class="flex gap-4 flex-col w-full md:w-1/3">
             <div class="flex flex-col gap-4">
               <label class="font-semibold">Profile Picture</label>
               <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
                 <ion-icon name="image-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-                <input type="file" name="profilepicture" id="profilepicture" accept="image/*" class="outline-none w-full">
+                <input type="file" name="profilepicture" id="profilepicture" accept="image/*" class="bg-transparent outline-none w-full">
               </div>
-           </div>
-           
+            </div>
             <label class="font-semibold">Email</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
               <ion-icon name="mail-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-              <input type="email" name="email" class="outline-none w-full" placeholder="example@email.com">
+              <input type="email" name="email" class="bg-transparent outline-none w-full" placeholder="example@email.com">
             </div>
-  
             <label class="font-semibold">Date of Birth</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
               <ion-icon name="calendar-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-              <input type="date" name="date_of_birth" class="outline-none w-full">
+              <input type="date" name="date_of_birth" class="bg-transparent outline-none w-full">
             </div>
           </div>
-  
-          <div class="flex gap-4 flex-col">
+          <!-- Column 3 -->
+          <div class="flex gap-4 flex-col w-full md:w-1/3">
             <label class="font-semibold">Contact Number</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
               <ion-icon name="call-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-              <input type="text" name="contact_number" class="outline-none w-full" placeholder="09xxxxxxxxx">
+              <input type="text" name="contact_number" class="outline-none bg-transparent w-full" placeholder="09xxxxxxxxx">
             </div>
-    
             <label class="font-semibold">Gender</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
               <ion-icon name="male-female-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-              <select name="gender" class="outline-none w-full">
-                <option value="">Select gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+              <select name="gender" class="bg-transparent outline-none w-full">
+                <option class="bg-transparent" value="">Select gender</option>
+                <option class="bg-transparent" value="male">Male</option>
+                <option class="bg-transparent" value="female">Female</option>
+                <option class="bg-transparent" value="other">Other</option>
               </select>
             </div>
-    
             <label class="font-semibold">Address</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
               <ion-icon name="home-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-              <input type="text" name="address" class="outline-none w-full" placeholder="Enter address">
+              <input type="text" name="address" class="bg-transparent outline-none w-full" placeholder="Enter address">
             </div>
           </div>
         </div>
-       
-        <div class=" flex gap-5">
-          <div class=" flex flex-col gap-3">
-            <label class="font-semibold">Role</label>
-          <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+        <!-- Role select and button row -->
+        <div class="flex flex-col sm:flex-row gap-4 mt-4">
+          <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3 w-full sm:w-auto">
             <ion-icon name="person-circle-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-            <select name="role" class="outline-none w-full">
-              <option value="">Select role</option>
-              <option value="staff">Staff</option>
-              <option value="manager">Manager</option>
-              <option value="admin">Admin</option>
+            <select name="role" class="bg-transparent outline-none w-full">
+              <option class="bg-transparent" value="">Select role</option>
+              <option class="bg-transparent" value="staff">Staff</option>
+              <option class="bg-transparent" value="admin">Admin</option>
             </select>
           </div>
-          </div>
-          
-          <div class="col-span-1 md:col-span-2 flex flex-col md:flex-row gap-5 mt-5">
-            <button type="submit" class="w-full bg-red-700 text-white py-3 rounded-lg hover:bg-red-800 transition">
+          <div class="flex items-center w-full sm:w-auto">
+            <button type="submit" class="w-full px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800 transition">
               Register
             </button>
-            </div>
+          </div>
         </div>
-       
-        
       </form>
     </div>
       
@@ -1558,7 +1544,8 @@
   <!-- * MAIN DYNAMIC MODAL ALERT -->
   <div
   id="dynamicmodal"
-  class="fixed inset-0 bg-opacity-0 opacity-0  scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+  class="fixed inset-0 bg-opacity-0 opacity-0
+    scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
 >
 
    <div
@@ -1569,13 +1556,41 @@
      <div class="w-full bg-[#302D3D] flex items-center justify-center p-3" id="black-bar">
       <img id="greenCheck" src="./images/check-green-image.png" alt="greenCheck"  class="w-[4rem] " />
       <img id="redCheck" src="./images/wrong-red-image 1.png" alt="redCheck"  class="w-[4rem] hidden">
-      <h1 id="headerTxt" class=" text-[#ffff] hidden font-semibold">Add Staff Account</h1>
+      <h1 id="headerTxt" class=" text-[#ffff] hidden font-semibold">Add Quick Logins</h1>
     </div>
 
     <div id="contextContainer" class="flex flex-col items-center">
       <h2 id="status" class="font-semibold text-3xl mt-4"></h2>
       <h1 id="description" class="p-2 text-sm">
       </h1>
+      <div id="quickLogin" class="hidden flex gap-3">
+
+        <div>
+          <label class="font-semibold">Branch Name</label>
+          <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+            <ion-icon name="storefront-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+            <input id="quicklogname" type="text" name="name" class="bg-transparent outline-none w-full" placeholder="Sauyo Branch">
+          </div>
+        </div>
+
+        <div>
+          <label class="font-semibold">Email</label>
+          <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+            <ion-icon name="mail-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+            <input id="quicklogemail" type="email" name="email" class="bg-transparent outline-none w-full" placeholder="example@email.com">
+          </div>
+        </div>
+       
+        <div>
+          <label class="font-semibold">Password</label>
+          <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+            <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+            <input id="quicklogpass" type="password" class="bg-transparent outline-none w-full" placeholder="Enter password" name="password">
+          </div>
+        </div>
+       
+      </div>
+    
     </div>
     
 
@@ -1587,6 +1602,14 @@
       >
         Ok
       </div>
+    </div>
+    <div id="quickLogin_container" class="flex hidden justify-center items-center">
+      <button
+        class="text-sm cursor-pointer text-white font-medium text-center bg-[#B60205] w-[20%] p-1 m-3 rounded-sm shadow drop-shadow-md"
+        id="quickLoginBtn"
+      >
+        Login
+      </button>
     </div>
     <div id="use_discard_container" class="flex hidden gap-5 justify-around mx-10 mt-5">
       <button
@@ -1724,6 +1747,7 @@
     <script type="module" src="./js/pos-inventory_communication/takoyaki-calculation.js"></script>
     <script type="module" src="./js/profile/profile-info.js"></script>
     <script type="module" src="./js/logout/logout.js"></script>
+    <script type="module" src="./js/profile/quicklogs.js"></script>
 
   </main>
   </body>

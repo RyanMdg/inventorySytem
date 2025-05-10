@@ -9,6 +9,8 @@ const headerTxt = document.getElementById("headerTxt");
 const greenCheck = document.getElementById("greenCheck");
 const ok_container = document.getElementById("ok_container");
 const addStaffCancelBtn = document.getElementById("addStaffCancelBtn");
+const quickLogin = document.getElementById("quickLogin");
+const quickLoginBtn = document.getElementById("quickLogin_container");
 
 addNewAcc.addEventListener("click", function () {
   dynamicAlert(null, null);
@@ -16,6 +18,8 @@ addNewAcc.addEventListener("click", function () {
   greenCheck.classList.add("hidden");
   addStaff.classList.remove("hidden");
   ok_container.classList.add("hidden");
+  quickLogin.classList.remove("hidden");
+  quickLoginBtn.classList.remove("hidden");
 });
 
 addStaffCancelBtn.addEventListener("click", function () {

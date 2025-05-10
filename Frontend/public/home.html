@@ -1102,10 +1102,68 @@
     </div> -->
       
       <!--*** PROFILE SETTINGS **** -->
-      <div x-show="page === 'profile'" class="mt-[5rem]" x-cloak>
-        <h1 class="text-2xl font-bold">Profile</h1>
-        <p>View and manage Your profile.</p>
+      <div x-show="page === 'profile'" class="mt-[5rem] flex justify-center items-start min-h-[80vh] bg-gray-50" x-cloak>
+        <div class="w-full max-w-xl bg-white rounded-lg shadow p-8">
+          <h1 class="text-3xl font-bold mb-6 text-gray-800">Account Settings</h1>
+          <h2 class="text-lg font-semibold mb-2 text-gray-700">Basic Info</h2>
+          <div class="flex items-center gap-6 mb-6">
+            <div class="relative flex flex-col items-center">
+              <img id="profile-picture" src="/public/images/human.png" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-gray-200 object-cover" />
+              <label class="text-xs text-gray-500 mt-2 cursor-pointer">
+                Upload new picture
+                <input id="profile-picture-input" type="file" accept="image/*" class="hidden" />
+              </label>
+              <button id="remove-picture-btn" class="text-xs text-red-600 hover:underline mt-1">Remove</button>
+            </div>
+          </div>
+          <div class="divide-y divide-gray-200 mb-8">
+            <div class="flex items-center py-3">
+              <div class="w-1/3 text-gray-600">Name</div>
+              <div class="flex-1 font-semibold text-gray-800" id="profile-name"></div>
+              <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="name"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13h6m2 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
+        </div>
+        <div class="flex items-center py-3">
+          <div class="w-1/3 text-gray-600">Date of Birth</div>
+          <div class="flex-1 font-semibold text-gray-800" id="profile-dob"></div>
+          <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="date_of_birth"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13h6m2 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
+        </div>
+        <div class="flex items-center py-3">
+          <div class="w-1/3 text-gray-600">Contact Number</div>
+          <div class="flex-1 font-semibold text-gray-800" id="profile-contact"></div>
+          <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="contact_number"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13h6m2 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
+        </div>
+        <div class="flex items-center py-3">
+          <div class="w-1/3 text-gray-600">Gender</div>
+          <div class="flex-1 font-semibold text-gray-800" id="profile-gender"></div>
+          <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="gender"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13h6m2 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
+        </div>
+        <div class="flex items-center py-3">
+          <div class="w-1/3 text-gray-600">Address</div>
+          <div class="flex-1 font-semibold text-gray-800" id="profile-address"></div>
+          <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="address"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13h6m2 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
+        </div>
       </div>
+      <h2 class="text-lg font-semibold mb-2 text-gray-700">Account Info</h2>
+      <div class="divide-y divide-gray-200 mb-8">
+        <div class="flex items-center py-3">
+          <div class="w-1/3 text-gray-600">Email</div>
+          <div class="flex-1 font-semibold text-gray-800 underline" id="profile-email"></div>
+        </div>
+        <div class="flex items-center py-3">
+          <div class="w-1/3 text-gray-600">Password</div>
+          <div class="flex-1 font-semibold text-gray-800" id="profile-password">•••••••••••••••</div>
+          <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="password"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13h6m2 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
+        </div>
+        <div class="flex items-center py-3">
+          <div class="w-1/3 text-gray-600">Role</div>
+          <div class="flex-1 font-semibold text-gray-800" id="profile-role"></div>
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <button id="save-profile-btn" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition font-semibold">Save Changes</button>
+      </div>
+    </div>
+  </div>
 
       <!-- *HOME PAGE -->
       <div class=" flex flex-col justify-center items-center h-screen" x-show="page === 'home'">
@@ -1594,6 +1652,7 @@
     <script type="module" src="./js/profile/addStaffAccount.js"></script>
     <script type="module" src="./js/profile/renders/signUpStaffAcc.js"></script>
     <script type="module" src="./js/pos-inventory_communication/takoyaki-calculation.js"></script>
+    <script type="module" src="./js/profile/profile-info.js"></script>
    
 
   </main>

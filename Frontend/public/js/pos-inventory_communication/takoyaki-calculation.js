@@ -69,7 +69,7 @@ export async function renderMenuTable() {
   const { data: menuItems } = await supabase
     .from("menu_items")
     .select("name, quantity, price, original_margin,id")
-    
+    .eq("branch_id", branchId);
 
   // Calculate dynamic cost per ball
   const costPerBall =

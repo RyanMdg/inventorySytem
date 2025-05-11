@@ -2,13 +2,10 @@ import supabase from "../../Backend2/config/SupabaseClient.js";
 import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 
-
 const quicklogname = document.getElementById("quicklogname");
 const quicklogemail = document.getElementById("quicklogemail");
 const quicklogpass = document.getElementById("quicklogpass");
 const quicklogbtn = document.getElementById("quickLogin_container");
-const quicklogdisplay = document.getElementById("quicklogdisplay");
-
 
 quicklogbtn.addEventListener("click", async () => {
   const {branchId} = await getAuthUserAndBranch();
@@ -20,8 +17,7 @@ quicklogbtn.addEventListener("click", async () => {
       email: quicklogemail.value,
       password: quicklogpass.value,
       branch_id: branchId,
-    })
- 
+    });
 
   if (error) {
     console.error(error);
@@ -32,19 +28,6 @@ quicklogbtn.addEventListener("click", async () => {
       "Updated as a quick login"
     );
   }
-
 });
-
-const {branchId} = await getAuthUserAndBranch();
-
-const { data: quicklogData, error: quicklogError } = await supabase
-  .from("quicklogins")
-  .select("*")
-  .eq("branch_id", branchId)
- 
-  quicklogData.forEach(row => {
-    quicklogdisplay.textContent = row.branchName;
-  });
-
 
 

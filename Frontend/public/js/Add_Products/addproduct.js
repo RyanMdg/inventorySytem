@@ -205,6 +205,35 @@ async function fetchUser() {
     return;
   }
 
+  // const { data: permission, error: permisionError } = await supabase
+  //   .from("staff_permissions")
+  //   .select("*")
+  //   .eq("branch_id", branchId)
+  //   .eq("id", userId);
+
+  // if (permission) {
+  //   console.error("Error fetching branch name:", permission.message);
+  //   return;
+  // }
+
+  // permission.forEach((perm) => {
+  //   if(perm.dashboard_access == false){
+  //     document.getElementById("dashboard").classList.toggle("hidden");
+  //   }
+  //   if(perm.pos_access == false){
+  //     document.getElementById("pos").classList.toggle("hidden");
+  //   }
+  //   if(perm.inventory_access == false){
+  //     document.getElementById("inventory").classList.toggle("hidden");
+  //   }
+  //   if(perm.audit_access == false){
+  //     document.getElementById("audit").classList.toggle("hidden");
+  //   }
+  //   if(perm.franchise_access == false){
+  //     document.getElementById("Branch").classList.toggle("hidden");
+  //   }
+  // });
+
   branchData.forEach((user) => {
     if (user.role == "Main Branch") {
       const mainPage = document.getElementById("mainPage");
@@ -231,11 +260,24 @@ async function fetchUser() {
     } else if (user.role == "franchisee") {
       const mainPage = document.getElementById("mainPage");
       document.getElementById("branchcontent").classList.toggle("hidden");
-      document
-      .getElementById("featuresownercontainer")
-      .classList.toggle("hidden");
       document.getElementById("Container").classList.toggle("hidden");
       document.getElementById("audit_Log").classList.toggle("hidden");
+      profile_name.textContent = user.name;
+      document.getElementById("addnewaccstaff").classList.toggle("hidden");
+      document.getElementById("branch-name").textContent = user.name;
+      document.getElementById("role").textContent = user.role;
+    }
+    else if (user.role == "admin") {
+      const mainPage = document.getElementById("mainPage");
+      document.getElementById("branch").classList.toggle("hidden");
+      document.getElementById("branchcontent").classList.toggle("hidden");
+      document.getElementById("add_prod_container").classList.toggle("hidden");
+      document.getElementById("Container").classList.toggle("hidden");
+      document.getElementById("registerPage").classList.toggle("hidden");
+      document.getElementById("audit_Log").classList.toggle("hidden");
+      document
+        .getElementById("featuresownercontainer")
+        .classList.toggle("hidden");
       profile_name.textContent = user.name;
       document.getElementById("branch-name").textContent = user.name;
       document.getElementById("role").textContent = user.role;

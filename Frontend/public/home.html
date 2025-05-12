@@ -133,7 +133,7 @@
              Add Another Account
           </h1>
           </div>
-          <div id="" @click="page='staffForm'" class="border-b-2 mb-2 mx-3 pb-2 cursor-pointer border-[#929292]">
+          <div id="addnewaccstaff" @click="page='staffForm'" class="border-b-2 mb-2 mx-3 pb-2 cursor-pointer border-[#929292]">
             <h1 class="flex gap-2 px-5 text-sm items-center">
             <span><ion-icon name="person" class="text-[1.3rem]"></ion-icon></span>
              Add Staff Account
@@ -715,63 +715,73 @@
           </div>
 
           <!--* SIDE RECEIPT -->
-          <div id="mainreciept"  class="bg-white pt-24  shadow drop-shadow-2xl w-[30%]  h-dvh text-[#302D3D] flex flex-col">
-             <ul class="flex max-[69rem]:text-[.8rem] font-semibold   gap-5  px-8">
-                 <li>
-                     <a id="togo" class="bg-[#EAEEF7] shadow drop-shadow-2xl px-5 max-[69rem]:px-2 py-1 rounded-md" href="#">To Go</a>
+          <div id="mainreciept" class="bg-white pt-24 shadow-lg w-[30%] h-dvh text-[#302D3D] flex flex-col">
+            <!-- Delivery Options -->
+            <div class="px-8 pb-6">
+              <ul class="flex gap-4">
+                <li>
+                  <button id="togo" class="px-6 py-1.5 text-sm font-medium transition-all duration-200 border-b-2 border-transparent hover:border-[#B60205] data-[active=true]:border-[#B60205] data-[active=true]:text-[#B60205]">To Go</button>
                 </li>
-                 <li>
-                       <a id="del" class="bg-[#EAEEF7] shadow drop-shadow-2xl px-4 py-1 rounded-md" href="#">Delivery</a>
-                 </li>
-             </ul>
+                <li>
+                  <button id="del" class="px-6 py-1.5 text-sm font-medium transition-all duration-200 border-b-2 border-transparent hover:border-[#B60205] data-[active=true]:border-[#B60205] data-[active=true]:text-[#B60205]">Delivery</button>
+                </li>
+              </ul>
+            </div>
 
-  <h1 class="text-2xl ms-4 mb-3 mt-5 font-semibold  max-[69rem]:text-[1rem]">Payment Method</h1>
+            <!-- Payment Method -->
+            <div class="px-8 py-4 border-y border-gray-100">
+              <h1 class="text-sm font-medium mb-3 text-gray-500">Payment Method</h1>
+              <ul class="flex gap-6">
+                <li>
+                  <button id="cash" class="text-sm font-medium transition-all duration-200 border-b-2 border-transparent px-6 py-1.5 hover:border-[#B60205] data-[active=true]:border-[#B60205] data-[active=true]:text-[#B60205]">Cash</button>
+                </li>
+                <li>
+                  <button id="gcash" class="text-sm font-medium transition-all duration-200 px-6 py-1.5 border-b-2 border-transparent hover:border-[#B60205] data-[active=true]:border-[#B60205] data-[active=true]:text-[#B60205]">GCash</button>
+                </li>
+                <li>
+                  <button id="bank" class="text-sm font-medium transition-all duration-200 border-b-2 px-6 py-1.5 border-transparent hover:border-[#B60205] data-[active=true]:border-[#B60205] data-[active=true]:text-[#B60205]">Bank</button>
+                </li>
+              </ul>
+            </div>
 
-  <ul class="px-8 font-semibold max-[69rem]:px-5 max-[69rem]:text-[.8rem]   flex gap-5 max-[69rem]:gap-2">
-    <li>
-      <a id="cash" class="bg-[#EAEEF7] px-4 py-1 shadow drop-shadow-2xl  rounded-md" href="#">Cash</a>
-    </li>
-    <li>
-      <a id="gcash" class="bg-[#EAEEF7] px-4 py-1 shadow drop-shadow-2xl rounded-md" href="#">Gcash</a>
-    </li>
-    <li>
-      <a id="bank" class="bg-[#EAEEF7] px-4 py-1 shadow drop-shadow-2xl rounded-md" href="#">Bank</a>
-    </li>
-  </ul>
+            <!-- Order Items -->
+            <div class="flex-1 overflow-hidden">
+              <div class="px-8 py-4 border-b border-gray-100">
+                <div class="flex justify-between text-sm font-semibold text-gray-600">
+                  <span class="w-[45%]">Items</span>
+                  <span class="w-[25%] text-center">QTY</span>
+                  <span class="w-[30%] text-right">Price</span>
+                </div>
+              </div>
+              
+              <div class="overflow-y-auto h-full px-8 pb-4 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent hover:scrollbar-thumb-gray-300">
+                <div id="listProducts" class="space-y-4 pt-4">
+                  <!-- Product Item Template -->
+                  <div class="flex items-start justify-between py-2">
+                   
+                  </div>
+                </div>
+                <div id="add_Container" class="flex flex-col gap-2 mt-4">
+                  <!-- Add-ons will be listed here -->
+                  <div class="flex justify-between items-center text-sm">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  <div class="flex-1">
-    <table class="mt-5  max-[69rem]:mt-5 w-full border-collapse">
-      <thead class="pb-5">
-        <tr class="border-b-2 border-gray-300">
-          <th class="px-5 py-3 text-left">Items</th>
-          <th class="px-5 py-3 text-left">QTY</th>
-          <th class="px-5 py-3 text-left">Price</th>
-        </tr>
-      </thead>
-     
-    </table>
-    <div >
-      <div id="listProducts">
-
-      </div>
-      <div id="add_Container" class=" flex mx-5 gap-3 text-[.8rem]">
-      
-      </div>
-      
-   
-    </div>
-   
-  </div>
-
-  <!-- Gray Div at the Bottom -->
-             <div class="h-[7%] text-[1rem] font-semibold flex items-center justify-between px-[1rem] text-white bg-gray-400">
-                 <h1 class=" uppercase ">Total</h1> <span class="grandTotal"></span></div>
-                     <button  class="flex cursor-pointer placeOrderBtn justify-center items-center text-white  h-[10%] text-[1.5rem] bg-[#B60205]">Place Order </button>
-
-</div>
-
+            <!-- Total and Place Order -->
+            <div class="mt-auto">
+              <div class="flex items-center justify-between px-8 py-4 bg-gray-50 font-semibold">
+                <span class="uppercase text-gray-800">Total</span>
+                <span class="grandTotal text-[#B60205] text-xl"></span>
+              </div>
+              <button class="placeOrderBtn w-full py-4 bg-[#B60205] text-white font-semibold hover:bg-[#8B0205] transition-colors duration-200 text-lg uppercase tracking-wide">
+                Place Order
+              </button>
+            </div>
           </div>
-        
+
       </div>
 
 
@@ -1029,279 +1039,279 @@
                       </select>
                       <input type="text" id="otherTypeInput" placeholder="Specify expense type"
                         class="border border-gray-300 rounded-md px-3 py-2 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                              style="display:none;" />
-                          </div>
-                          <div class="md:col-span-3 flex justify-end">
-                            <button type="submit" class="bg-red-700 text-white font-semibold px-6 py-2 rounded hover:bg-red-800 transition duration-200 w-full md:w-auto">
-                              Add Expense
-                            </button>
-                          </div>
-                        </form>
-                        <div class="mt-8 overflow-x-auto">
-                          <table class="min-w-full table-auto border border-gray-300 rounded-lg overflow-hidden">
-                            <thead class="bg-gray-100 text-gray-700 text-sm font-semibold">
-                              <tr>
-                                <th class="border px-4 py-2 text-left">Name</th>
-                                <th class="border px-4 py-2 text-left">Price</th>
-                                <th class="border px-4 py-2 text-left">Type of Expense</th>
-                              </tr>
-                            </thead>
-                            <tbody id="expensesTableBody" class="text-gray-800 text-sm bg-white">
-                              <!-- Dynamic rows will be inserted here -->
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
+                        style="display:none;" />
                     </div>
-                
-                
-              </div>
-
-
-                 
-
-              <!-- *ALREADY MADE MIXTURES CONTAINER -->
-              <div x-show="intPage === 'Mixtures'" x-cloak>
-                   
-                  <div id="nomixtures" class=" flex flex-col justify-center mt-40 items-center">
-                    <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
-                    <h2 class=" text-center text-[#ff4d4d] font-semibold" >
-                      ❌ You don't have any mixtures yets!
-                    </h2>
-                    <p style="text-align: center; color: #666;">
-                      Start creating mixtures to see them here.
-                    </p>
-                  </div>
-                   
-                  <section id="tablemixture" class="hidden">
-                    
-                    <div class="max-h-[30rem] mt-10 overflow-y-auto border border-gray-300">
-                      <table class="w-full border-collapse">
-                        <thead class=" opacity-[65%] text-left sticky top-0">
-                          <tr class="bg-[#A3A0B3] text-white">
-                            <th class="px-4 text-center py-2">Raw Materials</th>
-                            <th class="px-4 text-center py-2">Quantity</th>
-                            <th class="px-4 text-center py-2">Unit</th>
-                            <th class="px-4 text-center py-2">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody id="created_mixtures" class="divide-y divide-gray-200">
-                          <!-- Dynamic Datas -->
-                        </tbody>
-                      </table>
+                    <div class="md:col-span-3 flex justify-end">
+                      <button type="submit" class="bg-red-700 text-white font-semibold px-6 py-2 rounded hover:bg-red-800 transition duration-200 w-full md:w-auto">
+                        Add Expense
+                      </button>
                     </div>
-                    <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
-                      <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
-                    <span id="createdmixture_sum" class=" font-semibold text-[1rem] me-14">400</span>
-                   </div>
-
-                   <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
-                    
-                   
-                     <button id="leftoverBtn" class=" cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
-                      Left Over
-                     </button>
-
-                     
-                   </div>
-                 
-                  </section>
-              
-              </div>
-
-
-              <!-- *ALREADY LEFTOVER CONTAINER -->
-              <div x-show="intPage === 'Left Over'" x-cloak>
-                <div id="noleftmixtures" class=" flex flex-col justify-center mt-40 items-center">
-                  <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
-                  <h2 class="text-center text-[#ff4d4d] font-semibold">
-                    ❌ You don't have any leftovers yets!
-                  </h2>
-                  <p style="text-align: center; color: #666;">
-                    Leftovers will be displayed here!
-                  </p>
-                </div>
-                
-              
-                
-                <section id="leftovertablemixture" class="hidden">
-                
-                  <div class="max-h-[30rem] overflow-y-auto border border-gray-300 ">
-                    <table class="w-full border-collapse
-                    ">
-                      <thead class=" opacity-[65%] text-left sticky top-0">
-                        <tr class="bg-[#A3A0B3] text-white">
-                          <th class="px-4 text-center py-2">Raw Materials</th>
-                          <th class="px-4 text-center py-2">Quantity</th>
-                          <th class="px-4 text-center py-2">Unit</th>
-                          <th class="px-4 text-center py-2">Total</th>
+                  </form>
+                  <div class="mt-8 overflow-x-auto">
+                    <table class="min-w-full table-auto border border-gray-300 rounded-lg overflow-hidden">
+                      <thead class="bg-gray-100 text-gray-700 text-sm font-semibold">
+                        <tr>
+                          <th class="border px-4 py-2 text-left">Name</th>
+                          <th class="border px-4 py-2 text-left">Price</th>
+                          <th class="border px-4 py-2 text-left">Type of Expense</th>
                         </tr>
                       </thead>
-                      <tbody id="leftover_mixtures" class="divide-y divide-gray-200">
-                        <!-- Dynamic Datas -->
+                      <tbody id="expensesTableBody" class="text-gray-800 text-sm bg-white">
+                        <!-- Dynamic rows will be inserted here -->
                       </tbody>
                     </table>
                   </div>
-                  <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
-                    <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
-                  <span id="createdleftOver_sum" class=" font-semibold text-[1rem] me-14">400</span>
-                 </div>
-                </section>
-               
-
-              </div>
-            </div>
-
-            <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
-            <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'"  x-cloak x-data="{ branchPage: 'franchise' }" >
-              <main>
-                <div class="mx-5 bg-[#302D3D] flex gap-2 items-center   mb-5">
-                <ion-icon id="backBtn" class="hidden cursor-pointer backbtn ps-5 text-[2rem] text-[#ffff]" name="arrow-back"></ion-icon>
-                  <h1 id="branchNameHeader" class="text-2xl ps-5 py-3 font-bold text-[#ffff] ">Branches</h1>
-                  <ion-icon id="refreshBtn" class="hidden ps-20 cursor-pointer text-[2rem] text-[#ffff]" name="refresh"></ion-icon>
                 </div>
+              </div>
+          
+          
+        </div>
+
+           
+ 
+
+        <!-- *ALREADY MADE MIXTURES CONTAINER -->
+        <div x-show="intPage === 'Mixtures'" x-cloak>
+             
+            <div id="nomixtures" class=" flex flex-col justify-center mt-40 items-center">
+              <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
+              <h2 class=" text-center text-[#ff4d4d] font-semibold" >
+                ❌ You don't have any mixtures yets!
+              </h2>
+              <p style="text-align: center; color: #666;">
+                Start creating mixtures to see them here.
+              </p>
+            </div>
+             
+            <section id="tablemixture" class="hidden">
               
-                
-                <div id="branches_container"  
-                class="grid grid-cols-5 gap-5 mx-10 max-h-[calc(100vh-12rem)] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
-                >
-                  <!--*** branchesProfile **** -->
-                 </div>
+              <div class="max-h-[30rem] mt-10 overflow-y-auto border border-gray-300">
+                <table class="w-full border-collapse">
+                  <thead class=" opacity-[65%] text-left sticky top-0">
+                    <tr class="bg-[#A3A0B3] text-white">
+                      <th class="px-4 text-center py-2">Raw Materials</th>
+                      <th class="px-4 text-center py-2">Quantity</th>
+                      <th class="px-4 text-center py-2">Unit</th>
+                      <th class="px-4 text-center py-2">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody id="created_mixtures" class="divide-y divide-gray-200">
+                    <!-- Dynamic Datas -->
+                  </tbody>
+                </table>
+              </div>
+              <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
+                <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
+              <span id="createdmixture_sum" class=" font-semibold text-[1rem] me-14">400</span>
+             </div>
+
+             <div class=" flex justify-end gap-7 me-10 mt-3 mb-1">
               
-              </main>
+             
+               <button id="leftoverBtn" class=" cursor-pointer active:translate-y-1.5 duration-300 bg-[#B60205] text-white px-8 py-2 rounded-md shadow drop-shadow-md">
+                Left Over
+               </button>
 
-               <!--*** branchesProfileData **** -->
-              <div id="branchData" x-show="branchPage === 'branchesProfileData'" x-cloak  class="max-h-[45rem]  overflow-y-auto"  >
-                
-                  <div class=" grid grid-cols-3 mx-5 gap-5">
-                    <!-- *THIS IS CHART CONTAINER -->
-                    <div class=" h-[25rem] col-span-2  p-6 bg-white rounded-sm shadow-md">
-                      <h2 class="text-2xl font-bold mb-4 text-center">Sales Performance</h2>
-                      <canvas id="franchiseSaleChart" class="w-full h-full"></canvas>
-                    </div>
+               
+             </div>
+           
+            </section>
+        
+        </div>
 
-                    <!-- * THIS IS GROSS SALES CONTAINER AND GROSS INCOME CONTAINER   -->
 
-                    <div class="mx-auto  flex flex-col gap-10 ">
-                      <div class="bg-[#ffff] h-[50%] shadow drop-shadow-md rounded-[.1rem]">
-                        <div class="flex justify-between items-center px-5 pt-2">
-                          <h1 class="font-semibold text-[1.2rem] text-[#302D3D]">Branch Gross Sales</h1>
-                          <select
-                            id="GrossSalefranchiseFilter"
-                            class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm  "
-                          >
-                            <option value="today">Today</option>
-                            <option value="week">This Week</option>
-                            <option value="month">This Month</option>
-                          </select>
-                        </div>
-                      
-                        <h2
-                          class="flex  text-[1.9rem] font-semibold ps-5 py-10 max-[1245px]:text-[1.5rem]"
-                          id="GrossSaleFranchiseContainer"
-                        >
-                          <!-- dynamic price here -->
-                        </h2>
-                 </div>
+        <!-- *ALREADY LEFTOVER CONTAINER -->
+        <div x-show="intPage === 'Left Over'" x-cloak>
+          <div id="noleftmixtures" class=" flex flex-col justify-center mt-40 items-center">
+            <img src="./images/tako.png" class=" w-[17rem] animate-bounce" alt="">
+            <h2 class="text-center text-[#ff4d4d] font-semibold">
+              ❌ You don't have any leftovers yets!
+            </h2>
+            <p style="text-align: center; color: #666;">
+              Leftovers will be displayed here!
+            </p>
+          </div>
+          
+        
+          
+          <section id="leftovertablemixture" class="hidden">
+          
+            <div class="max-h-[30rem] overflow-y-auto border border-gray-300 ">
+              <table class="w-full border-collapse
+              ">
+                <thead class=" opacity-[65%] text-left sticky top-0">
+                  <tr class="bg-[#A3A0B3] text-white">
+                    <th class="px-4 text-center py-2">Raw Materials</th>
+                    <th class="px-4 text-center py-2">Quantity</th>
+                    <th class="px-4 text-center py-2">Unit</th>
+                    <th class="px-4 text-center py-2">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="leftover_mixtures" class="divide-y divide-gray-200">
+                  <!-- Dynamic Datas -->
+                </tbody>
+              </table>
+            </div>
+            <div class="py-2 bg-gray-200 flex justify-between pe-10 ">
+              <h1 class=" font-semibold text-[1rem] uppercase ps-4 ">Expense Raw Materials</h1>
+            <span id="createdleftOver_sum" class=" font-semibold text-[1rem] me-14">400</span>
+           </div>
+          </section>
+         
 
-                      <div class="bg-[#ffff] h-[50%] shadow drop-shadow-md rounded-[.1rem]">
-                        <div class="flex justify-between gap-5 items-center px-5 pt-2">
-                          <h1 class="font-semibold  text-[1.2rem] text-[#302D3D]">Branch Gross Income</h1>
-                          <select
-                            id="incomefranchiseFilter"
-                            class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem]"
-                          >
-                            <option value="today">Today</option>
-                            <option value="week">This Week</option>
-                            <option value="month">This Month</option>
-                          </select>
-                        </div>
-                      
-                        <h2
-                          class="flex  text-[1.9rem] font-semibold ps-5 py-10"
-                          id="totalIncomeFranchiseContainer"
-                        >
-                          <!-- dynamic price here -->
-                        </h2>
-                      </div>
-                    </div>
-                    
+        </div>
+      </div>
+
+      <!-- **BRANCH SHOW IF USER.ROLE == OWNER** -->
+      <div id="branchcontent" class=" hidden mt-20" x-show="page === 'branches'"  x-cloak x-data="{ branchPage: 'franchise' }" >
+        <main>
+          <div class="mx-5 bg-[#302D3D] flex gap-2 items-center   mb-5">
+          <ion-icon id="backBtn" class="hidden cursor-pointer backbtn ps-5 text-[2rem] text-[#ffff]" name="arrow-back"></ion-icon>
+            <h1 id="branchNameHeader" class="text-2xl ps-5 py-3 font-bold text-[#ffff] ">Branches</h1>
+            <ion-icon id="refreshBtn" class="hidden ps-20 cursor-pointer text-[2rem] text-[#ffff]" name="refresh"></ion-icon>
+          </div>
+        
+          
+          <div id="branches_container"  
+          class="grid grid-cols-5 gap-5 mx-10 max-h-[calc(100vh-12rem)] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
+          >
+            <!--*** branchesProfile **** -->
+           </div>
+        
+        </main>
+
+         <!--*** branchesProfileData **** -->
+        <div id="branchData" x-show="branchPage === 'branchesProfileData'" x-cloak  class="max-h-[45rem]  overflow-y-auto"  >
+          
+            <div class=" grid grid-cols-3 mx-5 gap-5">
+              <!-- *THIS IS CHART CONTAINER -->
+              <div class=" h-[25rem] col-span-2  p-6 bg-white rounded-sm shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-center">Sales Performance</h2>
+                <canvas id="franchiseSaleChart" class="w-full h-full"></canvas>
+              </div>
+
+              <!-- * THIS IS GROSS SALES CONTAINER AND GROSS INCOME CONTAINER   -->
+
+              <div class="mx-auto  flex flex-col gap-10 ">
+                <div class="bg-[#ffff] h-[50%] shadow drop-shadow-md rounded-[.1rem]">
+                  <div class="flex justify-between items-center px-5 pt-2">
+                    <h1 class="font-semibold text-[1.2rem] text-[#302D3D]">Branch Gross Sales</h1>
+                    <select
+                      id="GrossSalefranchiseFilter"
+                      class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm  "
+                    >
+                      <option value="today">Today</option>
+                      <option value="week">This Week</option>
+                      <option value="month">This Month</option>
+                    </select>
                   </div>
+                
+                  <h2
+                    class="flex  text-[1.9rem] font-semibold ps-5 py-10 max-[1245px]:text-[1.5rem]"
+                    id="GrossSaleFranchiseContainer"
+                  >
+                    <!-- dynamic price here -->
+                  </h2>
+                </div>
+
+                <div class="bg-[#ffff] h-[50%] shadow drop-shadow-md rounded-[.1rem]">
+                  <div class="flex justify-between gap-5 items-center px-5 pt-2">
+                    <h1 class="font-semibold  text-[1.2rem] text-[#302D3D]">Branch Gross Income</h1>
+                    <select
+                      id="incomefranchiseFilter"
+                      class="border border-gray-300 outline-0 rounded px-2 py-1 text-sm max-[1415px]:w-[5rem]"
+                    >
+                      <option value="today">Today</option>
+                      <option value="week">This Week</option>
+                      <option value="month">This Month</option>
+                    </select>
+                  </div>
+                
+                  <h2
+                    class="flex  text-[1.9rem] font-semibold ps-5 py-10"
+                    id="totalIncomeFranchiseContainer"
+                  >
+                    <!-- dynamic price here -->
+                  </h2>
+                </div>
+              </div>
+              
+            </div>
+           
+            <!-- *THIS IS BRANCH INVENTORY CONTAINER AND STOCKS ALERT -->
+            <div class=" grid grid-cols-3 mx-5 gap-5 mt-10 my-5">
+              <div class="col-span-2 h-[25rem]  rounded-sm shadow drop-shadow-md bg-[#ffff]">
+                <h1 class=" font-semibold p-3 text-[1.2rem] text-[#302D3D]">Inventory Status</h1>
+                <ul id="branchStocksList" class="  flex 
+                flex-wrap justify-between mx-[10rem]">
+                  
+                  <li class=" flex gap-5 px-5 py-2">
+                    <h1 class=" text-[1.2rem]">flour</h1>
+                    <p class=" text-[1.2rem]">17</p>
+                  </li>
+                </ul>
+              </div>
+
+              <div class=" flex mx-auto flex-col gap-5 items-center">
+                <!-- Stock Alert Container -->
+                <div class=" px-10 h-[30%] py-3  bg-[#ffff] rounded-sm shadow drop-shadow-md ">
+                    <h1 class=" font-semibold text-[1.2rem] text-[#302D3D]">
+                      Stock Alert
+                    </h1>
+                    <ul id="stockAlert">
+
+                    </ul>
+                   
+                </div>
                  
-                  <!-- *THIS IS BRANCH INVENTORY CONTAINER AND STOCKS ALERT -->
-                  <div class=" grid grid-cols-3 mx-5 gap-5 mt-10 my-5">
-                    <div class="col-span-2 h-[25rem]  rounded-sm shadow drop-shadow-md bg-[#ffff]">
-                      <h1 class=" font-semibold p-3 text-[1.2rem] text-[#302D3D]">Inventory Status</h1>
-                      <ul id="branchStocksList" class="  flex 
-                      flex-wrap justify-between mx-[10rem]">
-                        
-                        <li class=" flex gap-5 px-5 py-2">
-                          <h1 class=" text-[1.2rem]">flour</h1>
-                          <p class=" text-[1.2rem]">17</p>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class=" flex mx-auto flex-col gap-5 items-center">
-                      <!-- Stock Alert Container -->
-                      <div class=" px-10 h-[30%] py-3  bg-[#ffff] rounded-sm shadow drop-shadow-md ">
-                          <h1 class=" font-semibold text-[1.2rem] text-[#302D3D]">
-                            Stock Alert
-                          </h1>
-                          <ul id="stockAlert">
-
-                          </ul>
-                         
-                      </div>
-                       
-                      <!-- Top Selling Prod Container -->
-                       <div>
-                        <h1>Top Selling Products</h1>
-                       </div>
-                    </div>
-                  </div>
+                <!-- Top Selling Prod Container -->
+                 <div>
+                  <h1>Top Selling Products</h1>
+                 </div>
               </div>
             </div>
+        </div>
+      </div>
 
-            <!-- <div x-show="page === 'branchesProfile'" x-cloak>
-              <div id="brancheProfileContainer">
+      <!-- <div x-show="page === 'branchesProfile'" x-cloak>
+        <div id="brancheProfileContainer">
+        </div>
+        <h1 class="text-2xl font-bold">Profile</h1>
+         <p>View and manage Your profile.</p>
+    </div> -->
+
+    <div x-show="page === 'staffForm'" class="flex flex-col gap-5 mt-[7rem] overflow-y-auto max-h-[80vh]">
+      <h1 class="font-semibold text-2xl px-5">Add Role Account</h1>
+      <form id="addStaff" class="px-2 sm:px-4 md:px-10 my-auto flex flex-col gap-6 w-full" action="">
+        <!-- Responsive columns for fields -->
+        <div class="flex flex-col md:flex-row md:justify-around gap-6 md:gap-10">
+          <!-- Column 1 -->
+          <div class="flex gap-4 flex-col w-full md:w-1/3">
+            <label class="font-semibold">Username</label>
+            <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+              <ion-icon name="person-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+              <input type="text" name="name" class="bg-transparent outline-none w-full" placeholder="kyla">
+            </div>
+            <label class="font-semibold">Password</label>
+            <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+              <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+              <input type="password" class="bg-transparent outline-none w-full" placeholder="Enter password" name="password">
+            </div>
+            <label class="font-semibold">Confirm Password</label>
+            <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+              <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+              <input type="password" class="bg-transparent outline-none w-full" placeholder="Confirm password" name="confirm_password">
+            </div>
+            <span id="password-mismatch" class="text-red-600 text-xs hidden">Passwords do not match.</span>
+          </div>
+          <!-- Column 2 -->
+          <div class="flex gap-4 flex-col w-full md:w-1/3">
+            <div class="flex flex-col gap-4">
+              <label class="font-semibold">Profile Picture</label>
+              <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                <ion-icon name="image-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                <input type="file" name="profilepicture" id="profilepicture" accept="image/*" class="bg-transparent outline-none w-full">
               </div>
-              <h1 class="text-2xl font-bold">Profile</h1>
-               <p>View and manage Your profile.</p>
-          </div> -->
-
-          <div x-show="page === 'staffForm'" class="flex flex-col gap-5 mt-[7rem] overflow-y-auto max-h-[80vh]">
-            <h1 class="font-semibold text-2xl px-5">Add Role Account</h1>
-            <form id="addStaff" class="px-2 sm:px-4 md:px-10 my-auto flex flex-col gap-6 w-full" action="">
-              <!-- Responsive columns for fields -->
-              <div class="flex flex-col md:flex-row md:justify-around gap-6 md:gap-10">
-                <!-- Column 1 -->
-                <div class="flex gap-4 flex-col w-full md:w-1/3">
-                  <label class="font-semibold">Username</label>
-                  <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
-                    <ion-icon name="person-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-                    <input type="text" name="name" class="bg-transparent outline-none w-full" placeholder="kyla">
-                  </div>
-                  <label class="font-semibold">Password</label>
-                  <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
-                    <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-                    <input type="password" class="bg-transparent outline-none w-full" placeholder="Enter password" name="password">
-                  </div>
-                  <label class="font-semibold">Confirm Password</label>
-                  <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
-                    <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-                    <input type="password" class="bg-transparent outline-none w-full" placeholder="Confirm password" name="confirm_password">
-                  </div>
-                  <span id="password-mismatch" class="text-red-600 text-xs hidden">Passwords do not match.</span>
-                    </div>
-                <!-- Column 2 -->
-                <div class="flex gap-4 flex-col w-full md:w-1/3">
-                  <div class="flex flex-col gap-4">
-                    <label class="font-semibold">Profile Picture</label>
-                    <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
-                      <ion-icon name="image-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-                      <input type="file" name="profilepicture" id="profilepicture" accept="image/*" class="bg-transparent outline-none w-full">
-                    </div>
             </div>
             <label class="font-semibold">Email</label>
             <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
@@ -1338,6 +1348,73 @@
             </div>
           </div>
         </div>
+
+        <!-- Permission Toggles Section -->
+        <div class="border-t border-gray-200 pt-6 mt-2">
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">Access Permissions</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Dashboard Permission -->
+            <div class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 hover:border-[#B60205] transition-all duration-200">
+              <div class="flex items-center gap-3">
+                <ion-icon name="layers-outline" class="text-xl text-gray-600"></ion-icon>
+                <label class="text-sm font-medium text-gray-700">Dashboard Access</label>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" name="dashboard_access" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#B60205]"></div>
+              </label>
+            </div>
+
+            <!-- POS Permission -->
+            <div class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 hover:border-[#B60205] transition-all duration-200">
+              <div class="flex items-center gap-3">
+                <ion-icon name="receipt-outline" class="text-xl text-gray-600"></ion-icon>
+                <label class="text-sm font-medium text-gray-700">POS Access</label>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" name="pos_access" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#B60205]"></div>
+              </label>
+            </div>
+
+            <!-- Inventory Permission -->
+            <div class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 hover:border-[#B60205] transition-all duration-200">
+              <div class="flex items-center gap-3">
+                <ion-icon name="cube-outline" class="text-xl text-gray-600"></ion-icon>
+                <label class="text-sm font-medium text-gray-700">Inventory Access</label>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" name="inventory_access" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#B60205]"></div>
+              </label>
+            </div>
+
+            <!-- Audit Permission -->
+            <div class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 hover:border-[#B60205] transition-all duration-200">
+              <div class="flex items-center gap-3">
+                <ion-icon name="document-text-outline" class="text-xl text-gray-600"></ion-icon>
+                <label class="text-sm font-medium text-gray-700">Audit Access</label>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" name="audit_access" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#B60205]"></div>
+              </label>
+            </div>
+
+            <!-- New Franchise Permission -->
+            <div class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 hover:border-[#B60205] transition-all duration-200">
+              <div class="flex items-center gap-3">
+                <ion-icon name="storefront-outline" class="text-xl text-gray-600"></ion-icon>
+                <label class="text-sm font-medium text-gray-700">New Franchise Access</label>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" name="franchise_access" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#B60205]"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
         <!-- Role select and button row -->
         <div class="flex flex-col sm:flex-row gap-4 mt-4">
           <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3 w-full sm:w-auto">
@@ -1355,9 +1432,9 @@
           </div>
         </div>
       </form>
-                  </div>
-
-
+    </div>
+      
+      
       <!--*** PROFILE SETTINGS **** -->
       <div x-show="page === 'profile'" class="mt-[5rem] flex flex-col items-center w-[80%] mx-auto min-h-[80vh]" x-cloak>
         <div class="flex flex-col w-full">
@@ -1415,7 +1492,7 @@
             <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="address">
               <ion-icon name="create-outline" class="text-xl"></ion-icon>
             </button>
-                   </div>
+          </div>
 
           <div class="flex items-center justify-between py-4 w-full">
             <div class="w-1/3 text-gray-600">Email</div>
@@ -1423,7 +1500,7 @@
             <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="email">
               <ion-icon name="create-outline" class="text-xl"></ion-icon>
             </button>
-                    </div>
+          </div>
 
           <div class="flex items-center justify-between py-4 w-full">
             <div class="w-1/3 text-gray-600">Password</div>
@@ -1431,7 +1508,7 @@
             <button class="edit-btn ml-2 text-gray-500 hover:text-blue-600" data-field="password">
               <ion-icon name="create-outline" class="text-xl"></ion-icon>
             </button>
-                  </div>
+          </div>
 
           <div class="flex items-center justify-between py-4 w-full">
             <div class="w-1/3 text-gray-600">Role</div>
@@ -1540,9 +1617,9 @@
                           <input type="number" name="contactNumber" class="outline-none w-full" placeholder="09xxxxxxxxx">
                         </div>
                     
-                  <label class="font-semibold">Email</label>
-                  <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
-                    <ion-icon name="mail-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
+                        <label class="font-semibold">Email</label>
+                        <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
+                          <ion-icon name="mail-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
                           <input type="email" name="email" class="outline-none w-full" placeholder="example@email.com">
                         </div>
                       </div>
@@ -1582,7 +1659,7 @@
                       <div class="col-span-2 mt-5">
                         <button type="submit" class="w-full bg-red-700 text-white py-3 rounded-lg hover:bg-red-800 transition">
                           Register
-                   </button>
+                        </button>
                       </div>
                     </form>
                   </div>
@@ -1617,46 +1694,50 @@
                <ion-icon name="resize-outline" class="text-[#B60205]"></ion-icon>
                Select Size
              </h3>
-             <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-               <button class="btnQuantity size-choice group" data-value="45">
-                 <div class="relative overflow-hidden py-1.5">
-                   <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">4s</span>
-                   <div class="text-sm text-gray-500">₱45</div>
-                 </div>
-                   </button>
-               <button class="btnQuantity size-choice group" data-value="80">
-                 <div class="relative overflow-hidden py-1.5">
-                   <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">8s</span>
-                   <div class="text-sm text-gray-500">₱80</div>
-                 </div>
-               </button>
-               <button class="btnQuantity size-choice group" data-value="125">
-                 <div class="relative overflow-hidden py-1.5">
-                   <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">12s</span>
-                   <div class="text-sm text-gray-500">₱125</div>
-                 </div>
-               </button>
-               <button class="btnQuantity size-choice group" data-value="160">
-                 <div class="relative overflow-hidden py-1.5">
-                   <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">16s</span>
-                   <div class="text-sm text-gray-500">₱160</div>
-                 </div>
-               </button>
-               <button class="btnQuantity size-choice group" data-value="205">
-                 <div class="relative overflow-hidden py-1.5">
-                   <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">20s</span>
-                   <div class="text-sm text-gray-500">₱205</div>
-                 </div>
-               </button>
-               <button class="btnQuantity size-choice group" data-value="450">
-                 <div class="relative overflow-hidden py-1.5">
-                   <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">42s</span>
-                   <div class="text-sm text-gray-500">₱450</div>
-                 </div>
-               </button>
+             <div class="overflow-hidden rounded-xl border border-gray-200">
+               <table class="w-full">
+                 <tbody class="divide-y divide-gray-200">
+                   <tr class="hover:bg-gray-50">
+                     <td class="w-1/2 py-2">
+                       <button class="btnQuantity size-choice group w-full" data-value="45">
+                         <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">4s</span>
+                       </button>
+                     </td>
+                     <td class="w-1/2 py-2">
+                       <button class="btnQuantity size-choice group w-full" data-value="80">
+                         <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">8s</span>
+                       </button>
+                     </td>
+                   </tr>
+                   <tr class="hover:bg-gray-50">
+                     <td class="w-1/2 py-2">
+                       <button class="btnQuantity size-choice group w-full" data-value="125">
+                         <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">12s</span>
+                       </button>
+                     </td>
+                     <td class="w-1/2 py-2">
+                       <button class="btnQuantity size-choice group w-full" data-value="160">
+                         <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">16s</span>
+                       </button>
+                     </td>
+                   </tr>
+                   <tr class="hover:bg-gray-50">
+                     <td class="w-1/2 py-2">
+                       <button class="btnQuantity size-choice group w-full" data-value="205">
+                         <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">20s</span>
+                       </button>
+                     </td>
+                     <td class="w-1/2 py-2">
+                       <button class="btnQuantity size-choice group w-full" data-value="450">
+                         <span class="text-lg font-semibold group-hover:text-[#B60205] transition-colors">42s</span>
+                       </button>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
              </div>
-                 </div>
-               
+           </div>
+
            <!-- Add-ons Section with Premium Design -->
            <div class="space-y-2">
              <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
@@ -1702,7 +1783,7 @@
                  <div class="flex items-center gap-4">
                    <span id="pcs" class="text-sm font-medium text-gray-800"></span>
                    <span id="total" class="text-sm font-medium text-gray-800"></span>
-                        </div>
+                 </div>
                </div>
                
                <div id="AddonContainer" class="space-y-1 border-t border-gray-100 pt-1">
@@ -1778,89 +1859,104 @@
   <!--* MAIN DYNAMIC MODAL ALERT -->
   <div
   id="dynamicmodal"
-  class="fixed inset-0 bg-opacity-0 opacity-0
-    scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
+  class="fixed inset-0 bg-opacity-0 opacity-0 scale-95 transition-all ease-in duration-300 backdrop-blur-sm flex items-center justify-center pointer-events-none"
 >
-
-   <div
-       class="bg-[#ffffff] relative pb-5 w-[50%] rounded-sm shadow-lg"
-       id="dynamicAlert"
-     >
-        
-     <div class="w-full bg-[#302D3D] flex items-center justify-center p-3" id="black-bar">
-      <img id="greenCheck" src="./images/check-green-image.png" alt="greenCheck"  class="w-[4rem] " />
-      <img id="redCheck" src="./images/wrong-red-image 1.png" alt="redCheck"  class="w-[4rem] hidden">
-      <h1 id="headerTxt" class=" text-[#ffff] hidden font-semibold">Add Quick Logins</h1>
+  <div
+    class="bg-white relative w-[30rem] rounded-2xl shadow-xl transform transition-all overflow-hidden"
+    id="dynamicAlert"
+  >
+    <div class="w-full bg-gradient-to-r from-[#302D3D] to-[#B60205] p-6 flex items-center justify-center relative" id="black-bar">
+      <img id="greenCheck" src="./images/check-green-image.png" alt="greenCheck" class="w-16 h-16 absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-2 shadow-lg" />
+      <img id="redCheck" src="./images/wrong-red-image 1.png" alt="redCheck" class="w-16 h-16 absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-2 shadow-lg hidden" />
+      <h1 id="headerTxt" class="text-white text-xl font-semibold hidden">Add Quick Logins</h1>
     </div>
 
-    <div id="contextContainer" class="flex flex-col items-center">
-      <h2 id="status" class="font-semibold text-3xl mt-4"></h2>
-      <h1 id="description" class="p-2 text-sm">
+    <div id="contextContainer" class="flex flex-col items-center pt-12 px-8 pb-6">
+      <h2 id="status" class="font-semibold text-2xl text-gray-800 mb-2"></h2>
+      <h1 id="description" class="text-center text-gray-600 text-sm">
       </h1>
-      <div id="quickLogin" class="hidden flex gap-3">
-
-                          <div>
-          <label class="font-semibold">Branch Name</label>
-          <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
-            <ion-icon name="storefront-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-            <input id="quicklogname" type="text" name="name" class="bg-transparent outline-none w-full" placeholder="Sauyo Branch">
-                  </div>
+      
+      <div id="quickLogin" class="hidden space-y-4 w-full mt-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Branch Name</label>
+          <div class="flex items-center border border-gray-200 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-red-100 focus-within:border-[#B60205] transition-all duration-200">
+            <ion-icon name="storefront-outline" class="text-xl mr-2 text-gray-400"></ion-icon>
+            <input id="quicklogname" type="text" name="name" class="flex-1 outline-none text-gray-800 placeholder-gray-400" placeholder="Sauyo Branch">
+          </div>
         </div>
 
         <div>
-          <label class="font-semibold">Email</label>
-          <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
-            <ion-icon name="mail-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-            <input id="quicklogemail" type="email" name="email" class="bg-transparent outline-none w-full" placeholder="example@email.com">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <div class="flex items-center border border-gray-200 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-red-100 focus-within:border-[#B60205] transition-all duration-200">
+            <ion-icon name="mail-outline" class="text-xl mr-2 text-gray-400"></ion-icon>
+            <input id="quicklogemail" type="email" name="email" class="flex-1 outline-none text-gray-800 placeholder-gray-400" placeholder="example@email.com">
           </div>
         </div>
-       
-        <div>
-          <label class="font-semibold">Password</label>
-          <div class="flex items-center border-2 border-[#dbdbdb] rounded-lg px-4 py-3">
-            <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-500"></ion-icon>
-            <input id="quicklogpass" type="password" class="bg-transparent outline-none w-full" placeholder="Enter password" name="password">
-          </div>
-        </div>
-       
-      </div>
-    
-    </div>
-    
 
-    <!--Button-->
-    <div id="ok_container" class="flex justify-center items-center">
-      <div
-        class="text-sm cursor-pointer text-white font-medium text-center bg-[#B60205] w-[20%] p-1 m-3 rounded-sm shadow drop-shadow-md"
-        id="dynamicBtn"
-      >
-        Ok
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <div class="flex items-center border border-gray-200 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-red-100 focus-within:border-[#B60205] transition-all duration-200">
+            <ion-icon name="lock-closed-outline" class="text-xl mr-2 text-gray-400"></ion-icon>
+            <input id="quicklogpass" type="password" class="flex-1 outline-none text-gray-800 placeholder-gray-400" placeholder="Enter password" name="password">
+          </div>
+        </div>
       </div>
     </div>
-    <div id="quickLogin_container" class="flex hidden justify-center items-center">
-      <button
-        class="text-sm cursor-pointer text-white font-medium text-center bg-[#B60205] w-[20%] p-1 m-3 rounded-sm shadow drop-shadow-md"
-        id="quickLoginBtn"
-      >
-        Login
-      </button>
+
+    <div class="flex justify-end gap-3 px-8 pb-6">
+      <!-- OK Button Container -->
+
+
+<div class="flex justify-end gap-5">
+<button
+          class="px-6 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-xl 
+                 hover:bg-gray-300 transform hover:scale-105 transition-all duration-200"
+          id="addStaffCancelBtn"
+        >
+          Cancel
+        </button>
+      <div id="ok_container" class="flex justify-end gap-3">
+       
+        <button
+          class="px-6 py-2 bg-gradient-to-r from-[#B60205] to-[#302D3D] text-white text-sm font-medium rounded-xl 
+                 hover:from-[#302D3D] hover:to-[#B60205] transform hover:scale-105 transition-all duration-200"
+          id="dynamicBtn"
+        >
+          OK
+        </button>
+      </div>
+</div>       
+
+      <!-- Quick Login Container -->
+      <div id="quickLogin_container" class="hidden gap-3">
+        <button
+          class="px-6 py-2 bg-gradient-to-r from-[#B60205] to-[#302D3D] text-white text-sm font-medium rounded-xl 
+                 hover:from-[#302D3D] hover:to-[#B60205] transform hover:scale-105 transition-all duration-200"
+          id="quickLoginBtn"
+        >
+          Login
+        </button>
+      </div>
+
+      <!-- Use/Discard Container -->
+      <div id="use_discard_container" class="hidden gap-3">
+        <button
+          class="px-6 py-2 bg-gradient-to-r from-[#B60205] to-[#302D3D] text-white text-sm font-medium rounded-xl 
+                 hover:from-[#302D3D] hover:to-[#B60205] transform hover:scale-105 transition-all duration-200"
+          id="UseLeftOverBtn"
+        >
+          Use
+        </button>
+        <button
+          class="px-6 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-xl 
+                 hover:bg-gray-300 transform hover:scale-105 transition-all duration-200"
+        >
+          Discard
+        </button>
+      </div>
     </div>
-    <div id="use_discard_container" class="flex hidden gap-5 justify-around mx-10 mt-5">
-      <button
-        class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
-        id="UseLeftOverBtn"
-      >
-        use
-      </button>
-      <button
-        class="bg-[#B60205] cursor-pointer text-white px-5 py-2 rounded-sm"
-      >
-        discard
-      </button>
-    </div>
-     
-     </div>
   </div>
+</div>
 
 
 

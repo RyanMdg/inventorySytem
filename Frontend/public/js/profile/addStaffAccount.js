@@ -27,9 +27,9 @@ addStaffCancelBtn.addEventListener("click", function () {
   dynamicmodal.classList.add("pointer-events-none");
 
   headerTxt.classList.add("hidden");
-  greenCheck.classList.remove("hidden");
+  greenCheck.classList.add("hidden");
   addStaff.classList.add("hidden");
-  ok_container.classList.remove("hidden");
+  ok_container.classList.add("hidden");
 });
 
 document.addEventListener("keydown", (e) => {

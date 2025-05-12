@@ -1,9 +1,9 @@
 import supabase from "../../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../../Authentication/auth-utils.js";
 import { dynamicAlert } from "../../modals_Js/dynamicInventory.js";
-
+ const quickCancelBtn = document.getElementById("quickCancelBtn");
 const Accountscontainer = document.getElementById("Accountscontainer");
-
+const dynamicmodal = document.getElementById("dynamicmodal");
 export async function renderQuickLogs() {
   const { branchId } = await getAuthUserAndBranch();
 
@@ -66,5 +66,7 @@ export async function renderQuickLogs() {
     });
   });
 }
+
+
 
 renderQuickLogs();

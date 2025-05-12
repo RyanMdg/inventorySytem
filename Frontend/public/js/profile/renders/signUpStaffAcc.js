@@ -33,6 +33,15 @@ form.addEventListener("submit", async function (e) {
   const formData = new FormData(this);
   const values = Object.fromEntries(formData.entries());
 
+  // Get permission values (will be true if checked, undefined if unchecked)
+  const permissions = {
+    dashboard_access: formData.get('dashboard_access') === 'on',
+    pos_access: formData.get('pos_access') === 'on',
+    inventory_access: formData.get('inventory_access') === 'on',
+    audit_access: formData.get('audit_access') === 'on',
+    franchise_access: formData.get('franchise_access') === 'on'
+  };
+
   // Confirm password check
   const password = values.password || "";
   const confirmPassword = values.confirm_password || "";
@@ -78,6 +87,7 @@ form.addEventListener("submit", async function (e) {
       profilePicUrl = await uploadProfilePicture(fileInput.files[0]);
     }
 
+    // Insert user data
     const { error: userErr } = await supabase.from("users_table").insert([
       {
         id: userId,
@@ -94,6 +104,18 @@ form.addEventListener("submit", async function (e) {
       },
     ]);
     if (userErr) throw userErr;
+
+    // Insert permissions data
+    const { error: permissionErr } = await supabase.from("staff_permissions").insert([
+      {
+        user_id: userId,
+        branch_id: branchId,
+        ...permissions,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    ]);
+    if (permissionErr) throw permissionErr;
 
     greenCheck.classList.remove("hidden");
     redCheck.classList.add("hidden");

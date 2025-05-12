@@ -40,7 +40,7 @@ const orders = new Map();
 // *==================CLOSE MODAL============================
 close_Modal.forEach((closeModal) => {
   closeModal.addEventListener("click", function () {
-    modal_Container.classList.toggle("hidden");
+    modal_Container.classList.add("hidden");
 
     add_Ons.forEach((remove) => {
       remove.classList.remove("text-[#B60205]", "font-bold", "uppercase");
@@ -271,3 +271,67 @@ addbillButton.forEach((buttonbill) => {
 });
 
 export default orders;
+
+// Show modal
+function showModal() {
+    const modal = document.getElementById('modal');
+    if (modal) {
+        modal.classList.add('modal-open');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Hide modal
+function hideModal() {
+    const modal = document.getElementById('modal');
+    if (modal) {
+        modal.classList.remove('modal-open');
+        document.body.style.overflow = '';
+    }
+}
+
+// Initialize modal functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('modal');
+    const closeBtn = modal?.querySelector('.closed');
+    const addToBillBtn = modal?.querySelector('.btnaddtobill');
+
+    // Close modal when clicking outside
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            hideModal();
+        }
+    });
+
+    // Close modal with close button
+    closeBtn?.addEventListener('click', hideModal);
+
+    // Handle add to bill and close
+    addToBillBtn?.addEventListener('click', () => {
+        // Your existing add to bill logic here
+        hideModal();
+    });
+
+    // Handle size choices
+    const sizeButtons = modal?.querySelectorAll('.btnQuantity');
+    sizeButtons?.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active state from all buttons
+            sizeButtons.forEach(btn => btn.classList.remove('bg-red-50', 'border-[#B60205]'));
+            // Add active state to clicked button
+            button.classList.add('bg-red-50', 'border-[#B60205]');
+        });
+    });
+
+    // Handle add-on choices
+    const addonButtons = modal?.querySelectorAll('.addOns');
+    addonButtons?.forEach(button => {
+        button.addEventListener('click', () => {
+            button.classList.toggle('bg-red-50');
+            button.classList.toggle('border-[#B60205]');
+        });
+    });
+});
+
+// Export functions if needed
+export { showModal, hideModal };

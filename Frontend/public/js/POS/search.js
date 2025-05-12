@@ -1,13 +1,20 @@
 import supabase from "../../Backend2/config/SupabaseClient.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.querySelector('input[name="search"]');
+    const searchInput = document.querySelector('#posSearch');
+    const clearButton = document.querySelector('#clearSearch');
     
-    // Update placeholder to be more descriptive
-    searchInput.placeholder = "Search by product name or receipt number...";
-    
-    // Add event listener for real-time search
-    searchInput.addEventListener('input', debounce(handleSearch, 300));
+    if (searchInput && clearButton) {
+        // Clear button functionality
+        clearButton.addEventListener('click', () => {
+            searchInput.value = '';
+            searchInput.focus();
+            handleSearch({ target: searchInput }); // Trigger search update
+        });
+
+        // Handle search input
+        searchInput.addEventListener('input', debounce(handleSearch, 300));
+    }
 });
 
 // Debounce function to limit how often the search is performed

@@ -20,6 +20,7 @@ import {
   render_Audit_logs,
   initAuditLogs,
 } from "../../audit/renders/renderAuditLogs.js";
+import { renderRecentOrders } from "../../Dashboard/recentOrders.js";
 
 export async function subscribeToRealTimeOrders() {
   const channel = supabase.channel("inventory-channel"); // Create a real-time channel
@@ -85,6 +86,7 @@ export async function subscribeToRealTimeOrders() {
       // Refresh the table on changes
       // console.log("mixtures_summary_table Change Detected:", payload);
       totalGrossIncome();
+      renderRecentOrders();
     }
   );
 

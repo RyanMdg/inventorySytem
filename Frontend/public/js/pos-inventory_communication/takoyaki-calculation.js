@@ -382,7 +382,6 @@ export async function deductIngredientsForSale(ballsSold) {
     hideSpinner();
   }
 }
-
 // Initialize the table and set up listeners
 (async () => {
   await renderIngredientTable();
@@ -392,3 +391,4 @@ export async function deductIngredientsForSale(ballsSold) {
   const totalCost = await calculateTotalBatchCost();
   console.log(`Total Batch Cost: ₱${totalCost.toFixed(2)}`);
 })();
+

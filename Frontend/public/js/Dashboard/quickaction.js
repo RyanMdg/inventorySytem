@@ -18,8 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (createMixtureBtn) {
     createMixtureBtn.addEventListener("click", () => {
-      // TODO: Replace with actual navigation or modal
-      alert("Create Mixture action triggered!");
+      const inventoryLink = document.getElementById("inventory");
+      if (inventoryLink) {
+        inventoryLink.click();
+      }
     });
   }
 
@@ -27,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     generateReportBtn.addEventListener("click", async () => {
       // Fetch sales data from reciepts_summary_table
       const { branchId} = await getAuthUserAndBranch();
-      const { data: sales, error } = await supabase
+      const { data: sales, error:error } = await supabase
         .from("reciepts_summary_table")
-        .select("receipt_number, total_amount, status, created_at, branch_id")
+        .select("receipt_number, total, status, created_at, branch_id")
         .eq("branch_id", branchId);
 
       if (error) {
@@ -38,11 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Convert to CSV
-      const headers = ["Receipt Number", "Total Amount", "Status", "Created At", "Branch ID"];
+      const headers = ["Receipt Number", "Total", "Status", "Created At", "Branch ID"];
       const rows = sales.map(row =>
         [
           row.receipt_number,
-          row.total_amount,
+          row.total,
           row.status,
           row.created_at,
           row.branch_id

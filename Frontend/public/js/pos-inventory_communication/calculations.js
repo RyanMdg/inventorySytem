@@ -73,7 +73,6 @@ export async function calculated(receiptNum) {
   if (updateError) {
     console.error("Failed to update is_deducted:", updateError.message);
   }
-
 }
 
 const sumUpRaw = async (expensesRaw, quantity) => {
@@ -81,3 +80,4 @@ const sumUpRaw = async (expensesRaw, quantity) => {
   const costPerBatch = pricePerBall * quantity;
   return expensesRaw - costPerBatch;
 };
+

@@ -61,7 +61,7 @@ export async function renderQuickLogs() {
         dynamicAlert("Error", error.message || "Failed to login");
       } else {
         console.log("Login successful, redirecting...");
-        window.location.href = "/Frontend/public/home.html";
+        window.location.href = "./home.html";
       }
     });
   });

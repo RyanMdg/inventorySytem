@@ -230,7 +230,6 @@ async function fetchUser() {
       console.log(user.role, user.name);
     } else if (user.role == "franchisee") {
       const mainPage = document.getElementById("mainPage");
-      document.getElementById("branch").classList.toggle("hidden");
       document.getElementById("branchcontent").classList.toggle("hidden");
       document
       .getElementById("featuresownercontainer")

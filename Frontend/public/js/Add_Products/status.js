@@ -162,17 +162,17 @@ function subscribeToRealTimeOrders() {
       table: "pos_orders_table",
     },
     (payload) => {
-      console.log("pos_orders_table Change Detected:", payload);
+      // console.log("pos_orders_table Change Detected:", payload);
 
       // Check if status is cancelled
       if (payload.new?.status === "cancelled") {
-        console.log("Cancelled Order Detected:", payload);
+      //   console.log("Cancelled Order Detected:", payload);
         fetchCalcelOrders(); // Refresh cancelled orders table
       }
 
       // Check if status is completed
       if (payload.new?.status === "completed") {
-        console.log("Completed Order Detected:", payload);
+        // console.log("Completed Order Detected:", payload);
         fetchCompleteOrders(); // Refresh completed orders table
       }
     }

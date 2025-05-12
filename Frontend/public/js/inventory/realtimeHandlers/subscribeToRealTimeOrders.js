@@ -34,7 +34,7 @@ export async function subscribeToRealTimeOrders() {
       table: "inventory_table",
     },
     (payload) => {
-      console.log("Inventory Table Change Detected:", payload);
+      // console.log("Inventory Table Change Detected:", payload);
       renderStocks();
       renderaddedmixtures(); // Refresh the table on changes
     }
@@ -50,7 +50,7 @@ export async function subscribeToRealTimeOrders() {
     },
     async (payload) => {
       // Refresh the table on changes
-      console.log("Mixtures Table Change Detected:", payload);
+      // console.log("Mixtures Table Change Detected:", payload);
       renderaddedmixtures();
       await renderIngredientTable();
       await renderMenuTable();
@@ -69,7 +69,7 @@ export async function subscribeToRealTimeOrders() {
     },
     (payload) => {
       // Refresh the table on changes
-      console.log("mixtures_summary_table Change Detected:", payload);
+      // console.log("mixtures_summary_table Change Detected:", payload);
       renderCreadtedMixtures();
     }
   );
@@ -83,7 +83,7 @@ export async function subscribeToRealTimeOrders() {
     },
     (payload) => {
       // Refresh the table on changes
-      console.log("mixtures_summary_table Change Detected:", payload);
+      // console.log("mixtures_summary_table Change Detected:", payload);
       totalGrossIncome();
     }
   );
@@ -97,7 +97,7 @@ export async function subscribeToRealTimeOrders() {
     },
     async (payload) => {
       // Refresh the table on changes
-      console.log("audit Change Detected:", payload);
+      // console.log("audit Change Detected:", payload);
       initAuditLogs();
       await render_Audit_logs();
     }
@@ -112,7 +112,7 @@ export async function subscribeToRealTimeOrders() {
       table: "reciepts_summary_table",
     },
     async (payload) => {
-      console.log("reciepts_summary_table Change Detected:", payload);
+    //console.log("reciepts_summary_table Change Detected:", payload);
       totalIncome();
       totalOrder();
       await renderSalesChart();

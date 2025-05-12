@@ -10,7 +10,7 @@ export async function franchiseData() {
 
   const { data: branches, error: branchesError } = await supabase
     .from("branches_table")
-    .select("id,location,name,role")
+    .select("id,location,name")
     .neq("id", branchId);
 
   if (branchesError) {

@@ -4,6 +4,7 @@ import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import { dynamicAlert } from "../modals_Js/dynamicInventory.js";
 import { audit_Logs } from "../audit/audit.js";
+import { calculateDynamicCostPerBall } from "../pos-inventory_communication/takoyaki-calculation.js";
 
 const mixtureBtn = document.getElementById("mixtureBtn");
 const nomixalertContainer = document.getElementById("nomixtures");
@@ -100,6 +101,8 @@ mixtureBtn.addEventListener("click", async function () {
       return;
     }
 
+    const pricePerBall = await calculateDynamicCostPerBall();
+    console.log("Price Per Ball:", pricePerBall);
     // 2. Insert each recipe as a new mixture with status 'Created_Mixture'
     const inserts = recipes.map((recipe) => ({
       branch_id: branchId,

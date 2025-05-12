@@ -2,7 +2,7 @@
 
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
 import supabase from "../../Backend2/config/SupabaseClient.js";
-import { calculateDynamicCostPerBall } from "./takoyaki-calculation.js";
+import { calculateDynamicCostPerBall , calculateTotalBatchCost } from "./takoyaki-calculation.js";
 
 const cretedmixturesum = document.getElementById("createdmixture_sum");
 
@@ -33,16 +33,19 @@ export async function calculated(receiptNum) {
 
   // ✅ Fetch created mixture totals (expenses raw)
   const { data: mixture, error: mixtureError } = await supabase
-    .from("mixtures_summary_table")
+    .from("mixtures_table")
     .select("total")
     .eq("branch_id", branchId)
     .eq("status", "Created_Mixture")
-    .single();
+    
 
   if (mixtureError) {
     console.error("Error fetching mixtures:", mixtureError.message);
     return;
   }
+
+  const totalCost = await calculateTotalBatchCost();
+  console.log("Total Batch Cost:", totalCost);
 
   const totalBalls = receipt.reduce((acc, item) => {
     if (item.quantity) {
@@ -52,15 +55,15 @@ export async function calculated(receiptNum) {
     return acc;
   }, 0);
 
-  console.log(mixture.total);
+ 
 
-  console.log(typeof totalBalls);
+  console.log("this is the totalBalls", totalBalls);
 
-  const remainingRaw = await sumUpRaw(mixture.total, totalBalls);
+  const remainingRaw = await sumUpRaw(totalCost, totalBalls);
   const raw = remainingRaw.toFixed(2);
 
   console.log("Total Balls Ordered:", totalBalls);
-  console.log("Remaining Raw Materials After:", raw);
+  console.log("Remaining Raw :", raw);
 
   const { error: updateError } = await supabase
     .from("pos_orders_table")
@@ -71,17 +74,10 @@ export async function calculated(receiptNum) {
     console.error("Failed to update is_deducted:", updateError.message);
   }
 
-  const { data, error } = await supabase
-    .from("mixtures_summary_table")
-    .update({ total: raw })
-    .eq("branch_id", branchId);
-
-  if (error) {
-    console.error("Failed to update is_deducted:", error.message);
-  }
 }
 
 const sumUpRaw = async (expensesRaw, quantity) => {
   const pricePerBall = await calculateDynamicCostPerBall();
-  return expensesRaw - pricePerBall * quantity;
+  const costPerBatch = pricePerBall * quantity;
+  return expensesRaw - costPerBatch;
 };

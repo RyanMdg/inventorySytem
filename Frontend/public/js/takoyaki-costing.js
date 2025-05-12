@@ -10,8 +10,6 @@ const ingredients = [
   { name: "Mayo", price: 100, quantity: 1.5 },
   { name: "Toppings", price: 50, quantity: 1 },
   { name: "Oil", price: 67, quantity: 0.5 },
-  { name: "Gas", price: 90, quantity: 1 },
-  { name: "Styro's / Cup", price: 120, quantity: 1 },
   { name: "Veggies", price: 60, quantity: 0.5 },
   { name: "Leeks", price: 120, quantity: 0.25 },
   { name: "Garlic", price: 20, quantity: 1 },

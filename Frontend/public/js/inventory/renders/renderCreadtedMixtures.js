@@ -61,3 +61,5 @@ export async function renderCreadtedMixtures() {
     cretedmixturesum.textContent = `₱${totalRawCost.toFixed(2)}`;
   });
 }
+
+renderCreadtedMixtures();

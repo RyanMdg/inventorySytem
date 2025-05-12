@@ -27,9 +27,24 @@ const menuItems = [
  * @returns {number} Cost per individual takoyaki ball
  */
 export async function calculateDynamicCostPerBall() {
-  const totalCost = await calculateTotalBatchCost();
-  return totalCost / ballsPerBatch;
+  const { branchId } = await getAuthUserAndBranch();
+  const { data: mixturedata } = await supabase
+    .from("recipe_table")
+    .select("raw_mats,prices,quantity")
+    .eq("branch_id", branchId);
+
+    const costPerBall =
+    mixturedata.reduce((sum, ing) => sum + ing.prices * ing.quantity, 0) /
+    ballsPerBatch;
+
+    console.log(`the cost per ball is ${costPerBall}`);
+
+  return costPerBall;
 }
+
+
+
+
 
 /**
  * Calculates the suggested selling price for a menu item
@@ -162,15 +177,31 @@ export async function renderIngredientTable() {
   await renderMenuTable();
 }
 
-async function calculateTotalBatchCost() {
+export async function calculateTotalBatchCost() {
   const { branchId } = await getAuthUserAndBranch();
+  console.log("Current branchId:", branchId);
 
   const { data: mixturedata, error: mixtureError } = await supabase
     .from("mixtures_table")
     .select("raw_mats,prices,quantity")
-    .eq("branch_id", branchId);
+    .eq("branch_id", branchId)
+    .eq("status", "Created_Mixture");
 
-  return mixturedata.reduce((sum, ing) => sum + ing.prices * ing.quantity, 0);
+  if (mixtureError) {
+    console.error("Error fetching mixture data:", mixtureError);
+    return 0;
+  }
+
+  console.log("Mixture data from database:", mixturedata);
+  
+  const totalCost = mixturedata.reduce((sum, ing) => {
+    const itemCost = ing.prices * ing.quantity;
+    console.log(`Cost for ${ing.raw_mats}: ${ing.prices} * ${ing.quantity} = ${itemCost}`);
+    return sum + itemCost;
+  }, 0);
+  
+  console.log("Total batch cost:", totalCost);
+  return totalCost;
 }
 
 // Add event listener setup function

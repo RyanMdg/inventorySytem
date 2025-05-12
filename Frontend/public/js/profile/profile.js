@@ -41,7 +41,6 @@ form.addEventListener("submit", async function (e) {
         {
           name: values.franchiseeName,
           location: values.branchLocation,
-          role: "franchise",
         },
       ])
       .select("id")

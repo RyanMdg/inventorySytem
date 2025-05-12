@@ -2,9 +2,14 @@
 
 import supabase from "../../Backend2/config/SupabaseClient.js";
 import { getAuthUserAndBranch } from "../Authentication/auth-utils.js";
+import { calculateDynamicCostPerBall } from "../pos-inventory_communication/takoyaki-calculation.js";
 
 export async function GrossIncome(receipts) {
   const { branchId } = await getAuthUserAndBranch();
+
+  // Fetch the dynamic cost per ball
+  const costPerBall = await calculateDynamicCostPerBall();
+  console.log(costPerBall);
 
   const { data: receipt, error: receiptError } = await supabase
     .from("pos_orders_table")
@@ -42,12 +47,12 @@ export async function GrossIncome(receipts) {
   for (const item of receipt) {
     const numberOnly = item.quantity;
     const totalBalls = parseInt(numberOnly.replace("s", ""));
-    const net = netCalculator(totalBalls, item.product_price);
+    const net = netCalculator(totalBalls, item.product_price, costPerBall);
 
     console.log(
       `Net income: ₱${net.toFixed(
         2
-      )} (Total Balls: ${totalBalls}, Menu Price: ₱${item.product_price})`
+      )} (Total Balls: ${totalBalls}, Menu Price: ₱${item.product_price}, Cost Per Ball: ₱${costPerBall})`
     );
 
     const { data: netIncome, error: netError } = await supabase
@@ -64,10 +69,8 @@ export async function GrossIncome(receipts) {
   }
 }
 
-const netCalculator = (quantity, menuPrice) => {
-  const pricePerBall = 3.285;
-  const ballXquantity = pricePerBall * quantity;
+const netCalculator = (quantity, menuPrice, costPerBall) => {
+  const ballXquantity = costPerBall * quantity;
   const netIncome = menuPrice - ballXquantity;
-
   return netIncome;
 };

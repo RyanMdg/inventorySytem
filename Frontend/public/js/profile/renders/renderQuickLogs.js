@@ -34,6 +34,15 @@ export async function renderQuickLogs() {
         </li>
       `;
     });
+  } else {
+    Accountscontainer.innerHTML = `
+      <li>
+        <button class="quicklogAcc flex justify-center items-center gap-2 hover:bg-gray-100 cursor-pointer" disabled>
+          
+          <span class="text-sm text-[#000000] font-semibold">No quick login</span>
+        </button>
+      </li>
+    `;
   }
 
   // Set up click event listeners for the quick login buttons
@@ -42,6 +51,7 @@ export async function renderQuickLogs() {
     btn.addEventListener("click", async () => {
       const email = btn.getAttribute("data-email");
       const password = btn.getAttribute("data-password");
+      if (!email || !password) return; // Prevent login if no credentials
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,

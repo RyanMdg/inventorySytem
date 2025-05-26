@@ -430,23 +430,12 @@
          <div class=" grid  grid-cols-3 gap-5 mt-5 mx-10">
           <div class="bg-[#ffff] h-[20rem] shadow drop-shadow-md rounded-[.1rem]">
             <h1 class="font-semibold pt-2 ps-3 text-[1rem] max-[1245px]:text-[0.9rem] max-[700px]:text-[0.8rem]">Top Selling Products</h1>
-            <div class="flex  flex-col justify-center  px-5 pt-2">
+            <div class="flex flex-col justify-center px-5 pt-2">
               <ul id="TopProductList" class="max-h-[100%] overflow-y-auto">
                 <li></li>
                 <li></li>
               </ul>
             </div>
-          </div>
-
-          <!--* NOTIFICATIONS -->
-          <div class="bg-white shadow h-[20rem] drop-shadow-md rounded-lg p-4 w-full max-w-xs mx-auto">
-            <div class="flex justify-between items-center mb-4">
-              <h1 class="font-semibold text-lg">Notifications</h1>
-              <a href="#" id="viewAllNotifications" class="text-gray-500 text-sm hover:underline">View All</a>
-            </div>
-            <ul id="notifications-list" class="flex flex-col gap-4 max-h-[15rem] overflow-y-auto">
-              <!-- JS will populate notifications here -->
-            </ul>
           </div>
 
           <!--* QUICK ACTIONS -->
@@ -2084,6 +2073,62 @@
     <script type="module" src="./js/Dashboard/notifications.js"></script>
     <script type="module" src="./js/Dashboard/recentOrders.js"></script>
     <script type="module" src="./js/POS/search.js"></script>
-  </main>
+    <!-- AI Agent Scripts -->
+    <script type="module" src="./js/AI/aiAgent.js"></script>
+    <script type="module" src="./js/AI/aiAgentUI.js"></script>
+
+    <!-- Floating Chat Bubble -->
+    <div class="fixed bottom-6 right-6 z-50">
+      <!-- Chat Toggle Button -->
+      <button id="chatToggle" class="bg-[#B60205] hover:bg-[#8B0205] w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110 focus:outline-none">
+        <ion-icon name="chatbubbles" class="text-2xl text-white"></ion-icon>
+      </button>
+
+      <!-- Chat Window -->
+      <div id="chatWindow" class="hidden absolute bottom-16 right-0 w-96 bg-white rounded-lg shadow-2xl transform transition-all duration-300 scale-95 opacity-0">
+        <!-- Chat Header -->
+        <div class="bg-gradient-to-r from-[#302D3D] to-[#B60205] p-4 rounded-t-lg flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+              <ion-icon name="logo-github" class="text-2xl text-white"></ion-icon>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold">Affotako AI</h3>
+              <p class="text-white/70 text-sm">Your smart business assistant</p>
+            </div>
+          </div>
+          <button id="minimizeChat" class="text-white/70 hover:text-white transition-colors">
+            <ion-icon name="chevron-down" class="text-xl"></ion-icon>
+          </button>
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="messages" class="h-96 overflow-y-auto p-4 space-y-4 bg-gray-50">
+          <!-- Messages will be added here dynamically -->
+        </div>
+
+        <!-- Chat Input -->
+        <div class="p-4 border-t border-gray-100 bg-white rounded-b-lg">
+          <div class="flex justify-end mb-1">
+            <button id="clearChat" class="text-sm text-gray-500 hover:text-[#B60205] underline focus:outline-none bg-transparent px-0 py-0" type="button">Clear chat</button>
+          </div>
+          <div class="flex gap-2">
+            <input
+              type="text"
+              id="messageInput"
+              placeholder="Type your message..."
+              class="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B60205] focus:border-transparent"
+            />
+            <button
+              id="sendMessage"
+              class="px-4 py-2 bg-[#B60205] text-white rounded-lg hover:bg-[#8B0205] focus:outline-none focus:ring-2 focus:ring-[#B60205] focus:ring-offset-2 transition-all duration-200 flex items-center gap-2"
+            >
+              <ion-icon name="send" class="text-lg"></ion-icon>
+              <span>Send</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

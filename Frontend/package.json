@@ -1,16 +1,18 @@
 {
-  "name": "frontend",
+  "name": "affotako-frontend",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "service-worker.js",
+  "description": "Affotako Frontend with AI Assistant",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.4",
-    "lightningcss": "^1.29.3"
+    "@supabase/supabase-js": "^2.39.0",
+    "openai": "^4.103.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
   }
 }

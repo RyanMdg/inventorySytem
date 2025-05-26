@@ -209,7 +209,7 @@ async function fetchUser() {
   //   .from("staff_permissions")
   //   .select("*")
   //   .eq("branch_id", branchId)
-  //   .eq("id", userId);
+  //   .eq("user_id", userId);
 
   // if (permission) {
   //   console.error("Error fetching branch name:", permission.message);

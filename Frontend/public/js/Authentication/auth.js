@@ -50,7 +50,7 @@ async function login(email, password) {
   await audit_Logs(user.id, branch_id, "login", "login");
 
   //  AFTER ng audit log
-  window.location.href = "/Frontend/public/home.html";
+  window.location.href = "/home.html";
 }
 
 const emailInput = document.getElementById("email");
